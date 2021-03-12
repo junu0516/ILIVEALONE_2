@@ -10,6 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -36,7 +38,9 @@
 				<tr>
 					<td>${purchaseHistory.phNo}</td>
 					<c:set var="sharp" value="<%='#'%>"/>
-					<td><a data-toggle="collapse" href="${sharp}detail_${purchaseHistory.phNo}">${purchaseHistory.phBuyer}</a></td>
+					<td><a data-toggle="collapse" data-target="detail_${purchaseHistory.phNo}" href="${sharp}detail_${purchaseHistory.phNo}">${purchaseHistory.phBuyer}</a>
+					<input type="hidden" id="buyer" value="${purchaseHistory.phBuyer}">
+					<input type="hidden" id="product" value="${purchaseHistory.phProductName}"></td>
 					<td><a href="detail.gb?pNo=${purchaseHistory.phProduct}">${purchaseHistory.phProductName}</a></td>
 					<td>${purchaseHistory.phQuantity}</td>
 					<td>${purchaseHistory.phRecordDate}</td>
@@ -55,7 +59,7 @@
 						<c:if test="${purchaseHistory.phSalesStatus eq 'R'}">
 						<td>발송 준비</td>
 						<!-- 나중에 발송 완료 버튼 클릭시 송장번호 입력해서, purchaseHistory에 송장번호 업데이트 해야 함 -->
-						<td><a class="btn btn-success btn-sm" data-toggle="modal" data-target="#invoiceModal" data-phProduct="${purchaseHistory.phProduct}" data-phBuyer="${purchaseHistory.phBuyer}">발송 완료</a></td>
+						<td><a class="btn btn-success btn-sm" data-toggle="modal" data-target="#invoiceModal" data-phProduct="aaa" data-phBuyer="${purchaseHistory.phBuyer}">발송 완료</a></td>
 						</c:if>
 						<c:if test="${purchaseHistory.phSalesStatus eq 'C'}">
 						<td>발송 완료</td>
@@ -90,9 +94,9 @@
 								<h4 class="modal-title">운송장 번호 입력</h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
-							<form action="completeDeal.gb" method="post">
+							<form id="postForm" action="completeDeal.gb" method="post">
 								<div class="modal-body">			
-									<input type="hidden" id="phProduct11" name="phProduct" value="test"/>
+									<input type="hidden" id="phProduct11" name="phProduct"  value="test"/>
 									<input type="hidden" id="phBuyer" name="phBuyer" value="test"/>
 									<label for="company" class="mr-sm-2">택배사 : </label>
 									<input type="text" class="form-control" name="company" id="company"/>
@@ -110,30 +114,18 @@
 				</div>						
 	
 	<script>
-		var phProduct1 = "";
-		var phBuyer1 = "";
-		$(document).ready(function(){
-			$("#invoiceModal").on("show.bs.modal",function(event){
-				phProduct1 = $(event.relatedTarget).data('phProduct');
-				console.log(phProduct1);
-				phBuyer1 = $(event.relatedTarget).data('phBuyer');
-				console.log(phBuyer1);
-				
-				$("#phProduct11").val(phProduct1);
-				$("#phBuyer").val(phBuyer);
-				
-				console.log($("#phProduct11").val());
-			});			
-		})
 	
-		function test(){
-			var pno = $("#phProduct_${purchaseHistory.phNo}").val();
-			var buyer = $("#phBuyer_${purchaseHistory.phNo}").val();
-			console.log(pno);
-			console.log(buyer)
-		}
+
+	$(".btn-primary").on("click", function(){
+		$("#phBuyer").val($("#buyer").val());
+		$("#phProduct11").val($("#product").val());
+	});
+
+
 	
 	</script>
+
+
 	<!-- 
 	<script>
 		function insertInvoice(){
@@ -167,5 +159,7 @@
 	<!-- 
 	<jsp:include page="../common/footer.jsp"/>
 	-->
+
+
 </body>
 </html>
