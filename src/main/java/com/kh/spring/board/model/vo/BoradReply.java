@@ -1,5 +1,6 @@
 package com.kh.spring.board.model.vo;
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,22 +8,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Board {
-	
-	private int boardNo;
-	private String boardWriter;
-	private String boardTitle;
-	private String boardContent;
-	private String originName;
-	private String changeName;
-	private int count;
-	private Date createDate;
+public class BoradReply {
+	private int replyNo;
+	private int refBoardNo;
+	private String replyWriter;
+	private String replyContent;
+	//private Date createDate;
+	private Timestamp createDate;
 	private String status;
-	
-
 }

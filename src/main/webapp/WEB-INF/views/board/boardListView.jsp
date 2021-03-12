@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
-  <title>Bootstrap Example</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -60,13 +61,13 @@
   </style>
 </head>
 <body>
-
+	<jsp:include page="../common/header.jsp"/>
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
 
       <p><a href="list.bo">패션 게시물</a></p>
-      <p><a href="enrollForm.bo">패션 최신뉴스</a></p>
+      <p><a href="blist.bo">패션 최신뉴스</a></p>
       <p><a href="#">공지사항</a></p>
     </div>
     
@@ -144,9 +145,7 @@
                 </ul>
             </div>
            
-            <br clear="both"><br>
             
-			
             <br><br>
         </div>
     
@@ -161,7 +160,16 @@
     
   </div>
 
-
+ 	</div>
+	 <script>
+    	$(function(){
+    		$("#boardList tbody tr").click(function(){
+    			location.href="detail.bo?bno=" + $(this).children().eq(0).text();
+    		});
+    	});
+    </script>	
+  
+   <jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

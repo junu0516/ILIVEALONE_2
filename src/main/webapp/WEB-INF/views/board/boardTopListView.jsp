@@ -44,15 +44,14 @@
   </style>
 </head>
 <body>
-
-
+<jsp:include page="../common/header.jsp"/>
   
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
       <p><a href="#">Home</a></p>
       <p><a href="list.bo">패션 게시물</a></p>
-      <p><a href="enrollForm.bo">패션 최신뉴스</a></p>
+      <p><a href="blist.bo">패션 최신뉴스</a></p>
       <p><a href="#">공지사항</a></p>
     </div>
     <div class="col-sm-8 text-left"> 
@@ -79,7 +78,7 @@
   </div>
 </div>
 
-
+  <jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>
