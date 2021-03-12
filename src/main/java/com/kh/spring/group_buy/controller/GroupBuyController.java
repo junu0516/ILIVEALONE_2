@@ -31,7 +31,7 @@ import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class GroupBuyController {
-	//ljw_branch change22222222222W
+	//ljw_branch change22222222222Wㄷㄷㄷㄷㄷㄷㄷㄷ
 	@Autowired
 	GroupBuyService groupBuyService;
 	
