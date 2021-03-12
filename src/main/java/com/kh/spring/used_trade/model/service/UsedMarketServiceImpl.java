@@ -53,8 +53,32 @@ public class UsedMarketServiceImpl implements UsedMarketService {
 	@Override
 	public UsedMarket selectUsedMarket(int uno) {
 		// TODO Auto-generated method stub
-		return usedMarketDao.selectBoard(sqlSession,uno);
+		return usedMarketDao.selectUsedMarket(sqlSession,uno);
 	}
+
+
+	@Override
+	public int updateUsedMarket(UsedMarket u) {
+		// TODO Auto-generated method stub
+		return usedMarketDao.updateUsedMarket(sqlSession,u);
+	}
+
+
+	@Override
+	public int deleteUsedMarket(int uno) {
+		// TODO Auto-generated method stub
+		return usedMarketDao.deleteUsedMarket(sqlSession,uno);
+	}
+
+
+	@Override
+	public ArrayList<UsedMarket> selectListCategory(PageInfo pi, String category) {
+		// TODO Auto-generated method stub
+		return usedMarketDao.selectListCategory(sqlSession,pi,category);
+	}
+
+
+
 	
 	
 

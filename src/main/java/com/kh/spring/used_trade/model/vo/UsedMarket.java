@@ -1,5 +1,7 @@
 package com.kh.spring.used_trade.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,12 @@ public class UsedMarket {
 	private String um_Status;
 	private String originName;
 	private String changeName;
+	
+	private int um_View_Count; //조회수
+	private Date um_Date; //작성일
+	
+	
+//	private String category;
 	
 	
 }
