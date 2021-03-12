@@ -24,6 +24,7 @@ public class PageInfo {
 		this.startPage = startPage;
 		this.endPage = endPage;
 		this.boardLimit = boardLimit;
+	
 	}
 
 	public int getCurrentPage() {

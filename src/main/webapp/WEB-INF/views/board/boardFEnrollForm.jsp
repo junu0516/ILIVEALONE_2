@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <title>Bootstrap Example</title>
+  <title>패션 게시물 등록</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,7 +52,7 @@
 	<div class="col-sm-2 sidenav">
 
       <p><a href="list.bo">패션 게시물</a></p>
-      <p><a href="enrollForm.bo">패션 최신뉴스</a></p>
+      <p><a href="blist.bo">패션 최신뉴스</a></p>
       <p><a href="#">공지사항</a></p>
 	
 	</div>
@@ -61,15 +61,15 @@
             <br>
 			
 			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
-            <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
+            <form id="enrollForm" method="post" action="insert.fo" enctype="multipart/form-data">
                 <table align="center">
                      <div class="form-group">
                         <label for="title">제목</label>
-                        <input type="text" id="title" class="form-control" name="boardTitle" required>
+                        <input type="text" id="ftitle" class="form-control" name="fashionTitle" required>
                     </div>
                      <div class="form-group">
                         <label for="writer">작성자</label>
-                        <input type="text" id="writer" class="form-control" value="${ loginUser.userId }" name="boardWriter" readonly>
+                        <input type="text" id="fwriter" class="form-control" value="${ loginUser.userId }" name="fashionWriter" readonly>
                     </div>
                     <div class="form-group">
                         <label for="upfile">첨부파일</label>
@@ -77,7 +77,7 @@
                     </div>
               		<div class="form-group">
                 		<label for="boardcontent">내용 : </label>
-                		<textarea class="form-control" id="boardContent" name = "boardContent"></textarea>
+                		<textarea class="form-control" id="fashionContent" name = "fashionContent"></textarea>
             		</div>      
          
                 </table>
@@ -86,7 +86,7 @@
 				<script>
             
                 ClassicEditor
-                    .create(document.querySelector('#boardContent'))
+                    .create(document.querySelector('#fashionContent'))
                     .catch(error=>{
                         console.error(error);
                     });

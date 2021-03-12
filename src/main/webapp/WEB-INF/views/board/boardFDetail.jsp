@@ -57,48 +57,48 @@
 	  </div>
 	  
 	<div class="col-sm-8 text-left" style="padding:5% 10%;"> 
-            <h2>게시글 상세보기kk</h2>
+            <h2>게시글 상세보기</h2>
             <br>
             
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
                     <th width="100">제목</th>
-                    <td colspan="3">${ b.boardTitle }</td>
+                    <td colspan="3">${ f.fashionTitle }</td>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>${ b.boardWriter }</td>
+                    <td>${ f.fashionWriter }</td>
                     <th>작성일</th>
-                    <td>${ b.createDate }</td>
+                    <td>${ f.fashionCreateDate }</td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <td colspan="3">
-                    	<c:if test="${ !empty b.originName }">
-                        	<a href="${ pageContext.servletContext.contextPath }/resources/upload_files/${b.changeName}" download="${ b.originName }">${ b.originName }</a>
+                    	<c:if test="${ !empty f.fashionOriginName }">
+                        	<a href="${ pageContext.servletContext.contextPath }/resources/upload_files/${f.fashionChangeName}" download="${ f.fashionOriginName }">${ f.fashionOriginName }</a>
                         </c:if>
-                        <c:if test="${ empty b.originName }">
-                        	첨부파일이 없습니다.
+                        <c:if test="${ empty f.fashionOriginName }">
+                        	첨부파일이 없습니다!.
                         </c:if>
                     </td>
                 </tr>
                 <tr>
                 	<th>조회</th>
                 	<td colspan="3">
-                	${b.count}
+                	${f.fashionCount}
                 	</td>
                 </tr>
                 <tr>
                     <th>내용</th>
                      <td colspan="2">
-                     ${b.boardContent}
+                     ${f.fashionContent}
                   	</td>
                 </tr>
             </table>
             <br>
 	
-			<c:if test="${ loginUser.userId eq b.boardWriter }">
+			<c:if test="${ loginUser.userId eq f.fashionWriter }">
 	            <div align="center">
 	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
@@ -106,8 +106,8 @@
 	            </div>
 	           
 	            <form id="postForm" action="" method="post">
-					<input type="hidden" name="bno" value="${ b.boardNo }">
-					<input type="hidden" name="fileName" value="${ b.changeName }"> 
+					<input type="hidden" name="fno" value="${ f.fashionNo }">
+					<input type="hidden" name="fileName" value="${ f.fashionChangeName }"> 
 				</form>
 				<script>
 					function postFormSubmit(num){
@@ -123,7 +123,7 @@
 				</script>
             </c:if>
             	<div align = "center">
-            	 <button class="btn btn-primary"><a href="list.bo" >홈으로</a></button>
+            	 <button class="btn btn-primary"><a href="blist.bo" >홈으로</a></button>
             	</div>
             <br><br>
 
@@ -163,6 +163,8 @@
 	
 </div>
 <script>
+	/*
+	
        $(function(){
           selectReplyList();
           
@@ -225,7 +227,10 @@
                 console.log("댓글 리스트조회용 ajax 통신 실패");
              }
           });
-       }
+       
+          
+      	}
+       */
     </script>
 	<jsp:include page="../common/footer.jsp"/>
 
