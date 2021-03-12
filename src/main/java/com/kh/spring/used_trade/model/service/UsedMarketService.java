@@ -19,4 +19,11 @@ public interface UsedMarketService {
 
 	UsedMarket selectUsedMarket(int uno);
 
+	int updateUsedMarket(UsedMarket u);
+
+	int deleteUsedMarket(int uno);
+
+	ArrayList<UsedMarket> selectListCategory(PageInfo pi, String category);
+
+
 }

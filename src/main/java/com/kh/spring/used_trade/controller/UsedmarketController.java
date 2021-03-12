@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,7 +34,7 @@ public class UsedmarketController {
 		
 		int listCount = usedMarketService.selectListCount();
 
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6); //페이지제한 10 	보드제한 5
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6); //페이지제한 10 	보드제한 6
 		
 		ArrayList<UsedMarket> list = usedMarketService.selectList(pi);
 		
@@ -41,6 +42,32 @@ public class UsedmarketController {
 		model.addAttribute("pi",pi);
 		return "used_trade/usedMarketListView";
 	}
+	
+	
+	@ResponseBody
+	//list 카테고리목록으로 이동
+	@RequestMapping("listCategory.um")
+	public String selectListCategory(@RequestParam(value="currentPage",required=false , defaultValue = "1") int currentPage , Model model  ,@RequestParam String category ) {
+		
+		int listCount = usedMarketService.selectListCount();
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6); //페이지제한 10 	보드제한 6
+		
+		
+		
+		System.out.println("category Controller 값 전달 테스트: "+ category);
+		
+	
+		ArrayList<UsedMarket> listC = usedMarketService.selectListCategory(pi,category);
+		
+	
+		model.addAttribute("listC",listC);
+		model.addAttribute("pi",pi);
+		model.addAttribute("category",category);
+		
+		return "used_trade/usedMarketListView"; //Ajax 통신후 새로고침 새로고침 안됌!@!@
+	}
+
 
 	//글쓰기 폼으로 이동
 	@RequestMapping("enrollForm.um")
@@ -133,10 +160,76 @@ public class UsedmarketController {
 	}
 	
 	
-
+	@RequestMapping("updateForm.um")
+	public ModelAndView usedMarketUpdateForm(int uno,ModelAndView mv) {
+		
+		mv.addObject("u",usedMarketService.selectUsedMarket(uno))
+		.setViewName("used_trade/usedMarketUpdateForm");
+		
+		return mv;
+	}
 	
 
+	@RequestMapping("update.um")
+	public ModelAndView updateBoard(UsedMarket u,ModelAndView mv,HttpServletRequest request,
+									@RequestParam(value="reUploadFile",required=false ) MultipartFile file) {
+		
+		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는경우
+			if(u.getChangeName() != null) {//새로넘어온 파일이 있는데 기존에 파일도  있는경우 ->서버에 업로드 되어있는 파일을 삭제
+				deleteFile(u.getChangeName(),request);
+					
+		}
+		
+		String changeName = saveFile(file,request); //새로 넘어온 파일을 서버에 업로드
+		u.setOriginName(file.getOriginalFilename());
+		u.setChangeName(changeName);
+		}
+		
+		
+		int result = usedMarketService.updateUsedMarket(u);
+		System.out.println("controllerResult: "+result);
+		System.out.println("u"+u.toString());
+		
+		if(result > 0) {
+			mv.addObject("uno",u.getUm_No())
+			.setViewName("redirect:detail.um");
+		}else {
+			System.out.println("게시물 수정에 실패하였습니다.");
+		}
+		
+		
+		return mv;
+	
+	}
+	 
 
+	private void deleteFile(String fileName, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+		
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\upload_files\\";
+		
+		File deleteFile = new File(savePath + fileName);
+		deleteFile.delete();
+		
+	}
 	
-	
+	@RequestMapping("delete.um")
+	public String deleteUsedMarket(int uno ,String fileName , HttpServletRequest request, Model model) {
+		
+		int result = usedMarketService.deleteUsedMarket(uno);
+		
+		if(result > 0 ) {
+			if(!fileName.equals("")) {
+				deleteFile(fileName,request);
+			}
+			return "redirect:list.um";
+		}else {
+
+				System.out.println("게시물 삭제 실패!");
+				return "redirect:list.um";
+		}
+	}
+
 }
