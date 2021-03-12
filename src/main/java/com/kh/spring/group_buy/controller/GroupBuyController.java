@@ -31,7 +31,7 @@ import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class GroupBuyController {
-	
+	//주석22
 	@Autowired
 	GroupBuyService groupBuyService;
 	
@@ -87,7 +87,7 @@ public class GroupBuyController {
 		if(result1*result2>0) {
 			return "redirect:list.gb";
 		}else {
-			System.out.println("에러");
+			System.out.println("�뿉�윭");
 			return "";
 		}
 	}
@@ -107,7 +107,7 @@ public class GroupBuyController {
 			thumbnail.transferTo(new File(savePath+changedName));
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("파일 업로드 에러" + e.getMessage());
+			System.out.println("�뙆�씪 �뾽濡쒕뱶 �뿉�윭" + e.getMessage());
 		}
 		
 		
@@ -129,7 +129,7 @@ public class GroupBuyController {
 			model.addAttribute("gbProduct",gbProduct);
 
 		}else if(gbNo<=0 && pNo>0) {
-			System.out.println("물품번호로 게시물 탐색");
+			System.out.println("臾쇳뭹踰덊샇濡� 寃뚯떆臾� �깘�깋");
 			
 			gbProduct = groupBuyService.selectProductWithPno(pNo);
 			model.addAttribute("gbProduct",gbProduct);
@@ -199,9 +199,9 @@ public class GroupBuyController {
 			 			 @ModelAttribute GroupBuyProduct groupBuyProduct,
 			 			 HttpServletRequest request, @RequestParam(value="reuploadedThumbnail", required=false)MultipartFile thumbnail) {
 		
-		if(!thumbnail.getOriginalFilename().equals("")) { //새로 업로드된 이미지가 존재하는 경우
+		if(!thumbnail.getOriginalFilename().equals("")) { //�깉濡� �뾽濡쒕뱶�맂 �씠誘몄�媛� 議댁옱�븯�뒗 寃쎌슦
 			if(groupBuyBoard.getGbChangedName() != null) {
-				deleteFile(groupBuyBoard.getGbChangedName(),request); //기존에 업로드된 사진을 삭제
+				deleteFile(groupBuyBoard.getGbChangedName(),request); //湲곗〈�뿉 �뾽濡쒕뱶�맂 �궗吏꾩쓣 �궘�젣
 			}
 			
 			String gbChangedName = saveFile(thumbnail,request);
@@ -238,10 +238,10 @@ public class GroupBuyController {
 		int result = groupBuyService.deleteBoard(gbNo);
 		
 		if(result>0) {
-			System.out.println("삭제 성공");
+			System.out.println("�궘�젣 �꽦怨�");
 			return "redirect:list.gb";
 		}else {
-			System.out.println("삭제 실패");
+			System.out.println("�궘�젣 �떎�뙣");
 			return "redirect:detail.gb?gbNo="+gbNo;
 		}
 		
@@ -271,44 +271,44 @@ public class GroupBuyController {
 		purchaseHistory.setPhAddress(address);
 		System.out.println(purchaseHistory);
 		
-		//실수로 구매처리 요청이 들어올 경우 일단 누적인원 초과인지를 판단하여, 초과시 로직진행하지 않고 다시 재연결
+		//�떎�닔濡� 援щℓ泥섎━ �슂泥��씠 �뱾�뼱�삱 寃쎌슦 �씪�떒 �늻�쟻�씤�썝 珥덇낵�씤吏�瑜� �뙋�떒�븯�뿬, 珥덇낵�떆 濡쒖쭅吏꾪뻾�븯吏� �븡怨� �떎�떆 �옱�뿰寃�
 		GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
 		int limit = gbProduct.getPLimit();
 		int purchaseCount = gbProduct.getPPurchase();
-		System.out.println("초기 물품 상태 : limit -> "+limit+" / count -> "+purchaseCount);
+		System.out.println("珥덇린 臾쇳뭹 �긽�깭 : limit -> "+limit+" / count -> "+purchaseCount);
 		if(purchaseCount+1>limit) {
-			System.out.println("누적인원 초과로 구매 불가");
+			System.out.println("�늻�쟻�씤�썝 珥덇낵濡� 援щℓ 遺덇�");
 			return "redirect:list.gb";
 		}
 			
-		//구매 후 물품 구매 누적인원 업데이트
+		//援щℓ �썑 臾쇳뭹 援щℓ �늻�쟻�씤�썝 �뾽�뜲�씠�듃
 		int result = groupBuyService.updatePurchase(purchaseHistory.getPhProduct());
 		
 		if(result>0) {
-			System.out.println("누적인원 추가 성공");
+			System.out.println("�늻�쟻�씤�썝 異붽� �꽦怨�");
 		}
 		
 		gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
 		limit = gbProduct.getPLimit();
 		purchaseCount = gbProduct.getPPurchase();
-		System.out.println("수정 후 물품 상태 : limit -> "+limit+" / count -> "+purchaseCount);
+		System.out.println("�닔�젙 �썑 臾쇳뭹 �긽�깭 : limit -> "+limit+" / count -> "+purchaseCount);
 		
 		result = -1;
-		//제한인원 초과시 판매 닫기
+		//�젣�븳�씤�썝 珥덇낵�떆 �뙋留� �떕湲�
 		if(limit<=purchaseCount) {
 			result = groupBuyService.closeDeal(purchaseHistory.getPhProduct());
 			if(result>0) {
-				System.out.println("목표인원 달성하여 판매 종료처리");
+				System.out.println("紐⑺몴�씤�썝 �떖�꽦�븯�뿬 �뙋留� 醫낅즺泥섎━");
 			}else {
-				System.out.println("목표인원 달성했지만 판매 종료 과정에서 오류");
+				System.out.println("紐⑺몴�씤�썝 �떖�꽦�뻽吏�留� �뙋留� 醫낅즺 怨쇱젙�뿉�꽌 �삤瑜�");
 			}
 		}
 		
 		result=-1;
-		//구매내역 추가
+		//援щℓ�궡�뿭 異붽�
 		result = groupBuyService.addPurchaseHistory(purchaseHistory);
 		if(result>0) {
-			System.out.println("구매내역 누적 성공");
+			System.out.println("援щℓ�궡�뿭 �늻�쟻 �꽦怨�");
 		}
 
 		return "redirect:list.gb";
@@ -339,10 +339,10 @@ public class GroupBuyController {
 		System.out.println(phProduct);
 		System.out.println(phBuyer);
 		
-		//마감이 불가능할 경우 로직 수행 없이 다시 redirect
+		//留덇컧�씠 遺덇��뒫�븷 寃쎌슦 濡쒖쭅 �닔�뻾 �뾾�씠 �떎�떆 redirect
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(phProduct);
 		if(groupBuyProduct.getPPurchase()<groupBuyProduct.getPLimit()) {
-			System.out.println("아직 인원 미충족해서 마감 불가능");
+			System.out.println("�븘吏� �씤�썝 誘몄땐議깊빐�꽌 留덇컧 遺덇��뒫");
 			return "redirect:salesHistory.gb";
 		}
 		
@@ -352,7 +352,7 @@ public class GroupBuyController {
 		
 		int result = groupBuyService.prepareDeal(mapKey);
 		if(result>0) {
-			System.out.println("판매 준비중으로 변경");
+			System.out.println("�뙋留� 以�鍮꾩쨷�쑝濡� 蹂�寃�");
 		}
 		
 		return "redirect:salesHistory.gb";
@@ -373,7 +373,7 @@ public class GroupBuyController {
 		
 	//	int result = groupBuyService.completeDeal(mapKey);
 	//	if(result>0) {
-	//		System.out.println("발송 완료로 변경");
+	//		System.out.println("諛쒖넚 �셿猷뚮줈 蹂�寃�");
 	//	}
 		
 		return "redirect:salesHistory.gb";
@@ -385,7 +385,7 @@ public class GroupBuyController {
 		System.out.println(phProduct);
 		System.out.println(phBuyer);
 		
-		//아직 물품상태가 유효할 경우 거래 종료 처리
+		//�븘吏� 臾쇳뭹�긽�깭媛� �쑀�슚�븷 寃쎌슦 嫄곕옒 醫낅즺 泥섎━
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(phProduct);
 		if(!groupBuyProduct.getPStatus().equals("N")) {
 			groupBuyService.closeDeal(groupBuyProduct.getPNo());
@@ -397,17 +397,17 @@ public class GroupBuyController {
 		
 		int result = groupBuyService.cancelDeal(mapKey);
 		if(result>0) {
-			System.out.println("취소내역 업데이트 완료");
+			System.out.println("痍⑥냼�궡�뿭 �뾽�뜲�씠�듃 �셿猷�");
 		}
 		
 		result=-1;
 		result = groupBuyService.decreasePurchaseCount(phProduct);
 		if(result>0) {
-			System.out.println("구매 인원 감소 완료");
+			System.out.println("援щℓ �씤�썝 媛먯냼 �셿猷�");
 		}
 		
 		result = -1;
-		//인원 감소 후 여유 있으면 다시 거래 오픈
+		//�씤�썝 媛먯냼 �썑 �뿬�쑀 �엳�쑝硫� �떎�떆 嫄곕옒 �삤�뵂
 		if(groupBuyProduct.getPPurchase()-1<groupBuyProduct.getPLimit()) {
 			result = groupBuyService.reopenDeal(phProduct);
 		}
