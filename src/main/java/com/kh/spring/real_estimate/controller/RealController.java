@@ -25,7 +25,7 @@ import com.kh.spring.common.exception.CommonException;
 import com.kh.spring.real_estimate.model.service.RealService;
 import com.kh.spring.real_estimate.model.vo.PageInfo;
 import com.kh.spring.real_estimate.model.vo.Real;
-
+//주석
 @Controller
 public class RealController {
 
