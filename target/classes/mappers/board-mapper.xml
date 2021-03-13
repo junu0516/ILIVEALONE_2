@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+	<resultMap id="boardResultSet" type="Board">
+		<id property="boardNo" column="B_NO"/>
+		<result property="boardWriter" column="B_WRITER"/>
+		<result property="boardTitle" column="B_TITLE"/>
+		<result property="boardContent" column="B_CONTENT"/>
+		<result property="count" column="B_COUNT"/>
+		<result property="createDate" column="B_DATE"/>
+		<result property="status" column="B_STATUS"/>
+		<result property="originName" column="B_ORIGIN"/>
+		<result property="changeName" column="B_CHANGE"/>		
+	</resultMap>
+	
+	<resultMap id="replyResultSet" type="BoradReply">
+		<id column="B_R_NO" property="replyNo"/>
+		<result column="B_R_CONTENT" property="replyContent"/>
+		<result column="B_R_BNO" property="refBoardNo"/>
+		<result column="B_R_WRITER" property="replyWriter"/>
+		<result column="B_R_CREATE" property="createDate"/>
+		<result column="B_R_STATUS" property="status"/>
+	</resultMap>
+	
+	<resultMap id="boardFResultSet" type="Fashion">
+		<id property="fashionNo" column="F_NO"/>
+		<result property="fashionWriter" column="F_WRITER"/>
+		<result property="fashionTitle" column="F_TITLE"/>
+		<result property="fashionContent" column="F_CONTENT"/>
+		<result property="fashionCount" column="F_COUNT"/>
+		<result property="fashionCreateDate" column="F_DATE"/>
+		<result property="fashionStatus" column="F_STATUS"/>
+		<result property="fashionOriginName" column="F_ORIGIN"/>
+		<result property="fashionChangeName" column="F_CHANGE"/>		
+	</resultMap>
+	
+	
+	<select id="selectListCount" resultType = "_int">		
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE B_STATUS='Y'
+	</select>
+	
+	<select id = "selectList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS = 'Y'
+		ORDER BY B_NO DESC
+	</select>
+	
+	<select id="selectFListCount" resultType = "_int">		
+		SELECT COUNT(*)
+		FROM FASHION
+		WHERE F_STATUS='Y'
+	</select>
+	
+	<select id = "selectFList" resultMap="boardFResultSet">
+		SELECT *
+		FROM FASHION
+		WHERE F_STATUS = 'Y'
+		ORDER BY F_NO DESC
+	</select>
+	
+	
+	<insert id = "insertBoard" parameterType="Board">
+	insert into board
+	values(seq_b_no.nextval, #{boardWriter},#{boardTitle}, #{boardContent},  SYSDATE,default,default, #{originName}, #{changeName})
+	</insert>
+	
+	<insert id = "insertFBoard" parameterType="Fashion">
+	insert into fashion
+	values(seq_f_no.nextval, #{fashionWriter},#{fashionTitle}, #{fashionContent},  SYSDATE,default,default, #{fashionOriginName}, #{fashionChangeName})
+	</insert>
+	
+	<select id = "selectBoard" resultMap= "boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE B_NO = #{bno}
+		AND B_STATUS = 'Y'
+	</select>
+	
+	<select id = "selectFBoard" resultMap= "boardFResultSet">
+		SELECT *
+		FROM FASHION
+		WHERE F_NO = #{fno}
+		AND F_STATUS = 'Y'
+	</select>
+	
+	<select id  = "updateIncreaseCount" parameterType="_int">
+		UPDATE BOARD
+		SET B_COUNT = B_COUNT + 1
+		WHERE B_NO = #{bno}
+		AND B_STATUS = 'Y'
+	</select>
+	
+	<select id  = "updateFIncreaseCount" parameterType="_int">
+		UPDATE FASHION
+		SET F_COUNT = F_COUNT + 1
+		WHERE F_NO = #{fno}
+		AND F_STATUS = 'Y'
+	</select>
+	
+	<update id = "deleteBoard" parameterType="_int">
+		UPDATE BOARD 
+		SET B_STATUS = 'N'
+		WHERE B_NO = #{bno}
+	</update>
+	
+	<update id = "updateBoard" parameterType="Board">
+		UPDATE BOARD
+		SET B_TITLE = #{boardTitle}, B_CONTENT = #{boardContent}, B_ORIGIN = #{originName}, B_CHANGE = #{changeName}
+		WHERE B_NO = #{boardNo}
+	</update>
+	
+	<insert id = "insertReply" parameterType = "BoradReply">
+		insert into boradreply
+		values(seq_b_r_no.nextval,  #{refBoardNo}, #{replyWriter}, #{replyContent},SYSDATE,default)
+	</insert>
+	
+	<select id = "selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		select B_R_NO, B_R_CONTENT, B_R_WRITER, B_R_CREATE
+		from boradreply
+		where B_R_BNO = #{bno} and B_R_STATUS = 'Y'
+		order by B_R_NO desc
+	</select>
+	
+	
+</mapper>
