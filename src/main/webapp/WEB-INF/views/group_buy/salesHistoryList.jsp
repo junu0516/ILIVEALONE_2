@@ -11,7 +11,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -28,7 +27,7 @@
 					<th>판매물품</th>
 					<th>구매수량</th>
 					<th>등록날짜</th>
-					<th>판매날짜</th>
+					<th>수정날짜</th>
 					<th>판매상태</th>
 					<th>상태수정</th>
 				</tr>
@@ -39,8 +38,8 @@
 					<td>${purchaseHistory.phNo}</td>
 					<c:set var="sharp" value="<%='#'%>"/>
 					<td><a data-toggle="collapse" data-target="detail_${purchaseHistory.phNo}" href="${sharp}detail_${purchaseHistory.phNo}">${purchaseHistory.phBuyer}</a>
-					<input type="hidden" id="buyer" value="${purchaseHistory.phBuyer}">
-					<input type="hidden" id="product" value="${purchaseHistory.phProductName}"></td>
+					<input type="hidden" id="phBuyer_${purchaseHistory.phBuyer}" value="${purchaseHistory.phBuyer}">
+					<input type="hidden" id="phProduct_${purchaseHistory.phProduct}" value="${purchaseHistory.phProduct}"></td>
 					<td><a href="detail.gb?pNo=${purchaseHistory.phProduct}">${purchaseHistory.phProductName}</a></td>
 					<td>${purchaseHistory.phQuantity}</td>
 					<td>${purchaseHistory.phRecordDate}</td>
@@ -59,7 +58,17 @@
 						<c:if test="${purchaseHistory.phSalesStatus eq 'R'}">
 						<td>발송 준비</td>
 						<!-- 나중에 발송 완료 버튼 클릭시 송장번호 입력해서, purchaseHistory에 송장번호 업데이트 해야 함 -->
-						<td><a class="btn btn-success btn-sm" data-toggle="modal" data-target="#invoiceModal" data-phProduct="aaa" data-phBuyer="${purchaseHistory.phBuyer}">발송 완료</a></td>
+						<td><a class="btn btn-success btn-sm" id="insertDeliveryInfo_${purchaseHistory.phNo}" data-toggle="modal" data-target="#invoiceModal">배송정보 입력</a></td>
+						<script>
+							var buyerId = "null";
+							var productId = "null";
+							$("#insertDeliveryInfo_${purchaseHistory.phNo}").on("click",function(){
+								buyerId = "<c:out value='${purchaseHistory.phBuyer}'/>";
+								productId = "<c:out value='${purchaseHistory.phProduct}'/>";
+								console.log(buyerId);
+								console.log(productId);
+							});
+						</script>
 						</c:if>
 						<c:if test="${purchaseHistory.phSalesStatus eq 'C'}">
 						<td>발송 완료</td>
@@ -79,87 +88,41 @@
 							</ul>
 						</div>							
 					</td>
-				</tr>
-				
-				
+				</tr>	
 				</c:forEach>	
 			</tbody>
 		</table>
 	</div>	
 	<!-- 송장번호 입력 모달 -->
-				<div class="modal fade" id="invoiceModal">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title">운송장 번호 입력</h4>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-							</div>
-							<form id="postForm" action="completeDeal.gb" method="post">
-								<div class="modal-body">			
-									<input type="hidden" id="phProduct11" name="phProduct"  value="test"/>
-									<input type="hidden" id="phBuyer" name="phBuyer" value="test"/>
-									<label for="company" class="mr-sm-2">택배사 : </label>
-									<input type="text" class="form-control" name="company" id="company"/>
-									<label for="invoice" class="mr-sm-2">송장번호 : </label>
-									<input type="text" class="form-control" name="invoice" id="invoice"/>
-								</div>
-								<div class="modal-footer">
-									<button type="button" onclick="test();">테스트</button>
-									<button type="submit" class="btn btn-primary">입력</button>
-									<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-								</div>
-							</form>
-						</div>
+	<div class="modal fade" id="invoiceModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">운송장 번호 입력</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<form id="postForm" action="completeDeal.gb" method="post">
+					<div class="modal-body">			
+						<input type="hidden" id="phProduct-modal" name="phProduct"  value=""/>
+						<input type="hidden" id="phBuyer-modal" name="phBuyer" value=""/>
+						<label for="company" class="mr-sm-2">택배사 : </label>
+						<input type="text" class="form-control" name="company" id="company"/>
+						<label for="invoice" class="mr-sm-2">송장번호 : </label>
+						<input type="text" class="form-control" name="invoice" id="invoice"/>
 					</div>
-				</div>						
-	
+					<div class="modal-footer">
+						<button type="submit" id="submitBtn" class="btn btn-primary">입력</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>						
 	<script>
-	
-
-	$(".btn-primary").on("click", function(){
-		$("#phBuyer").val($("#buyer").val());
-		$("#phProduct11").val($("#product").val());
-	});
-
-
-	
+		$("#submitBtn").on("click", function(){
+			$("#phBuyer-modal").val(buyerId);
+			$("#phProduct-modal").val(productId);
+		});
 	</script>
-
-
-	<!-- 
-	<script>
-		function insertInvoice(){
-
-			var company = $("#company").val();
-			var invoice = $("#invoice").val();
-			
-			$.ajax({
-				url:"insertInvoice.gb",
-				type:"post",
-				data:{
-					company:company,
-					invoice:invoice
-				},
-				success:function(status){
-					console.log(status);
-					if(status=="success"){
-						console.log("송장번호 등록 성공");
-						//location.href="completeDeal.gb?phProduct=${purchaseHistory.phProduct}&phBuyer=${purchaseHistory.phBuyer}";
-					}else{
-						console.log("송장번호 등록 실패")
-					}
-				},
-				error:function(){
-					console.log("error");
-				}
-			})
-		}	
-	</script>
-	 -->
-	<!-- 
-	<jsp:include page="../common/footer.jsp"/>
-	-->
-
-
 </body>
 </html>
