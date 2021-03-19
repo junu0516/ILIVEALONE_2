@@ -10,8 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="um_Title" column="UM_TITLE"/>
 		<result property="um_Content" column="UM_CONTENT"/>
 		<result property="um_Writer" column="UM_WRITER"/>
-		<result property="originName" column="UM_DATE"/>
-		<result property="changeName" column="UM_VIEW_COUNT"/>
+		
+		<result property="um_Date" column="UM_DATE"/>
+		<result property="um_View_Count" column="UM_VIEW_COUNT"/>
+		
 		<result property="um_Category" column="UM_CATEGORY"/>
 		<result property="um_System" column="UM_SYSTEM"/>
 		<result property="um_Status" column="UM_STATUS"/>
@@ -40,6 +42,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM USEDMARKET
 		WHERE UM_STATUS='Y'
 		ORDER BY UM_NO DESC
+	
+	
+	</select>
+	
+	<select id="selectListCategory" resultMap ="usedMarketResultSet">
+		SELECT *
+		FROM USEDMARKET
+		WHERE UM_STATUS = 'Y'
+		AND UM_CATEGORY = #{category}
+		ORDER BY UM_NO DESC
+	
 	
 	
 	</select>

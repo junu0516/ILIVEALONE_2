@@ -9,41 +9,24 @@
 <title>Insert title here</title>
 <style>
 .card{
- 		
+ 	
 	  	float:left;
-	  	margin:4px; 
-	  	} 
+	  	margin:4px; } 
 
+				
 .pagination{
-            display: flex;
-            justify-content: center;
-            clear:left;
-       }
-        
-     
-.pagination a {
+	display:block;
+	text-align:center;	
 
-  color: black;
-
-  float: left;
-
-  padding: 8px 16px;
-
-  text-decoration: none;
-
-  border-radius:10%;
 
 }
 
-
-
-
-#testDiv2 :hover:not(.active) {background-color: silver;}
-
-#testDiv :hover:not(.active) {background-color: silver;}
-
-.pagination a:hover:not(.active) {background-color: silver;}
-
+			
+.pagination{	position: absolute;
+			     bottom: 0; 
+			     
+			     left:50%;
+				margin:auto; }
 </style>
 </head>
 <body>
@@ -55,10 +38,8 @@
  <h2>중고거래</h2>
 
  <hr>
- <c:if test="${! empty sessionScope.loginUser }">
  <a class="btn btn-secondary" style="float:right" href="enrollForm.um">글쓰기</a> 
- </c:if>
- <select id="categoryForm" class="form-control " >
+ <select id="categoryForm" >
  
 	<option id="all" value="전체">전체</option>
 	<option id="wear" value="의류">의류</option>
@@ -68,13 +49,12 @@
 </select>
 
  </div>
- <br>
-<div id="testDiv">
 
-	<c:forEach items="${ list }" var="u" >
+
+			<c:forEach items="${ listC }" var="u">
 
  		<form id="cardForm" >
-				<div id="cardAll" class="card" style="width: 18rem;">
+				<div class="card" style="width: 18rem;">
 				  <img src="./resources/upload_file/${u.changeName }" class="card-img-top"  width="200" height="200">
 				  
 				  <div class="card-body">
@@ -94,17 +74,12 @@
 		
 		</form>		
 
-	</c:forEach>
+			</c:forEach>
 
-
-</div>
-<br> 
-<div id="testDiv2" > </div> <!-- 카테고리 단 -->
-
-
+	
 		
-		<div id="pagingArea"  >
-                <ul class="pagination justify-content-center" >
+		<div id="pagingArea" align="center">
+                <ul class="pagination">
                 	<c:choose>
                 		<c:when test="${ pi.currentPage ne 1 }">
                 			<li class="page-item"><a class="page-link" href="list.um?currentPage=${ pi.currentPage-1 }">이전으로</a></li>
@@ -120,7 +95,7 @@
 	                		</c:when>
 	                		<c:otherwise>
 	                			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
-	                		</c:otherwise>
+	                	=-	</c:otherwise>
 	                	</c:choose>
                     </c:forEach>
                     
@@ -140,10 +115,32 @@
             
 			
             <br><br>
+        </div>
+        <br><br>
+    </div>
     
 
+    
     <script>
     
+function categorySelect(selectVal){
+	var wear = $("#wear");
+	var electronics = $("#electronics");
+	var living = $("#living");
+	
+	
+	console.log ("selectVal:  "+selectVal);
+
+	if(selectVal == "의류"){
+		wear.attr("selected","selected");
+	}else if(selectVal == "전자제품"){
+		electronics.attr("selected","selected");
+	}else if (selectVal == "생활용품"){
+		living.attr("selected","selected");
+	}
+	
+
+}
 
 
 $(function(){
@@ -152,65 +149,24 @@ $(function(){
 	
 	
 	$categoryForm.change(function(){
-		var listArr = [];
-
+		
 		 console.log("ajax Function 테스트 값 전달:  "+$categoryForm.val());
 		 
 		if($categoryForm.val() != "전체"){
 			
 				$.ajax({
 					url:"listCategory.um",
-					 async:false,
+					
 					data:{category:$categoryForm.val()},
 					type:"post",
-					dataType:"json",
-					success: function(listVal){
-
-						$('#testDiv').hide();
-
-						 listArr =listVal;
-						 $('#testDiv2').show();
-					
-					
-						
-						
-						console.log("listArr 리스트JSP확인: "+listArr);
-						console.log("listVal 값넘어오는지 확인: "+listVal);
-						
-						$('#pagingArea').hide();
-						
-						var output ="";
-						
-						$.each(listArr,function(index,item){
+					dataType:"html",
+					success: function(listC){
+						//categorySelect(category);
+						//result = category;
+						//location.reload();
 	
-							output += '<form id="cardFor">';
-							output += '<div id="cardAll" class="card" style ="width:18rem;">';
-							output += '<img src ="./resources/upload_file/'+ item.changeName +' " class="card-img-top" width="200" height="200">';
-							output += '<div class="card-body">';
-							output += '<input type="hidden" value='+ item.um_No;
-							output += '<h5 class ="card-title"><b>' +item.um_Title +' </b></h5>';
-							output +='<p><b>작성일:</b> '+ item.um_Date + '</p>';
-							output += '<hr>';
-							output += '<p class="card-text"><b>가격:</b> '+ item.um_Price +'<b>원</b></p>';
-							output +='<hr>';
-							output +='<p class="card-text"><b>작성자: </b>' +item.um_Writer +'</p>';
-							output +='<a href="detail.um?uno='+ item.um_No +'" class="btn btn-primary">상세보기</a>';
-							output +='</div>';
-							output +='</div>';
-							output +='</form>';
-					
-							
-							
-						});
-						
-						$('#testDiv2').html(output);
-						$('#pagingArea').hide();
-
-
-						
-						
-						
-						
+						$('#cardForm').children().remove();
+						//$('#cardForm').html(listC);
 						
 						alert("성공");
 						
@@ -222,11 +178,6 @@ $(function(){
 					}
 				});
 				
-		}else{
-			
-			$('#testDiv').show();
-			$('#pagingArea').show();
-
 		}
 		
 	});

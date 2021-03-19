@@ -3,12 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 
 
-<script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"></script>
 </head>
 <body>
 	  <jsp:include page="../common/header.jsp"/>
@@ -32,7 +29,7 @@
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control"   name="um_Writer" ></td>
+                        <td><input type="text" id="writer" class="form-control"   name="um_Writer" value="${loginUser.userName}" readonly></td>
                     </tr>
                     <tr> 
                         <th><label for="price">가격</label></th>
@@ -71,21 +68,15 @@
                         <td><input type="file" id="upfile" class="form-control-file border" name="uploadFile"></td>
                     </tr>
                     <tr>
-                        <th colspan="2"><label for="content">내용</label></th>
+                        <th colspan="2"><label for="um_Content">내용</label></th>
                     </tr>
                     <tr>
-                        <th colspan="2"><textarea class="form-control" required name="um_Content" id="gbContent" rows="10" style="resize:none;"></textarea></th>
+                        <th colspan="2"><textarea class="form-control" required name="um_Content" id="um_Content" rows="10" style="resize:none;"></textarea></th>
                     </tr>
                 </table>
-                 <script>
+                
             
-                ClassicEditor
-                    .create(document.querySelector('#gbContent'))
-                    .catch(error=>{
-                        console.error(error);
-                    });
-
-            </script>
+            
                 <br>
 
                 <div align="center">
