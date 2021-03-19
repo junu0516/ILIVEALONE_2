@@ -37,11 +37,5 @@
 		<mapper resource="/mappers/group_buy-mapper.xml"/>
 		<mapper resource="/mappers/real-mapper.xml"/>
 	</mappers> 
-	
-	
-	
-  
 
-		
-	
 </configuration>

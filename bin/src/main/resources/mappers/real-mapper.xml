@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="realMapper">
+	<resultMap type="Real" id="realResultSet">
+		<id property="stuffNo" column="STUFF_NO"/>
+		<result property="money_kind" column="MONEY_KIND"/>
+		<result property="area" column="AREA"/>
+		<result property="floors" column="FLOORS"/>
+		<result property="location" column="LOCATION"/>
+		<result property="elevator" column="ELEVATOR"/>
+		<result property="admin_money" column="ADMIN_MONEY"/>
+		<result property="structure" column="STRUCTURE"/>
+		<result property="entire_floors" column="ENTIRE_FLOORS"/>
+		<result property="phone" column="PHONE"/>
+		<result property="money1" column="MONEY1"/>
+		<result property="money2" column="MONEY2"/>
+		<result property="status" column="STATUS"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+	</resultMap>
+	
+	
+	<select id="selectListCount"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM STUFF
+		WHERE STATUS='Y'	
+	</select>
+	
+	<select id="selectList"
+			resultMap="realResultSet">
+		SELECT *
+		FROM STUFF
+		WHERE STATUS='Y'
+		ORDER BY STUFF_NO DESC
+	</select>
+	
+	<select id="selectReal"
+			parameterType="_int"
+			resultMap="realResultSet">
+		SELECT *
+		FROM STUFF
+		WHERE STATUS='Y'
+		AND STUFF_NO=#{rno}
+	</select>
+	
+	<insert id="insertReal"
+			parameterType="Real">
+		INSERT INTO STUFF
+		VALUES(SEQ_R_NO.nextval, 
+		#{money_kind}, 
+		#{area}, 
+		#{floors}, 
+		#{location}, 
+		#{elevator}, 
+		#{admin_money}, 
+		#{structure}, 
+		#{entire_floors}, 
+		#{phone}, 
+		#{money1}, 
+		#{money2}, 
+		default, 
+		#{originName}, 
+		#{changeName}
+		)
+	</insert>
+	
+	
+	<update id="deleteReal"
+			parameterType="_int">
+		UPDATE STUFF
+		SET STATUS='N'
+		WHERE STUFF_NO = #{rno}
+	</update>
+	
+	<update id="updateReal"
+			parameterType="Real">
+		UPDATE STUFF SET
+		MONEY_KIND  = #{money_kind},
+		AREA  = #{area},
+		FLOORS  = #{floors},
+		LOCATION  = #{location},
+		ELEVATOR  = #{elevator},
+		ADMIN_MONEY  = #{admin_money},
+		STRUCTURE  = #{structure},
+		ENTIRE_FLOORS  = #{entire_floors},
+		PHONE  = #{phone},
+		MONEY1  = #{money1},
+		MONEY2  = #{money2},
+		STATUS  = 'Y',
+		ORIGIN_NAME   = #{originName},
+		CHANGE_NAME   = #{changeName}
+		WHERE STUFF_NO = #{stuffNo}
+	</update>
+
+</mapper>
