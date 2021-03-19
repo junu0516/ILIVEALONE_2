@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,12 +29,7 @@
       height: 100%;
     }
     
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
+   
     
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -51,9 +47,13 @@
 <div class="container-fluid text-center">  
 	<div class="col-sm-2 sidenav">
 
-      <p><a href="list.bo">패션 게시물</a></p>
-      <p><a href="enrollForm.bo">패션 최신뉴스</a></p>
-      <p><a href="#">공지사항</a></p>
+       <ul class = "list-group">
+      	<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      	<a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 페이지</a></p>
+      	<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
+      	<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
+      	<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
+      </ul>
 	
 	</div>
 	<div class="col-sm-8 text-left" style="padding:5% 10%;"> 
@@ -98,15 +98,46 @@
                 </div>
             </form>
         </div>
-            <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
-	
+        <div class="col-sm-2 sidenav">
+      	<body onload = "showImage()">
+      	<div class = "well" >
+      		<h2>오늘의 패션(남자)</h2>
+			<img class = "introImg" id = "introImg" border="0" >
+       	<br><br><br>
+        <hr>
+        <br><br>
+        	<h2>오늘의 패션(여자)</h2>
+			<img class = "introImg1" id = "introImg1" border="0" >
+      	</div>
+      	</body>
+    <script>
+			var imgArray = new Array();
+			imgArray[0] = "resources/img/A1.jfif";
+			imgArray[1] = "resources/img/A2.jfif";
+			imgArray[2] = "resources/img/A3.jfif";
+			imgArray[3] = "resources/img/A4.jfif";
+			
+			var imgArray1 = new Array();
+			imgArray1[0] = "resources/img/B1.jfif";
+			imgArray1[1] = "resources/img/B2.jfif";
+			imgArray1[2] = "resources/img/B3.jfif";
+			imgArray1[3] = "resources/img/B4.jfif";
+
+			
+			function showImage(){
+				var imgNum = Math.round(Math.random()*3);
+				var objImg = document.getElementById("introImg");
+				objImg.src = imgArray[imgNum];
+				
+				var imgNum1 = Math.round(Math.random()*3);
+				var objImg1 = document.getElementById("introImg1");
+				objImg1.src = imgArray1[imgNum1];
+			
+			}
+			
+			
+	</script>
+  </div>
 </div>
 <jsp:include page="../common/footer.jsp"/>
 

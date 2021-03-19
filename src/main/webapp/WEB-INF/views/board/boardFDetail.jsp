@@ -46,14 +46,19 @@
     }
 
   </style>
+  
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
    <div class="container-fluid text-center">  
 	  <div class="col-sm-2 sidenav">
-      	<p><a href="list.bo">패션 게시물</a></p>
-      	<p><a href="blist.bo">패션 최신뉴스</a></p>
-      	<p><a href="#">공지사항</a></p>
+      	 <ul class = "list-group">
+      		<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      		<a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 페이지</a></p>
+      		<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
+      		<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
+      		<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
+      	</ul>
 	  </div>
 	  
 	<div class="col-sm-8 text-left" style="padding:5% 10%;"> 
@@ -61,6 +66,7 @@
             <br>
             
             <br><br>
+
             <table id="contentArea" align="center" class="table">
                 <tr>
                     <th width="100">제목</th>
@@ -72,23 +78,24 @@
                     <th>작성일</th>
                     <td>${ f.fashionCreateDate }</td>
                 </tr>
-                <tr>
-                    <th>첨부파일</th>
-                    <td colspan="3">
-                    	<c:if test="${ !empty f.fashionOriginName }">
-                        	<a href="${ pageContext.servletContext.contextPath }/resources/upload_files/${f.fashionChangeName}" download="${ f.fashionOriginName }">${ f.fashionOriginName }</a>
-                        </c:if>
-                        <c:if test="${ empty f.fashionOriginName }">
-                        	첨부파일이 없습니다!.
-                        </c:if>
-                    </td>
-                </tr>
-                <tr>
+                <tr>			
                 	<th>조회</th>
                 	<td colspan="3">
                 	${f.fashionCount}
                 	</td>
                 </tr>
+                <tr>  
+                    <th>사진</th>
+                    <td colspan="3">
+                    	<c:if test="${ !empty f.fashionOriginName }">
+                        	<img src ="${ pageContext.servletContext.contextPath }/resources/upload_files/${f.fashionChangeName}" alt = "">
+                        </c:if>
+                        <c:if test="${ empty f.fashionOriginName }">
+                        	<img src="resources/img/thumbnail.jpeg" alt="">
+                        </c:if>
+                    </td>
+                </tr>
+
                 <tr>
                     <th>내용</th>
                      <td colspan="2">
@@ -114,9 +121,9 @@
 						var postForm = $("#postForm");
 						
 						if(num == 1){
-							postForm.attr("action", "updateForm.bo");
+							postForm.attr("action", "updateForm.fo");
 						}else{
-							postForm.attr("action", "delete.bo");
+							postForm.attr("action", "delete.fo");
 						}
 						postForm.submit();
 					}
@@ -152,32 +159,64 @@
                 </tbody>
             </table>
         </div>
-            <div class="col-sm-2 sidenav">
-      			<div class="well">
-        		<p>ADS</p>
-      			</div>
-      			<div class="well">
-       			<p>ADS</p>
-      			</div>
-    		</div>
+        <div class="col-sm-2 sidenav">
+      		<body onload = "showImage()">
+      		<div class = "well" >
+      			<h2>오늘의 패션(남자)</h2>
+				<img class = "introImg" id = "introImg" border="0" >
+       		<br><br><br>
+        	<hr>
+        	<br><br>
+        	<h2>오늘의 패션(여자)</h2>
+			<img class = "introImg1" id = "introImg1" border="0" >
+      		</div>
+      		</body>
+    	<script>
+			var imgArray = new Array();
+			imgArray[0] = "resources/img/A1.jfif";
+			imgArray[1] = "resources/img/A2.jfif";
+			imgArray[2] = "resources/img/A3.jfif";
+			imgArray[3] = "resources/img/A4.jfif";
+			
+			var imgArray1 = new Array();
+			imgArray1[0] = "resources/img/B1.jfif";
+			imgArray1[1] = "resources/img/B2.jfif";
+			imgArray1[2] = "resources/img/B3.jfif";
+			imgArray1[3] = "resources/img/B4.jfif";
+
+			
+			function showImage(){
+				var imgNum = Math.round(Math.random()*3);
+				var objImg = document.getElementById("introImg");
+				objImg.src = imgArray[imgNum];
+				
+				var imgNum1 = Math.round(Math.random()*3);
+				var objImg1 = document.getElementById("introImg1");
+				objImg1.src = imgArray1[imgNum1];
+			
+			}
+			
+			
+	</script>
+  </div>
 	
 </div>
 <script>
-	/*
+	
 	
        $(function(){
           selectReplyList();
           
           $("#addReply").click(function(){
-              var bno = ${b.boardNo};
+              var fno = ${f.fashionNo};
 
              if($("#replyContent").val().trim().length != 0){
                 
                 $.ajax({
-                   url:"rinsert.bo",
+                   url:"rinsert.fo",
                    type:"post",
                    data:{replyContent:$("#replyContent").val(),
-                        refBoardNo:bno,
+                        refFashionNo:fno,
                         replyWriter:"${loginUser.userId}"},
                    success:function(result){
                       if(result > 0){
@@ -200,10 +239,10 @@
        });
        
        function selectReplyList(){
-          var bno = ${b.boardNo};
+          var fno = ${f.fashionNo};
           $.ajax({
-             url:"rlist.bo",
-             data:{bno:bno},
+             url:"rlist.fo",
+             data:{fno:fno},
              type:"get",
              success:function(list){
                 $("#rcount").text(list.length);
@@ -230,7 +269,7 @@
        
           
       	}
-       */
+     
     </script>
 	<jsp:include page="../common/footer.jsp"/>
 

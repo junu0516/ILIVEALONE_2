@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+	<resultMap id="noticeResultSet" type="Notice">
+		<id property="noticeNo" column="N_NO"/>
+		<result property="noticeWriter" column="N_WRITER"/>
+		<result property="noticeTitle" column="N_TITLE"/>
+		<result property="noticeContent" column="N_CONTENT"/>
+		<result property="count" column="N_COUNT"/>
+		<result property="createDate" column="N_DATE"/>
+		<result property="status" column="N_STATUS"/>
+		<result property="originName" column="N_ORIGIN"/>
+		<result property="changeName" column="N_CHANGE"/>		
+	</resultMap>
+	
+	<select id="selectListCount" resultType = "_int">		
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE N_STATUS='Y'
+	</select>
+	
+	<select id = "selectList" resultMap="noticeResultSet">
+		SELECT *
+		FROM NOTICE
+		WHERE N_STATUS = 'Y'
+		ORDER BY N_NO DESC
+	</select>
+	
+	<insert id = "insertNotice" parameterType="Notice">
+	insert into notice
+	values(seq_n_no.nextval, #{noticeWriter},#{noticeTitle}, #{noticeContent},  SYSDATE,default,default, #{originName}, #{changeName})
+	</insert>
+	
+	<select id = "selectNotice" resultMap="noticeResultSet">
+		SELECT *
+		FROM NOTICE
+		WHERE N_NO = #{nno}
+		AND N_STATUS = 'Y'
+	</select>
+	
+	<select id  = "updateIncreaseCount" parameterType="_int">
+		UPDATE NOTICE
+		SET N_COUNT = N_COUNT + 1
+		WHERE N_NO = #{nno}
+		AND N_STATUS = 'Y'
+	</select>
+	
+	<update id = "deleteNotice" parameterType="_int">
+		UPDATE NOTICE 
+		SET N_STATUS = 'N'
+		WHERE N_NO = #{nno}
+	</update>
+	
+	<update id = "updateNotice" parameterType="Notice">
+		UPDATE NOTICE
+		SET N_TITLE = #{noticeTitle}, N_CONTENT = #{noticeContent}, N_ORIGIN = #{originName}, N_CHANGE = #{changeName}
+		WHERE N_NO = #{noticeNo}
+	</update>
+</mapper>

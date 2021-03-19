@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="foodMapper">
+	<resultMap id="foodResultSet" type="Food">
+		<id property="foodNo" column="FD_NO"/>
+		<result property="foodWriter" column="FD_WRITER"/>
+		<result property="foodTitle" column="FD_TITLE"/>
+		<result property="foodContent" column="FD_CONTENT"/>
+		<result property="count" column="FD_COUNT"/>
+		<result property="createDate" column="FD_DATE"/>
+		<result property="status" column="FD_STATUS"/>
+		<result property="originName" column="FD_ORIGIN"/>
+		<result property="changeName" column="FD_CHANGE"/>
+	</resultMap>
+	
+	<resultMap id="replyResultSet" type="FoodReply">
+		<id column="FD_R_NO" property="replyNo"/>
+		<result column="FD_R_CONTENT" property="replyContent"/>
+		<result column="FD_R_BNO" property="refFoodNo"/>
+		<result column="FD_R_WRITER" property="replyWriter"/>
+		<result column="FD_R_CREATE" property="createDate"/>
+		<result column="FD_R_STATUS" property="status"/>
+	</resultMap>
+	
+	<resultMap id="foodPResultSet" type="FoodP">
+		<id property="foodPNo" column="FDP_NO"/>
+		<result property="foodPWriter" column="FDP_WRITER"/>
+		<result property="foodPTitle" column="FDP_TITLE"/>
+		<result property="foodPContent" column="FDP_CONTENT"/>
+		<result property="foodPCount" column="FDP_COUNT"/>
+		<result property="foodPCreateDate" column="FDP_DATE"/>
+		<result property="foodPStatus" column="FDP_STATUS"/>
+		<result property="foodPOriginName" column="FDP_ORIGIN"/>
+		<result property="foodPChangeName" column="FDP_CHANGE"/>		
+	</resultMap>
+	
+	<resultMap id="replyPResultSet" type="FoodPReply">
+		<id column="FDP_R_NO" property="replyNo"/>
+		<result column="FDP_R_CONTENT" property="replyContent"/>
+		<result column="FDP_R_BNO" property="refFoodPNo"/>
+		<result column="FDP_R_WRITER" property="replyWriter"/>
+		<result column="FDP_R_CREATE" property="createDate"/>
+		<result column="FDP_R_STATUS" property="status"/>
+	</resultMap>
+	
+	<select id="selectListCount" resultType = "_int">		
+		SELECT COUNT(*)
+		FROM FOOD
+		WHERE FD_STATUS='Y'
+	</select>
+	
+	<select id = "selectList" resultMap="foodResultSet">
+		SELECT *
+		FROM FOOD
+		WHERE FD_STATUS = 'Y'
+		ORDER BY FD_NO DESC
+	</select>
+	
+	<select id="selectPListCount" resultType = "_int">		
+		SELECT COUNT(*)
+		FROM FOODP
+		WHERE FDP_STATUS='Y'
+	</select>
+	
+	<select id = "selectPList" resultMap="foodPResultSet">
+		SELECT *
+		FROM FOODP
+		WHERE FDP_STATUS = 'Y'
+		ORDER BY FDP_NO DESC
+	</select>
+	
+	
+	<insert id = "insertfood" parameterType="Food">
+	insert into food
+	values(seq_fd_no.nextval, #{foodWriter},#{foodTitle}, #{foodContent},  SYSDATE,default,default, #{originName}, #{changeName})
+	</insert>
+	
+	<insert id = "insertPfood" parameterType="FoodP">
+	insert into foodp
+	values(seq_fdp_no.nextval, #{foodPWriter},#{foodPTitle}, #{foodPContent},  SYSDATE,default,default, #{foodPOriginName}, #{foodPChangeName})
+	</insert>
+	
+	<select id = "selectfood" resultMap= "foodResultSet">
+		SELECT *
+		FROM FOOD
+		WHERE FD_NO = #{fdno}
+		AND FD_STATUS = 'Y'
+	</select>
+	
+	<select id = "selectPfood" resultMap= "foodPResultSet">
+		SELECT *
+		FROM FOODP
+		WHERE FDP_NO = #{fdpno}
+		AND FDP_STATUS = 'Y'
+	</select>
+	
+	<select id  = "updateIncreaseCount" parameterType="_int">
+		UPDATE FOOD
+		SET FD_COUNT = FD_COUNT + 1
+		WHERE FD_NO = #{fdno}
+		AND FD_STATUS = 'Y'
+	</select>
+	
+	<select id  = "updatePIncreaseCount" parameterType="_int">
+		UPDATE FOODP
+		SET FDP_COUNT = FDP_COUNT + 1
+		WHERE FDP_NO = #{fdpno}
+		AND FDP_STATUS = 'Y'
+	</select>
+	
+	<update id = "deletefood" parameterType="_int">
+		UPDATE FOOD 
+		SET FD_STATUS = 'N'
+		WHERE FD_NO = #{fdno}
+	</update>
+	
+	<update id = "deletePfood" parameterType="_int">
+		UPDATE FOODP 
+		SET FDP_STATUS = 'N'
+		WHERE FDP_NO = #{fdpno}
+	</update>
+	
+	<update id = "updatefood" parameterType="Food">
+		UPDATE FOOD
+		SET FD_TITLE = #{foodTitle}, FD_CONTENT = #{foodContent}, FD_ORIGIN = #{originName}, FD_CHANGE = #{changeName}
+		WHERE FD_NO = #{foodNo}
+	</update>
+	
+	<update id = "updatePfood" parameterType="FoodP">
+		UPDATE FOODP
+		SET FDP_TITLE = #{foodPTitle}, FDP_CONTENT = #{foodPContent}, FDP_ORIGIN = #{foodPOriginName}, FDP_CHANGE = #{foodPChangeName}
+		WHERE FDP_NO = #{foodPNo}
+	</update>
+	
+	<insert id = "insertReply" parameterType = "FoodReply">
+		insert into foodreply
+		values(seq_fd_r_no.nextval,  #{refFoodNo}, #{replyWriter}, #{replyContent},SYSDATE,default)
+	</insert>
+	
+	<insert id = "insertPReply" parameterType = "FoodPReply">
+		insert into foodpreply
+		values(seq_fdp_r_no.nextval,  #{refFoodPNo}, #{replyWriter}, #{replyContent},SYSDATE,default)
+	</insert>
+	
+	<select id = "selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		select FD_R_NO, FD_R_CONTENT, FD_R_WRITER, FD_R_CREATE
+		from foodreply
+		where FD_R_BNO = #{fdno} and FD_R_STATUS = 'Y'
+		order by FD_R_NO desc
+	</select>
+	
+	<select id = "selectPReplyList" parameterType="_int" resultMap="replyPResultSet">
+		select FDP_R_NO, FDP_R_CONTENT, FDP_R_WRITER, FDP_R_CREATE
+		from foodpreply
+		where FDP_R_BNO = #{fdpno} and FDP_R_STATUS = 'Y'
+		order by FDP_R_NO desc
+	</select>
+	
+	<select id = "selectTopList" resultMap= "foodResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from food
+			where fd_status = 'Y'
+			order by fd_count desc)
+		where rownum <=5		
+	]]>
+	</select>
+	
+	<select id = "selectPTopList" resultMap= "foodPResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from foodp
+			where fdp_status = 'Y'
+			order by fdp_count desc)
+		where rownum <=5		
+	]]>
+	</select>
+	
+	<select id="selectSearchListCount"
+			parameterType="FoodsearchCondition"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM FOOD
+		WHERE FD_STATUS='Y'
+		<if test="title != null">
+			AND FD_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND FD_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND FD_WRITER LIKE '%'||#{writer}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="selectSearchList"
+			parameterType="searchCondition"
+			resultMap="foodResultSet">
+		SELECT *
+		FROM FOOD
+		WHERE FD_STATUS='Y'
+		<if test="title != null">
+			AND FD_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND FD_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND FD_WRITER LIKE '%'||#{writer}||'%'
+		</if>		
+	</select>
+	
+	<select id="selectSearchPListCount"
+			parameterType="FoodsearchCondition"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM FOODP
+		WHERE FDP_STATUS='Y'
+		<if test="title != null">
+			AND FDP_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND FDP_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND FDP_WRITER LIKE '%'||#{writer}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="selectSearchPList"
+			parameterType="searchCondition"
+			resultMap="foodPResultSet">
+		SELECT *
+		FROM FOODP
+		WHERE FDP_STATUS='Y'
+		<if test="title != null">
+			AND FDP_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND FDP_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND FDP_WRITER LIKE '%'||#{writer}||'%'
+		</if>		
+	</select>
+
+	
+</mapper>

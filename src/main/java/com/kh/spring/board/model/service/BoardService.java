@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.PageInfo;
+import com.kh.spring.board.model.vo.BoardSearchCondition;
 import com.kh.spring.board.model.vo.BoradReply;
 import com.kh.spring.board.model.vo.Fashion;
+import com.kh.spring.board.model.vo.FashionReply;
 
 public interface BoardService {
 
@@ -36,5 +38,29 @@ public interface BoardService {
 	int updateFIncreaseCount(int fno);
 
 	Fashion selectFBoard(int fno);
+
+	int deleteFBoard(int fno);
+
+	int updateFBoard(Fashion f);
+
+	int insertFReply(FashionReply r);
+
+	ArrayList<FashionReply> selectFReplyList(int fno);
+
+	ArrayList<Board> selectTopList();
+
+	ArrayList<Fashion> selectFTopList();
+
+	int selectListCount(BoardSearchCondition searchCondition);
+
+	ArrayList<Board> selectList(PageInfo pageInfo, BoardSearchCondition searchCondition);
+
+	int selectFListCount(BoardSearchCondition searchCondition);
+
+	ArrayList<Fashion> selectFList(PageInfo pageInfo, BoardSearchCondition searchCondition);
+
+
+
+
 
 }
