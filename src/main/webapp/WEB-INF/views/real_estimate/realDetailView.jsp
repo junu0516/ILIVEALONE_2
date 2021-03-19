@@ -27,9 +27,13 @@
 </head>
 <body>
 
-	  <jsp:include page="../common/header.jsp"/>
-
-    <div class="content">
+	
+		<jsp:include page="../common/header.jsp"/>
+		
+		<br><br>
+	
+	<div class="container" style="height:1200px">
+	
         <br><br>
         <div class="innerOuter">
             <h2 style="align:center">매물 상세보기</h2>
@@ -76,7 +80,7 @@
                     <td colspan="3">${ r.structure }</td>
                 </tr>
                 <tr>
-                    <th width="100">전체 증 수</th>
+                    <th width="100">전체 층 수</th>
                     <td colspan="3">${ r.entire_floors }</td>
                 </tr>
                 <tr>
@@ -94,7 +98,7 @@
 	                <button onclick="postFormSubmit(2);">삭제하기</button>
 	         </div>
 	         
-			 <form id="postForm" action="" method="post">
+			 <form id="postForm" action="" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
 				<input type="hidden" name="rno" value="${ r.stuffNo }">
 				<input type="hidden" name="fileName" value="${ r.changeName }">
 			</form>
@@ -106,10 +110,11 @@
 					console.log(1);
 						
 					if(num == 1){
-						postForm.attr("action", "updateForm.re");
+						postForm.attr("action", "updateForm.re"); //수정 form으로 이동
 					}else{
-						postForm.attr("action", "delete.re");
+						postForm.attr("action", "delete.re"); //삭제 form으로 이동
 					}
+					
 					postForm.submit();
 				}
 			</script>
@@ -119,7 +124,6 @@
     </div>
 
     	
-    </script>
 
 	  <jsp:include page="../common/footer.jsp"/>
 

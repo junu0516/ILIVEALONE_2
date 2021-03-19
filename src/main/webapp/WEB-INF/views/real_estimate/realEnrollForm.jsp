@@ -25,13 +25,17 @@
 </head>
 <body>
 
-    <div class="content">
+<jsp:include page="../common/header.jsp"/>
+		
+		<br><br>
+
+<div class="container" style="height:1200px">
         <br><br>
         <div class="innerOuter">
             <h2>매물 등록하기</h2>
             <br>
 			
-			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
+			<!-- 이미지 첨부파일 등록을 위해  Multipart/form-data encType 지정 -->
             <form id="enrollForm" method="post" action="insert.re" enctype="multipart/form-data">
                   <table id="contentArea" align="center" class="table">
                 <tr>
@@ -111,7 +115,7 @@
     </div>
 
 <script>
-$(function() {
+$(function() { //전세, 월세 선택 시 각 세 종류에 맞는 가격대 select box 로드
 
             $('#setype').change(function() {
             		
@@ -120,7 +124,8 @@ $(function() {
                 if (this.value == "월세") {
                     $('#money').append($('<input/>', {type: 'text', name: 'money1', placeholder : '월세 ex)50' }));
                     $('#money').append($('<input/>', {type: 'text', name: 'money2', placeholder :'보증금 ex)1000' }));
-                } else if (this.value == "전세") {
+                } 
+                else if (this.value == "전세") {
                     $('#money').append($('<input/>', {type: 'text', name: 'money1', placeholder:'전세금 ex)1억 5000' }));
                     $('#money').append($('<input/>', {type: 'hidden', name: 'money2', value:'null' }));
 
@@ -130,5 +135,7 @@ $(function() {
 
         });
 </script>
+
+ <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
