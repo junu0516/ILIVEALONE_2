@@ -25,16 +25,15 @@ import com.kh.spring.common.exception.CommonException;
 import com.kh.spring.real_estimate.model.service.RealService;
 import com.kh.spring.real_estimate.model.vo.PageInfo;
 import com.kh.spring.real_estimate.model.vo.Real;
-//주석2
+
 @Controller
 public class RealController {
 
 	@Autowired
 	private RealService realService;
-	
-	
+
 	@RequestMapping("list.re")
-	public String selectList(@RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage, Model model) {
+	public String selectList(Model model) {
 		
 		int listCount = realService.selectListCount();
 		
@@ -54,29 +53,25 @@ public class RealController {
 	}
 	
 	@RequestMapping(value="houselist", method=RequestMethod.GET)
-	public String houseList(@RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage,
-			@RequestParam(value = "type") String type,
-			@RequestParam(value = "setype") String setype,
-			@RequestParam(value = "money") String money,
-			@RequestParam(value = "admin") String admin,
-			@RequestParam(value = "search") String search,
+	public String houseList(
+			@RequestParam(value = "search") String search, //search바에서 선택 필터 가져오기
+			@RequestParam(value = "type") String type, //search바에서 선택 필터 가져오기
+			@RequestParam(value = "setype") String setype, //search바에서 선택 필터 가져오기
+			@RequestParam(value = "money") String money, //search바에서 선택 필터 가져오기 
+			@RequestParam(value = "admin") String admin, //search바에서 선택 필터 가져오기
 			Model model) {
-		int listCount = realService.selectListCount();
+		
 
 		ArrayList<Real> list = realService.selectList();
 		
-		for(Real r:list) {
-			System.out.println(r);
-		}
-		
-		
-		if(!type.equals("none"))
+		/*필터 조건에 맞는 매물들만 남기고 list에서 제외*/
+		if(!search.equals("")) //지역명 검색 리스트 필터
+			list.removeIf(r -> !r.getLocation().contains(search));
+		if(!type.equals("none")) //방 타입 검색 필터
 			list.removeIf(r -> !r.getStructure().equals(type));
-		
-		if(!setype.equals("none"))
+		if(!setype.equals("none")) //세 종류 검색 필터
 			list.removeIf(r -> !r.getMoney_kind().equals(setype));
-		
-		if(!money.equals("none")) {
+		if(!money.equals("none")) {//가격대 검색 필터 (월세, 전세 구분)
 			if(setype.equals("월세")) {
 				if(money.equals("max")) {
 					list.removeIf(r -> Integer.parseInt(r.getMoney1())<120);
@@ -92,14 +87,9 @@ public class RealController {
 					list.removeIf(r -> r.getMoney1().charAt(0)-'0'>Integer.parseInt(money)-1 || r.getMoney1().charAt(0)-'0'<Integer.parseInt(money)-1);
 			}
 		}
-		
-		if(!admin.equals("none"))
+		if(!admin.equals("none")) //관리비 검색 필터 (월세, 전세 구분)
 			list.removeIf(r -> r.getAdmin_money()>Integer.parseInt(admin));
-		
-		
-		if(!search.equals(""))
-			list.removeIf(r -> !r.getLocation().contains(search));
-		
+
 		
 		//view로 게시글 리스트, 페이지 정보를 넘기기
 		model.addAttribute("list",list);
@@ -108,8 +98,6 @@ public class RealController {
 		model.addAttribute("money",money);
 		model.addAttribute("admin",admin);
 		model.addAttribute("search",search);
-		int size=list.size()+1;
-		model.addAttribute("size",size);
 		
 		
 		return "real_estimate/realListView";

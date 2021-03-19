@@ -33,7 +33,7 @@ function formChange(obj)
 
 
 <form action="houselist" method="get">
-<div class="search"><input type="text" name="search" placeholder="지역명, 원룸, 신축 "><button>검색</button></div>
+<div class="search"><input type="text" name="search" placeholder="지역명 "><button>검색</button></div>
 
 	<div class="search">
 		<select name="type" onchange="formChange(this.form)">

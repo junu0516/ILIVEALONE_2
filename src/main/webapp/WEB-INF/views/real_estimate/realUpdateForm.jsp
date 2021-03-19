@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,14 +25,17 @@
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
+	<jsp:include page="../common/header.jsp"/>
 
-    <div class="content">
+		<br><br>
+	
+	<div class="container" style="height:1000px">
+	
         <br><br>
         <div class="innerOuter">
             <h2>매물 수정하기</h2>
             <br>
 			
-			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
             <form id="updateForm" method="post" action="update.re" enctype="multipart/form-data">
                  <input type="hidden" name="stuffNo" value="${ r.stuffNo }">
                   <table id="contentArea" align="center" class="table">
@@ -148,5 +151,6 @@ $(function() {
 
         });
 </script>
+<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
