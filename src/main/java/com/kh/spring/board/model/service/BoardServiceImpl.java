@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.kh.spring.board.model.dao.BoardDao;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.PageInfo;
+import com.kh.spring.board.model.vo.BoardSearchCondition;
 import com.kh.spring.board.model.vo.BoradReply;
 import com.kh.spring.board.model.vo.Fashion;
+import com.kh.spring.board.model.vo.FashionReply;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -101,6 +103,68 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectFBoard(sqlSession,fno);
 		
 	}
+
+	@Override
+	public int deleteFBoard(int fno) {
+		// TODO Auto-generated method stub
+		return boardDao.deleteFBoard(sqlSession,fno);
+	}
+
+	@Override
+	public int updateFBoard(Fashion f) {
+		// TODO Auto-generated method stub
+		return boardDao.updateFBoard(sqlSession,f);
+	}
+
+	@Override
+	public int insertFReply(FashionReply r) {
+		// TODO Auto-generated method stub
+		return boardDao.insertFReply(sqlSession,r);
+	}
+
+	@Override
+	public ArrayList<FashionReply> selectFReplyList(int fno) {
+		// TODO Auto-generated method stub
+		return boardDao.selectFReplyList(sqlSession, fno);
+		}
+    //---- top 리스트
+	@Override
+	public ArrayList<Board> selectTopList() {
+		return boardDao.selectTopList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Fashion> selectFTopList() {
+		// TODO Auto-generated method stub
+		return boardDao.selectFTopList(sqlSession);
+	}
+
+	@Override
+	public int selectListCount(BoardSearchCondition searchCondition) {
+		// TODO Auto-generated method stub
+		return boardDao.selectListCount(sqlSession, searchCondition);
+	}
+
+	@Override
+	public ArrayList<Board> selectList(PageInfo pageInfo, BoardSearchCondition searchCondition) {
+		// TODO Auto-generated method stub
+		return boardDao.selectList(sqlSession,pageInfo,searchCondition);
+	}
+
+	@Override
+	public int selectFListCount(BoardSearchCondition searchCondition) {
+		// TODO Auto-generated method stub
+		return boardDao.selectFListCount(sqlSession, searchCondition);
+	}
+
+	@Override
+	public ArrayList<Fashion> selectFList(PageInfo pageInfo, BoardSearchCondition searchCondition) {
+		// TODO Auto-generated method stub
+		return boardDao.selectFList(sqlSession,pageInfo,searchCondition);
+	}
+
+
+
 
 
 	

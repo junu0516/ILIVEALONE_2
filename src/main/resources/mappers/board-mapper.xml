@@ -12,7 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="createDate" column="B_DATE"/>
 		<result property="status" column="B_STATUS"/>
 		<result property="originName" column="B_ORIGIN"/>
-		<result property="changeName" column="B_CHANGE"/>		
+		<result property="changeName" column="B_CHANGE"/>
+		
 	</resultMap>
 	
 	<resultMap id="replyResultSet" type="BoradReply">
@@ -36,6 +37,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="fashionChangeName" column="F_CHANGE"/>		
 	</resultMap>
 	
+	<resultMap id="replyFResultSet" type="FashionReply">
+		<id column="F_R_NO" property="replyNo"/>
+		<result column="F_R_CONTENT" property="replyContent"/>
+		<result column="F_R_BNO" property="refFashionNo"/>
+		<result column="F_R_WRITER" property="replyWriter"/>
+		<result column="F_R_CREATE" property="createDate"/>
+		<result column="F_R_STATUS" property="status"/>
+	</resultMap>
 	
 	<select id="selectListCount" resultType = "_int">		
 		SELECT COUNT(*)
@@ -108,15 +117,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE B_NO = #{bno}
 	</update>
 	
+	<update id = "deleteFBoard" parameterType="_int">
+		UPDATE FASHION 
+		SET F_STATUS = 'N'
+		WHERE F_NO = #{fno}
+	</update>
+	
 	<update id = "updateBoard" parameterType="Board">
 		UPDATE BOARD
 		SET B_TITLE = #{boardTitle}, B_CONTENT = #{boardContent}, B_ORIGIN = #{originName}, B_CHANGE = #{changeName}
 		WHERE B_NO = #{boardNo}
 	</update>
 	
+	<update id = "updateFBoard" parameterType="Fashion">
+		UPDATE FASHION
+		SET F_TITLE = #{fashionTitle}, F_CONTENT = #{fashionContent}, F_ORIGIN = #{fashionOriginName}, F_CHANGE = #{fashionChangeName}
+		WHERE F_NO = #{fashionNo}
+	</update>
+	
 	<insert id = "insertReply" parameterType = "BoradReply">
 		insert into boradreply
 		values(seq_b_r_no.nextval,  #{refBoardNo}, #{replyWriter}, #{replyContent},SYSDATE,default)
+	</insert>
+	
+	<insert id = "insertFReply" parameterType = "FashionReply">
+		insert into fashionreply
+		values(seq_f_r_no.nextval,  #{refFashionNo}, #{replyWriter}, #{replyContent},SYSDATE,default)
 	</insert>
 	
 	<select id = "selectReplyList" parameterType="_int" resultMap="replyResultSet">
@@ -126,5 +152,104 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by B_R_NO desc
 	</select>
 	
+	<select id = "selectFReplyList" parameterType="_int" resultMap="replyFResultSet">
+		select F_R_NO, F_R_CONTENT, F_R_WRITER, F_R_CREATE
+		from fashionreply
+		where F_R_BNO = #{fno} and F_R_STATUS = 'Y'
+		order by F_R_NO desc
+	</select>
+	
+	<select id = "selectTopList" resultMap= "boardResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from board
+			where b_status = 'Y'
+			order by b_count desc)
+		where rownum <=5		
+	]]>
+	</select>
+	
+	<select id = "selectFTopList" resultMap= "boardFResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from fashion
+			where f_status = 'Y'
+			order by f_count desc)
+		where rownum <=5		
+	]]>
+	</select>
+	
+	<select id="selectSearchListCount"
+			parameterType="BoardsearchCondition"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE B_STATUS='Y'
+		<if test="title != null">
+			AND B_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND B_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND B_WRITER LIKE '%'||#{writer}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="selectSearchList"
+			parameterType="searchCondition"
+			resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS='Y'
+		<if test="title != null">
+			AND B_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND B_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND B_WRITER LIKE '%'||#{writer}||'%'
+		</if>		
+	</select>
+	
+	<select id="selectSearchFListCount"
+			parameterType="BoardsearchCondition"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM FASHION
+		WHERE F_STATUS='Y'
+		<if test="title != null">
+			AND F_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND F_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND F_WRITER LIKE '%'||#{writer}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="selectSearchFList"
+			parameterType="searchCondition"
+			resultMap="boardFResultSet">
+		SELECT *
+		FROM FASHION
+		WHERE F_STATUS='Y'
+		<if test="title != null">
+			AND F_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND F_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND F_WRITER LIKE '%'||#{writer}||'%'
+		</if>		
+	</select>
+
 	
 </mapper>

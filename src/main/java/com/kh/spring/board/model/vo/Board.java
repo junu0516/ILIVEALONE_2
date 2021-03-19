@@ -23,6 +23,6 @@ public class Board {
 	private int count;
 	private Date createDate;
 	private String status;
-	
+
 
 }
