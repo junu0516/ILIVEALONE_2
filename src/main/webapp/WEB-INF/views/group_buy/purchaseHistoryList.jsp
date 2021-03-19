@@ -71,6 +71,7 @@
 								<li>제품명 : ${purchaseHistory.phProduct}</li>
 								<li>판매자ID : ${purchaseHistory.phSeller}</li>
 								<li>받는주소 : ${purchaseHistory.phAddress}</li>
+								<li>배송정보 : ${purchaseHistory.phInvoice}</li>
 							</ul>
 						</div>							
 					</td>
