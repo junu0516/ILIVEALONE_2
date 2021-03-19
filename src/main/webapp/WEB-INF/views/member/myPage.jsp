@@ -1,36 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <title>마이페이지</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<jsp:include page="../common/header.jsp"/>
 	<div class="content">
-        <br><br>
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="innerOuter">
             <h2>마이페이지</h2>
             <br>
 
-            <form action="update.me" method="post" onsubmit="">
+              <form action="update.me" method="post" onsubmit="">
                 <div class="form-group">
-                    <label>* ID :</label>
-                    <input type="text" class="form-control" name="userId" value="${ loginUser.userId }" readonly><br>
+                    <label>아이디 :</label>
+                    <input type="text" class="form-control" id="userId" name="userId" value="${ loginUser.userId }" readonly><br>
                     
-                    <label for="userName">* Name :</label>
+                    <label for="userName">이름 :</label>
                     <input type="text" class="form-control" id="userName" name="userName" value="${ loginUser.userName }" readonly><br>
-                    
-                    <label for="email"> &nbsp; Email :</label>
+					
+                    <label for="userName">비밀번호 :</label>&nbsp;
+                    <button type="button" data-toggle="modal" data-target="#passwordCheckModal" class="btn btn-primary">비밀번호 확인</button><br><br>
+                    <input type="password" class="form-control" id="userPwd" name="userPwd" value="${ loginUser.userPwd }" readonly><br>
+                                                 
+                    <label for="email"> &nbsp; 이메일주소 :</label>
                     <input type="email" class="form-control" id="email" name="email" value="${ loginUser.email }"><br>
                     
-                    <label for="age"> &nbsp; Age :</label>
+                    <label for="age"> &nbsp; 나이 :</label>
                     <input type="number" class="form-control" id="age" name="age" value="${ loginUser.age }"><br>
                     
-                    <label for="phone"> &nbsp; Phone :</label>
+                    <label for="phone"> &nbsp; 휴대폰 번호 :</label>
                     <input type="tel" class="form-control" id="phone" name="phone" value="${ loginUser.phone }"><br>
                     
-                    <label for="address"> &nbsp; Address :</label><br>
+                    <label for="address"> &nbsp; 주소 :</label><br>
                     
               	
 				<c:forTokens var="addr" items="${ loginUser.address }" delims="/" varStatus="status">
@@ -60,16 +81,16 @@
 					<input type="text" name="address2" class="form-control postcodify_extra_info" value="${ address2 }" size="30">
 				
 				
-				
+				<!-- jQuery와 Postcodify를 로딩한다. -->
 				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 				<script>
-					
+					// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
 					$(function(){
 						$("#postcodify_search_button").postcodifyPopUp();
 					});
 				</script>
 				<br><br>
-                    <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
+                    <label for=""> &nbsp; 성별 : </label> &nbsp;&nbsp;
                     <input type="radio" name="gender" id="Male" value="M">
                     <label for="Male">남자</label> &nbsp;&nbsp;
                     <input type="radio" name="gender" id="Female" value="F">
@@ -97,9 +118,94 @@
         </div>
         <br><br>
     </div>
+
+        
+   
     
     <form action="delete.me" method="post" id="postForm">
-    	<input type="hidden" name="userId" value="${ loginUser.userId }">
+    <input type="hidden" name="userId" value="${ loginUser.userId }">
     </form>
-</body>
+    
+    <div class="modal fade" id="passwordCheckModal">
+                       <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+                             <div class="modal-header">
+                                <h4 class="modal-title">비밀번호 확인</h4>
+                                <button type="button" class="close" data-dismiss="modal" class="btn btn-primary">&times;</button>
+                             </div>
+                             
+                             
+                             
+                             <div class="modal-body">
+                                <div class="form-inline">
+                                   <label for="inputPwd" class="mr-sm-2">현재 비밀번호 : </label><br>
+                                   <button id="pwdCheckBtn" class="btn btn-primary">확인</button>
+                                </div>
+                                <input type="password" class="form-control mb-2 mr-sm-2" id="inputPwd" name="inputPwd" required />
+                                
+                                <form action="updatePwd.me" method="post" onsubmit="return checkEqual()">
+                                   <label for="newPwd" class="mr-sm-2">변경할 비밀번호 : </label>
+                                   <input type="password"  class="form-control mb-2 mr-sm-2" id="newPwd" name="newPwd" disabled required/>
+                                   <label for="checkPwd" class="mr-sm-2">변경할 비밀번호 확인 : </label>
+                                   <input type="password" class="form-control mb-2 mr-sm-2" id="checkPwd" name="checkPwd" disabled required/>
+                                   </div>
+                                   
+                                   <div class="modal-footer">
+                                      <button type="submit" id="submit" class="btn btn-primary" disabled>확인</button>
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                                   </div>                            
+                                </form>
+                             
+                             <script>
+                   
+                                $("#pwdCheckBtn").click(function(){
+                                   
+                                   var inputPwd = $("#inputPwd").val();
+                                   $.ajax({
+                                      url:"checkPwd.me",
+                                      type:"post",
+                                      data:{
+                                         inputPwd:inputPwd
+                                      },
+                                      success:function(status){
+                                         console.log(status);
+                                         if(status=="success"){
+                                            console.log("비밀번호 일치");
+                                            $("#checkResult").val(status);
+                                            validateSubmit();
+                                         }else{
+                                            console.log("비밀번호 불일치")
+                                         }
+                                      },
+                                      error:function(){
+                                         console.log("실패");
+                                      }
+                                   })
+                                   
+                                })
+                                
+                                function validateSubmit(){
+                                   console.log('${ loginUser.userPwd }');
+                                   console.log("새로운 비밀번호 활성화");
+                                   $("#newPwd").removeAttr("disabled");
+                                   $("#checkPwd").removeAttr("disabled");
+                                   $("#submit").removeAttr("disabled");
+                                }
+                                
+                                function checkEqual(){
+                                   if($("#newPwd").val()==$("#checkPwd").val()){
+                                      $("#userPwd").val($("newPwd").val());
+                                      console.log($("#userPwd").val() == '${ loginUser.userPwd }');
+                                      return true;
+                                   }else{
+                                      alert("값이 일치하지 않습니다.");
+                                      return false;
+                                   }
+                                }
+                             </script>
+                          </div>
+                       </div>
+                    </div>
+               <jsp:include page="../common/footer.jsp"/>
+    	</body>
 </html>
