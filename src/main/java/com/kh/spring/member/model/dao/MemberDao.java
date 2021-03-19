@@ -9,18 +9,36 @@ import com.kh.spring.member.model.vo.Member;
 public class MemberDao {
 	public Member loginUser(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
-		System.out.println("dao 진입");
-		
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
-		System.out.println("Member : "+m);
 		return sqlSession.insert("memberMapper.insertMember", m);
-	
 	}
 
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
 
+	public int deleteMember(SqlSessionTemplate sqlSession, String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("memberMapper.deleteMember", userId);
+	}
+
+	   public int updatePassword(SqlSessionTemplate sqlSession, Member member) {
+		      return sqlSession.update("memberMapper.updatePassword",member);
+	 }
+
+	public int idCheck(SqlSessionTemplate sqlSession, String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.idCheck", userId);
+	}
+
+	public int pwdCheck(SqlSessionTemplate sqlSession, String userPwd) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.pwdCheck", userPwd);
+	}
 	
 }
