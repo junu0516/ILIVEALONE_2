@@ -45,6 +45,8 @@ public interface GroupBuyService {
 
 	int updatePurchase(int pNo);
 
+	int updatePurchaseWithoutAccumulation(int pNo);
+	
 	ArrayList<PurchaseHistory> selectSalesHistories(String sellerId);
 
 	ArrayList<PurchaseHistory> selectPurchaseHistories(String buyerId);
@@ -60,4 +62,7 @@ public interface GroupBuyService {
 	int decreasePurchaseCount(int pNo);
 
 	int reopenDeal(int pNo);
+
+	int selectPreviousPurchaseCount(HashMap<String, String> mapKey);
+
 }

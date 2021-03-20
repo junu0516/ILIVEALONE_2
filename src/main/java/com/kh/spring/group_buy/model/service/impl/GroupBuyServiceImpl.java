@@ -128,6 +128,12 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	}
 
 	@Override
+	public int updatePurchaseWithoutAccumulation(int pNo) {
+	
+		return groupBuyDao.updatePurchaseWithoutAccumulation(sqlSession,pNo);
+	}
+	
+	@Override
 	public ArrayList<PurchaseHistory> selectSalesHistories(String sellerId) {
 		
 		return groupBuyDao.selectSalesHistories(sqlSession,sellerId);
@@ -173,6 +179,12 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	public int reopenDeal(int pNo) {
 		
 		return groupBuyDao.reopenDeal(sqlSession,pNo);
+	}
+
+	@Override
+	public int selectPreviousPurchaseCount(HashMap<String, String> mapKey) {
+	
+		return groupBuyDao.selectPreviousPurchaseCount(sqlSession,mapKey);
 	}
 
 }
