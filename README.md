@@ -9,6 +9,7 @@
 - [이준우](https://github.com/junu0516) : 공동구매 서비스 구현
 
 ### :computer:사용 기술
+- Version Control : Git & Github
 - Framework & Language(Backend) : Java & Spring
 - Frontend : Bootstrap, JSP(HTML,CSS,Javascript)
 - Database : Oracle, MyBatis
