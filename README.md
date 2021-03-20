@@ -12,4 +12,12 @@
 - Framework & Language(Backend) : Java & Spring
 - Frontend : Bootstrap, JSP(HTML,CSS,Javascript)
 - Database : Oracle, MyBatis
-- Server : Tomcat (v.8.5)
+- Server : Tomcat (v.8.5)   
+- IDE : Eclipse
+
+### :point_right: 프로젝트 내려받는법
+1. 현재 보고있는 ILIVEALONE_2 저장소를 본인의 로컬환경에 clone 합니다.(Clone Repository)
+2. 이클립스를 열고 clone한 저장소를 'Maven Project'로 import합니다.
+3. 자동으로 실행환경이 업데이트되면, 톰캣 8.5를 설치하여 프로젝트를 서버에 등록해줍니다.
+4. 이후 저장소에 있는 sql 파일의 DDL 문을 오라클에서 실행하여 사용할 테이블, 시퀀스를 모두 생성합니다.
+5. 서버와 DB설정이 끝났다면 서버실행 후, localhost:(본인의 톰캣 서버 포트번호)/spring으로 접속하여 화면이 정상적으로 나타는지 확인합니다.
