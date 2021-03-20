@@ -19,6 +19,7 @@
 		<result property="pPrice" column="PRODUCT_PRICE"/>
 		<result property="pPurchase" column="PRODUCT_PURCHASE"/>
 		<result property="pLimit" column="PRODUCT_LIMIT"/>
+		<result property="pMaxPurchase" column="PRODUCT_MAX_PURCHASE"/>
 		<result property="pDate" column="PRODUCT_DATE"/>
 		<result property="pCno" column="PRODUCT_CNO"/>
 		<result property="pStatus" column="PRODUCt_STATUS"/>
@@ -69,9 +70,9 @@
 	<insert id="insertProduct"
 			parameterType="GroupBuyProduct">
 		INSERT INTO GB_PRODUCT
-		(PRODUCT_NO,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_LIMIT,PRODUCT_DATE,PRODUCT_CNO,PRODUCT_PURCHASE,PRODUCT_STATUS)
+		(PRODUCT_NO,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_LIMIT,PRODUCT_MAX_PURCHASE,PRODUCT_DATE,PRODUCT_CNO,PRODUCT_PURCHASE,PRODUCT_STATUS)
 		VALUES 
-		(seq_product_no.nextval,#{pName},#{pPrice},#{pLimit},default,#{pCno},default,default)		
+		(seq_product_no.nextval,#{pName},#{pPrice},#{pLimit},#{pMaxPurchase},default,#{pCno},default,default)		
 	</insert>
 	
 	<select id="selectLastBoardNum"
@@ -91,6 +92,7 @@
             PRODUCT_PRICE,
             PRODUCT_PURCHASE,
             PRODUCT_LIMIT,
+            PRODUCT_MAX_PURCHASE,
             PRODUCT_DATE,
             PRODUCT_CNO,
             PRODUCT_STATUS
@@ -185,12 +187,11 @@
 		PRODUCT_NAME = #{pName},
 		PRODUCT_PRICE = #{pPrice},
 		PRODUCT_LIMIT = #{pLimit}
-		WHERE PRODUCT_CNO = ${pCno}
+		WHERE PRODUCT_CNO = #{pCno}
 	</update>
 	
 	<update id="deleteBoard"
-			parameterType="_int">
-		
+			parameterType="_int">	
 		UPDATE GROUP_BUYING SET
 		GB_STATUS='N'
 		WHERE GB_NO=#{gbNo}
@@ -290,6 +291,7 @@
 		PH_CHANGE_DATE = SYSDATE
 		WHERE PH_BUYER = #{phBuyer} 
 		AND PH_PRODUCT = #{phProduct}
+		AND PH_NO = #{phNo}
 	</update>
 	
 	<update id="decreasePurchaseCount"
@@ -305,5 +307,29 @@
 		PRODUCT_STATUS = 'Y'
 		WHERE PRODUCT_NO = #{pNo}		
 	</update>
+	
+	<select id="selectPreviousPurchaseCount"
+			parameterType="hashmap"
+			resultType="_int">
+		SELECT
+		    NVL(SUM(PH_QUANTITY),-1) AS PH_QUANTITY_SUM
+		FROM GB_PRODUCT
+		JOIN GB_PURCHASE_HISTORY ON GB_PURCHASE_HISTORY.PH_PRODUCT = GB_PRODUCT.PRODUCT_NO
+		WHERE PRODUCT_NO=#{phProduct} AND PH_BUYER=#{phBuyer} AND PH_STATUS='Y'
+		GROUP BY PH_BUYER
+		
+		UNION ALL
+		
+		SELECT -1 AS PH_QUANTITY_SUM
+		FROM DUAL
+		WHERE NOT EXISTS(
+			SELECT
+			    NVL(SUM(PH_QUANTITY),-1) AS PH_QUANTITY_SUM
+			FROM GB_PRODUCT
+			JOIN GB_PURCHASE_HISTORY ON GB_PURCHASE_HISTORY.PH_PRODUCT = GB_PRODUCT.PRODUCT_NO
+			WHERE PRODUCT_NO=#{phProduct} AND PH_BUYER=#{phBuyer} AND PH_STATUS='Y'
+			GROUP BY PH_BUYER
+		)
+	</select>
 	
 </mapper>

@@ -114,6 +114,11 @@ public class GroupBuyDao {
 	
 		return sqlSession.update("groupBuyMapper.updatePurchase",pNo);
 	}
+	
+	public int updatePurchaseWithoutAccumulation(SqlSessionTemplate sqlSession, int pNo) {
+	
+		return sqlSession.update("groupBuyMapper.updatePurchaseWithoutAccumulation",pNo);
+	}
 
 	public ArrayList<PurchaseHistory> selectSalesHistories(SqlSessionTemplate sqlSession, String sellerId) {
 
@@ -153,6 +158,11 @@ public class GroupBuyDao {
 	public int reopenDeal(SqlSessionTemplate sqlSession, int pNo) {
 
 		return sqlSession.update("groupBuyMapper.reopenDeal",pNo);
+	}
+
+	public int selectPreviousPurchaseCount(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
+
+		return sqlSession.selectOne("groupBuyMapper.selectPreviousPurchaseCount",mapKey);
 	}
 
 }
