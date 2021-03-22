@@ -50,6 +50,10 @@
 			<tx:method name="insert*" rollback-for="Exception"/>
 			<tx:method name="update*" rollback-for="Exception"/>
 			<tx:method name="delete*" rollback-for="Exception"/>
+			<tx:method name="add*" rollback-for="Exception"/>
+			<tx:method name="completeDeal" rollback-for="Exception"/>
+			<tx:method name="cancelDeal" rollback-for="Exception"/>
+			<tx:method name="prepareDeal" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice>
 	 
