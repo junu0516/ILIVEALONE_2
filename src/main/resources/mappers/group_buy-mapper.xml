@@ -23,6 +23,7 @@
 		<result property="pDate" column="PRODUCT_DATE"/>
 		<result property="pCno" column="PRODUCT_CNO"/>
 		<result property="pStatus" column="PRODUCt_STATUS"/>
+		<result property="pAccount" column="PRODUCT_ACCOUNT"/>
 	</resultMap>
 	
 	<resultMap type="PurchaseHistory" id="purchaseHistory">
@@ -70,9 +71,9 @@
 	<insert id="insertProduct"
 			parameterType="GroupBuyProduct">
 		INSERT INTO GB_PRODUCT
-		(PRODUCT_NO,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_LIMIT,PRODUCT_MAX_PURCHASE,PRODUCT_DATE,PRODUCT_CNO,PRODUCT_PURCHASE,PRODUCT_STATUS)
+		(PRODUCT_NO,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_LIMIT,PRODUCT_MAX_PURCHASE,PRODUCT_DATE,PRODUCT_CNO,PRODUCT_PURCHASE,PRODUCT_STATUS,PRODUCT_ACCOUNT)
 		VALUES 
-		(seq_product_no.nextval,#{pName},#{pPrice},#{pLimit},#{pMaxPurchase},default,#{pCno},default,default)		
+		(seq_product_no.nextval,#{pName},#{pPrice},#{pLimit},#{pMaxPurchase},default,#{pCno},default,default,#{pAccount})		
 	</insert>
 	
 	<select id="selectLastBoardNum"
@@ -95,7 +96,8 @@
             PRODUCT_MAX_PURCHASE,
             PRODUCT_DATE,
             PRODUCT_CNO,
-            PRODUCT_STATUS
+            PRODUCT_STATUS,
+            PRODUCT_ACCOUNT
 		FROM GB_PRODUCT
         JOIN GROUP_BUYING ON GROUP_BUYING.GB_NO = GB_PRODUCT.PRODUCT_CNO
         WHERE GROUP_BUYING.GB_STATUS='Y'

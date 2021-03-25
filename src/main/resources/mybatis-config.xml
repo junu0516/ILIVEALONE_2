@@ -25,7 +25,6 @@
 		<typeAlias type="com.kh.spring.group_buy.model.vo.SearchCondition" alias="SearchCondition"/>
 		<typeAlias type="com.kh.spring.group_buy.model.vo.PurchaseHistory" alias="PurchaseHistory"/>
 		<typeAlias type="com.kh.spring.real_estimate.model.vo.Real" alias="Real"/>
-		
 	</typeAliases>
 	
 	<mappers>

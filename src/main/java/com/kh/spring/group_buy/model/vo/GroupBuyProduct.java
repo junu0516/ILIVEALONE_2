@@ -24,5 +24,5 @@ public class GroupBuyProduct {
 	private Date pDate; //등록일
 	private int pCno; //게시글 번호
 	private String pStatus; //판매 상태
-	
+	private String pAccount; //입금계좌
 }

@@ -18,12 +18,11 @@
 		<h1 class="display-5">공동구매 신청</h1>
 		<br>
 		<div class="row">
-		
 			<div class="col-sm-6"> 
 				<form action="purchase.gb" id="purchaseForm" method="post">
 					<input type="hidden" name="phCno" value="${gbBoard.gbNo}"/>
 					<input type="hidden" name="phSeller" value="${gbBoard.gbMno}"/>
-				
+					
 					<!-- 제품명 -->
 					<div class="form-group">
 						<label for="pName">제품명 : </label>

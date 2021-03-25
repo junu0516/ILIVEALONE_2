@@ -6,10 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>구매내역 조회</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -22,6 +19,7 @@
 	</script>
 	<br><br>
 	<div class="container">
+	
 		<h2>구매내역 조회</h2>
 		<br>
 		&nbsp 구매자 아이디 : ${loginUser.userId}
@@ -43,7 +41,7 @@
 				<tr>
 					<td>${purchaseHistory.phNo}</td>
 					<c:set var="sharp" value="<%='#'%>"/>
-					<td><a data-toggle="collapse" href="${sharp}detail_${purchaseHistory.phNo}" aria-expanded="false" class="accordion-toggle">${purchaseHistory.phBuyerName}</a></td>
+					<td><a data-toggle="collapse" href="${sharp}detail_${purchaseHistory.phNo}" aria-expanded="false" aria-controls="detail_${purchaseHistory.phNo}">${purchaseHistory.phBuyerName}</a></td>
 					<td><a href="detail.gb?pNo=${purchaseHistory.phProduct}">${purchaseHistory.phProductName}</a></td>
 					<td>${purchaseHistory.phQuantity}</td>
 					<td>${purchaseHistory.phRecordDate}</td>
@@ -71,7 +69,7 @@
 				</tr>
 				<tr>
 					<td colspan="8">
-						<div id="detail_${purchaseHistory.phNo}" class="accordian-body collapse">
+						<div id="detail_${purchaseHistory.phNo}" class="collapse">
 							<b>세부정보 조회</b>
 							<br><br>
 							<ul>
