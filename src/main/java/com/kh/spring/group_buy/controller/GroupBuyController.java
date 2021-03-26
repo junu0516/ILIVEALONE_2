@@ -5,9 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.kh.spring.group_buy.model.Pagination;
 import com.kh.spring.group_buy.model.service.GroupBuyService;
@@ -28,6 +32,9 @@ import com.kh.spring.group_buy.model.vo.PageInfo;
 import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
 import com.kh.spring.member.model.vo.Member;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 public class GroupBuyController {
@@ -66,7 +73,11 @@ public class GroupBuyController {
 	@PostMapping("insert.gb")
 	public String insertBoardAndProduct(@ModelAttribute GroupBuyBoard groupBuyBoard,
 						 @ModelAttribute GroupBuyProduct groupBuyProduct,
+						 @RequestParam String accountName, @RequestParam String accountBankType, @RequestParam String accountNumber,
 						 HttpServletRequest request, @RequestParam(value="thumbnail", required=false)MultipartFile thumbnail) {
+		
+		String pAccount = accountBankType+" "+accountName+" / "+accountNumber; //계좌번호 조합
+		groupBuyProduct.setPAccount(pAccount); //계좌번호 정보 객체에 추가
 		
 		if(!thumbnail.getOriginalFilename().equals("")) {
 			String gbOriginalName = thumbnail.getOriginalFilename();
@@ -104,8 +115,7 @@ public class GroupBuyController {
 			e.printStackTrace();
 			System.out.println("파일 저장 오류 : " + e.getMessage());
 		}
-		
-		
+			
 		return changedName;
 	}
 	
@@ -284,7 +294,8 @@ public class GroupBuyController {
 	
 	@PostMapping("purchase.gb")
 	public String updateDeal(@ModelAttribute PurchaseHistory purchaseHistory, 
-									  String post, String address1, String address2,RedirectAttributes redirectAttr) {
+							 String post, String address1, String address2,
+							 RedirectAttributes redirectAttr, HttpSession session) throws Exception  {
 		
 		//넘어온 기록내역 확인
 		System.out.println(purchaseHistory);
@@ -295,26 +306,64 @@ public class GroupBuyController {
 		System.out.println(purchaseHistory);
 		
 		//서비스 레이어로 넘겨서 비즈니스 로직 처리
-		int result = groupBuyService.updateDeal(purchaseHistory);
+		int result = 0;
 		
+		result = groupBuyService.updateDeal(purchaseHistory);
+		
+		GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
 		switch(result) {
 			case 1:
 				redirectAttr.addFlashAttribute("message","이미 모집인원 도달로 더 이상 구매가 불가합니다.");
 				return "redirect:list.gb";
 			case 2:
-				GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
 				redirectAttr.addFlashAttribute("message","개인별로 허용된 구매 수량을 초과하였습니다.");
 				return "redirect:detail.gb?pNo="+gbProduct.getPNo();
 			case 3:
-				redirectAttr.addFlashAttribute("message","구매가 완료되었습니다.");
-				return "redirect:list.gb";
+				//구매신청 완료 후, 문자메시지 전송
+				//redirectAttr.addFlashAttribute("message","구매가 완료되었습니다.");
+				Member loginUser = (Member)session.getAttribute("loginUser");
+				redirectAttr.addFlashAttribute("to", loginUser.getPhone()); //임시 세션에 수신자 번호 담기
+				redirectAttr.addFlashAttribute("account", gbProduct.getPAccount()); //임시 세션에 계좌 번호 담기
+				return "redirect:sendSMS.gb";
 		}
 		
 		//나머지 default는 오류페이지로 넘어가도록 처리(서비스레이어에서 1~3 외의 값을 반환한 경우는 오류로 간주)
 		return null; //어차피 여기까지 안옴?
-
 	}
+	
+	//구매신청 후, 입금확인 문자 메시지를 보내기 위한 메소드
+	@GetMapping("sendSMS.gb")
+	public String sendMessage(HttpServletRequest request, RedirectAttributes redirectAttr) {
 
+		String apiKey = "NCSK5GDCGL4H6TZH";
+		String apiSecret = "HY2EZEKPSCN6UMLUAT7QXFMYQ8MUXJ4B";
+		Message sms = new Message(apiKey,apiSecret);
+		
+		HashMap<String,String> smsInfos = new HashMap<>();
+		Map<String,?> redirectMap = RequestContextUtils.getInputFlashMap(request); 
+		System.out.println("계좌 확인 : "+ (String)(redirectMap.get("account")));
+		//(String)(redirectMap.get("to"))
+		smsInfos.put("to", (String)(redirectMap.get("to"))); //수신번호
+		smsInfos.put("from", "01029260516"); //발신번호
+		smsInfos.put("text","입금하실 계좌정보를 확인하세요 : \n"+(String)(redirectMap.get("account"))); //문자 내용
+		smsInfos.put("type", "SMS"); //문자 타입
+		smsInfos.put("app_version", "test app 1.2");
+		
+		try {
+			JSONObject result = (JSONObject)sms.send(smsInfos);
+			System.out.println(result.toString());
+			redirectAttr.addFlashAttribute("message","구매가 완료되었습니다.");
+		} catch (CoolsmsException e) {
+			//예외발생시 메시지 출력
+			redirectAttr.addFlashAttribute("message","문자메시지 전송 실패");
+			System.out.println(e.getMessage());
+			System.out.println(e.getCode());
+		}
+		
+		redirectAttr.addFlashAttribute("message","구매가 완료되었습니다. 문자메시지로 입금계좌를 확인하세요");
+		return "redirect:list.gb";
+	}
+	
 	@GetMapping("purchaseHistory.gb")
 	public String showPurchaseHistory(@SessionAttribute("loginUser")Member loginUser, Model model) {
 		
@@ -324,7 +373,13 @@ public class GroupBuyController {
 		
 		return "group_buy/purchaseHistoryList";
 	}
-	
+
+	/*
+	 * TODO
+	 * 아래 메소드는 DB 내용을 수정하는 작업을 포함하고 있기 때문에,
+	 * GET방식이 아닌 POST방식으로 변경해야 안전함
+	 * 
+	 * */
 	@GetMapping("prepareDeal.gb")
 	public String prepareDeal(@RequestParam int phProduct, @RequestParam String phBuyer, RedirectAttributes redirectAttr) {
 	
@@ -338,7 +393,7 @@ public class GroupBuyController {
 		mapKey.put("phProduct",String.valueOf(phProduct));
 		mapKey.put("phBuyer",phBuyer);
 		
-		int result = groupBuyService.prepareDeal(mapKey);
+		int result = groupBuyService.updatePreparingDeal(mapKey);
 		if(result>0) {
 			System.out.println("배송준비처리 성공");
 		}
@@ -358,7 +413,7 @@ public class GroupBuyController {
 		mapKey.put("phBuyer",phBuyer);
 		mapKey.put("phInvoice", company+" , "+invoice);
 		
-		int result = groupBuyService.completeDeal(mapKey);
+		int result = groupBuyService.updateCompletingDeal(mapKey);
 		if(result>0) {
 			System.out.println("송장번호 추가 완료");
 		}
@@ -366,13 +421,19 @@ public class GroupBuyController {
 		return "redirect:salesHistory.gb";
 	}
 	
+	/*
+	 * TODO
+	 * 아래 메소드는 DB 내용을 수정하는 작업을 포함하고 있기 때문에,
+	 * GET방식이 아닌 POST방식으로 변경해야 안전함
+	 * 
+	 * */
 	@GetMapping("cancelDeal.gb")
 	public String cancelDeal(@RequestParam int phNo, @RequestParam int phProduct, @RequestParam String phBuyer, RedirectAttributes redirectAttr) {
 		
 		//구매내역을 status='N'으로 처리하여 취소처리
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(phProduct);
 		if(!groupBuyProduct.getPStatus().equals("N")) {
-			groupBuyService.closeDeal(groupBuyProduct.getPNo());
+			groupBuyService.updateClosingDeal(groupBuyProduct.getPNo());
 		}
 		
 		HashMap<String,String> mapKey = new HashMap<>();
@@ -380,7 +441,7 @@ public class GroupBuyController {
 		mapKey.put("phProduct",String.valueOf(phProduct));
 		mapKey.put("phBuyer",phBuyer);
 		
-		int result = groupBuyService.cancelDeal(mapKey);
+		int result = groupBuyService.updateCancelingDeal(mapKey);
 
 		if(result>0) {
 			redirectAttr.addFlashAttribute("message","구매취소 완료");

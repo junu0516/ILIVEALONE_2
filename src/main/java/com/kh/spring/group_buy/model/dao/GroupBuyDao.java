@@ -125,22 +125,22 @@ public class GroupBuyDao {
 		return (ArrayList)sqlSession.selectList("groupBuyMapper.selectPurchaseHistories",buyerId);
 	}
 
-	public int closeDeal(SqlSessionTemplate sqlSession, int pNo) {
+	public int updateClosingDeal(SqlSessionTemplate sqlSession, int pNo) {
 
 		return sqlSession.update("groupBuyMapper.closeDeal",pNo);
 	}
 
-	public int prepareDeal(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
+	public int updatePreparingDeal(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
 
 		return sqlSession.update("groupBuyMapper.prepareDeal",mapKey);
 	}
 
-	public int completeDeal(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
+	public int updateCompletingDeal(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
 		
 		return sqlSession.update("groupBuyMapper.completeDeal",mapKey);
 	}
 
-	public int cancelDeal(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
+	public int updateCancelingDeal(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
 	
 		return sqlSession.update("groupBuyMapper.cancelDeal",mapKey);
 	}
@@ -150,7 +150,7 @@ public class GroupBuyDao {
 		return sqlSession.update("groupBuyMapper.decreasePurchaseCount",pNo);
 	}
 
-	public int reopenDeal(SqlSessionTemplate sqlSession, int pNo) {
+	public int updateReopeningDeal(SqlSessionTemplate sqlSession, int pNo) {
 
 		return sqlSession.update("groupBuyMapper.reopenDeal",pNo);
 	}
@@ -158,6 +158,11 @@ public class GroupBuyDao {
 	public int selectPreviousPurchaseCount(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
 
 		return sqlSession.selectOne("groupBuyMapper.selectPreviousPurchaseCount",mapKey);
+	}
+
+	public int insertTransactionTest(SqlSessionTemplate sqlSession, GroupBuyProduct groupBuyProduct) {
+		
+		return sqlSession.insert("groupBuyMapper.insertTransactionTest",groupBuyProduct);
 	}
 
 }

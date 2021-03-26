@@ -67,6 +67,33 @@
             </div><br>
             
             <div class="form-group">
+                <label>입금 계좌 정보 : </label>
+                <input type="text" class="form-control" id="account" placeholder="예금주" name="accountName" required>&nbsp
+                <select type="text" class="form-control" id="account" name="accountBankType" required>
+                	<option>농협</option>
+                	<option>우리</option>
+                	<option>국민</option>
+                	<option>신한</option>
+                	<option>기업</option>
+                	<option>경남</option>
+                	<option>광주</option>
+                	<option>대구</option>
+                	<option>부산</option>
+                	<option>산업</option>
+                	<option>새마을금고</option>
+                	<option>수협</option>
+                	<option>신협</option>
+                	<option>우체국</option>
+                	<option>전북</option>
+                	<option>제주</option>
+                	<option>KEB하나</option>
+                	<option>한국씨티</option>
+                	<option>SC(구 제일)</option>
+                </select><br>
+                <input type="text" class="form-control" id="account" placeholder="계좌번호(-포함)" name="accountNumber" required>
+            </div>
+            <br>
+            <div class="form-group">
                 <label for="gbContent">내용 : </label>
                 <textarea class="form-control" id="gbContent" name = "gbContent" required></textarea>
             </div>

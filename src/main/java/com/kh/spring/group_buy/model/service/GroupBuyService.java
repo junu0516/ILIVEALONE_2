@@ -39,16 +39,16 @@ public interface GroupBuyService {
 
 	ArrayList<PurchaseHistory> selectPurchaseHistories(String buyerId);
 
-	int closeDeal(int pNo);
+	int updateClosingDeal(int pNo);
 
-	int prepareDeal(HashMap<String, String> mapKey);
+	int updatePreparingDeal(HashMap<String, String> mapKey);
 
-	int completeDeal(HashMap<String, String> mapKey);
+	int updateCompletingDeal(HashMap<String, String> mapKey);
 
-	int cancelDeal(HashMap<String, String> mapKey);
+	int updateCancelingDeal(HashMap<String, String> mapKey);
 
 	int selectPreviousPurchaseCount(HashMap<String, String> mapKey);
 
-	int updateDeal(PurchaseHistory purchaseHistory);
+	int updateDeal(PurchaseHistory purchaseHistory) throws Exception;
 
 }

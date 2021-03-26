@@ -44,27 +44,22 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-	
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="select*" read-only="true" rollback-for="Exception"/>
-			<tx:method name="insert*" rollback-for="Exception"/>
-			<tx:method name="update*" rollback-for="Exception"/>
-			<tx:method name="delete*" rollback-for="Exception"/>
-			<tx:method name="add*" rollback-for="Exception"/>
-			<tx:method name="completeDeal" rollback-for="Exception"/>
-			<tx:method name="cancelDeal" rollback-for="Exception"/>
-			<tx:method name="prepareDeal" rollback-for="Exception"/>
+			<tx:method name="*" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice>
 	 
 	<aop:config proxy-target-class="true">
-		<aop:pointcut expression="execution(* com.kh.spring..*Controller.*(..))" id="controllerMethod"/>
-		<aop:advisor id="transactionAdvisor" pointcut-ref="controllerMethod" advice-ref="txAdvice"/>
+		<aop:pointcut expression="execution(* com.kh.spring..*ServiceImpl.*(..))" id="serviceMethod"/>
+		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
 	</aop:config>
 
-	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000000" /> <!-- 최대 업로드 가능 크기 -->
 		<property name="maxInMemorySize" value="100000000" /> <!-- 메모리에 보관할 수 있는 최대 크기 -->
 	</bean>
