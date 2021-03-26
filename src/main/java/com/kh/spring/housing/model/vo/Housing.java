@@ -1,4 +1,4 @@
-package com.kh.spring.board.model.vo;
+package com.kh.spring.housing.model.vo;
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;
@@ -12,16 +12,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Board {
+public class Housing {
 	
-	private int boardNo;
-	private String boardWriter;
-	private String boardTitle;
-	private String boardContent;
+	private int housingNo;
+	private String housingWriter;
+	private String housingTitle;
+	private String housingContent;
 	private String originName;
 	private String changeName;
 	private int count;
 	private Date createDate;
 	private String status;
+	
 
 }

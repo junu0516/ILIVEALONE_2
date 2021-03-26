@@ -61,7 +61,7 @@
 				        			<ul class="dropdown-menu">
 					         			<li><a href="Toplist.bo">패션 게시판</a></li>
 					          			<li><a href="Toplistf.fo">푸드 게시판</a></li>
-					          			<li><a href="list.bo">하우징 게시판</a></li>
+					          			<li><a href="Toplistf.ho">하우징 게시판</a></li>
 				        			</ul>	
 		        				</li>
 		        			</ul>

@@ -1,4 +1,4 @@
-package com.kh.spring.board.controller;
+package com.kh.spring.housing.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,77 +22,74 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-import com.kh.spring.board.model.service.BoardService;
-import com.kh.spring.board.model.vo.Board;
-import com.kh.spring.board.model.vo.PageInfo;
-import com.kh.spring.board.model.vo.Pagination;
-import com.kh.spring.board.model.vo.BoardSearchCondition;
-import com.kh.spring.board.model.vo.BoradReply;
-import com.kh.spring.board.model.vo.Fashion;
-import com.kh.spring.board.model.vo.FashionReply;
+import com.kh.spring.housing.model.service.HousingService;
+import com.kh.spring.housing.model.vo.Housing;
+import com.kh.spring.housing.model.vo.PageInfo;
+import com.kh.spring.housing.model.vo.Pagination;
+import com.kh.spring.housing.model.vo.HousingSearchCondition;
+import com.kh.spring.housing.model.vo.HousingReply;
+import com.kh.spring.housing.model.vo.HousingP;
+import com.kh.spring.housing.model.vo.HousingPReply;
 
 
 
 
 @Controller
-public class BoardController {
+public class HousingController {
 	@Autowired
-	private BoardService boardService;
+	private HousingService housingService;
 	
-	@RequestMapping("Toplist.bo")
-	public String boardToplist() {
-		return "board/boardTopListView";
+	@RequestMapping("Toplistf.ho")
+	public String housingToplist() {
+		return "housing/housingTopListView";
 	}
-	@RequestMapping("enrollForm.bo")
-	public String boardenrollForm() {
+	@RequestMapping("enrollFormf.ho")
+	public String housingenrollForm() {
 		
-		return "board/boardEnrollForm";
+		return "housing/housingEnrollForm";
 	}
-	@RequestMapping("enrollForm.fo")
-	public String boardFenrollForm() {
-		return "board/boardFEnrollForm";
+	@RequestMapping("enrollFormP.ho")
+	public String housingPenrollForm() {
+		return "housing/housingPEnrollForm";
 	}
 	
-	@RequestMapping("main.do")
-	public String mainForm() {
-		return "board/like";
-	}
+	
 	
 
-	@RequestMapping("list.bo")
+	@RequestMapping("list.ho")
 	public String selectList(@RequestParam(value = "currentPage", required= false, defaultValue = "1") int currentPage, Model model) {
 		
 		
-		int listCount = boardService.selectListCount();
+		int listCount = housingService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		ArrayList<Board> list = boardService.selectList(pi);
+		ArrayList<Housing> list = housingService.selectList(pi);
 		
 		model.addAttribute("list",list);
 		model.addAttribute("pi",pi);
 		
-		return "board/boardListView";
+		return "housing/housingListView";
 
 	}
 	
-	@RequestMapping("blist.bo")
-	public String selectFList(@RequestParam(value = "currentPage", required= false, defaultValue = "1") int currentPage, Model model) {
+	@RequestMapping("blist.ho")
+	public String selectPList(@RequestParam(value = "currentPage", required= false, defaultValue = "1") int currentPage, Model model) {
 		
 		
-		int listCount = boardService.selectFListCount();
+		int listCount = housingService.selectPListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		ArrayList<Fashion> list = boardService.selectFList(pi);
+		ArrayList<HousingP> list = housingService.selectPList(pi);
 		
 		model.addAttribute("list",list);
 		model.addAttribute("pi",pi);
 		
-		return "board/boardFListView";
+		return "housing/housingPListView";
 
 	}
-	@RequestMapping("insert.bo")
-	public String insertBoard(Board b, HttpServletRequest request, Model model, 
+	@RequestMapping("insertf.ho")
+	public String inserthousing(Housing h, HttpServletRequest request, Model model, 
 							  @RequestParam(name="uploadFile", required =false) MultipartFile file) {
 		
-		System.out.println(b);
+		System.out.println(h);
 		System.out.println("file "+file);
 		
 		if(!file.getOriginalFilename().equals("")) {
@@ -100,16 +97,16 @@ public class BoardController {
 			String changeName = saveFile(file, request);
 			
 			if(changeName != null) {
-				b.setOriginName(file.getOriginalFilename());
-				b.setChangeName(changeName);
+				h.setOriginName(file.getOriginalFilename());
+				h.setChangeName(changeName);
 			}
 			
 		}
-		int result = boardService.insertBoard(b);
-		System.out.println(b);
+		int result = housingService.inserthousing(h);
+		System.out.println(h);
 		System.out.println(result);
 		if(result >0) {
-			return "redirect:list.bo";
+			return "redirect:list.ho";
 		}else {
 			System.out.println("에러");
 			return "";
@@ -141,11 +138,11 @@ public class BoardController {
 		return changeName;
 	}
 	
-	@RequestMapping("insert.fo")
-	public String insertFBoard(Fashion f, HttpServletRequest request, Model model, 
+	@RequestMapping("insertP.ho")
+	public String insertFhousing(HousingP hp, HttpServletRequest request, Model model, 
 							  @RequestParam(name="uploadFile", required =false) MultipartFile file) {
 		
-		System.out.println(f);
+		System.out.println(hp);
 		System.out.println("file "+file);
 		
 		if(!file.getOriginalFilename().equals("")) {
@@ -153,16 +150,16 @@ public class BoardController {
 			String changeName = saveFFile(file, request);
 			
 			if(changeName != null) {
-				f.setFashionOriginName(file.getOriginalFilename());
-				f.setFashionChangeName(changeName);
+				hp.setHousingPOriginName(file.getOriginalFilename());
+				hp.setHousingPChangeName(changeName);
 			}
 			
 		}
-		int result = boardService.insertFBoard(f);
-		System.out.println(f);
+		int result = housingService.insertPhousing(hp);
+		System.out.println(hp);
 		System.out.println(result);
 		if(result >0) {
-			return "redirect:blist.bo";
+			return "redirect:blist.ho";
 		}else {
 			System.out.println("에러");
 			return "";
@@ -194,41 +191,40 @@ public class BoardController {
 		return changeName;
 	}
 	
-	@RequestMapping("detail.bo")
-	public ModelAndView selectBoard(int bno, ModelAndView mv) {
+	@RequestMapping("detailf.ho")
+	public ModelAndView selecthousing(int hno, ModelAndView mv) {
 	
-		int result = boardService.updateIncreaseCount(bno);
-		System.out.println("조회수 : " + result);
+		int result = housingService.updateIncreaseCount(hno);
 		if(result>0) {
-			Board b = boardService.selectBoard(bno);
-			mv.addObject("b",b).setViewName("board/boardDetail");
+			Housing h = housingService.selecthousing(hno);
+			System.out.println(h);
+			mv.addObject("h",h).setViewName("housing/housingDetail");
 		}else {
 			System.out.println("상세보기 에러");
 		}
 		return mv;
 	}
 	
-
-	@RequestMapping("detail.fo")
-	public ModelAndView selectFBoard(int fno, ModelAndView mv) {
+	@RequestMapping("detailP.ho")
+	public ModelAndView selectPhousing(int hpno, ModelAndView mv) {
 	
-		int result = boardService.updateFIncreaseCount(fno);
+		int result = housingService.updatePIncreaseCount(hpno);
 		if(result>0) {
-			Fashion f = boardService.selectFBoard(fno);
-			mv.addObject("f",f).setViewName("board/boardFDetail");
+			HousingP hp = housingService.selectPhousing(hpno);
+			mv.addObject("hp",hp).setViewName("housing/housingPDetail");
 		}else {
 			System.out.println("상세보기 에러");
 		}
 		return mv;
 	}
-	@RequestMapping("delete.bo")
-	public String deleteBoard(int bno, String fileName, HttpServletRequest request, Model model) {
-		int result = boardService.deleteBoard(bno);
+	@RequestMapping("deletef.ho")
+	public String deletehousing(int hno, String fileName, HttpServletRequest request, Model model) {
+		int result = housingService.deletehousing(hno);
 		if(result > 0 ) {
 			if(fileName.equals("")) {
 				deleteFile(fileName, request);
 			}
-			return "redirect:list.bo";
+			return "redirect:list.ho";
 		}else {
 			System.out.println("게시물 삭제 시패");
 			return "";
@@ -237,14 +233,14 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping("delete.fo")
-	public String deleteFBoard(int fno, String fileName, HttpServletRequest request, Model model) {
-		int result = boardService.deleteFBoard(fno);
+	@RequestMapping("deleteP.ho")
+	public String deletePhousing(int hpno, String fileName, HttpServletRequest request, Model model) {
+		int result = housingService.deletePhousing(hpno);
 		if(result > 0 ) {
 			if(fileName.equals("")) {
-				deleteFFile(fileName, request);
+				deletePFile(fileName, request);
 			}
-			return "redirect:blist.bo";
+			return "redirect:blist.ho";
 		}else {
 			System.out.println("게시물 삭제 실패");
 			return "";
@@ -261,7 +257,7 @@ public class BoardController {
 		deleteFile.delete();
 	}
 	
-	private void deleteFFile(String fileName, HttpServletRequest request) {
+	private void deletePFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources+"\\upload_files\\";
 		
@@ -269,61 +265,61 @@ public class BoardController {
 		deleteFFile.delete();
 	}
 	
-	@RequestMapping("updateForm.bo")
-	public ModelAndView updateFormBoard(int bno, ModelAndView mv) {
-		mv.addObject("b", boardService.selectBoard(bno)).setViewName("board/boardUpdateForm");
+	@RequestMapping("updateFormf.ho")
+	public ModelAndView updateFormhousing(int hno, ModelAndView mv) {
+		mv.addObject("h", housingService.selecthousing(hno)).setViewName("housing/housingUpdateForm");
 		return mv;
 	}
 	
-	@RequestMapping("updateForm.fo")
-	public ModelAndView updateFormFBoard(int fno, ModelAndView mv) {
-		mv.addObject("f", boardService.selectFBoard(fno)).setViewName("board/boardFUpdateForm");
+	@RequestMapping("updateFormP.ho")
+	public ModelAndView updateFormPhousing(int hpno, ModelAndView mv) {
+		mv.addObject("hp", housingService.selectPhousing(hpno)).setViewName("housing/housingPUpdateForm");
 		return mv;
 	}
 	
-	@RequestMapping("update.bo")
-	public ModelAndView updateBoard(Board b, ModelAndView mv, HttpServletRequest request, 
+	@RequestMapping("updatef.ho")
+	public ModelAndView updatehousing(Housing h, ModelAndView mv, HttpServletRequest request, 
 									@RequestParam(value = "reUploadFile", required=false) MultipartFile file) {
 		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우 
-			if(b.getChangeName() != null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-				deleteFile(b.getChangeName(), request);
+			if(h.getChangeName() != null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
+				deleteFile(h.getChangeName(), request);
 			}
 			String changeName = saveFile(file, request); // 새로 넘어온 파일을 서버에 업로드
-			b.setOriginName(file.getOriginalFilename());
-			b.setChangeName(changeName);
+			h.setOriginName(file.getOriginalFilename());
+			h.setChangeName(changeName);
 			
 			
 		}
-	   int result = boardService.updateBoard(b);
-	   System.out.println(b);
+	   int result = housingService.updatehousing(h);
+	   System.out.println(h);
 	   System.out.println(result);
 		if(result > 0) {
-			mv.addObject("bno",b.getBoardNo()).setViewName("redirect:detail.bo");
+			mv.addObject("hno",h.getHousingNo()).setViewName("redirect:detailf.ho");
 		}else {
 			System.out.println("게시물 수정 실패");
 		}
 		return mv;
 	}
 	
-	@RequestMapping("update.fo")
-	public ModelAndView updateFBoard(Fashion f, ModelAndView mv, HttpServletRequest request, 
+	@RequestMapping("updateP.ho")
+	public ModelAndView updatePhousing(HousingP hp, ModelAndView mv, HttpServletRequest request, 
 									@RequestParam(value = "reUploadFile", required=false) MultipartFile file) {
 		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우 
-			if(f.getFashionChangeName()!= null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-				deleteFile(f.getFashionChangeName(), request);
+			if(hp.getHousingPChangeName()!= null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
+				deletePFile(hp.getHousingPChangeName(), request);
 			}
 			String changeName = saveFile(file, request); // 새로 넘어온 파일을 서버에 업로드
-			f.setFashionOriginName(file.getOriginalFilename());
-			f.setFashionChangeName(changeName);
-			
+			hp.setHousingPOriginName(file.getOriginalFilename());
+			hp.setHousingPChangeName(changeName);
+		
 			
 		}
-	   int result = boardService.updateFBoard(f);
-	   System.out.println(f);
+	   int result = housingService.updatePhousing(hp);
+	   System.out.println(hp);
 	   System.out.println(result);
 	
 		if(result > 0) {
-			mv.addObject("fno",f.getFashionNo()).setViewName("redirect:detail.fo");
+			mv.addObject("hpno",hp.getHousingPNo()).setViewName("redirect:detailP.ho");
 		}else {
 			System.out.println("게시물 수정 실패");
 		}
@@ -331,48 +327,48 @@ public class BoardController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("rinsert.bo")
-	public String insertReply(BoradReply r) {
-		int result = boardService.insertReply(r);
+	@RequestMapping("rfinsert.ho")
+	public String insertReply(HousingReply r) {
+		int result = housingService.insertReply(r);
 		return String.valueOf(result);
 	}
 	
 	@ResponseBody
-	@RequestMapping("rinsert.fo")
-	public String insertFReply(FashionReply r) {
-		int result = boardService.insertFReply(r);
+	@RequestMapping("rinsertP.ho")
+	public String insertPReply(HousingPReply r) {
+		int result = housingService.insertPReply(r);
 		return String.valueOf(result);
 	}
 	
 
 	@ResponseBody
-	@RequestMapping(value = "rlist.bo", produces = "application/json; charset=UTF-8")
-	public String selectReplyList(int bno) {
-		ArrayList <BoradReply> list = boardService.selectReplyList(bno);
+	@RequestMapping(value = "rflist.ho", produces = "application/json; charset=UTF-8")
+	public String selectReplyList(int hno) {
+		ArrayList <HousingReply> list = housingService.selectReplyList(hno);
 		
 		return new GsonBuilder().setDateFormat("yyyy년MM월dd일 HH:mm:ss").create().toJson(list); 
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "rlist.fo", produces = "application/json; charset=UTF-8")
-	public String selectFReplyList(int fno) {
-		ArrayList <FashionReply> list = boardService.selectFReplyList(fno);
+	@RequestMapping(value = "rlistP.ho", produces = "application/json; charset=UTF-8")
+	public String selectPReplyList(int hpno) {
+		ArrayList <HousingPReply> list = housingService.selectPReplyList(hpno);
 		
 		return new GsonBuilder().setDateFormat("yyyy년MM월dd일 HH:mm:ss").create().toJson(list); 
 	}
 	
-	@RequestMapping("topList.bo")
-	public void boardTopList(HttpServletResponse response) throws JsonIOException, IOException {
-		ArrayList<Board> list = boardService.selectTopList();
+	@RequestMapping("topListf.ho")
+	public void housingTopList(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Housing> list = housingService.selectTopList();
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list,response.getWriter());
 	}
 	
-	@RequestMapping("topList.fo")
-	public void boardFTopList(HttpServletResponse response) throws JsonIOException, IOException {
-		ArrayList<Fashion> list = boardService.selectFTopList();
+	@RequestMapping("topListP.ho")
+	public void housingPTopList(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<HousingP> list = housingService.selectPTopList();
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
@@ -381,14 +377,14 @@ public class BoardController {
 	
 	
 	//Serach 
-	@GetMapping("search.bo")
+	@GetMapping("searchf.ho")
 	public String searchList(@RequestParam(required=false)String condition, @RequestParam(required=false)String keyword, 
 			 @RequestParam(required=false, defaultValue="1")int currentPage,Model model) {
 			
 			model.addAttribute("condition",condition);
 			model.addAttribute("keyword",keyword);
 
-			BoardSearchCondition searchCondition = new BoardSearchCondition();
+			HousingSearchCondition searchCondition = new HousingSearchCondition();
 
 			if(condition.equals("title")) {
 				searchCondition.setTitle(keyword);
@@ -398,24 +394,24 @@ public class BoardController {
 				searchCondition.setWriter(keyword);
 			}
 
-			int listCount = boardService.selectListCount(searchCondition);
+			int listCount = housingService.selectListCount(searchCondition);
 			PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 5, 6);
 			model.addAttribute("pageInfo",pageInfo);
 
-			ArrayList<Board> list = boardService.selectList(pageInfo,searchCondition);
+			ArrayList<Housing> list = housingService.selectList(pageInfo,searchCondition);
 			model.addAttribute("list",list);
 
-			return "board/boardListView";
+			return "housing/housingListView";
 	}
 	
-	@GetMapping("search.fo")
+	@GetMapping("searchP.ho")
 	public String searchFList(@RequestParam(required=false)String condition, @RequestParam(required=false)String keyword, 
 			 @RequestParam(required=false, defaultValue="1")int currentPage,Model model) {
 			
 			model.addAttribute("condition",condition);
 			model.addAttribute("keyword",keyword);
 
-			BoardSearchCondition searchCondition = new BoardSearchCondition();
+			HousingSearchCondition searchCondition = new HousingSearchCondition();
 
 			if(condition.equals("title")) {
 				searchCondition.setTitle(keyword);
@@ -425,14 +421,14 @@ public class BoardController {
 				searchCondition.setWriter(keyword);
 			}
 
-			int listCount = boardService.selectFListCount(searchCondition);
+			int listCount = housingService.selectPListCount(searchCondition);
 			PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 5, 6);
 			model.addAttribute("pageInfo",pageInfo);
 
-			ArrayList<Fashion> list = boardService.selectFList(pageInfo,searchCondition);
+			ArrayList<HousingP> list = housingService.selectPList(pageInfo,searchCondition);
 			model.addAttribute("list",list);
 
-			return "board/boardFListView";
+			return "housing/housingPListView";
 	}
 	
 

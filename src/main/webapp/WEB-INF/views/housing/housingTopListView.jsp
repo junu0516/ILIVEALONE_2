@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>푸드 탑 리스트 </title>
+  <title>하우징 탑 리스트 </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -22,11 +22,11 @@
 
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
-     .sidenav {
+      .sidenav {
         height: auto;
         padding: 15px;
       }
-     .row.content {height:auto;} 
+      .row.content {height:auto;} 
     }
     
     .introImg{
@@ -48,9 +48,9 @@
     <div class="col-sm-2 sidenav">
       <ul class = "list-group">
       	<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
-      	<a href="Toplistf.fo" class="list-group-item list-group-item-success">푸드 메인 페이지</a></p>
-      	<a href="list.fo" class="list-group-item list-group-item-success">푸드 게시물</a></p>
-      	<a href="blist.fo" class="list-group-item list-group-item-success">푸드 최신뉴스</a></p>
+      	<a href="Toplistf.ho" class="list-group-item list-group-item-success">하우스 메인 페이지</a></p>
+      	<a href="list.ho" class="list-group-item list-group-item-success">하우스 게시물</a></p>
+      	<a href="blist.ho" class="list-group-item list-group-item-success">하우스 최신뉴스</a></p>
       	<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
       </ul>
     </div>
@@ -60,8 +60,8 @@
     <div class="col-sm-8 text-left">
       <br><br> 
       
-      <h1 align="center">푸드 게시글 TOP 5 목록</h1>
-      <table id="foodList" class="table table-hover" align="center">
+      <h1 align="center">하우스 게시글 TOP 5 목록</h1>
+      <table id="housingList" class="table table-hover" align="center">
       <thead>
       <tr>
 		<th>번호</th>
@@ -70,20 +70,20 @@
 		<th>날짜</th>
 		<th>조회수</th>
 	  </tr></thead><tbody></tbody></table>
-      <a class="btn btn-secondary" style="float:right" href="list.fo">목록</a>
+      <a class="btn btn-secondary" style="float:right" href="list.ho">목록</a>
       <hr>
 		<script>
 		function topList(){
 			$.ajax({
-				url: 'topListf.fo',
+				url: 'topListf.ho',
 				success: function(list){
-					$tableBody = $('#foodList tbody');
+					$tableBody = $('#housingList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
 						var $tr = $('<tr>');
-						var $bId = $('<td>').text(obj.foodNo);
-						var $bTitle = $('<td>').text(obj.foodTitle);
-						var $bWriter = $('<td>').text(obj.foodWriter);
+						var $bId = $('<td>').text(obj.housingNo);
+						var $bTitle = $('<td>').text(obj.housingTitle);
+						var $bWriter = $('<td>').text(obj.housingWriter);
 						var $bCreateDate = $('<td>').text(obj.createDate);
 						var $bCount = $('<td>').text(obj.count);
 						if(obj.originName != null){
@@ -110,8 +110,8 @@
 	</script>
 		
 		<br>
-      <h1 align="center">푸드 사진 TOP 5 목록</h1>
-      <table id="foodPList" class="table table-hover" align="center">
+      <h1 align="center">하우스 사진 TOP 5 목록</h1>
+      <table id="housingPList" class="table table-hover" align="center">
       <thead>
       <tr>
 		<th>번호</th>
@@ -120,23 +120,23 @@
 		<th>날짜</th>
 		<th>조회수</th>
 	  </tr></thead><tbody></tbody></table>
-      <a class="btn btn-secondary" style="float:right" href="blist.fo">목록</a>
+      <a class="btn btn-secondary" style="float:right" href="blist.ho">목록</a>
       <hr>
 		<script>
 		function topListF(){
 			$.ajax({
-				url: 'topListP.fo',
+				url: 'topListP.ho',
 				success: function(list){
-					$tableBody = $('#foodPList tbody');
+					$tableBody = $('#housingPList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
 						var $tr = $('<tr>');
-						var $fId = $('<td>').text(obj.foodPNo);
-						var $fTitle = $('<td>').text(obj.foodPTitle);
-						var $fWriter = $('<td>').text(obj.foodPWriter);
-						var $fCreateDate = $('<td>').text(obj.foodPCreateDate);
-						var $fCount = $('<td>').text(obj.foodPCount);
-						if(obj.foodPOriginName != null){
+						var $fId = $('<td>').text(obj.housingPNo);
+						var $fTitle = $('<td>').text(obj.housingPTitle);
+						var $fWriter = $('<td>').text(obj.housingPWriter);
+						var $fCreateDate = $('<td>').text(obj.housingPCreateDate);
+						var $fCount = $('<td>').text(obj.housingPCount);
+						if(obj.housingPOriginName != null){
 							$fFile = $('<td>').text("O");
 						}
 						$tr.append($fId);
@@ -167,31 +167,27 @@
     <div class="col-sm-2 sidenav">
       	<body onload = "showImage()">
       	<div class = "well" >
-      		<h2>오늘의 푸드</h2>
+      		<h2>오늘의 가구</h2>
 			<img class = "introImg" id = "introImg" border="0" >
        	<br><br><br>
         <hr>
         <br><br>
-        	<h2>오늘의 디저트</h2>
+        	<h2>오늘의 침대</h2>
 			<img class = "introImg1" id = "introImg1" border="0" >
       	</div>
       	</body>
     <script>
-	var imgArray = new Array();
-	imgArray[0] = "resources/img/오사카.jfif";
-	imgArray[1] = "resources/img/토스트.jfif";
-	imgArray[2] = "resources/img/프랑스.jfif";
-	imgArray[3] = "resources/img/국수.jfif";
-	
-	var imgArray1 = new Array();
-	imgArray1[0] = "resources/img/딸기 케이크.jfif";
-	imgArray1[1] = "resources/img/마카로.jfif";
-	imgArray1[2] = "resources/img/마카롱.jfif";
-	imgArray1[3] = "resources/img/케이크.jfif";
-
-	
-	
-	
+			var imgArray = new Array();
+			imgArray[0] = "resources/img/라자가구.jfif";
+			imgArray[1] = "resources/img/가구.jfif";
+			imgArray[2] = "resources/img/영국 가구.jfif";
+			imgArray[3] = "resources/img/의자.jfif";
+			
+			var imgArray1 = new Array();
+			imgArray1[0] = "resources/img/크렌시아.jfif";
+			imgArray1[1] = "resources/img/모던바로크.jfif";
+			imgArray1[2] = "resources/img/소파.jfif";
+			imgArray1[3] = "resources/img/스퀘어.jfif";
 
 			
 			function showImage(){
