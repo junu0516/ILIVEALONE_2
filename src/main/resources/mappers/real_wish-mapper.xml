@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="realWishMapper">
+	<resultMap type="RealWish" id="realWishResultSet">
+		<id property="stuffNo" column="STUFF_NO"/>
+		<id property="loginUser" column="USERID"/>
+	</resultMap>
+
+	
+	<insert id="insertWish"
+			parameterType="RealWish">
+		INSERT INTO USER_WISH
+		VALUES(
+		#{stuffNo}, 
+		#{loginUser}
+		)
+	</insert>
+
+	
+	<delete id="deleteIdWish" parameterType="String">
+		DELETE FROM USER_WISH WHERE USERID=#{userId}
+	</delete>
+	
+	<delete id="deleteStuffWish" parameterType="_int">
+		DELETE FROM USER_WISH WHERE STUFF_NO=#{stuff_no}
+	</delete>
+	
+	<select id="selectWishList" parameterType="String"
+	resultType="_int">
+		SELECT STUFF_NO
+		FROM USER_WISH
+		WHERE USERID=#{userId}
+	</select>
+
+	<delete id="deleteWish" parameterType="hashmap">
+		DELETE FROM USER_WISH WHERE STUFF_NO=#{rno} AND USERID=#{userId}
+	</delete>
+	
+</mapper>
+	

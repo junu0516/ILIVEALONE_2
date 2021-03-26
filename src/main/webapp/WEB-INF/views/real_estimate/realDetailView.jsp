@@ -26,7 +26,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-
+<script>
+if(${result }!=null){
+	if(${result}==0){
+		alert("이미 찜했거나 찜하기에 실패했습니다.");
+	}else if( ${result}==1){
+		alert("찜하기 성공!");
+	}
+}
+</script>
 	
 		<jsp:include page="../common/header.jsp"/>
 		
@@ -50,6 +58,13 @@
 			<br><br>
 			
             <table id="contentArea" align="center" class="table">
+            
+            	 <tr>
+                    <th width="100">등록자</th>
+                    <td colspan="3">${ r.userId }</td>
+                </tr>
+                
+                
                 <tr>
                     <th width="100">세 종류</th>
                     <td colspan="3">${ r.money_kind }</td>
@@ -92,34 +107,38 @@
             
             <br>
 
-            <c:if test="${ r.stuffNo eq r.stuffNo }">
              <div align="center">
-	                <button onclick="postFormSubmit(1);">수정하기</button>
-	                <button onclick="postFormSubmit(2);">삭제하기</button>
+             		<c:if test="${ r.userId eq loginUser.userId }">
+	                	<button onclick="postFormSubmit(1);">수정하기</button>
+	                	<button onclick="postFormSubmit(2);">삭제하기</button>
+	                 </c:if>
+	                 <button onclick="postFormSubmit(3);">찜하기</button>
 	         </div>
-	         
 			 <form id="postForm" action="" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
 				<input type="hidden" name="rno" value="${ r.stuffNo }">
 				<input type="hidden" name="fileName" value="${ r.changeName }">
+				<input type="hidden" name="userId" value="${loginUser.userId}">
 			</form>
 				
 			<script>
 				function postFormSubmit(num){
 					var postForm = $("#postForm");
-					
-					console.log(1);
-						
+				
 					if(num == 1){
 						postForm.attr("action", "updateForm.re"); //수정 form으로 이동
-					}else{
+					}else if(num==2){
 						postForm.attr("action", "delete.re"); //삭제 form으로 이동
+					}else{
+						postForm.attr("action", "wish.re"); //찜하기 form으로 이동
 					}
 					
 					postForm.submit();
 				}
 			</script>
-			</c:if>
-         
+			
+			
+			
+        
         </div>
     </div>
 
