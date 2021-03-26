@@ -5,11 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <title>패션 게시판 상세보기</title>
+  <title>하우징 게시판 상세보기</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -18,15 +20,21 @@
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: auto;}
+    .row.content {height: 450px}
     
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
-      height: auto;
+      height: 100%;
     }
     
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -36,73 +44,78 @@
       }
       .row.content {height:auto;} 
     }
-    
-    .table  {
-    	height : auto;
+	
+	
+    .introImg{
+    	height: 150px;
+    	weight: 150px;
     }
-
+    .introImg1{
+       	height: 150px;
+    	weight: 150px; 
+    }
+    
   </style>
+  
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
    <div class="container-fluid text-center">  
 	  <div class="col-sm-2 sidenav">
-	  	 <ul class = "list-group">
-      		<a href="main.do" class="list-group-item list-group-item-success">Home</a></p>
-      		<a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 페이지</a></p>
-      		<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
-      		<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
+      	 <ul class = "list-group">
+      		<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      		<a href="Toplist.ho" class="list-group-item list-group-item-success">하우징 메인 페이지</a></p>
+      		<a href="list.ho" class="list-group-item list-group-item-success">하우징 게시물</a></p>
+      		<a href="blist.ho" class="list-group-item list-group-item-success">하우징 최신뉴스</a></p>
       		<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
       	</ul>
 	  </div>
 	  
 	<div class="col-sm-8 text-left" style="padding:5% 10%;"> 
-            <h2>게시글 상세보기</h2>
+            <h2>하우징 사진 상세보기</h2>
             <br>
-            <div align = "center">
-            	 <button class="btn btn-primary"><a href="list.bo" >홈으로</a></button>
-            </div>
+            
             <br><br>
+
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100">제목
-                    </th>
-                    <td colspan="3">${ b.boardTitle }</td>
+                    <th width="100">제목</th>
+                    <td colspan="3">${ hp.housingPTitle }</td>
                 </tr>
-               
                 <tr>
                     <th>작성자</th>
-                    <td>${ b.boardWriter }</td>
+                    <td>${ hp.housingPWriter }</td>
                     <th>작성일</th>
-                    <td>${ b.createDate }</td>
+                    <td>${ hp.housingPCreateDate }</td>
                 </tr>
-                <tr>
-                    <th>첨부파일</th>
+                <tr>			
+                	<th>조회</th>
+                	<td colspan="3">
+                	${hp.housingPCount}
+                	</td>
+                </tr>
+                <tr>  
+                    <th>사진</th>
                     <td colspan="3">
-                    	<c:if test="${ !empty b.originName }">
-                        	<a href="${ pageContext.servletContext.contextPath }/resources/upload_files/${b.changeName}" download="${ b.originName }">${ b.originName }</a>
+                    	<c:if test="${ !empty hp.housingPOriginName }">
+                        	<img src ="${ pageContext.servletContext.contextPath }/resources/upload_files/${hp.housingPChangeName}" alt = "">
                         </c:if>
-                        <c:if test="${ empty b.originName }">
-                        	첨부파일이 없습니다.
+                        <c:if test="${ empty hp.housingPOriginName }">
+                        	<img src="resources/img/thumbnail.jpeg" alt="">
                         </c:if>
                     </td>
                 </tr>
-                <tr>
-                	<th>조회</th>
-                	<td>${b.count}</td>
-                	
-                </tr>
+
                 <tr>
                     <th>내용</th>
                      <td colspan="2">
-                     ${b.boardContent}
+                     ${hp.housingPContent}
                   	</td>
                 </tr>
-                
             </table>
-			<br>
+            <br>
 	
-				<c:if test="${ loginUser.userId eq b.boardWriter }">
+			<c:if test="${ loginUser.userId eq hp.housingPWriter }">
 	            <div align="center">
 	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
@@ -110,26 +123,25 @@
 	            </div>
 	           
 	            <form id="postForm" action="" method="post">
-					<input type="hidden" name="bno" value="${ b.boardNo }">
-					<input type="hidden" name="fileName" value="${ b.changeName }"> 
+					<input type="hidden" name="hpno" value="${ hp.housingPNo }">
+					<input type="hidden" name="fileName" value="${ hp.housingPChangeName }"> 
 				</form>
 				<script>
 					function postFormSubmit(num){
 						var postForm = $("#postForm");
 						
 						if(num == 1){
-							postForm.attr("action", "updateForm.bo");
+							postForm.attr("action", "updateFormP.ho");
 						}else{
-							postForm.attr("action", "delete.bo");
+							postForm.attr("action", "deleteP.ho");
 						}
 						postForm.submit();
 					}
-					
-					function 
-				
 				</script>
             </c:if>
-            	
+            	<div align = "center">
+            	 <button class="btn btn-primary"><a href="blist.ho" >홈으로</a></button>
+            	</div>
             <br><br>
 
             <table id="replyArea" class="table" align="center">
@@ -139,7 +151,8 @@
 	                        <th colspan="2" style="width:75%">
 	                            <textarea class="form-control" id="replyContent" rows="2" style="resize:none; width:100%"></textarea>
 	                        </th>
-	                        <th style="vertical-align: middle"><button class="btn btn-secondary" id="addReply">등록하기</button></th>
+	                        <th style="vertical-align: middle
+	                        "><button class="btn btn-secondary" id="addReply">등록하기</button></th>
                         </c:if>
                         <c:if test="${ empty loginUser }">
                         	<th colspan="2" style="width:75%">
@@ -157,30 +170,30 @@
                 </tbody>
             </table>
         </div>
-               <div class="col-sm-2 sidenav">
-      	<body onload = "showImage()">
-      	<div class = "well" >
-      		<h2>오늘의 패션(남자)</h2>
-			<img class = "introImg" id = "introImg" border="0" >
-       	<br><br><br>
-        <hr>
-        <br><br>
-        	<h2>오늘의 패션(여자)</h2>
+        <div class="col-sm-2 sidenav">
+      		<body onload = "showImage()">
+      		<div class = "well" >
+      			<h2>오늘의 하우징</h2>
+				<img class = "introImg" id = "introImg" border="0" >
+       		<br><br><br>
+        	<hr>
+        	<br><br>
+        	<h2>오늘의 디저트</h2>
 			<img class = "introImg1" id = "introImg1" border="0" >
-      	</div>
-      	</body>
-    <script>
-			var imgArray = new Array();
-			imgArray[0] = "resources/img/A1.jfif";
-			imgArray[1] = "resources/img/A2.jfif";
-			imgArray[2] = "resources/img/A3.jfif";
-			imgArray[3] = "resources/img/A4.jfif";
-			
-			var imgArray1 = new Array();
-			imgArray1[0] = "resources/img/B1.jfif";
-			imgArray1[1] = "resources/img/B2.jfif";
-			imgArray1[2] = "resources/img/B3.jfif";
-			imgArray1[3] = "resources/img/B4.jfif";
+      		</div>
+      		</body>
+    	<script>
+    	var imgArray = new Array();
+		imgArray[0] = "resources/img/라자가구.jfif";
+		imgArray[1] = "resources/img/가구.jfif";
+		imgArray[2] = "resources/img/영국 가구.jfif";
+		imgArray[3] = "resources/img/의자.jfif";
+		
+		var imgArray1 = new Array();
+		imgArray1[0] = "resources/img/크렌시아.jfif";
+		imgArray1[1] = "resources/img/모던바로크.jfif";
+		imgArray1[2] = "resources/img/소파.jfif";
+		imgArray1[3] = "resources/img/스퀘어.jfif";
 
 			
 			function showImage(){
@@ -199,21 +212,22 @@
   </div>
 	
 </div>
-
 <script>
+	
+	
        $(function(){
           selectReplyList();
           
           $("#addReply").click(function(){
-              var bno = ${b.boardNo};
+              var hpno = ${hp.housingPNo};
 
              if($("#replyContent").val().trim().length != 0){
                 
                 $.ajax({
-                   url:"rinsert.bo",
+                   url:"rinsertP.ho",
                    type:"post",
                    data:{replyContent:$("#replyContent").val(),
-                        refBoardNo:bno,
+                        refHousingPNo:hpno,
                         replyWriter:"${loginUser.userId}"},
                    success:function(result){
                       if(result > 0){
@@ -236,10 +250,10 @@
        });
        
        function selectReplyList(){
-          var bno = ${b.boardNo};
+          var hpno = ${hp.housingPNo};
           $.ajax({
-             url:"rlist.bo",
-             data:{bno:bno},
+             url:"rlistP.ho",
+             data:{hpno:hpno},
              type:"get",
              success:function(list){
                 $("#rcount").text(list.length);
@@ -263,7 +277,10 @@
                 console.log("댓글 리스트조회용 ajax 통신 실패");
              }
           });
-       }
+       
+          
+      	}
+     
     </script>
 	<jsp:include page="../common/footer.jsp"/>
 

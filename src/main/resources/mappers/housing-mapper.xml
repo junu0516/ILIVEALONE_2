@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="housingMapper">
+	<resultMap id="housingResultSet" type="Housing">
+		<id property="housingNo" column="H_NO"/>
+		<result property="housingWriter" column="H_WRITER"/>
+		<result property="housingTitle" column="H_TITLE"/>
+		<result property="housingContent" column="H_CONTENT"/>
+		<result property="count" column="H_COUNT"/>
+		<result property="createDate" column="H_DATE"/>
+		<result property="status" column="H_STATUS"/>
+		<result property="originName" column="H_ORIGIN"/>
+		<result property="changeName" column="H_CHANGE"/>
+	</resultMap>
+	
+	<resultMap id="replyResultSet" type="HousingReply">
+		<id column="H_R_NO" property="replyNo"/>
+		<result column="H_R_CONTENT" property="replyContent"/>
+		<result column="H_R_BNO" property="refHousingNo"/>
+		<result column="H_R_WRITER" property="replyWriter"/>
+		<result column="H_R_CREATE" property="createDate"/>
+		<result column="H_R_STATUS" property="status"/>
+	</resultMap>
+	
+	<resultMap id="housingPResultSet" type="HousingP">
+		<id property="housingPNo" column="HP_NO"/>
+		<result property="housingPWriter" column="HP_WRITER"/>
+		<result property="housingPTitle" column="HP_TITLE"/>
+		<result property="housingPContent" column="HP_CONTENT"/>
+		<result property="housingPCount" column="HP_COUNT"/>
+		<result property="housingPCreateDate" column="HP_DATE"/>
+		<result property="housingPStatus" column="HP_STATUS"/>
+		<result property="housingPOriginName" column="HP_ORIGIN"/>
+		<result property="housingPChangeName" column="HP_CHANGE"/>		
+	</resultMap>
+	
+	<resultMap id="replyPResultSet" type="HousingPReply">
+		<id column="HP_R_NO" property="replyNo"/>
+		<result column="HP_R_CONTENT" property="replyContent"/>
+		<result column="HP_R_BNO" property="refHousingPNo"/>
+		<result column="HP_R_WRITER" property="replyWriter"/>
+		<result column="HP_R_CREATE" property="createDate"/>
+		<result column="HP_R_STATUS" property="status"/>
+	</resultMap>
+	
+	<select id="selectListCount" resultType = "_int">		
+		SELECT COUNT(*)
+		FROM HOUSING
+		WHERE H_STATUS='Y'
+	</select>
+	
+	<select id = "selectList" resultMap="housingResultSet">
+		SELECT *
+		FROM HOUSING
+		WHERE H_STATUS = 'Y'
+		ORDER BY H_NO DESC
+	</select>
+	
+	<select id="selectPListCount" resultType = "_int">		
+		SELECT COUNT(*)
+		FROM housingP
+		WHERE HP_STATUS='Y'
+	</select>
+	
+	<select id = "selectPList" resultMap="housingPResultSet">
+		SELECT *
+		FROM HOUSINGP
+		WHERE HP_STATUS = 'Y'
+		ORDER BY HP_NO DESC
+	</select>
+	
+	
+	<insert id = "inserthousing" parameterType="Housing">
+	insert into housing
+	values(seq_h_no.nextval, #{housingWriter},#{housingTitle}, #{housingContent},  SYSDATE,default,default, #{originName}, #{changeName})
+	</insert>
+	
+	<insert id = "insertPhousing" parameterType="HousingP">
+	insert into housingp
+	values(seq_hp_no.nextval, #{housingPWriter},#{housingPTitle}, #{housingPContent},  SYSDATE,default,default, #{housingPOriginName}, #{housingPChangeName})
+	</insert>
+	
+	<select id = "selecthousing" resultMap= "housingResultSet">
+		SELECT *
+		FROM HOUSING
+		WHERE H_NO = #{hno}
+		AND H_STATUS = 'Y'
+	</select>
+	
+	<select id = "selectPhousing" resultMap= "housingPResultSet">
+		SELECT *
+		FROM HOUSINGP
+		WHERE HP_NO = #{hpno}
+		AND HP_STATUS = 'Y'
+	</select>
+	
+	<select id  = "updateIncreaseCount" parameterType="_int">
+		UPDATE HOUSING
+		SET H_COUNT = H_COUNT + 1
+		WHERE H_NO = #{hno}
+		AND H_STATUS = 'Y'
+	</select>
+	
+	<select id  = "updatePIncreaseCount" parameterType="_int">
+		UPDATE HOUSINGP
+		SET HP_COUNT = HP_COUNT + 1
+		WHERE HP_NO = #{hpno}
+		AND HP_STATUS = 'Y'
+	</select>
+	
+	<update id = "deletehousing" parameterType="_int">
+		UPDATE HOUSING 
+		SET H_STATUS = 'N'
+		WHERE H_NO = #{hno}
+	</update>
+	
+	<update id = "deletePhousing" parameterType="_int">
+		UPDATE HOUSINGP 
+		SET HP_STATUS = 'N'
+		WHERE HP_NO = #{hpno}
+	</update>
+	
+	<update id = "updatehousing" parameterType="Housing">
+		UPDATE HOUSING
+		SET H_TITLE = #{housingTitle}, H_CONTENT = #{housingContent}, H_ORIGIN = #{originName}, H_CHANGE = #{changeName}
+		WHERE H_NO = #{housingNo}
+	</update>
+	
+	<update id = "updatePhousing" parameterType="HousingP">
+		UPDATE housingP
+		SET HP_TITLE = #{housingPTitle}, HP_CONTENT = #{housingPContent}, HP_ORIGIN = #{housingPOriginName}, HP_CHANGE = #{housingPChangeName}
+		WHERE HP_NO = #{housingPNo}
+	</update>
+	
+	<insert id = "insertReply" parameterType = "HousingReply">
+		insert into housingreply
+		values(seq_h_r_no.nextval,  #{refHousingNo}, #{replyWriter}, #{replyContent},SYSDATE,default)
+	</insert>
+	
+	<insert id = "insertPReply" parameterType = "HousingPReply">
+		insert into housingpreply
+		values(seq_hp_r_no.nextval,  #{refHousingPNo}, #{replyWriter}, #{replyContent},SYSDATE,default)
+	</insert>
+	
+	<select id = "selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		select H_R_NO, H_R_CONTENT, H_R_WRITER, H_R_CREATE
+		from housingreply
+		where H_R_BNO = #{hno} and H_R_STATUS = 'Y'
+		order by H_R_NO desc
+	</select>
+	
+	<select id = "selectPReplyList" parameterType="_int" resultMap="replyPResultSet">
+		select HP_R_NO, HP_R_CONTENT, HP_R_WRITER, HP_R_CREATE
+		from housingpreply
+		where HP_R_BNO = #{hpno} and HP_R_STATUS = 'Y'
+		order by HP_R_NO desc
+	</select>
+	
+	<select id = "selectTopList" resultMap= "housingResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from housing
+			where h_status = 'Y'
+			order by h_count desc)
+		where rownum <=5		
+	]]>
+	</select>
+	
+	<select id = "selectPTopList" resultMap= "housingPResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from housingp
+			where hp_status = 'Y'
+			order by Hp_count desc)
+		where rownum <=5		
+	]]>
+	</select>
+	
+	<select id="selectSearchListCount"
+			parameterType="HousingsearchCondition"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM HOUSING
+		WHERE H_STATUS='Y'
+		<if test="title != null">
+			AND H_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND H_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND H_WRITER LIKE '%'||#{writer}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="selectSearchList"
+			parameterType="searchCondition"
+			resultMap="housingResultSet">
+		SELECT *
+		FROM HOUSING
+		WHERE H_STATUS='Y'
+		<if test="title != null">
+			AND H_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND H_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND H_WRITER LIKE '%'||#{writer}||'%'
+		</if>		
+	</select>
+	
+	<select id="selectSearchPListCount"
+			parameterType="HousingsearchCondition"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM HOUSINGP
+		WHERE HP_STATUS='Y'
+		<if test="title != null">
+			AND HP_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND HP_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND HP_WRITER LIKE '%'||#{writer}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="selectSearchPList"
+			parameterType="searchCondition"
+			resultMap="housingPResultSet">
+		SELECT *
+		FROM HOUSINGP
+		WHERE HP_STATUS='Y'
+		<if test="title != null">
+			AND HP_TITLE LIKE '%'||#{title}||'%'
+		</if>
+		<if test="content != null">
+			AND HP_CONTENT LIKE '%'||#{content}||'%'
+		</if>
+		<if test="writer != null">
+			AND HP_WRITER LIKE '%'||#{writer}||'%'
+		</if>		
+	</select>
+
+	
+</mapper>

@@ -62,8 +62,8 @@
      <ul class = "list-group">
       		<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
       		<a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 페이지</a></p>
-      		<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
-      		<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
+      		<a href="Toplistf.fo" class="list-group-item list-group-item-success">푸드 메인 페이지</a></p>
+      		<a href="Toplistf.ho" class="list-group-item list-group-item-success">하우징 메인 페이지</a></p>
       		<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
       </ul>
     </div>

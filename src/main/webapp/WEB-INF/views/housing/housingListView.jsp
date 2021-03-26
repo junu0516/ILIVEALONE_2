@@ -19,7 +19,7 @@
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
-      height: auto;
+      height: 100%;
     }
     
 
@@ -74,27 +74,27 @@
     <div class="col-sm-2 sidenav">
      <ul class = "list-group">
       	<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
-      	<a href="Toplistf.fo" class="list-group-item list-group-item-success">푸드 메인 페이지</a></p>
-      	<a href="list.fo" class="list-group-item list-group-item-success">푸드 게시물</a></p>
-      	<a href="blist.fo" class="list-group-item list-group-item-success">푸드 최신뉴스</a></p>
+      	<a href="Toplistf.ho" class="list-group-item list-group-item-success">하우징 메인 페이지</a></p>
+      	<a href="list.ho" class="list-group-item list-group-item-success">하우징 게시물</a></p>
+      	<a href="blist.ho" class="list-group-item list-group-item-success">하우징 최신뉴스</a></p>
       	<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
       </ul>
     </div>
     
     <div class="col-sm-8 text-left" style="padding:5% 10%;"> 
        
-             <h2>푸드 게시판</h2>
+             <h2>하우징 게시판</h2>
              
             <br>
             <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
             <c:if test="${ !empty loginUser }">
-            	<a class="btn btn-secondary" style="float:right" href="enrollFormf.fo">글쓰기</a>
+            	<a class="btn btn-secondary" style="float:right" href="enrollFormf.ho">글쓰기</a>
             </c:if>
             <br>
             
             <!-- 검색 기능  -->
             <div class="container">
-				<form class="form-inline" action="searchf.fo">
+				<form class="form-inline" action="searchf.ho">
 					<select class="form-control mb-2 mr-sm-2" name="condition">
 						<option value="title">제목</option>
 						<option value="content">내용</option>
@@ -106,7 +106,7 @@
 			</div>
 			<br>
 			
-            <table id="foodList" class="table table-hover" align="center">
+            <table id="housingList" class="table table-hover" align="center">
                 <thead>
                   <tr>
                     <th>글번호</th>
@@ -118,17 +118,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                	<c:forEach items="${ list }" var="fd">
+                	<c:forEach items="${ list }" var="h">
 	                    <tr>
-	                        <td>${ fd.foodNo }</td>
-	                        <td>${ fd.foodTitle }</td>
-	                        <td>${ fd.foodWriter }</td>
-	                        <td>${ fd.count }</td>
-	                        <td>${ fd.createDate }</td>
-	                        <c:if test="${ !empty fd.originName }">
+	                        <td>${ h.housingNo }</td>
+	                        <td>${ h.housingTitle }</td>
+	                        <td>${ h.housingWriter }</td>
+	                        <td>${ h.count }</td>
+	                        <td>${ h.createDate }</td>
+	                        <c:if test="${ !empty h.originName }">
 	                        	<td>★</td>
 	                        </c:if>
-	                        <c:if test="${ empty fd.originName }">
+	                        <c:if test="${ empty h.originName }">
 	                        	<td>&nbsp;</td>
 	                        </c:if>
 	                    </tr>
@@ -139,13 +139,13 @@
 
             <div id="pagingArea">
                 <ul class="pagination">
-                		 	<c:url var="searchUrl" value="searchf.fo">
+                		 	<c:url var="searchUrl" value="searchf.ho">
 	 							<c:param name="condition" value="${condition}"/>
 	 							<c:param name="keyword" value="${keyword}"/>
 	 						</c:url>
                 	<c:choose>
                 		<c:when test="${ pi.currentPage ne 1 }">
-                			<li class="page-item"><a class="page-link" href="list.fo?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+                			<li class="page-item"><a class="page-link" href="list.ho?currentPage=${ pi.currentPage-1 }">Previous</a></li>
                 		</c:when>
                 		<c:otherwise>
                 			<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
@@ -155,7 +155,7 @@
                     <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
                     	<c:choose>
 	                		<c:when test="${ pi.currentPage ne p }">
-                    			<li class="page-item"><a class="page-link" href="list.fo?currentPage=${ p }">${ p }</a></li>
+                    			<li class="page-item"><a class="page-link" href="list.ho?currentPage=${ p }">${ p }</a></li>
 	                		</c:when>
 	                		<c:otherwise>
 	                			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
@@ -166,10 +166,10 @@
                     
                     <c:choose>
                 		<c:when test="${ pi.currentPage ne pi.maxPage }">
-                			<li class="page-item"><a class="page-link" href="list.fo?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                			<li class="page-item"><a class="page-link" href="list.ho?currentPage=${ pi.currentPage+1 }">Next</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="list.fo?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                			<li class="page-item disabled"><a class="page-link" href="list.ho?currentPage=${ pi.currentPage+1 }">Next</a></li>
                 		</c:otherwise>
                 	</c:choose>
                 </ul>
@@ -182,28 +182,27 @@
     <div class="col-sm-2 sidenav">
       	<body onload = "showImage()">
       	<div class = "well" >
-      		<h2>오늘의 푸드</h2>
+      		<h2>오늘의 하우징</h2>
 			<img class = "introImg" id = "introImg" border="0" >
        	<br><br><br>
         <hr>
         <br><br>
-        	<h2>오늘의 디저트</h2>
+        	<h2>오늘의 침대</h2>
 			<img class = "introImg1" id = "introImg1" border="0" >
       	</div>
       	</body>
     <script>
-	var imgArray = new Array();
-	imgArray[0] = "resources/img/오사카.jfif";
-	imgArray[1] = "resources/img/토스트.jfif";
-	imgArray[2] = "resources/img/프랑스.jfif";
-	imgArray[3] = "resources/img/국수.jfif";
+    var imgArray = new Array();
+	imgArray[0] = "resources/img/라자가구.jfif";
+	imgArray[1] = "resources/img/가구.jfif";
+	imgArray[2] = "resources/img/영국 가구.jfif";
+	imgArray[3] = "resources/img/의자.jfif";
 	
 	var imgArray1 = new Array();
-	imgArray1[0] = "resources/img/딸기 케이크.jfif";
-	imgArray1[1] = "resources/img/마카로.jfif";
-	imgArray1[2] = "resources/img/마카롱.jfif";
-	imgArray1[3] = "resources/img/케이크.jfif";
-
+	imgArray1[0] = "resources/img/크렌시아.jfif";
+	imgArray1[1] = "resources/img/모던바로크.jfif";
+	imgArray1[2] = "resources/img/소파.jfif";
+	imgArray1[3] = "resources/img/스퀘어.jfif";
 
 			
 			function showImage(){
@@ -226,8 +225,8 @@
  	</div>
 	 <script>
     	$(function(){
-    		$("#foodList tbody tr").click(function(){
-    			location.href="detailf.fo?fdno=" + $(this).children().eq(0).text();
+    		$("#housingList tbody tr").click(function(){
+    			location.href="detailf.ho?hno=" + $(this).children().eq(0).text();
     		});
     	});
     </script>	
