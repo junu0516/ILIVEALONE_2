@@ -66,6 +66,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</update>
 	
+	<update id="updateUsedMarket" parameterType="UsedMarket">
+		UPDATE USEDMARKET
+		SET UM_TITLE =#{um_Title}, UM_CONTENT = #{um_Content},
+			ORIGIN_NAME =#{originName}, CHANGE_NAME=#{changeName}
+			,UM_DATE = SYSDATE
+		WHERE UM_NO = #{um_No}
+	
+	</update>
+	
 	<select id="selectUsedMarket"  parameterType="_int" resultMap="usedMarketResultSet">
 		SELECT *
 		FROM USEDMARKET
@@ -74,5 +83,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	</select>
-
+	
+		
+	<update id="deleteUsedMarket" parameterType="_int">
+		UPDATE USEDMARKET
+		SET UM_STATUS = 'N'
+		WHERE UM_NO = #{uno}
+		
+	
+	
+	
+	</update>
+	
 </mapper>

@@ -24,5 +24,4 @@ public class Board {
 	private Date createDate;
 	private String status;
 
-
 }

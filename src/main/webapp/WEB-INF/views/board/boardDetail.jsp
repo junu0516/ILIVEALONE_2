@@ -18,13 +18,13 @@
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
+    .row.content {height: auto;}
     
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
-      height: 100%;
+      height: auto;
     }
     
     
@@ -36,6 +36,10 @@
       }
       .row.content {height:auto;} 
     }
+    
+    .table  {
+    	height : auto;
+    }
 
   </style>
 </head>
@@ -44,7 +48,7 @@
    <div class="container-fluid text-center">  
 	  <div class="col-sm-2 sidenav">
 	  	 <ul class = "list-group">
-      		<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      		<a href="main.do" class="list-group-item list-group-item-success">Home</a></p>
       		<a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 페이지</a></p>
       		<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
       		<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
@@ -61,9 +65,11 @@
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100">제목</th>
+                    <th width="100">제목
+                    </th>
                     <td colspan="3">${ b.boardTitle }</td>
                 </tr>
+               
                 <tr>
                     <th>작성자</th>
                     <td>${ b.boardWriter }</td>
@@ -83,9 +89,8 @@
                 </tr>
                 <tr>
                 	<th>조회</th>
-                	<td colspan="3">
-                	${b.count}
-                	</td>
+                	<td>${b.count}</td>
+                	
                 </tr>
                 <tr>
                     <th>내용</th>
@@ -95,10 +100,9 @@
                 </tr>
                 
             </table>
-
-            <br>
-
-			<c:if test="${ loginUser.userId eq b.boardWriter }">
+			<br>
+	
+				<c:if test="${ loginUser.userId eq b.boardWriter }">
 	            <div align="center">
 	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
@@ -120,6 +124,9 @@
 						}
 						postForm.submit();
 					}
+					
+					function 
+				
 				</script>
             </c:if>
             	
@@ -192,6 +199,7 @@
   </div>
 	
 </div>
+
 <script>
        $(function(){
           selectReplyList();

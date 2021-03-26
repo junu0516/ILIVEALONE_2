@@ -24,6 +24,7 @@
 	<bean id="realDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> <!-- close를 자동으로 설정 -->
 		<!-- 커넥션 정보 입력 -->
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 		<property name="username" value="ILIVEALONE"/>
 		<property name="password" value="ILIVEALONE"/>
@@ -43,9 +44,9 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-	
+
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
+
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="select*" read-only="true" rollback-for="Exception"/>
@@ -62,4 +63,5 @@
 		<property name="maxUploadSize" value="100000000" /> <!-- 최대 업로드 가능 크기 -->
 		<property name="maxInMemorySize" value="100000000" /> <!-- 메모리에 보관할 수 있는 최대 크기 -->
 	</bean>
+	
 </beans>

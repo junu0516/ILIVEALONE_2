@@ -15,7 +15,7 @@ import org.jsoup.nodes.Element;
 @Service
 public class WeatherService {
 
-	private static String WEATHER_URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%82%A0%EC%94%A8";
+	/*private static String WEATHER_URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%82%A0%EC%94%A8";
 
 	public Weather getWeather() throws IOException {
 		 	
@@ -30,17 +30,37 @@ public class WeatherService {
 	        
 	        
 	        //System.out.print("자외선 : "+doc.select(".today_area .main_info .info_data .info_list li .indicator .lv2 .num").text());
+	        String uv_txt=doc.select(".today_area .main_info .info_data .info_list li .indicator .lv2").text();
+	        
 	        String uv=doc.select(".today_area .main_info .info_data .info_list li .indicator .lv2 .num").text();
+
 	        
-	        
-	        Elements e=doc.select(".today_area .sub_info .detail_box .indicator .lv2");
-	        String finedust=e.get(0).text();
-	        String ozone=e.get(1).text();
-	        String ultrafinedust=doc.select(".today_area .sub_info .detail_box .indicator .lv1 .num").text();
+	        Elements e=doc.select(".today_area .sub_info .detail_box .indicator dd");
+
+	        System.out.println(e.size());
+	       String finedust_txt=e.get(0).text();
+	        String ultrafinedust_txt=e.get(1).text();
+	        String ozone_txt=e.get(2).text();
 	       
+	        e=doc.select(".today_area .sub_info .detail_box .indicator dd .num");
+
 	        
-	        Weather weather=new Weather();
+	        String finedust=e.get(0).text();
+	        String ultrafinedust=e.get(1).text();
+	        String ozone=e.get(2).text();
+	        
+	        finedust_txt.replace(finedust, "");
+	        ultrafinedust_txt.replace(ultrafinedust, "");
+	        ozone_txt.replace(ozone, "");
+	        uv_txt.replace(uv, "");
+
+	        Weather weather=new Weather(todaytemp,cast_txt,min,max,bodytemp,uv,
+	        		uv_txt.replace(uv, ""),finedust,finedust_txt.replace(finedust, ""),
+	        		ultrafinedust,ultrafinedust_txt.replace(ultrafinedust, ""),
+	        		ozone,ozone_txt.replace(ozone, ""));
+	        
+	        
 	        return weather;
 	}
-	
+	*/
 }

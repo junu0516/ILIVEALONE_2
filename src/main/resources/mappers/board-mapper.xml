@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="status" column="B_STATUS"/>
 		<result property="originName" column="B_ORIGIN"/>
 		<result property="changeName" column="B_CHANGE"/>
-		
+	
 	</resultMap>
 	
 	<resultMap id="replyResultSet" type="BoradReply">
@@ -103,6 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE B_NO = #{bno}
 		AND B_STATUS = 'Y'
 	</select>
+
 	
 	<select id  = "updateFIncreaseCount" parameterType="_int">
 		UPDATE FASHION

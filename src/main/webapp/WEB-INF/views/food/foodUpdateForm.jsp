@@ -39,6 +39,16 @@
       .row.content {height:auto;} 
     }
 
+	
+    .introImg{
+    	height: 150px;
+    	weight: 150px;
+    }
+    .introImg1{
+       	height: 150px;
+    	weight: 150px; 
+    }
+    
   </style>
 </head>
 <body>
@@ -108,17 +118,18 @@
       	</div>
       	</body>
     <script>
-			var imgArray = new Array();
-			imgArray[0] = "resources/img/A1.jfif";
-			imgArray[1] = "resources/img/A2.jfif";
-			imgArray[2] = "resources/img/A3.jfif";
-			imgArray[3] = "resources/img/A4.jfif";
-			
-			var imgArray1 = new Array();
-			imgArray1[0] = "resources/img/B1.jfif";
-			imgArray1[1] = "resources/img/B2.jfif";
-			imgArray1[2] = "resources/img/B3.jfif";
-			imgArray1[3] = "resources/img/B4.jfif";
+	var imgArray = new Array();
+	imgArray[0] = "resources/img/오사카.jfif";
+	imgArray[1] = "resources/img/토스트.jfif";
+	imgArray[2] = "resources/img/프랑스.jfif";
+	imgArray[3] = "resources/img/국수.jfif";
+	
+	var imgArray1 = new Array();
+	imgArray1[0] = "resources/img/딸기 케이크.jfif";
+	imgArray1[1] = "resources/img/마카로.jfif";
+	imgArray1[2] = "resources/img/마카롱.jfif";
+	imgArray1[3] = "resources/img/케이크.jfif";
+
 
 			
 			function showImage(){

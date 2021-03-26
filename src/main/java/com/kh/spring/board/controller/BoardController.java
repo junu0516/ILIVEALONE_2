@@ -55,7 +55,7 @@ public class BoardController {
 	
 	@RequestMapping("main.do")
 	public String mainForm() {
-		return "main";
+		return "board/like";
 	}
 	
 
@@ -208,6 +208,7 @@ public class BoardController {
 		return mv;
 	}
 	
+
 	@RequestMapping("detail.fo")
 	public ModelAndView selectFBoard(int fno, ModelAndView mv) {
 	

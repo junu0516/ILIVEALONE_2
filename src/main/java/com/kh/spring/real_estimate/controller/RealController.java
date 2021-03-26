@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.spring.real_estimate.model.vo.Pagination;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.common.exception.CommonException;
+import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.real_estimate.model.service.RealService;
 import com.kh.spring.real_estimate.model.vo.PageInfo;
 import com.kh.spring.real_estimate.model.vo.Real;
+import com.kh.spring.real_estimate.model.vo.RealWish;
 
 @Controller
 public class RealController {
@@ -102,7 +106,60 @@ public class RealController {
 		
 		return "real_estimate/realListView";
 	}
+	@RequestMapping("wishform.re")
+	public String wishForm(@RequestParam(name="userId")String userId,Model model) {
+		
+		System.out.println(userId);
+		
+		ArrayList<Integer> list = realService.selectWishList(userId); //stuff 리스트 가져오기
+		
+		ArrayList<Real> RealList=realService.selectRealList(list);
+		
+		model.addAttribute("list",RealList);
+		
+		System.out.println(list);
+		System.out.println(RealList);
+		
+		return "real_estimate/realWishView";
+	}
 	
+	@RequestMapping("wishCancle.re")
+	public String wishCancle(int rno, String userId) {
+		
+		System.out.println(rno);
+		System.out.println(userId);
+		
+		HashMap<String,String> mapKey = new HashMap<>();
+		mapKey.put("rno",String.valueOf(rno));
+		mapKey.put("userId",userId);
+		
+		int result = realService.deleteWish(mapKey); //stuff 리스트 가져오기
+		
+		
+		return "real_estimate/realListView";
+	}
+	
+	@RequestMapping("delete.re")
+	public String deleteReal(int rno, String fileName, HttpServletRequest request, Model model) {
+		
+		int result=realService.deleteReal(rno);
+		
+		if(result<0) {
+			throw new CommonException("매물 삭제에 실패 하였습니다.");
+		}
+		
+		result=realService.deleteStuffWish(rno);
+		
+		if(result>0) {
+			if(!fileName.equals("")) {
+				deleteFile(fileName, request);
+			}
+			
+			return "redirect:list.re";
+		}else {
+			throw new CommonException("찜하기 삭제에 실패 하였습니다.");
+		}
+	}
 	@RequestMapping("detail.re")
 	public ModelAndView selectReal(int rno, ModelAndView mv){
 
@@ -118,7 +175,7 @@ public class RealController {
 	}
 	
 	@RequestMapping("insert.re")
-	public String insertBoard(Real real, HttpServletRequest request, Model model,
+	public String insertReal(Real real, HttpServletRequest request, Model model,
 							  @RequestParam(name="uploadFile", required=false)MultipartFile file) {
 		
 		System.out.println(real);//전달되는 게시글 확인
@@ -165,22 +222,26 @@ public class RealController {
 	}
 	
 	
-	@RequestMapping("delete.re")
-	public String deleteBoard(int rno, String fileName, HttpServletRequest request, Model model) {
+	@RequestMapping("wish.re")
+	public ModelAndView insertWish(Model model, ModelAndView mv, @RequestParam(name="rno")int rno, @RequestParam(name="userId")String userId) throws Exception{
+		RealWish realWish=new RealWish(rno,userId);
+		Real real = realService.selectReal(rno);
 		
-		int result=realService.deleteReal(rno);
+		int result=realService.insertWish(realWish);
+		
 		
 		if(result>0) {
-			if(!fileName.equals("")) {
-				deleteFile(fileName, request);
-			}
-			
-			return "redirect:list.re";
+			model.addAttribute("result",1);
 		}else {
-			throw new CommonException("매물 삭제에 실패 하였습니다.");
+			model.addAttribute("result",0);
 		}
+		
+		mv.addObject("r",real).setViewName("real_estimate/realDetailView");
+		
+		return mv;
+		
 	}
-
+	
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources+"\\upload_files\\";
@@ -205,15 +266,12 @@ public class RealController {
 			if(r.getChangeName() != null) { //새로 넘어온 파일이 있는데 기존에 파일도 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
 				deleteFile(r.getChangeName(), request);
 			}
-			
 			String changeName = saveFile(file, request); //새로 넘어온 파일을 서버에 업로드
 			
 			r.setOriginName(file.getOriginalFilename());
 			r.setChangeName(changeName);
-			
 		}
-		
-		
+	
 		int result=realService.updateReal(r);
 		
 		if(result>0) {

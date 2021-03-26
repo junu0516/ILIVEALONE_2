@@ -38,6 +38,7 @@
 			
             <form id="updateForm" method="post" action="update.re" enctype="multipart/form-data">
                  <input type="hidden" name="stuffNo" value="${ r.stuffNo }">
+                  <input type="hidden" name="userId" value="${ r.userId }">
                   <table id="contentArea" align="center" class="table">
                 <tr>
                     <th width="100">세 종류</th>

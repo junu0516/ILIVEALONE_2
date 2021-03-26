@@ -1,9 +1,11 @@
 package com.kh.spring.real_estimate.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.spring.real_estimate.model.vo.PageInfo;
 import com.kh.spring.real_estimate.model.vo.Real;
+import com.kh.spring.real_estimate.model.vo.RealWish;
 
 public interface RealService {
 
@@ -18,6 +20,16 @@ public interface RealService {
 	int deleteReal(int rno);
 
 	int updateReal(Real r);
+
+	int insertWish(RealWish realWish);
+
+	int deleteStuffWish(int rno);
+
+	ArrayList<Integer> selectWishList(String userId);
+
+	ArrayList<Real> selectRealList(ArrayList<Integer> list);
+
+	int deleteWish(HashMap<String, String> mapKey);
 
 
 }
