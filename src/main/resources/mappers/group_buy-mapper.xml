@@ -22,7 +22,7 @@
 		<result property="pMaxPurchase" column="PRODUCT_MAX_PURCHASE"/>
 		<result property="pDate" column="PRODUCT_DATE"/>
 		<result property="pCno" column="PRODUCT_CNO"/>
-		<result property="pStatus" column="PRODUCt_STATUS"/>
+		<result property="pStatus" column="PRODUCT_STATUS"/>
 		<result property="pAccount" column="PRODUCT_ACCOUNT"/>
 	</resultMap>
 	

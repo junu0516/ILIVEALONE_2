@@ -44,7 +44,9 @@
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
-		<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="select*" read-only="true" rollback-for="Exception"/>
 			<tx:method name="*" rollback-for="Exception"/>
@@ -56,8 +58,7 @@
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
 	</aop:config>
 
-	
-	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000000" /> <!-- 최대 업로드 가능 크기 -->
 		<property name="maxInMemorySize" value="100000000" /> <!-- 메모리에 보관할 수 있는 최대 크기 -->
 	</bean>

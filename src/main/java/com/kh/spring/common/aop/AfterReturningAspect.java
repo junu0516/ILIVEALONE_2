@@ -23,6 +23,7 @@ public class AfterReturningAspect {
 			Member member = (Member)returnObj;
 			
 			if(member.getUserId().equals("admin")) {
+				System.out.println("관리자 접속");
 				log.info("[log] : 관리자 접속");
 			}else {
 				log.debug("[log] : 유저 "+member.getUserId()+" 접속");

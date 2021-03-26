@@ -1,4 +1,4 @@
-package com.kh.spring.group_buy.model.service.impl;
+package com.kh.spring.group_buy.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
 
 @Service
-@Transactional(rollbackFor=Exception.class)
+@Transactional
 public class GroupBuyServiceImpl implements GroupBuyService {
 	
 	@Autowired
@@ -40,7 +40,6 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	}
 	
 	@Override
-	@Transactional
 	public int insertBoardAndProduct(GroupBuyBoard groupBuyBoard, GroupBuyProduct groupBuyProduct) {
 		
 		int result1 = groupBuyDao.insertBoard(sqlSession, groupBuyBoard);
@@ -112,8 +111,11 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		if(result2>0) {
 			System.out.println("제품정보 업데이트 완료");
 		}
+
+		int result3 = groupBuyDao.insertTransactionTest(sqlSession, groupBuyProduct);
+			
 		
-		return result1 * result2;
+		return result1 * result2 * result3;
 	}
 
 	@Override
@@ -196,7 +198,6 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			
 			if(result>0) {
 				System.out.println("제한인원 도달로 판매 종료");
-			//	throw new RuntimeException();
 			}else {
 				System.out.println("제한인원 도달했지만 판매 종료 처리에 실패");
 			}
@@ -208,7 +209,6 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		if(result>0) {
 			System.out.println("구매내역 추가 완료");
 		}		
-
 		return 3;
 	}
 	
@@ -237,6 +237,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		if(result>0) {
 			System.out.println("취소처리 완료");
 		}
+		
 		//취소 후, 동일한 구매자, 제품번호로 더 이상의 구매기록이 없을 경우에는 해당 제품 테이블의 누적인원을 1명 차감
 		int previousPurchaseCount = groupBuyDao.selectPreviousPurchaseCount(sqlSession,mapKey);
 		if(previousPurchaseCount<=0) {
