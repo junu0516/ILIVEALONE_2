@@ -45,6 +45,9 @@
 									  <option value="의류">의류</option>
 									  <option value="전자제품">전자제품</option>
 									  <option value="생활용품">생활용품</option>
+									  <option  value ="도서">도서</option>
+									  <option  value ="식품">식품</option>
+									  <option  value ="가구">가구</option>
 									
 									</select>
 								</div></td>

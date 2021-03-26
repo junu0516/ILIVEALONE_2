@@ -24,6 +24,7 @@
 	<bean id="realDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> <!-- close를 자동으로 설정 -->
 		<!-- 커넥션 정보 입력 -->
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 		<property name="username" value="ILIVEALONE"/>
 		<property name="password" value="ILIVEALONE"/>
