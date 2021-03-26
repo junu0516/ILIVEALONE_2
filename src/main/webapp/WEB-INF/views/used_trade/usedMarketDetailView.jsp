@@ -35,13 +35,17 @@ button {
 <div class="content">
         <br><br>
         <div class="innerOuter">
-            <h2>게시글 상세보기</h2>
+            <h3><b>${ u.um_Title }</b></h3>
             <p>작성일: ${u.um_Date}</p>
             <br>
             <hr>
             
+  		<c:if test="${ !empty sessionScope.loginUser and  sessionScope.loginUser.getUserName() == u.um_Writer} ">
+            
             <button id="btn_delete" class="btn btn-secondary" onclick="actionChange(2)">삭제하기</button>
             <button id="btn_update" class="btn btn-secondary"onclick="actionChange(1)">수정하기 </button>
+            
+        </c:if>
             
             <br><br>
             <table id="contentArea" align="center" class="table">
@@ -77,7 +81,7 @@ button {
                 <img src="./resources/upload_file/${u.changeName }" class="card-img-top"  >
                 </tr>
                 <tr>
-                    <td colspan="4"><textarea id="texta"style="height:150px " readonly>${ u.um_Content }</textarea></td>
+                    <td colspan="4"><textarea id="texta" class="form-control col-sm-5" style="height:150px " readonly>${ u.um_Content }</textarea></td>
                     
                 </tr>
             </table>

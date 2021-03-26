@@ -10,25 +10,27 @@ public class Weather {
 	
 	private String bodytemp;
 	private String uv;
+	private String uv_txt;
 	
 	private String finedust;
+	private String finedust_txt;
 	
 	private String ultrafinedust;
+	private String ultrafinedust_txt;
 	
 	private String ozone;
+	private String ozone_txt;
 	
 	public Weather() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+
 	
-	
-
-
-
-	public Weather(String todaytemp, String cast_txt, String min, String max, String bodytemp, String uv,
-			String finedust, String ultrafinedust, String ozone) {
+	public Weather(String todaytemp, String cast_txt, String min, String max, String bodytemp, String uv, String uv_txt,
+			String finedust, String finedust_txt, String ultrafinedust, String ultrafinedust_txt, String ozone,
+			String ozone_txt) {
 		super();
 		this.todaytemp = todaytemp;
 		this.cast_txt = cast_txt;
@@ -36,15 +38,14 @@ public class Weather {
 		this.max = max;
 		this.bodytemp = bodytemp;
 		this.uv = uv;
+		this.uv_txt = uv_txt;
 		this.finedust = finedust;
+		this.finedust_txt = finedust_txt;
 		this.ultrafinedust = ultrafinedust;
+		this.ultrafinedust_txt = ultrafinedust_txt;
 		this.ozone = ozone;
+		this.ozone_txt = ozone_txt;
 	}
-
-
-
-
-
 
 
 
@@ -210,17 +211,62 @@ public class Weather {
 
 
 
-	@Override
-	public String toString() {
-		return "Weather [todaytemp=" + todaytemp + ", cast_txt=" + cast_txt + ", min=" + min + ", max=" + max
-				+ ", bodytemp=" + bodytemp + ", uv=" + uv + ", finedust=" + finedust + ", ultrafinedust="
-				+ ultrafinedust + ", ozone=" + ozone + "]";
+	public String getUv_txt() {
+		return uv_txt;
 	}
 
 
 
+	public void setUv_txt(String uv_txt) {
+		this.uv_txt = uv_txt;
+	}
 
-	
-	
+
+
+	public String getFinedust_txt() {
+		return finedust_txt;
+	}
+
+
+
+	public void setFinedust_txt(String finedust_txt) {
+		this.finedust_txt = finedust_txt;
+	}
+
+
+
+	public String getUltrafinedust_txt() {
+		return ultrafinedust_txt;
+	}
+
+
+
+	public void setUltrafinedust_txt(String ultrafinedust_txt) {
+		this.ultrafinedust_txt = ultrafinedust_txt;
+	}
+
+
+
+	public String getOzone_txt() {
+		return ozone_txt;
+	}
+
+
+
+	public void setOzone_txt(String ozone_txt) {
+		this.ozone_txt = ozone_txt;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Weather [todaytemp=" + todaytemp + ", cast_txt=" + cast_txt + ", min=" + min + ", max=" + max
+				+ ", bodytemp=" + bodytemp + ", uv=" + uv + ", uv_txt=" + uv_txt + ", finedust=" + finedust
+				+ ", finedust_txt=" + finedust_txt + ", ultrafinedust=" + ultrafinedust + ", ultrafinedust_txt="
+				+ ultrafinedust_txt + ", ozone=" + ozone + ", ozone_txt=" + ozone_txt + "]";
+	}
+
+
 	
 }

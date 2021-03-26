@@ -3,6 +3,7 @@
 <mapper namespace="realMapper">
 	<resultMap type="Real" id="realResultSet">
 		<id property="stuffNo" column="STUFF_NO"/>
+		<result property="userId" column="REGISTRANT"/>
 		<result property="money_kind" column="MONEY_KIND"/>
 		<result property="area" column="AREA"/>
 		<result property="floors" column="FLOORS"/>
@@ -35,6 +36,18 @@
 		ORDER BY STUFF_NO DESC
 	</select>
 	
+	<select id="selectRealList"
+			resultMap="realResultSet">
+		SELECT *
+		FROM STUFF
+		WHERE STUFF_NO IN
+		<foreach collection="list" item="arr" open="(" close=")" separator=",">
+			#{arr}
+		</foreach>
+	</select>
+	
+	
+	
 	<select id="selectReal"
 			parameterType="_int"
 			resultMap="realResultSet">
@@ -44,10 +57,12 @@
 		AND STUFF_NO=#{rno}
 	</select>
 	
+	
 	<insert id="insertReal"
 			parameterType="Real">
 		INSERT INTO STUFF
 		VALUES(SEQ_R_NO.nextval, 
+		#{userId}, 
 		#{money_kind}, 
 		#{area}, 
 		#{floors}, 
@@ -77,6 +92,7 @@
 			parameterType="Real">
 		UPDATE STUFF SET
 		MONEY_KIND  = #{money_kind},
+		REGISTRANT = #{userId},
 		AREA  = #{area},
 		FLOORS  = #{floors},
 		LOCATION  = #{location},

@@ -53,7 +53,7 @@
  <div align="center">
  
  <h2>중고거래</h2>
-
+<div id="categoryTitle"></div>
  <hr>
  <c:if test="${! empty sessionScope.loginUser }">
  <a class="btn btn-secondary" style="float:right" href="enrollForm.um">글쓰기</a> 
@@ -64,6 +64,10 @@
 	<option id="wear" value="의류">의류</option>
 	<option id="electronics" value="전자제품">전자제품</option>
 	<option id="living" value ="생활용품">생활용품</option>
+	<option id="living" value ="도서">도서</option>
+	<option id="living" value ="식품">식품</option>
+	<option id="living" value ="가구">가구</option>
+	
 
 </select>
 
@@ -151,9 +155,11 @@ $(function(){
 	var $categoryForm = $("#categoryForm"); 
 	
 	
+	
 	$categoryForm.change(function(){
 		var listArr = [];
-
+		var categoryVal = $categoryForm.val();
+		
 		 console.log("ajax Function 테스트 값 전달:  "+$categoryForm.val());
 		 
 		if($categoryForm.val() != "전체"){
@@ -172,8 +178,7 @@ $(function(){
 						 $('#testDiv2').show();
 					
 					
-						
-						
+						console.log("categoryVal:  "+ categoryVal);
 						console.log("listArr 리스트JSP확인: "+listArr);
 						console.log("listVal 값넘어오는지 확인: "+listVal);
 						
@@ -205,8 +210,8 @@ $(function(){
 						
 						$('#testDiv2').html(output);
 						$('#pagingArea').hide();
-
-
+						$('#categoryTitle').html(categoryVal);
+					
 						
 						
 						

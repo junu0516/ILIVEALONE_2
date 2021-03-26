@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Real {
 	
 	private int stuffNo;
+	private String userId;
 	private String money_kind;
 	private double area;
 	private int floors;
@@ -28,11 +29,15 @@ public class Real {
 	
 
 
-	public Real(int stuffNo, String money_kind, double area, int floors, String location, String elevator,
-			int admin_money, String structure, int entire_floors, String phone, String money1, String money2,
-			String status, String originName, String changeName) {
+	
+
+
+	public Real(int stuffNo, String userId, String money_kind, double area, int floors, String location,
+			String elevator, int admin_money, String structure, int entire_floors, String phone, String money1,
+			String money2, String status, String originName, String changeName) {
 		super();
 		this.stuffNo = stuffNo;
+		this.userId = userId;
 		this.money_kind = money_kind;
 		this.area = area;
 		this.floors = floors;
@@ -48,6 +53,9 @@ public class Real {
 		this.originName = originName;
 		this.changeName = changeName;
 	}
+
+
+
 
 
 
@@ -211,14 +219,38 @@ public class Real {
 
 
 
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
-		return "Real [stuffNo=" + stuffNo + ", money_kind=" + money_kind + ", area=" + area + ", floors=" + floors
-				+ ", location=" + location + ", elevator=" + elevator + ", admin_money=" + admin_money + ", structure="
-				+ structure + ", entire_floors=" + entire_floors + ", phone=" + phone + ", money1=" + money1
-				+ ", money2=" + money2 + ", status=" + status + ", originName=" + originName + ", changeName="
-				+ changeName + "]";
+		return "Real [stuffNo=" + stuffNo + ", userId=" + userId + ", money_kind=" + money_kind + ", area=" + area
+				+ ", floors=" + floors + ", location=" + location + ", elevator=" + elevator + ", admin_money="
+				+ admin_money + ", structure=" + structure + ", entire_floors=" + entire_floors + ", phone=" + phone
+				+ ", money1=" + money1 + ", money2=" + money2 + ", status=" + status + ", originName=" + originName
+				+ ", changeName=" + changeName + "]";
 	}
+
+
+
+
 
 
 }

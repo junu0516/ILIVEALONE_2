@@ -1,6 +1,8 @@
 package com.kh.spring.real_estimate.model.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.spring.real_estimate.model.vo.PageInfo;
 import com.kh.spring.real_estimate.model.vo.Real;
+import com.kh.spring.real_estimate.model.vo.RealWish;
 
 @Repository("realDao")
 public class RealDao {
@@ -40,6 +43,41 @@ public class RealDao {
 	public int updateReal(SqlSessionTemplate sqlSession, Real r) {
 		// TODO Auto-generated method stub
 		return	sqlSession.update("realMapper.updateReal", r);
+	}
+
+
+	public int insertWish(SqlSessionTemplate sqlSession, RealWish realWish) {
+		int result;
+		
+		try {
+			result= sqlSession.insert("realWishMapper.insertWish", realWish);
+		}catch(Exception e) {
+			result=0;
+		}
+		
+		return result;
+	}
+
+	public int deleteStuffWish(SqlSessionTemplate sqlSession, int rno) {
+		// TODO Auto-generated method stub
+		return	sqlSession.delete("realWishMapper.deleteStuffWish", rno);
+	}
+
+	public ArrayList<Integer> selectWishList(SqlSessionTemplate sqlSession, String userId) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("realWishMapper.selectWishList",userId);
+	}
+
+	public ArrayList<Real> selectRealList(SqlSessionTemplate sqlSession, ArrayList<Integer> list) {
+		// TODO Auto-generated method stub
+		
+		return (ArrayList)sqlSession.selectList("realMapper.selectRealList",list);
+	}
+
+	public int deleteWish(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
+		// TODO Auto-generated method stub
+		
+		return	sqlSession.delete("realWishMapper.deleteWish", mapKey);
 	}
 
 }
