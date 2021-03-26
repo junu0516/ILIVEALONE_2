@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring.group_buy.model.Pagination;
 import com.kh.spring.group_buy.model.service.GroupBuyService;
@@ -31,6 +31,7 @@ import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class GroupBuyController {
+	
 	@Autowired
 	GroupBuyService groupBuyService;
 	
@@ -63,7 +64,7 @@ public class GroupBuyController {
 	}
 	
 	@PostMapping("insert.gb")
-	public String insert(@ModelAttribute GroupBuyBoard groupBuyBoard,
+	public String insertBoardAndProduct(@ModelAttribute GroupBuyBoard groupBuyBoard,
 						 @ModelAttribute GroupBuyProduct groupBuyProduct,
 						 HttpServletRequest request, @RequestParam(value="thumbnail", required=false)MultipartFile thumbnail) {
 		
@@ -77,17 +78,13 @@ public class GroupBuyController {
 			}
 		}
 		
-		int result1 = groupBuyService.insertBoard(groupBuyBoard);
-		int pCno = groupBuyService.getLastBoardNum();
-		groupBuyProduct.setPCno(pCno);
-
-		int result2 = groupBuyService.insertProduct(groupBuyProduct);
-		
-		if(result1*result2>0) {
+		int result = groupBuyService.insertBoardAndProduct(groupBuyBoard,groupBuyProduct);
+		if(result>0) {
 			return "redirect:list.gb";
 		}else {
 			return "";
 		}
+		
 	}
 
 	private String saveFile(MultipartFile thumbnail, HttpServletRequest request) {
@@ -193,9 +190,10 @@ public class GroupBuyController {
 	}
 	
 	@PostMapping("update.gb")
-	public String update(@ModelAttribute GroupBuyBoard groupBuyBoard,
+	public String updateBoardAndProduct(@ModelAttribute GroupBuyBoard groupBuyBoard,
 			 			 @ModelAttribute GroupBuyProduct groupBuyProduct,
-			 			 HttpServletRequest request, @RequestParam(value="reuploadedThumbnail", required=false)MultipartFile thumbnail) {
+			 			 HttpServletRequest request, @RequestParam(value="reuploadedThumbnail", required=false)MultipartFile thumbnail,
+			 			 RedirectAttributes redirectAttr) {
 		
 		if(!thumbnail.getOriginalFilename().equals("")) { 
 			if(groupBuyBoard.getGbChangedName() != null) {
@@ -208,16 +206,14 @@ public class GroupBuyController {
 		}
 		
 		groupBuyProduct.setPCno(groupBuyBoard.getGbNo());
+		int result = groupBuyService.updateBoardAndProduct(groupBuyBoard,groupBuyProduct);
 		
-		int result1 = groupBuyService.updateBoard(groupBuyBoard);
-		int result2 = groupBuyService.updateProduct(groupBuyProduct);
-		
-		if(result1*result2>0){
+		if(result>0){
+			redirectAttr.addFlashAttribute("message","업데이트 완료");
 			return "redirect:detail.gb?gbNo="+groupBuyBoard.getGbNo();			
 		}
 		
 		return "redirect:list.gb";
-		
 	}
 
 	private void deleteFile(String thumbnail, HttpServletRequest request) {
@@ -226,28 +222,46 @@ public class GroupBuyController {
 		String savePath = resources+"\\upload_files\\";
 		
 		File deleteFile = new File(savePath+thumbnail);
-		deleteFile.delete();
-		
+		deleteFile.delete();	
 	}
 	
 	@GetMapping("delete.gb")
-	public String deleteBoard(@RequestParam int gbNo) {
+	public String deleteBoard(@RequestParam int gbNo, RedirectAttributes redirectAttr) {
 		
 		int result = groupBuyService.deleteBoard(gbNo);
 		
 		if(result>0) {
+			redirectAttr.addFlashAttribute("message","삭제 완료");
 			System.out.println("삭제 완료");
 			return "redirect:list.gb";
 		}else {
-			System.out.println("삭제 실패");
+			redirectAttr.addFlashAttribute("message","삭제 실패");
 			return "redirect:detail.gb?gbNo="+gbNo;
-		}
-		
+		}	
 	}
 	
 	@GetMapping("purchaseForm.gb")
-	public String showPurchaseForm(@ModelAttribute PurchaseHistory purchaseHistory, Model model) {
+	public String showPurchaseForm(@ModelAttribute PurchaseHistory purchaseHistory, Model model, RedirectAttributes redirectAttr) {
 		
+		System.out.println(purchaseHistory);
+		GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
+		System.out.println("인당 제한 수량 : "+gbProduct.getPMaxPurchase());
+		
+		//현재 구매신청한 회원이 이전에 동일상품을 주문한 총 수량 조회
+		HashMap<String,String> mapKey = new HashMap<>();
+		mapKey.put("phBuyer", purchaseHistory.getPhBuyer());
+		mapKey.put("phProduct", String.valueOf(purchaseHistory.getPhProduct()));
+		int previousPurchaseCount = groupBuyService.selectPreviousPurchaseCount(mapKey);
+		System.out.println("이전까지 총 주문수량 : "+previousPurchaseCount);
+		
+		//허용된 수량을 넘어섰을 경우에는 구매 불가 팝업과 함께 리스트로 redirect
+		if(gbProduct.getPMaxPurchase()<=previousPurchaseCount) {
+			String message = "허용된 구매수량을 초과하여 더 이상 구매가 불가합니다.";
+			redirectAttr.addFlashAttribute("message",message);
+			return "redirect:list.gb";
+		}
+		
+		//구매 가능한 경우에는 구매폼으로 이동
 		model.addAttribute("purchaseHistory",purchaseHistory);
 		
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProduct(purchaseHistory.getPhProduct());
@@ -259,58 +273,6 @@ public class GroupBuyController {
 		return "group_buy/purchaseForm";
 	}
 	
-	@PostMapping("purchase.gb")
-	public String addPurchaseHistory(@ModelAttribute PurchaseHistory purchaseHistory, 
-									  String post, String address1, String address2) {
-		
-		System.out.println(purchaseHistory);
-		
-		String address = post+" "+address1+" "+address2;
-		purchaseHistory.setPhAddress(address);
-		System.out.println(purchaseHistory);
-		
-		//구매 처리
-		GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
-		int limit = gbProduct.getPLimit();
-		int purchaseCount = gbProduct.getPPurchase();
-		System.out.println("구매처리 전  : limit -> "+limit+" / count -> "+purchaseCount);
-		if(purchaseCount+1>limit) {
-			System.out.println("제한인원 초과로 구매 불가");
-			return "redirect:list.gb";
-		}
-			
-		int result = groupBuyService.updatePurchase(purchaseHistory.getPhProduct());
-		
-		if(result>0) {
-			System.out.println("구매내역 업데이트");
-		}
-		
-		gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
-		limit = gbProduct.getPLimit();
-		purchaseCount = gbProduct.getPPurchase();
-		System.out.println("구매처리 후 : limit -> "+limit+" / count -> "+purchaseCount);
-		
-		result = -1;
-		
-		if(limit<=purchaseCount) {
-			result = groupBuyService.closeDeal(purchaseHistory.getPhProduct());
-			if(result>0) {
-				System.out.println("제한인원 도달로 판매 종료");
-			}else {
-				System.out.println("제한인원 도달했지만 판매 종료 처리에 실패");
-			}
-		}
-		
-		result=-1;
-		//구매내역 추가
-		result = groupBuyService.addPurchaseHistory(purchaseHistory);
-		if(result>0) {
-			System.out.println("구매내역 추가 완료");
-		}
-
-		return "redirect:list.gb";
-	}
-	
 	@GetMapping("salesHistory.gb")
 	public String showSalesHistory(@SessionAttribute("loginUser")Member loginUser, Model model) {
 		
@@ -320,6 +282,39 @@ public class GroupBuyController {
 		return "group_buy/salesHistoryList";
 	}
 	
+	@PostMapping("purchase.gb")
+	public String updateDeal(@ModelAttribute PurchaseHistory purchaseHistory, 
+									  String post, String address1, String address2,RedirectAttributes redirectAttr) {
+		
+		//넘어온 기록내역 확인
+		System.out.println(purchaseHistory);
+		
+		//주소 업데이트
+		String address = post+" "+address1+" "+address2;
+		purchaseHistory.setPhAddress(address);
+		System.out.println(purchaseHistory);
+		
+		//서비스 레이어로 넘겨서 비즈니스 로직 처리
+		int result = groupBuyService.updateDeal(purchaseHistory);
+		
+		switch(result) {
+			case 1:
+				redirectAttr.addFlashAttribute("message","이미 모집인원 도달로 더 이상 구매가 불가합니다.");
+				return "redirect:list.gb";
+			case 2:
+				GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
+				redirectAttr.addFlashAttribute("message","개인별로 허용된 구매 수량을 초과하였습니다.");
+				return "redirect:detail.gb?pNo="+gbProduct.getPNo();
+			case 3:
+				redirectAttr.addFlashAttribute("message","구매가 완료되었습니다.");
+				return "redirect:list.gb";
+		}
+		
+		//나머지 default는 오류페이지로 넘어가도록 처리(서비스레이어에서 1~3 외의 값을 반환한 경우는 오류로 간주)
+		return null; //어차피 여기까지 안옴?
+
+	}
+
 	@GetMapping("purchaseHistory.gb")
 	public String showPurchaseHistory(@SessionAttribute("loginUser")Member loginUser, Model model) {
 		
@@ -331,10 +326,11 @@ public class GroupBuyController {
 	}
 	
 	@GetMapping("prepareDeal.gb")
-	public String prepareDeal(@RequestParam int phProduct, @RequestParam String phBuyer) {
+	public String prepareDeal(@RequestParam int phProduct, @RequestParam String phBuyer, RedirectAttributes redirectAttr) {
 	
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(phProduct);
 		if(groupBuyProduct.getPPurchase()<groupBuyProduct.getPLimit()) {
+			redirectAttr.addFlashAttribute("message","아직 모집인원에 도달하지 못해 마감이 불가능");
 			return "redirect:salesHistory.gb";
 		}
 		
@@ -371,34 +367,23 @@ public class GroupBuyController {
 	}
 	
 	@GetMapping("cancelDeal.gb")
-	public String cancelDeal(@RequestParam int phProduct, @RequestParam String phBuyer) {
+	public String cancelDeal(@RequestParam int phNo, @RequestParam int phProduct, @RequestParam String phBuyer, RedirectAttributes redirectAttr) {
 		
-		System.out.println(phProduct);
-		System.out.println(phBuyer);
-		
+		//구매내역을 status='N'으로 처리하여 취소처리
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(phProduct);
 		if(!groupBuyProduct.getPStatus().equals("N")) {
 			groupBuyService.closeDeal(groupBuyProduct.getPNo());
 		}
 		
 		HashMap<String,String> mapKey = new HashMap<>();
+		mapKey.put("phNo",String.valueOf(phNo));
 		mapKey.put("phProduct",String.valueOf(phProduct));
 		mapKey.put("phBuyer",phBuyer);
 		
 		int result = groupBuyService.cancelDeal(mapKey);
+
 		if(result>0) {
-			System.out.println("痍⑥냼�궡�뿭 �뾽�뜲�씠�듃 �셿猷�");
-		}
-		
-		result=-1;
-		result = groupBuyService.decreasePurchaseCount(phProduct);
-		if(result>0) {
-			System.out.println("援щℓ �씤�썝 媛먯냼 �셿猷�");
-		}
-		
-		result = -1;
-		if(groupBuyProduct.getPPurchase()-1<groupBuyProduct.getPLimit()) {
-			result = groupBuyService.reopenDeal(phProduct);
+			redirectAttr.addFlashAttribute("message","구매취소 완료");
 		}
 		
 		return "redirect:purchaseHistory.gb";

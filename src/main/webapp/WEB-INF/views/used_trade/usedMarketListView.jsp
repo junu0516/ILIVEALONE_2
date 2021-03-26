@@ -9,24 +9,41 @@
 <title>Insert title here</title>
 <style>
 .card{
- 	
+ 		
 	  	float:left;
-	  	margin:4px; } 
+	  	margin:4px; 
+	  	} 
 
-				
 .pagination{
-	display:block;
-	text-align:center;	
+            display: flex;
+            justify-content: center;
+            clear:left;
+       }
+        
+     
+.pagination a {
 
+  color: black;
+
+  float: left;
+
+  padding: 8px 16px;
+
+  text-decoration: none;
+
+  border-radius:10%;
 
 }
 
-				
-.pagination{	position: absolute;
-			     bottom: 0; 
-			     
-			     left:50%;
-				margin:auto; }
+
+
+
+#testDiv2 :hover:not(.active) {background-color: silver;}
+
+#testDiv :hover:not(.active) {background-color: silver;}
+
+.pagination a:hover:not(.active) {background-color: silver;}
+
 </style>
 </head>
 <body>
@@ -36,27 +53,32 @@
  <div align="center">
  
  <h2>중고거래</h2>
-
+<div id="categoryTitle"></div>
  <hr>
+ <c:if test="${! empty sessionScope.loginUser }">
  <a class="btn btn-secondary" style="float:right" href="enrollForm.um">글쓰기</a> 
- <select id="categoryForm" >
+ </c:if>
+ <select id="categoryForm" class="form-control " >
  
 	<option id="all" value="전체">전체</option>
 	<option id="wear" value="의류">의류</option>
 	<option id="electronics" value="전자제품">전자제품</option>
 	<option id="living" value ="생활용품">생활용품</option>
+	<option id="living" value ="도서">도서</option>
+	<option id="living" value ="식품">식품</option>
+	<option id="living" value ="가구">가구</option>
+	
 
 </select>
 
  </div>
+ <br>
+<div id="testDiv">
 
- <c:set var="result" value="${listC }" ></c:set>
- <c:choose>
- 		<c:when test="${!empty result }"> 
-			<c:forEach items="${ listC }" var="u">
+	<c:forEach items="${ list }" var="u" >
 
  		<form id="cardForm" >
-				<div class="card" style="width: 18rem;">
+				<div id="cardAll" class="card" style="width: 18rem;">
 				  <img src="./resources/upload_file/${u.changeName }" class="card-img-top"  width="200" height="200">
 				  
 				  <div class="card-body">
@@ -76,43 +98,17 @@
 		
 		</form>		
 
-			</c:forEach>
-		</c:when>
-	<c:otherwise>
-		<c:forEach items="${ list }" var="u">
+	</c:forEach>
 
- 		<form id="cardForm" >
-				<div class="card" style="width: 18rem;">
-				  <img src="./resources/upload_file/${u.changeName }" class="card-img-top"  width="200" height="200">
-				  
-				  <div class="card-body">
-				  	
-				  	<input type="hidden" value =${u.um_No }>
-				   
-				    <h5 class="card-title"><b>${u.um_Title }</b></h5>
-				    <p><b>작성일:</b> ${u.um_Date}</p>
-				    <hr>
-				    <p class="card-text"><b>가격: </b>${u.um_Price}<b> 원</b></p>
-				    <hr>
-				    <p class="card-text"><b>작성자: </b>${u.um_Writer} </p>
-				    <a href="detail.um?uno=${u.um_No }" class="btn btn-primary">상세보기</a>
-				  	  
-				  </div>
-				</div>	
-		
-		</form>		
 
-	</c:forEach>	
-	
-	
-	
-	
-	</c:otherwise>	
-</c:choose>			
-	
+</div>
+<br> 
+<div id="testDiv2" > </div> <!-- 카테고리 단 -->
+
+
 		
-		<div id="pagingArea" align="center">
-                <ul class="pagination">
+		<div id="pagingArea"  >
+                <ul class="pagination justify-content-center" >
                 	<c:choose>
                 		<c:when test="${ pi.currentPage ne 1 }">
                 			<li class="page-item"><a class="page-link" href="list.um?currentPage=${ pi.currentPage-1 }">이전으로</a></li>
@@ -148,32 +144,10 @@
             
 			
             <br><br>
-        </div>
-        <br><br>
-    </div>
     
 
-    
     <script>
     
-function categorySelect(selectVal){
-	var wear = $("#wear");
-	var electronics = $("#electronics");
-	var living = $("#living");
-	
-	
-	console.log ("selectVal:  "+selectVal);
-
-	if(selectVal == "의류"){
-		wear.attr("selected","selected");
-	}else if(selectVal == "전자제품"){
-		electronics.attr("selected","selected");
-	}else if (selectVal == "생활용품"){
-		living.attr("selected","selected");
-	}
-	
-
-}
 
 
 $(function(){
@@ -181,7 +155,10 @@ $(function(){
 	var $categoryForm = $("#categoryForm"); 
 	
 	
+	
 	$categoryForm.change(function(){
+		var listArr = [];
+		var categoryVal = $categoryForm.val();
 		
 		 console.log("ajax Function 테스트 값 전달:  "+$categoryForm.val());
 		 
@@ -192,9 +169,54 @@ $(function(){
 					 async:false,
 					data:{category:$categoryForm.val()},
 					type:"post",
-					success: function(category){
-						//categorySelect(category);
-						//result = category;
+					dataType:"json",
+					success: function(listVal){
+
+						$('#testDiv').hide();
+
+						 listArr =listVal;
+						 $('#testDiv2').show();
+					
+					
+						console.log("categoryVal:  "+ categoryVal);
+						console.log("listArr 리스트JSP확인: "+listArr);
+						console.log("listVal 값넘어오는지 확인: "+listVal);
+						
+						$('#pagingArea').hide();
+						
+						var output ="";
+						
+						$.each(listArr,function(index,item){
+	
+							output += '<form id="cardFor">';
+							output += '<div id="cardAll" class="card" style ="width:18rem;">';
+							output += '<img src ="./resources/upload_file/'+ item.changeName +' " class="card-img-top" width="200" height="200">';
+							output += '<div class="card-body">';
+							output += '<input type="hidden" value='+ item.um_No;
+							output += '<h5 class ="card-title"><b>' +item.um_Title +' </b></h5>';
+							output +='<p><b>작성일:</b> '+ item.um_Date + '</p>';
+							output += '<hr>';
+							output += '<p class="card-text"><b>가격:</b> '+ item.um_Price +'<b>원</b></p>';
+							output +='<hr>';
+							output +='<p class="card-text"><b>작성자: </b>' +item.um_Writer +'</p>';
+							output +='<a href="detail.um?uno='+ item.um_No +'" class="btn btn-primary">상세보기</a>';
+							output +='</div>';
+							output +='</div>';
+							output +='</form>';
+					
+							
+							
+						});
+						
+						$('#testDiv2').html(output);
+						$('#pagingArea').hide();
+						$('#categoryTitle').html(categoryVal);
+					
+						
+						
+						
+						
+						
 						alert("성공");
 						
 
@@ -205,6 +227,11 @@ $(function(){
 					}
 				});
 				
+		}else{
+			
+			$('#testDiv').show();
+			$('#pagingArea').show();
+
 		}
 		
 	});

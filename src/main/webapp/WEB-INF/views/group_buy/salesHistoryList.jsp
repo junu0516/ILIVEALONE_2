@@ -14,6 +14,13 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
+	<script>
+		$(function(){
+			if(${not empty message}){
+				alert("${message}");
+			}
+		})
+	</script>
 	<br><br>
 	<div class="container">
 		<h2>판매기록 관리/조회</h2>
@@ -57,7 +64,6 @@
 						</c:if>
 						<c:if test="${purchaseHistory.phSalesStatus eq 'R'}">
 						<td>발송 준비</td>
-						<!-- 나중에 발송 완료 버튼 클릭시 송장번호 입력해서, purchaseHistory에 송장번호 업데이트 해야 함 -->
 						<td><a class="btn btn-success btn-sm" id="insertDeliveryInfo_${purchaseHistory.phNo}" data-toggle="modal" data-target="#invoiceModal">배송정보 입력</a></td>
 						<script>
 							var buyerId = "null";
@@ -85,6 +91,7 @@
 								<li>제품명 : ${purchaseHistory.phProductName}</li>
 								<li>구매자명 : ${purchaseHistory.phBuyerName}</li>
 								<li>받는주소 : ${purchaseHistory.phAddress}</li>
+								<li>배송정보 : ${purchaseHistory.phInvoice}</li>
 							</ul>
 						</div>							
 					</td>

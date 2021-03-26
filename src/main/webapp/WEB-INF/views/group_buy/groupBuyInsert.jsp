@@ -52,12 +52,18 @@
             
             <div class="form-group">
                 <label for="price">가격:</label>
-                <input type="range" class="form-control-range" id="pPrice" name="pPrice" value = "0" min="0" max="500000" step="500" oninput="document.getElementById('result').innerHTML=this.value;" required>
+                <input type="range" class="form-control-range" id="pPrice" name="pPrice" value = "0" min="1000" max="500000" step="1000" oninput="document.getElementById('result').innerHTML=this.value;" required>
                 <span id="result">0</span>
             </div>
+            
             <div class="form-group">
                 <label for="limit">목표 인원:</label>
                 <input type="number" class="form-control" id="pLimit" placeholder="목표 인원 입력" name="pLimit" required>
+            </div><br>
+            
+            <div class="form-group">
+                <label for="limit">인당 최대 구매 수량 :</label>
+                <input type="number" class="form-control" id="pMaxPurchase" placeholder="최대 구매수량 입력" name="pMaxPurchase" required>
             </div><br>
             
             <div class="form-group">

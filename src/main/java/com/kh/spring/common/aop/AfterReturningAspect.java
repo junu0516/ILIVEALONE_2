@@ -15,7 +15,7 @@ public class AfterReturningAspect {
 
 	private Logger log = LoggerFactory.getLogger(AfterReturningAspect.class);
 	
-	@AfterReturning(pointcut = "execution(* com.kh.spring..*ServiceImpl.login*(..))", returning="returnObj")
+	@AfterReturning(pointcut = "execution(* com.kh.spring..*ControllerImpl.login*(..))", returning="returnObj")
 	public void loggerAdvice(JoinPoint joinPoint, Object returnObj) {
 		
 		if(returnObj instanceof Member) {

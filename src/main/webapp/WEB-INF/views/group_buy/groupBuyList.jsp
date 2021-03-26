@@ -49,9 +49,15 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	
+	<script>
+		$(function(){
+			if(${not empty message}){
+				alert("${message}");
+			}
+		})
+	</script>
 	<h1 class="display-4" align="center" id="mainTitle">공동구매</h1>
-	
+	<a href="test.gb">트랜잭션 테스트</a>
 	<c:if test="${!empty sessionScope.loginUser }">
 	<div class="container">
 		<a href="insertView.gb" class="btn btn-primary">판매 등록</a>

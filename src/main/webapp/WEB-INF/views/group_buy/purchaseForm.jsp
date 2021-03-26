@@ -34,7 +34,11 @@
 					<!-- 구매 수량 -->
 					<div class="form-group">
 						<label for="phQuantity">수량 : </label>
-						<input type="number" class="form-control" id="phQuantity" name="phQuantity" required/>
+						<select class="form-control" name="phQuantity" id="phQuantity">
+							<c:forEach var="count" begin="0" end="${gbProduct.PMaxPurchase}" >
+							<option>${count}</option>
+							</c:forEach>
+						</select>
 					</div>
 					
 					<!-- 구매자 이름 -->
@@ -77,20 +81,22 @@
 				 <h1><b id="totalPrice"> </b><small>원</small></h1>
 			 	<br><br>
 			 	<script>
-			 		$(function(){
-				 		$("#phQuantity").keyup(function(){
-				 			var quantity = $("#phQuantity").val();
-				 			var price = "${gbProduct.PPrice}";
+			 	
+				 	$(function(){
+						$('#phQuantity').change(function(){
+							var quantity = this.value;
+							var price = "${gbProduct.PPrice}";
 				 			$("#totalPrice").html(price*quantity);
-				 		})
-			 		})
+						});
+					})
+			
 			 		
 			 		$(function(){
 				 		$("#phQuantity").click(function(){
 				 			var quantity = $("#phQuantity").val();
 				 			var price = "${gbProduct.PPrice}";
 				 			$("#totalPrice").html(price*quantity);
-				 		})
+				 		});
 			 		})
 			 	</script>
 			 	

@@ -10,8 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="um_Title" column="UM_TITLE"/>
 		<result property="um_Content" column="UM_CONTENT"/>
 		<result property="um_Writer" column="UM_WRITER"/>
-		<result property="originName" column="UM_DATE"/>
-		<result property="changeName" column="UM_VIEW_COUNT"/>
+		
+		<result property="um_Date" column="UM_DATE"/>
+		<result property="um_View_Count" column="UM_VIEW_COUNT"/>
+		
 		<result property="um_Category" column="UM_CATEGORY"/>
 		<result property="um_System" column="UM_SYSTEM"/>
 		<result property="um_Status" column="UM_STATUS"/>
@@ -44,12 +46,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
+	<select id="selectListCategory" resultMap ="usedMarketResultSet">
+		SELECT *
+		FROM USEDMARKET
+		WHERE UM_STATUS = 'Y'
+		AND UM_CATEGORY = #{category}
+		ORDER BY UM_NO DESC
+	
+	
+	
+	</select>
+	
 	<update id="updateIncreaseCount" parameterType="_int" >
 		UPDATE USEDMARKET
 		SET UM_VIEW_COUNT = UM_VIEW_COUNT +1
 		WHERE UM_NO = #{uno}
 		AND UM_STATUS='Y'
 	
+	
+	</update>
+	
+	<update id="updateUsedMarket" parameterType="UsedMarket">
+		UPDATE USEDMARKET
+		SET UM_TITLE =#{um_Title}, UM_CONTENT = #{um_Content},
+			ORIGIN_NAME =#{originName}, CHANGE_NAME=#{changeName}
+			,UM_DATE = SYSDATE
+		WHERE UM_NO = #{um_No}
 	
 	</update>
 	
@@ -61,5 +83,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	</select>
-
+	
+		
+	<update id="deleteUsedMarket" parameterType="_int">
+		UPDATE USEDMARKET
+		SET UM_STATUS = 'N'
+		WHERE UM_NO = #{uno}
+		
+	
+	
+	
+	</update>
+	
 </mapper>

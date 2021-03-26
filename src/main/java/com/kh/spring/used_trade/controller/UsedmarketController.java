@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,10 +46,11 @@ public class UsedmarketController {
 	}
 	
 	
-	@ResponseBody
+	
 	//list 카테고리목록으로 이동
+	@ResponseBody
 	@RequestMapping("listCategory.um")
-	public String selectListCategory(@RequestParam(value="currentPage",required=false , defaultValue = "1") int currentPage , Model model  ,@RequestParam String category ) {
+	public Object selectListCategory(@RequestParam(value="currentPage",required=false , defaultValue = "1") int currentPage , Model model  ,@RequestParam String category ,@RequestParam Map<String,Object> map) {
 		
 		int listCount = usedMarketService.selectListCount();
 
@@ -60,12 +63,16 @@ public class UsedmarketController {
 	
 		ArrayList<UsedMarket> listC = usedMarketService.selectListCategory(pi,category);
 		
-	
+		System.out.println("listC:  "+ listC);
+		
+		System.out.println();
+		
 		model.addAttribute("listC",listC);
 		model.addAttribute("pi",pi);
 		model.addAttribute("category",category);
 		
-		return "used_trade/usedMarketListView"; //Ajax 통신후 새로고침 새로고침 안됌!@!@
+	
+		return listC; //Ajax 통신후 새로고침 새로고침 안됌!@!@
 	}
 
 

@@ -11,4 +11,14 @@ public interface MemberService {
 	int insertMember(Member m) throws Exception;
 
 	Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m) throws Exception;
+
+	int updateMember(Member m);
+
+	int deleteMember(String userId);
+
+	int updatePassword(Member member);
+
+	int idCheck(String userId);
+
+	int pwdCheck(String userPwd);
 }

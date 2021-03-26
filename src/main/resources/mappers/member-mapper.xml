@@ -18,11 +18,7 @@
 	</resultMap>
 
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
-		<!-- 암호화 전
-		select * from member
-		where user_id=#{userId} and user_pwd=#{userPwd} and status='Y'
-		-->
-		<!-- 암호화 후-->
+		
 		select * from member
 		where user_id=#{userId} and status='Y'
 		 
@@ -34,7 +30,7 @@
 	
 	<update id="updateMember" parameterType="Member">
 		update member
-		set email=#{email}, age=#{age}, phone=#{phone}, address=#{address}, modify_date=sysdate
+		set email=#{email}, age=#{age}, gender=#{gender}, phone=#{phone}, address=#{address}, modify_date=sysdate
 		where user_id=#{userId}
 	</update>
 	
@@ -44,9 +40,22 @@
 		where user_id=#{userId}
 	</delete>
 	
-	<select id="idCheck" parameterType="string" resultType="_int">
+	<update id="updatePassword" parameterType="Member">
+      UPDATE MEMBER SET
+      USER_PWD = #{userPwd}
+      WHERE USER_ID = #{userId}
+      AND STATUS='Y'
+   </update>
+   
+   <select id="idCheck" parameterType="string" resultType="_int">
 		select count(*)
 		from member
 		where user_id=#{userId}
-	</select>
+   </select>
+	
+   <select id="pwdCheck" parameterType="string" resultType="_int">
+   		select count(*)
+   		from member
+   		where user_pwd=#{userPwd}
+   </select>
 </mapper>
