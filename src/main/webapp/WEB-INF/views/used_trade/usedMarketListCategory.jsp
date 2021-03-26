@@ -38,7 +38,9 @@
  <h2>중고거래</h2>
 
  <hr>
+ 
  <a class="btn btn-secondary" style="float:right" href="enrollForm.um">글쓰기</a> 
+ 
  <select id="categoryForm" >
  
 	<option id="all" value="전체">전체</option>
