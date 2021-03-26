@@ -11,21 +11,17 @@ import com.kh.spring.group_buy.model.vo.SearchCondition;
 
 public interface GroupBuyService {
 
-	int insertBoard(GroupBuyBoard groupBuyBoard);
-
 	ArrayList<GroupBuyBoard> selectList(PageInfo pageInfo);
 
 	GroupBuyBoard selectBoard(int gbNo);
-
-	int insertProduct(GroupBuyProduct groupBuyProduct);
-
-	int getLastBoardNum();
 
 	ArrayList<GroupBuyProduct> selectProducts(PageInfo pageInfo);
 
 	GroupBuyProduct selectProduct(int gbNo);
 	
 	GroupBuyProduct selectProductWithPno(int pNo);
+	
+	int insertBoardAndProduct(GroupBuyBoard groupBuyBoard, GroupBuyProduct groupBuyProduct);
 
 	int selectListCount();
 
@@ -35,15 +31,9 @@ public interface GroupBuyService {
 
 	ArrayList<GroupBuyProduct> selectProducts(PageInfo pageInfo, SearchCondition searchCondition);
 
-	int updateBoard(GroupBuyBoard groupBuyBoard);
-
-	int updateProduct(GroupBuyProduct groupBuyProduct);
+	int updateBoardAndProduct(GroupBuyBoard groupBuyBoard, GroupBuyProduct groupBuyProduct);
 
 	int deleteBoard(int gbNo);
-
-	int addPurchaseHistory(PurchaseHistory purchaseHistory);
-
-	int updatePurchase(int pNo);
 
 	ArrayList<PurchaseHistory> selectSalesHistories(String sellerId);
 
@@ -57,7 +47,8 @@ public interface GroupBuyService {
 
 	int cancelDeal(HashMap<String, String> mapKey);
 
-	int decreasePurchaseCount(int pNo);
+	int selectPreviousPurchaseCount(HashMap<String, String> mapKey);
 
-	int reopenDeal(int pNo);
+	int updateDeal(PurchaseHistory purchaseHistory);
+
 }

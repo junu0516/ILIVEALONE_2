@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
@@ -24,8 +25,6 @@
 		<!-- 커넥션 정보 입력 -->
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 
-
-
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 		<property name="username" value="ILIVEALONE"/>
 		<property name="password" value="ILIVEALONE"/>
@@ -45,7 +44,24 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" rollback-for="Exception"/>
+			<tx:method name="insert*" rollback-for="Exception"/>
+			<tx:method name="update*" rollback-for="Exception"/>
+			<tx:method name="delete*" rollback-for="Exception"/>
+			<tx:method name="add*" rollback-for="Exception"/>
+			<tx:method name="completeDeal" rollback-for="Exception"/>
+			<tx:method name="cancelDeal" rollback-for="Exception"/>
+			<tx:method name="prepareDeal" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	 
+	<aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.kh.spring..*Controller.*(..))" id="controllerMethod"/>
+		<aop:advisor id="transactionAdvisor" pointcut-ref="controllerMethod" advice-ref="txAdvice"/>
+	</aop:config>
 
 	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000000" /> <!-- 최대 업로드 가능 크기 -->

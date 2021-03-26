@@ -13,6 +13,13 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
+	<script>
+		$(function(){
+			if(${not empty message}){
+				alert("${message}");
+			}
+		})
+	</script>
 	<br><br>
 	<div class="container">
 		<h2>구매내역 조회</h2>
@@ -28,7 +35,7 @@
 					<th>등록날짜</th>
 					<th>수정날짜</th>
 					<th>구매상태</th>
-					<th>구매취소</th>
+					<th>상태수정</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,7 +43,7 @@
 				<tr>
 					<td>${purchaseHistory.phNo}</td>
 					<c:set var="sharp" value="<%='#'%>"/>
-					<td><a data-toggle="collapse" href="${sharp}detail_${purchaseHistory.phNo}">${purchaseHistory.phBuyerName}</a></td>
+					<td><a data-toggle="collapse" href="${sharp}detail_${purchaseHistory.phNo}" aria-expanded="false" class="accordion-toggle">${purchaseHistory.phBuyerName}</a></td>
 					<td><a href="detail.gb?pNo=${purchaseHistory.phProduct}">${purchaseHistory.phProductName}</a></td>
 					<td>${purchaseHistory.phQuantity}</td>
 					<td>${purchaseHistory.phRecordDate}</td>
@@ -49,7 +56,7 @@
 						<c:if test="${purchaseHistory.phSalesStatus eq 'W'}">
 						<td>거래 대기</td>
 						<td>
-							<a class="btn btn-danger btn-sm" href="cancelDeal.gb?phProduct=${purchaseHistory.phProduct}&phBuyer=${purchaseHistory.phBuyer}">취소하기</a>
+							<a class="btn btn-danger btn-sm" href="cancelDeal.gb?phNo=${purchaseHistory.phNo}&phProduct=${purchaseHistory.phProduct}&phBuyer=${purchaseHistory.phBuyer}" onclick=" return cancelDeal();">취소하기</a>
 						</td>		
 						</c:if>	
 						<c:if test="${purchaseHistory.phSalesStatus eq 'R'}">
@@ -64,7 +71,7 @@
 				</tr>
 				<tr>
 					<td colspan="8">
-						<div id="detail_${purchaseHistory.phNo}" class="collapse">
+						<div id="detail_${purchaseHistory.phNo}" class="accordian-body collapse">
 							<b>세부정보 조회</b>
 							<br><br>
 							<ul>
@@ -80,6 +87,13 @@
 			</tbody>
 		</table>
 	</div>
-		
+	
+	<script>
+		function cancelDeal(){
+			return confirm("정말 취소하시겠습니까?");
+		}
+	
+	
+	</script>	
 </body>
 </html>

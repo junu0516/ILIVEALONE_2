@@ -12,7 +12,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <style>
-
         thead>tr>th{
             text-align: center;
         }
@@ -25,6 +24,13 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
+	<script>
+		$(function(){
+			if(${not empty message}){
+				alert("${message}");
+			}
+		})
+	</script>
     <br>
     
     <div class="container">
@@ -74,8 +80,8 @@
           		if(${empty sessionScope.loginUser}){
               		alert("로그인하세요");          			
           		}else{
-          			alert("구매 진행");
-          			location.href="purchaseForm.gb?phCno=${gbBoard.gbNo}&phProduct=${gbProduct.PNo}"
+          			alert("구매페이지로 넘어갑니다.");
+          			location.href="purchaseForm.gb?phCno=${gbBoard.gbNo}&phProduct=${gbProduct.PNo}&phBuyer=${loginUser.userId}";
           			
           		}
           	}
@@ -97,70 +103,6 @@
           		} 		
           	})
           </script>
-    </div>
-
-    <!--장바구니 모달-->
-    <div class="modal" id="cart">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          
-          <div class="modal-header">
-            <h4 class="modal-title">장바구니</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-
-          <div class="modal-body">
-            <table class="table">
-              <thead class="thead-light">
-                <tr>
-                  <th>NO</th>
-                  <th>제품명</th>
-                  <th>수량</th>
-                  <th>가격</th>
-                  <th>선택</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>01</td>
-                  <td>두루마리 휴지</td>
-                  <td>5</td>
-                  <td>5000</td>
-                  <td>
-                    <input type="checkbox" class="form-check-input" value=""/>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>02</td>
-                  <td>머그컵</td>
-                  <td>1</td>
-                  <td>2000</td>
-                  <td>
-                    <input type="checkbox" class="form-check-input" value=""/>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>03</td>
-                  <td>라면</td>
-                  <td>3</td>
-                  <td>1000</td>
-                  <td>
-                    <input type="checkbox" class="form-check-input" value=""/>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="modal-footer">
-            <a href="#" class="btn btn-primary">구매하기</a>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-
-        </div>
-      </div>
     </div>
 
   </body>

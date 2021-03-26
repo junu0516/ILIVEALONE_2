@@ -26,7 +26,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		return loginUser;
 		
-		
 	}
 	
 	@Override
@@ -49,4 +48,46 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return loginUser;
 	}
+
+	
+	@Override
+	public int updateMember(Member m) {
+		// TODO Auto-generated method stub
+		System.out.println("service");
+		return memberDao.updateMember(sqlSession, m);
+		
+		/*int result = memberDao.updateMember(sqlSession, m);
+		int result1 = memberDao.insertMember(sqlSession, m);
+		
+		if(result>0 && result>0) {
+			return 1;
+		}else {
+			return 0;
+		}*/
+	}
+
+
+	@Override
+	public int deleteMember(String userId) {
+		// TODO Auto-generated method stub
+		return memberDao.deleteMember(sqlSession, userId);
+	}
+
+	@Override
+	public int updatePassword(Member member) {
+	    return memberDao.updatePassword(sqlSession,member);
+	}
+	
+	@Override
+	public int idCheck(String userId) {
+		// TODO Auto-generated method stub
+		return  memberDao.idCheck(sqlSession, userId);
+	}
+
+	@Override
+	public int pwdCheck(String userPwd) {
+		// TODO Auto-generated method stub
+		return memberDao.pwdCheck(sqlSession, userPwd);
+	}
+
 }
