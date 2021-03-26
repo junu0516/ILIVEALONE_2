@@ -41,9 +41,8 @@
 	<script>
     	$(function(){ //매물 목록에서 매물 클릭 시 해당 매물의 rno에 해당하는 detail페이지로 이동
     		$("#list div ul li").click(function(){ 
-    			//location.href="detail.re?rno=" + $(this).children().eq(3).text();
+    			location.href="detail.re?rno=" + $(this).children().eq(3).text();
     			
-    			location.href="korea11";
     		});
     	});
     </script>

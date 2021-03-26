@@ -31,6 +31,8 @@ public class HomeController {
 		 
 	        model.addAttribute("koreaStats", koreaStatsList);
 	        model.addAttribute("weather", weather);
+	        
+	        System.out.println(weather);
 
 	        return "main";
 	}

@@ -67,11 +67,7 @@
 		        			</ul>
 		        		</div>
 	           		</li>
-	           		
-	           		<li class="nav-item">
-	            		<a class="nav-link" href="korea">코로나</a>
-	          		</li>
-	    	
+	           	
 	           		<c:if test="${ empty sessionScope.loginUser }">
 			
 	           		<li class="nav-item">

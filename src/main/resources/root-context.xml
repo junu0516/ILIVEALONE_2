@@ -23,15 +23,7 @@
 	<bean id="realDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> <!-- close를 자동으로 설정 -->
 		<!-- 커넥션 정보 입력 -->
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-<<<<<<< Updated upstream
-
-
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-
-
-=======
 		<property name="url" value="jdbc:oracle:thin:@localhost:1523:xe"/>
->>>>>>> Stashed changes
 		<property name="username" value="ILIVEALONE"/>
 		<property name="password" value="ILIVEALONE"/>
 		<property name="defaultAutoCommit" value="false"/>
@@ -50,10 +42,11 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-
-
+	
+	
 	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000000" /> <!-- 최대 업로드 가능 크기 -->
 		<property name="maxInMemorySize" value="100000000" /> <!-- 메모리에 보관할 수 있는 최대 크기 -->
 	</bean>
+	
 </beans>

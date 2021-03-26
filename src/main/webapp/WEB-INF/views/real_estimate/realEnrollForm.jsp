@@ -37,7 +37,12 @@
 			
 			<!-- 이미지 첨부파일 등록을 위해  Multipart/form-data encType 지정 -->
             <form id="enrollForm" method="post" action="insert.re" enctype="multipart/form-data">
+                  <input type="hidden" value="${loginUser.userId }">
                   <table id="contentArea" align="center" class="table">
+                   <tr>
+                    <th width="100">등록자</th>
+                   <td><input type="text" id="userId" name="userId" value="${loginUser.userId }" readonly></td>
+                </tr>
                 <tr>
                     <th width="100">세 종류</th>
                     <td colspan="3">
