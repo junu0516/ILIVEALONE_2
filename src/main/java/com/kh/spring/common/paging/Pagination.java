@@ -1,6 +1,5 @@
-package com.kh.spring.group_buy.model;
+package com.kh.spring.common.paging;
 
-import com.kh.spring.group_buy.model.vo.PageInfo;
 
 public class Pagination {
 	

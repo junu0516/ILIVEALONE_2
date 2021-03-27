@@ -24,11 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.kh.spring.group_buy.model.Pagination;
+import com.kh.spring.common.paging.PageInfo;
+import com.kh.spring.common.paging.Pagination;
 import com.kh.spring.group_buy.model.service.GroupBuyService;
 import com.kh.spring.group_buy.model.vo.GroupBuyBoard;
 import com.kh.spring.group_buy.model.vo.GroupBuyProduct;
-import com.kh.spring.group_buy.model.vo.PageInfo;
 import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
 import com.kh.spring.member.model.vo.Member;

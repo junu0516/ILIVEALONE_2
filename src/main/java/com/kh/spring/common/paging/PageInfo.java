@@ -1,4 +1,4 @@
-package com.kh.spring.group_buy.model.vo;
+package com.kh.spring.common.paging;
 
 public class PageInfo {
 	
