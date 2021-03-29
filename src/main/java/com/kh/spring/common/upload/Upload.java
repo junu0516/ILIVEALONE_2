@@ -31,11 +31,81 @@ public class Upload {
 	 * 
 	 * */
 	
-	public String saveFile(int function, MultipartFile multipartFile, HttpServletRequest request) {
-		
+	public String saveFile(int function, boolean isCK, MultipartFile multipartFile, HttpServletRequest request) {
 		
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		
+		String savePath="";
+		if(!isCK) {//ck에디터를 통해 업로드한 이미지가 아닌 경우
+			
+			switch(function) {
+			case 1:
+				savePath = resources+"\\images\\commuity_fashion\\";
+				break;
+			case 2:
+				savePath = resources+"\\images\\commuity_food\\";
+				break;
+			case 3:
+				savePath = resources+"\\images\\commuity_housing\\";
+				break;
+			case 4:
+				savePath = resources+"\\images\\group_buy\\";
+				break;
+			case 5:
+				savePath = resources+"\\images\\used_market\\";
+				break;
+			case 6:
+				savePath = resources+"\\images\\real_estate\\";
+				break;
+			default:
+				throw new CommonException("사진 저장 경로가 잘못되었습니다.");
+			}
+		}else {//ck에디터를 통해 업로드한 경우
+			
+			switch(function) {
+			case 1:
+				savePath = resources+"\\images\\commuity_fashion\\ckeditor\\";
+				break;
+			case 2:
+				savePath = resources+"\\images\\commuity_food\\ckeditor\\";
+				break;
+			case 3:
+				savePath = resources+"\\images\\commuity_housing\\ckeditor\\";
+				break;
+			case 4:
+				savePath = resources+"\\images\\group_buy\\ckeditor\\";
+				break;
+			case 5:
+				savePath = resources+"\\images\\used_market\\ckeditor\\";
+				break;
+			case 6:
+				savePath = resources+"\\images\\real_estate\\ckeditor\\";
+				break;
+			default:
+				throw new CommonException("사진 저장 경로가 잘못되었습니다.");
+			}			
+		}
+				
+		String originalName = multipartFile.getOriginalFilename();
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()); 
+		
+		String ext = originalName.substring(originalName.lastIndexOf("."));
+		String changedName = currentTime+ext;
+		
+		try {
+			multipartFile.transferTo(new File(savePath+changedName));
+			System.out.println("서버에 이미지 저장 완료");
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("파일 저장 오류 : " + e.getMessage());
+		}
+			
+		return changedName;
+	}
+	
+	public void deleteFile(int function, String fileName, HttpServletRequest request) {
+		
+		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath="";
 		switch(function) {
 			case 1:
@@ -59,49 +129,6 @@ public class Upload {
 			default:
 				throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 		}
-				
-		String originalName = multipartFile.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()); 
-		
-		String ext = originalName.substring(originalName.lastIndexOf("."));
-		String changedName = currentTime+ext;
-		
-		try {
-			multipartFile.transferTo(new File(savePath+changedName));
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("파일 저장 오류 : " + e.getMessage());
-		}
-			
-		return changedName;
-	}
-	
-	public void deleteFile(int function, String fileName, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath="";
-		switch(function) {
-		case 1:
-			savePath = resources+"\\images\\commuity_fashion\\";
-			break;
-		case 2:
-			savePath = resources+"\\images\\commuity_food\\";
-			break;
-		case 3:
-			savePath = resources+"\\images\\commuity_housing\\";
-			break;
-		case 4:
-			savePath = resources+"\\images\\group_buy\\";
-			break;
-		case 5:
-			savePath = resources+"\\images\\used_market\\";
-			break;
-		case 6:
-			savePath = resources+"\\images\\real_estate\\";
-			break;
-		default:
-			throw new CommonException("사진 저장 경로가 잘못되었습니다.");
-	}
 		
 		File deleteFile = new File(savePath+fileName);
 		deleteFile.delete();	

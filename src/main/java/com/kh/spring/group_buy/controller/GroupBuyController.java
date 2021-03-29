@@ -83,7 +83,7 @@ public class GroupBuyController {
 		if(!thumbnail.getOriginalFilename().equals("")) {
 			String gbOriginalName = thumbnail.getOriginalFilename();
 			//String gbChangedName = saveFile(thumbnail,request);
-			String gbChangedName = upload.saveFile(4, thumbnail, request);
+			String gbChangedName = upload.saveFile(4, false, thumbnail, request);
 			
 			if(gbChangedName != null) {
 				groupBuyBoard.setGbOriginalName(gbOriginalName);
@@ -192,7 +192,7 @@ public class GroupBuyController {
 				//deleteFile(groupBuyBoard.getGbChangedName(),request); 
 			}
 			
-			String gbChangedName = upload.saveFile(4, thumbnail,request);
+			String gbChangedName = upload.saveFile(4, false, thumbnail,request);
 			//saveFile(thumbnail,request);
 			groupBuyBoard.setGbOriginalName(thumbnail.getOriginalFilename());
 			groupBuyBoard.setGbChangedName(gbChangedName);

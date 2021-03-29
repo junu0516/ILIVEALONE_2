@@ -253,7 +253,10 @@
     		<groupId>net.nurigo</groupId>
     		<artifactId>javaSDK</artifactId>
     		<version>2.2</version>
-  	</dependency>
+  		</dependency>
+		
+		<!-- CK에디터 사용 관련 -->
+
 		
 	</dependencies>
 	<build>
