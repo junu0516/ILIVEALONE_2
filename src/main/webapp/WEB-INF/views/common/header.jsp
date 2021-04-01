@@ -67,12 +67,11 @@
 		        			</ul>
 		        		</div>
 	           		</li>
+
 	           		<!-- <a class="btn color-white dropdown-toggle" data-toggle="dropdown" href="#">게시판<span class="caret"> -->
 
 
-	           		<li>
-	           		<a  class="nav-link" href="chat.ch">채팅테스트</a>
-	           		</li>
+
 	           	
 
 	           		<c:if test="${ empty sessionScope.loginUser }">
