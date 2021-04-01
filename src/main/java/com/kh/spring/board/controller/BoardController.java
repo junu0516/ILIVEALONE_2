@@ -58,6 +58,19 @@ public class BoardController {
 		return "board/like";
 	}
 	
+	@RequestMapping("list.po")
+	public String personalTearmsForm() {
+		return "common/personalTerms";
+	}
+	@RequestMapping("list.so")
+	public String serviceCenter() {
+		return "common/serviceCenter";
+	}
+	@RequestMapping("list.to")
+	public String termsService() {
+		return "common/termsService";
+	}
+	
 
 	@RequestMapping("list.bo")
 	public String selectList(@RequestParam(value = "currentPage", required= false, defaultValue = "1") int currentPage, Model model) {
@@ -435,7 +448,16 @@ public class BoardController {
 			return "board/boardFListView";
 	}
 	
-
+	//1위 게시글 
+	@RequestMapping("OtopList.bo")
+	public void boardOneTopList(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Board> list = boardService.selectOneTopList();
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list,response.getWriter());
+	}
+	
 
 
 }

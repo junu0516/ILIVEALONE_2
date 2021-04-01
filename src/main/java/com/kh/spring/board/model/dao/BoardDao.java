@@ -148,5 +148,10 @@ public class BoardDao {
 
 	}
 
+	public ArrayList<Board> selectOneTopList(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("boardMapper.selectOneTopList");	
+	}
+
 
 }

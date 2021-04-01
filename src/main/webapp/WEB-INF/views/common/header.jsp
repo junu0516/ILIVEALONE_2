@@ -57,20 +57,24 @@
 	 		        <li>
 	          			<div id ="header_2">
 	    					<ul class="nav navbar-nav">
-	      						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">게시판<span class="caret"></span></a>
-				        			<ul class="dropdown-menu">
-					         			<li><a href="Toplist.bo">패션 게시판</a></li>
-					          			<li><a href="Toplistf.fo">푸드 게시판</a></li>
-					          			<li><a href="Toplistf.ho">하우징 게시판</a></li>
+	      						<li class="dropdown"> <a class="dropdown-toggle btn text-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false" >게시판<span class="caret"></span></a>
+				        			<ul class="dropdown-menu">				        			
+					         			<li class="nav-item"><a class = "dropdown-item" href="Toplist.bo">패션 게시판</a></li>
+					          			<li class="nav-item"><a class = "dropdown-item" href="Toplistf.fo">푸드 게시판</a></li>
+				          				<li class="nav-item"><a class = "dropdown-item" href="Toplistf.ho">하우징 게시판 </a></li>
 				        			</ul>	
 		        				</li>
 		        			</ul>
 		        		</div>
 	           		</li>
+	           		<!-- <a class="btn color-white dropdown-toggle" data-toggle="dropdown" href="#">게시판<span class="caret"> -->
+
+
 	           		<li>
 	           		<a  class="nav-link" href="chat.ch">채팅테스트</a>
 	           		</li>
 	           	
+
 	           		<c:if test="${ empty sessionScope.loginUser }">
 			
 	           		<li class="nav-item">
@@ -80,17 +84,33 @@
 	          		<li class="nav-item">
 	            		<a class="nav-link" data-toggle="modal" data-target="#loginModal">로그인</a>
 	          		</li>
-
+					
                     </c:if>
                     
                     <c:if test="${ !empty sessionScope.loginUser }">
+	                <div class="dropdown ">
+		 				 <a class="btn color-white dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+		 				 <i class="fas fa-user-circle"></i> <b>&nbsp; ${ loginUser.userName } 님</b>
+		  				</a>
+		
+		 			 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" 	style="text-align: center;" >
+		  				<li><a class="dropdown-item" href="myPage.me">마이페이지</a></li>
+						<li><a class="dropdown-item" href="logout.me">로그아웃</a></li>
+		  			</ul>
+		  			</div>
+	                <!-- 
 	                <li class="nav-item">
-	            		<a class="nav-link" href="myPage.me">마이페이지</a>
+	                	<i class="fas fa-user-circle"><a class="nav-link" href="myPage.me">${ loginUser.userName }님</a></i>
+	                	
+	            		<li class="nav-item">
+	          			<a class="nav-link" href="myPage.me">마이페이지</a>
+	          			</li>
 	          		</li>
 	          		
 	          		<li class="nav-item">
 	            		<a class="nav-link" href="logout.me">로그아웃</a>
 	          		</li>
+	          		-->
 	          		
                 	</c:if>  
 	           		
