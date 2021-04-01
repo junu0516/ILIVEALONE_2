@@ -59,6 +59,8 @@ public interface FoodService {
 
 	ArrayList<FoodP> selectPList(PageInfo pageInfo, FoodSearchCondition searchCondition);
 
+	ArrayList<Food> selectOneTopList();
+
 
 
 

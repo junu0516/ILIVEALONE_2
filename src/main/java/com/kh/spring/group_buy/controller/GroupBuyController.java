@@ -1,9 +1,6 @@
 package com.kh.spring.group_buy.controller;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,11 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.kh.spring.group_buy.model.Pagination;
+import com.kh.spring.common.paging.PageInfo;
+import com.kh.spring.common.paging.Pagination;
+import com.kh.spring.common.upload.Upload;
 import com.kh.spring.group_buy.model.service.GroupBuyService;
 import com.kh.spring.group_buy.model.vo.GroupBuyBoard;
 import com.kh.spring.group_buy.model.vo.GroupBuyProduct;
-import com.kh.spring.group_buy.model.vo.PageInfo;
 import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
 import com.kh.spring.member.model.vo.Member;
@@ -41,6 +39,9 @@ public class GroupBuyController {
 	
 	@Autowired
 	GroupBuyService groupBuyService;
+	
+	@Autowired
+	Upload upload;
 	
 	@RequestMapping("list.gb")
 	public String showList(@RequestParam(required=false, defaultValue="1")int currentPage, Model model) {
@@ -81,7 +82,8 @@ public class GroupBuyController {
 		
 		if(!thumbnail.getOriginalFilename().equals("")) {
 			String gbOriginalName = thumbnail.getOriginalFilename();
-			String gbChangedName = saveFile(thumbnail,request);
+			//String gbChangedName = saveFile(thumbnail,request);
+			String gbChangedName = upload.saveFile(4, false, thumbnail, request);
 			
 			if(gbChangedName != null) {
 				groupBuyBoard.setGbOriginalName(gbOriginalName);
@@ -96,27 +98,6 @@ public class GroupBuyController {
 			return "";
 		}
 		
-	}
-
-	private String saveFile(MultipartFile thumbnail, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		String originalName = thumbnail.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()); 
-		
-		String ext = originalName.substring(originalName.lastIndexOf("."));
-		String changedName = currentTime+ext;
-		
-		try {
-			thumbnail.transferTo(new File(savePath+changedName));
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("파일 저장 오류 : " + e.getMessage());
-		}
-			
-		return changedName;
 	}
 	
 	@GetMapping("detail.gb")
@@ -207,10 +188,12 @@ public class GroupBuyController {
 		
 		if(!thumbnail.getOriginalFilename().equals("")) { 
 			if(groupBuyBoard.getGbChangedName() != null) {
-				deleteFile(groupBuyBoard.getGbChangedName(),request); 
+				upload.deleteFile(4, groupBuyBoard.getGbChangedName(),request);
+				//deleteFile(groupBuyBoard.getGbChangedName(),request); 
 			}
 			
-			String gbChangedName = saveFile(thumbnail,request);
+			String gbChangedName = upload.saveFile(4, false, thumbnail,request);
+			//saveFile(thumbnail,request);
 			groupBuyBoard.setGbOriginalName(thumbnail.getOriginalFilename());
 			groupBuyBoard.setGbChangedName(gbChangedName);
 		}
@@ -226,26 +209,22 @@ public class GroupBuyController {
 		return "redirect:list.gb";
 	}
 
-	private void deleteFile(String thumbnail, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		File deleteFile = new File(savePath+thumbnail);
-		deleteFile.delete();	
-	}
-	
 	@GetMapping("delete.gb")
-	public String deleteBoard(@RequestParam int gbNo, RedirectAttributes redirectAttr) {
+	public String deleteBoard(@RequestParam int gbNo, HttpServletRequest request, RedirectAttributes redirectAttr) {
 		
+		//업로드된 이미지를 먼저 삭제
+		String fileName = groupBuyService.selectBoard(gbNo).getGbChangedName();
+		upload.deleteFile(4, fileName, request);
+		
+		//게시글 삭제
 		int result = groupBuyService.deleteBoard(gbNo);
 		
 		if(result>0) {
-			redirectAttr.addFlashAttribute("message","삭제 완료");
+			redirectAttr.addFlashAttribute("message","게시글 삭제 완료");
 			System.out.println("삭제 완료");
 			return "redirect:list.gb";
 		}else {
-			redirectAttr.addFlashAttribute("message","삭제 실패");
+			redirectAttr.addFlashAttribute("message","게시글 삭제 실패");
 			return "redirect:detail.gb?gbNo="+gbNo;
 		}	
 	}

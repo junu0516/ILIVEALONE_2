@@ -432,6 +432,13 @@ public class HousingController {
 	}
 	
 
-
+	@RequestMapping("OtopListP.ho")
+	public void housingOneTopList(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Housing> list = housingService.selectOneTopList();
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list,response.getWriter());
+	}
 
 }

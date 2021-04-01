@@ -56,7 +56,7 @@
 <div class="container-fluid text-center">  
 	<div class="col-sm-2 sidenav">
  		<ul class = "list-group">
-      		<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      		<a href="${pageContext.servletContext.contextPath}"  class="list-group-item list-group-item-success">Home</a></p>
       		<a href="Toplist.ho" class="list-group-item list-group-item-success">하우징 메인 페이지</a></p>
       		<a href="list.ho" class="list-group-item list-group-item-success">하우징게시물</a></p>
       		<a href="blist.ho" class="list-group-item list-group-item-success">하우징 최신뉴스</a></p>

@@ -7,9 +7,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.spring.common.paging.PageInfo;
 import com.kh.spring.group_buy.model.vo.GroupBuyBoard;
 import com.kh.spring.group_buy.model.vo.GroupBuyProduct;
-import com.kh.spring.group_buy.model.vo.PageInfo;
 import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
 

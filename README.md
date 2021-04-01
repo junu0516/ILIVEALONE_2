@@ -6,7 +6,9 @@
 - [남궁수영](https://github.com/ngsy) : 중고거래 서비스 구현
 - [배채은](https://github.com/baechaeeun) : 부동산 매물 거래 서비스 구현
 - [윤우진](https://github.com/dbsrkrnd) : 주제별 커뮤니티 게시판 서비스 구현
-- [이준우](https://github.com/junu0516) : 공동구매 서비스 구현
+- [이준우](https://github.com/junu0516) : 공동구매 서비스 구현   
+
+**** 각종 이슈 발생에 대한 팀원 간 커뮤니케이션 과정은 [여기](https://github.com/junu0516/ILIVEALONE_2/issues)를 참고해주세요
 
 ### :computer:사용 기술
 - Version Control : Git & Github

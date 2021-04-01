@@ -7,11 +7,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: auto;}
+    .row.content {height: 100%;}
     
     /* Set gray background color and 100% height */
     .sidenav {
@@ -42,7 +44,7 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
       <ul class = "list-group">
-      	<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      	<a href="${pageContext.servletContext.contextPath}" class="list-group-item list-group-item-success">Home</a></p>
       	<a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 페이지</a></p>
       	<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
       	<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
@@ -55,7 +57,7 @@
     <div class="col-sm-8 text-left">
       <br><br> 
       
-      <h1 align="center">게시글 TOP 5 목록</h1>
+      <h1 align="center"><i class="far fa-clipboard"></i> TOP 5 목록</h1>
       <table id="boardList" class="table table-hover" align="center">
       <thead>
       <tr>
@@ -68,6 +70,14 @@
       <a class="btn btn-secondary" style="float:right" href="list.bo">목록</a>
       <hr>
 		<script>
+		
+		$(function(){
+			topList();
+			$("#boardList").on("click",".boardList",function(){
+				var bno = $(this).data("bno");
+				location.href="detail.bo?bno=" + $(this).children().eq(0).text();
+		    });
+		});
 		function topList(){
 			$.ajax({
 				url: 'topList.bo',
@@ -75,7 +85,7 @@
 					$tableBody = $('#boardList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
-						var $tr = $('<tr>');
+						var $tr = $('<tr class = "boardList">');
 						var $bId = $('<td>').text(obj.boardNo);
 						var $bTitle = $('<td>').text(obj.boardTitle);
 						var $bWriter = $('<td>').text(obj.boardWriter);
@@ -103,9 +113,11 @@
 
 		})
 	</script>
-		
+	
+    	
 		<br>
-      <h1 align="center">사진 TOP 5 목록</h1>
+      <h1 align="center"><i class="fa fa-camera"></i> TOP 5 목록 </h1>
+      
       <table id="fashionList" class="table table-hover" align="center">
       <thead>
       <tr>
@@ -118,6 +130,14 @@
       <a class="btn btn-secondary" style="float:right" href="blist.bo">목록</a>
       <hr>
 		<script>
+		
+		$(function(){
+			topListF();
+			$("#fashionList").on("click",".fashionList",function(){
+				var fno = $(this).data("fno");
+				location.href="detail.fo?fno=" + $(this).children().eq(0).text();
+		    });
+		});
 		function topListF(){
 			$.ajax({
 				url: 'topList.fo',
@@ -125,7 +145,7 @@
 					$tableBody = $('#fashionList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
-						var $tr = $('<tr>');
+						var $tr = $('<tr class = "fashionList">');
 						var $fId = $('<td>').text(obj.fashionNo);
 						var $fTitle = $('<td>').text(obj.fashionTitle);
 						var $fWriter = $('<td>').text(obj.fashionWriter);

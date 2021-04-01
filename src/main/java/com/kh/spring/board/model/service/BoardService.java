@@ -59,6 +59,8 @@ public interface BoardService {
 
 	ArrayList<Fashion> selectFList(PageInfo pageInfo, BoardSearchCondition searchCondition);
 
+	ArrayList<Board> selectOneTopList();
+
 
 
 
