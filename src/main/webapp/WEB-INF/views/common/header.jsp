@@ -67,9 +67,7 @@
 		        			</ul>
 		        		</div>
 	           		</li>
-	           		<li>
-	           		<a  class="nav-link" href="chat.ch">채팅테스트</a>
-	           		</li>
+	           	
 	           	
 	           		<c:if test="${ empty sessionScope.loginUser }">
 			
