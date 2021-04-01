@@ -159,7 +159,7 @@
                              <script>
                    
                                 $("#pwdCheckBtn").click(function(){
-                                   
+   
                                    var inputPwd = $("#inputPwd").val();
                                    $.ajax({
                                       url:"checkPwd.me",

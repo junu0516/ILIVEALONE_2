@@ -64,4 +64,6 @@
 		<property name="maxInMemorySize" value="100000000" /> <!-- 메모리에 보관할 수 있는 최대 크기 -->
 	</bean>
 	
+	<!-- 사용자정의 bean 등록 / 파일 업로드 전용 클래스 -->
+	<bean id="upload" class="com.kh.spring.common.upload.Upload"/>
 </beans>

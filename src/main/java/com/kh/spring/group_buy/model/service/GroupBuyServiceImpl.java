@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.spring.common.exception.CommonException;
+import com.kh.spring.common.paging.PageInfo;
 import com.kh.spring.group_buy.model.dao.GroupBuyDao;
 import com.kh.spring.group_buy.model.service.GroupBuyService;
 import com.kh.spring.group_buy.model.vo.GroupBuyBoard;
 import com.kh.spring.group_buy.model.vo.GroupBuyProduct;
-import com.kh.spring.group_buy.model.vo.PageInfo;
 import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
 
@@ -43,16 +43,20 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	public int insertBoardAndProduct(GroupBuyBoard groupBuyBoard, GroupBuyProduct groupBuyProduct) {
 		
 		int result1 = groupBuyDao.insertBoard(sqlSession, groupBuyBoard);
+		/*
 		if(result1>0) {
 			System.out.println("게시글 정보 DB등록 완료");
 		}
+		*/
 				
 		int pCno = groupBuyDao.getLastBoardNum(sqlSession);
 		groupBuyProduct.setPCno(pCno);
 		int result2 = groupBuyDao.insertProduct(sqlSession, groupBuyProduct);
+		/*
 		if(result2>0) {
 			System.out.println("제품정보 DB등록 완료");
 		}
+		*/
 		
 		return result1 * result2;
 	}
@@ -103,18 +107,19 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	public int updateBoardAndProduct(GroupBuyBoard groupBuyBoard, GroupBuyProduct groupBuyProduct) {
 		
 		int result1 = groupBuyDao.updateBoard(sqlSession, groupBuyBoard);
-		if(result1>0) {
+		
+		/*if(result1>0) {
 			System.out.println("게시글 업데이트 완료");
 		}
-		
+		*/
 		int result2 = groupBuyDao.updateProduct(sqlSession, groupBuyProduct);
+		/*
 		if(result2>0) {
 			System.out.println("제품정보 업데이트 완료");
 		}
-
+		 */
 		int result3 = groupBuyDao.insertTransactionTest(sqlSession, groupBuyProduct);
 			
-		
 		return result1 * result2 * result3;
 	}
 
@@ -234,18 +239,21 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	public int updateCancelingDeal(HashMap<String, String> mapKey) {
 		
 		int result = groupBuyDao.updateCancelingDeal(sqlSession,mapKey);
+		/*
 		if(result>0) {
 			System.out.println("취소처리 완료");
 		}
-		
+		*/
 		//취소 후, 동일한 구매자, 제품번호로 더 이상의 구매기록이 없을 경우에는 해당 제품 테이블의 누적인원을 1명 차감
 		int previousPurchaseCount = groupBuyDao.selectPreviousPurchaseCount(sqlSession,mapKey);
 		if(previousPurchaseCount<=0) {
 			result=-1;
 			result = groupBuyDao.decreasePurchaseCount(sqlSession,Integer.parseInt(mapKey.get("phProduct")));
+			/*
 			if(result>0) {
 				System.out.println("count-1 처리 완료");
 			}
+			*/
 		}
 		
 		//차감 후 누적인원이  제한인원보다 적어지면 판매를 다시 오픈
@@ -253,9 +261,11 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		GroupBuyProduct groupBuyProduct = groupBuyDao.selectProductWithPno(sqlSession,Integer.parseInt(mapKey.get("phProduct")));
 		if(groupBuyProduct.getPPurchase()-1<groupBuyProduct.getPLimit()) {
 			result = groupBuyDao.updateReopeningDeal(sqlSession,Integer.parseInt(mapKey.get("phProduct")));
+			/*
 			if(result>0) {
 				System.out.println("판매를 다시 재오픈");
 			}
+			*/
 		}
 		
 		return groupBuyDao.updateCancelingDeal(sqlSession,mapKey);

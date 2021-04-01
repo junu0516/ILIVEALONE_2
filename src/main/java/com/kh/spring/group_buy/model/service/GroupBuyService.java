@@ -3,9 +3,9 @@ package com.kh.spring.group_buy.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.spring.common.paging.PageInfo;
 import com.kh.spring.group_buy.model.vo.GroupBuyBoard;
 import com.kh.spring.group_buy.model.vo.GroupBuyProduct;
-import com.kh.spring.group_buy.model.vo.PageInfo;
 import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
 
