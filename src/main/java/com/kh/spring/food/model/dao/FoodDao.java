@@ -148,5 +148,10 @@ public class FoodDao {
 
 	}
 
+	public ArrayList<Food> selectOneTopList(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("foodMapper.selectOneTopList");	
+	}
+
 
 }

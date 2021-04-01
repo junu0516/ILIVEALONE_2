@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+  
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
@@ -220,8 +222,171 @@ dd {
      
     </div>
   </section>
+  <!-- Image element - set the background image for the header in the line below -->
+  <div class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
+    <!-- Put anything you want here! There is just a spacer below for demo purposes! -->
+    <div style="height: 200px;"></div>
+  </div>
   
   
+  
+  
+   <section class="py-5">
+    <div class="container">
+    	 <div class= "center">
+    	 <h2 style="margin-top:10px;" >인기게시물<i class="fas fa-icons"></i></h2>
+         </div>
+         <ul>
+         <button type="button" class="btn btn-primary">패션</button>
+         <table id="OneboardList" class="table table-hover" align="center">
+			<tbody>
+			</tbody>
+		 </table>
+		 <button type="button" class="btn btn-success">푸드</button>
+         <table id="foodPList" class="table table-hover" align="center">
+			<tbody>
+			</tbody>
+		 </table>
+         <button type="button" class="btn btn-info">하우징</button>
+         <table id="housingPList" class="table table-hover" align="center">
+			<tbody>
+			</tbody>
+		 </table>
+         </ul>
+         <!-- 
+         <p class="lead" style="margin-left:50%;">인기 게시물 <i class="fas fa-icons"></i></p>
+    	 
+    	 <table id="OneboardList" class="table table-hover" align="center">
+			<tbody>
+			</tbody>
+		</table>
+		 <table id="TwotopList" class="table table-hover" align="center">
+			<tbody>
+			</tbody>
+		</table>
+		 <table id="ThreetopList" class="table table-hover" align="center">
+			<tbody>
+			</tbody>
+		</table>
+		</div>
+		 -->
+		 </div>
+	</section>
+   
+
+   
+   
+  <script>
+		
+		$(function(){
+			OnetopList();
+			$("#OneboardList").on("click",".OneboardList",function(){
+				var bno = $(this).data("bno");
+				location.href="detail.bo?bno=" + $(this).children().eq(0).text();
+		    });
+			TwotopList();
+			$("#foodPList").on("click",".foodPList",function(){
+				var fdpno = $(this).data("fdpno");
+				location.href="detailP.fo?fdpno=" + $(this).children().eq(0).text();
+			});
+			ThreetopList;	
+			$("#housingPList").on("click",".housingPList",function(){
+				var hpno = $(this).data("hpno");
+				location.href="detailP.ho?hpno=" + $(this).children().eq(0).text();
+		    });
+					
+		});
+		function OnetopList(){
+			$.ajax({
+				url: 'OtopList.bo',
+				success: function(list){
+					$tableBody = $('#OneboardList tbody');
+					$tableBody.html('');
+    				$.each(list, function(i, obj){
+						var $tr = $('<tr class = "OneboardList">');
+						var $bId = $('<td>').text(obj.boardNo);
+						var $bTitle = $('<td>').text(obj.boardTitle);
+						var $bWriter = $('<td>').text(obj.boardWriter);
+						var $bCreateDate = $('<td>').text(obj.createDate);
+						var $bCount = $('<td>').text(obj.count);
+						if(obj.originName != null){
+							$bFile = $('<td>').text("O");
+						}
+						$tr.append($bId);
+						$tr.append($bTitle);
+						$tr.append($bCreateDate);
+						$tr.append($bWriter);
+						$tableBody.append($tr);
+					});
+				}
+			});
+		}
+		function TwotopList(){
+			$.ajax({
+				url: 'topListP.fo',
+				success: function(list){
+					$tableBody = $('#foodPList tbody');
+					$tableBody.html('');
+    				$.each(list, function(i, obj){
+						var $tr = $('<tr class = "foodPList">');
+						var $fId = $('<td>').text(obj.foodPNo);
+						var $fTitle = $('<td>').text(obj.foodPTitle);
+						var $fWriter = $('<td>').text(obj.foodPWriter);
+						var $fCreateDate = $('<td>').text(obj.foodPCreateDate);
+						var $fCount = $('<td>').text(obj.foodPCount);
+						if(obj.foodPOriginName != null){
+							$fFile = $('<td>').text("O");
+						}
+						$tr.append($fId);
+						$tr.append($fTitle);
+						$tr.append($fCreateDate);
+						$tr.append($fWriter);
+					
+						$tableBody.append($tr);
+					});
+				}
+			});
+		}
+		function ThreetopList(){
+			$.ajax({
+				url: 'topListP.ho',
+				success: function(list){
+					$tableBody = $('#housingPList tbody');
+					$tableBody.html('');
+    				$.each(list, function(i, obj){
+						var $tr = $('<tr class = "housingPList">');
+						var $hId = $('<td>').text(obj.housingPNo);
+						var $hTitle = $('<td>').text(obj.housingPTitle);
+						var $hWriter = $('<td>').text(obj.housingPWriter);
+						var $hCreateDate = $('<td>').text(obj.housingPCreateDate);
+						var $hCount = $('<td>').text(obj.housingPCount);
+						if(obj.housingPOriginName != null){
+							$hFile = $('<td>').text("O");
+						}
+						$tr.append($hId);
+						$tr.append($hTitle);
+						$tr.append($hCreateDate);
+						$tr.append($hWriter);
+					
+						$tableBody.append($tr);
+					});
+				}
+			});
+		}
+		$(function(){
+
+			OnetopList();
+			TwotopList();
+			ThreetopList();
+			setInterval(function(){ //일시적으로 주기적으로 돌려주는것 
+				OnetopList();
+				TwotopList();
+				ThreetopList();
+			}, 5000);
+
+		})
+	</script>
+
 	<jsp:include page="common/footer.jsp"/>
 	
 </body>

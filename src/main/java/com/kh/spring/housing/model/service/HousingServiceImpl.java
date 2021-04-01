@@ -163,6 +163,12 @@ public class HousingServiceImpl implements HousingService {
 		return housingDao.selectPList(sqlSession,pageInfo,searchCondition);
 	}
 
+	@Override
+	public ArrayList<Housing> selectOneTopList() {
+		// TODO Auto-generated method stub
+		return housingDao.selectOneTopList(sqlSession);
+	}
+
 
 
 

@@ -40,7 +40,7 @@ button {
             <br>
             <hr>
             
-  		<c:if test="${ !empty sessionScope.loginUser and  sessionScope.loginUser.getUserName() == u.um_Writer} ">
+  		<c:if test="${ !empty sessionScope.loginUser and  sessionScope.loginUser.getUserName() == u.um_Writer}">
             
             <button id="btn_delete" class="btn btn-secondary" onclick="actionChange(2)">삭제하기</button>
             <button id="btn_update" class="btn btn-secondary"onclick="actionChange(1)">수정하기 </button>

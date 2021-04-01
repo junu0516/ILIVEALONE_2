@@ -7,6 +7,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+ 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
@@ -47,7 +49,7 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
       <ul class = "list-group">
-      	<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      	<a href="${pageContext.servletContext.contextPath}"  class="list-group-item list-group-item-success">Home</a></p>
       	<a href="Toplistf.ho" class="list-group-item list-group-item-success">하우스 메인 페이지</a></p>
       	<a href="list.ho" class="list-group-item list-group-item-success">하우스 게시물</a></p>
       	<a href="blist.ho" class="list-group-item list-group-item-success">하우스 최신뉴스</a></p>
@@ -60,7 +62,7 @@
     <div class="col-sm-8 text-left">
       <br><br> 
       
-      <h1 align="center">하우스 게시글 TOP 5 목록</h1>
+      <h1 align="center">하우스 <i class="far fa-clipboard"></i> TOP 5 목록</h1>
       <table id="housingList" class="table table-hover" align="center">
       <thead>
       <tr>
@@ -73,6 +75,13 @@
       <a class="btn btn-secondary" style="float:right" href="list.ho">목록</a>
       <hr>
 		<script>
+		$(function(){
+			topList();
+			$("#housingList").on("click",".housingList",function(){
+				var bno = $(this).data("bno");
+				location.href="detailf.ho?hno=" + $(this).children().eq(0).text();
+		    });
+		});
 		function topList(){
 			$.ajax({
 				url: 'topListf.ho',
@@ -80,7 +89,7 @@
 					$tableBody = $('#housingList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
-						var $tr = $('<tr>');
+						var $tr = $('<tr class = "housingList">');
 						var $bId = $('<td>').text(obj.housingNo);
 						var $bTitle = $('<td>').text(obj.housingTitle);
 						var $bWriter = $('<td>').text(obj.housingWriter);
@@ -110,7 +119,7 @@
 	</script>
 		
 		<br>
-      <h1 align="center">하우스 사진 TOP 5 목록</h1>
+      <h1 align="center">하우스 <i class="fa fa-camera"></i> TOP 5 목록</h1>
       <table id="housingPList" class="table table-hover" align="center">
       <thead>
       <tr>
@@ -123,6 +132,13 @@
       <a class="btn btn-secondary" style="float:right" href="blist.ho">목록</a>
       <hr>
 		<script>
+		$(function(){
+			topListF();
+			$("#housingPList").on("click",".housingPList",function(){
+				var hpno = $(this).data("hpno");
+				location.href="detailP.ho?hpno=" + $(this).children().eq(0).text();
+		    });
+		});
 		function topListF(){
 			$.ajax({
 				url: 'topListP.ho',
@@ -130,7 +146,7 @@
 					$tableBody = $('#housingPList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
-						var $tr = $('<tr>');
+						var $tr = $('<tr class = "housingPList">');
 						var $fId = $('<td>').text(obj.housingPNo);
 						var $fTitle = $('<td>').text(obj.housingPTitle);
 						var $fWriter = $('<td>').text(obj.housingPWriter);

@@ -88,7 +88,7 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
       <ul class = "list-group">
-      	<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      	<a href="${pageContext.servletContext.contextPath}"  class="list-group-item list-group-item-success">Home</a></p>
       	<a href="Toplist.fo" class="list-group-item list-group-item-success">푸드 메인 페이지</a></p>
       	<a href="list.fo" class="list-group-item list-group-item-success">푸드 게시물</a></p>
       	<a href="blist.fo" class="list-group-item list-group-item-success">푸드 최신뉴스</a></p>

@@ -251,6 +251,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND F_WRITER LIKE '%'||#{writer}||'%'
 		</if>		
 	</select>
-
+	
+	<!-- 1위 리스트  -->
+	<select id = "selectOneTopList" resultMap= "boardResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from board
+			where b_status = 'Y'
+			order by b_count desc)
+		where rownum <=3		
+	]]>
+	</select>
 	
 </mapper>

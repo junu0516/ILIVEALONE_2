@@ -250,5 +250,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>		
 	</select>
 
-	
+	<select id = "selectOneTopList" resultMap= "housingResultSet"> 
+	<![CDATA[ 
+		select *
+		from(select *
+			from housing
+			where h_status = 'Y'
+			order by h_count desc)
+		where rownum <=3		
+	]]>
+	</select>
 </mapper>

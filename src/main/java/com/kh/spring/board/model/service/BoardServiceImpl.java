@@ -163,6 +163,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectFList(sqlSession,pageInfo,searchCondition);
 	}
 
+	@Override
+	//1위 탑 리스트 
+	public ArrayList<Board> selectOneTopList() {
+		return boardDao.selectOneTopList(sqlSession);
+		
+	}
+
 
 
 
