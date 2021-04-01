@@ -9,8 +9,11 @@
 	<title>Home</title>
 	
 	<!-- Latest compiled and minified CSS -->
+	<!-- 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+ 	-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 	
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
   
@@ -123,9 +126,10 @@ dd {
   <jsp:include page="common/header.jsp"/>
   <!-- 메인 로고 -->
   <header class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
-    <img class="img-fluid d-block mx-auto" src="http://placehold.it/200x200&text=Logo" alt="">
+    <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="" width="200px" height="200px">
   </header>
   
+  <!-- http://placehold.it/200x200&text=Logo -->
   
   <!-- Content section -->
   <section class="py-5">
