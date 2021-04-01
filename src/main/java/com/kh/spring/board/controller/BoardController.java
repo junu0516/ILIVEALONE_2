@@ -26,6 +26,7 @@ import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.PageInfo;
 import com.kh.spring.board.model.vo.Pagination;
+import com.kh.spring.common.upload.Upload;
 import com.kh.spring.board.model.vo.BoardSearchCondition;
 import com.kh.spring.board.model.vo.BoradReply;
 import com.kh.spring.board.model.vo.Fashion;
@@ -38,6 +39,9 @@ import com.kh.spring.board.model.vo.FashionReply;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	Upload upload;
 	
 	@RequestMapping("Toplist.bo")
 	public String boardToplist() {

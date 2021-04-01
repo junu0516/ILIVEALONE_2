@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.spring.real_estimate.model.vo.Pagination;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.common.exception.CommonException;
+import com.kh.spring.common.upload.Upload;
 import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.real_estimate.model.service.RealService;
 import com.kh.spring.real_estimate.model.vo.PageInfo;
@@ -35,6 +36,9 @@ public class RealController {
 
 	@Autowired
 	private RealService realService;
+	
+	@Autowired
+	Upload upload;
 
 	@RequestMapping("list.re")
 	public String selectList(Model model) {
@@ -189,7 +193,8 @@ public class RealController {
 				
 				if(result>0) {
 					if(!fileName.equals("")) {
-						deleteFile(fileName, request);
+						upload.deleteFile(6,fileName, request);
+						//deleteFile(fileName, request);
 					}
 					
 					return "redirect:list.re";
@@ -226,7 +231,8 @@ public class RealController {
 		System.out.println("file : "+file); //전달되는 파일명 확인
 		
 		if(!file.getOriginalFilename().equals("")) {
-			String changeName = saveFile(file,request); //업로드된 파일을 계속 활용해야 하기 때문에 따로 저장하고, changeName을 설정
+			String changeName = upload.saveFile(6, false, file, request);
+			//String changeName = saveFile(file,request); //업로드된 파일을 계속 활용해야 하기 때문에 따로 저장하고, changeName을 설정
 			
 			if(changeName!=null) { //업로드가 정상처리 되었다면 changeName에 값이 존재
 				real.setOriginName(file.getOriginalFilename());
@@ -243,7 +249,7 @@ public class RealController {
 			return "common/errorPage";
 		}
 	}
-	
+	/*
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		
 		String resources = request.getSession().getServletContext().getRealPath("resources");
@@ -266,7 +272,7 @@ public class RealController {
 		
 		return changeName;
 	}
-	
+	*/
 	
 	@RequestMapping("wish.re")
 	public ModelAndView insertWish(Model model, ModelAndView mv, @RequestParam(name="rno")int rno, @RequestParam(name="userId")String userId) throws Exception{
@@ -295,7 +301,7 @@ public class RealController {
 				}
 		
 	}
-	
+	/*
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources+"\\upload_files\\";
@@ -320,16 +326,18 @@ public class RealController {
 			return mv;
 				}
 	}
-	
+	*/
 	@RequestMapping("update.re")
 	public ModelAndView updateBoard(Real r, ModelAndView mv, HttpServletRequest request, 
 											@RequestParam(value="reUploadFile", required=false) MultipartFile file) {
 		
 			if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우
 					if(r.getChangeName() != null) { //새로 넘어온 파일이 있는데 기존에 파일도 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-						deleteFile(r.getChangeName(), request);
+						upload.deleteFile(6, r.getChangeName(), request);
+						//deleteFile(r.getChangeName(), request);
 					}
-					String changeName = saveFile(file, request); //새로 넘어온 파일을 서버에 업로드
+					String changeName = upload.saveFile(6, false, file, request);
+					//String changeName = saveFile(file, request); //새로 넘어온 파일을 서버에 업로드
 					
 					r.setOriginName(file.getOriginalFilename());
 					r.setChangeName(changeName);

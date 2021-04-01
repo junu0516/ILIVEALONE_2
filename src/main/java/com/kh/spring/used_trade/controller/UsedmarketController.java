@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.Pagination;
+import com.kh.spring.common.upload.Upload;
 import com.kh.spring.used_trade.model.service.UsedMarketService;
 import com.kh.spring.used_trade.model.vo.PageInfo;
 import com.kh.spring.used_trade.model.vo.UsedMarket;
@@ -29,6 +30,9 @@ import com.kh.spring.used_trade.model.vo.UsedMarket;
 public class UsedmarketController {
 	@Autowired
 	private UsedMarketService usedMarketService;
+	
+	@Autowired
+	Upload upload;
 	
 	//list 목록으로 이동
 	@RequestMapping("list.um")
@@ -94,7 +98,8 @@ public class UsedmarketController {
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
-			String changeName = saveFile(file,request);
+			String changeName = upload.saveFile(5, false, file, request);
+			//String changeName = saveFile(file,request);
 			
 			if(changeName != null) {
 				u.setOriginName(file.getOriginalFilename());
@@ -120,7 +125,7 @@ public class UsedmarketController {
 		}
 	
 
-
+	/*
 	private String saveFile(MultipartFile file,HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources+"\\upload_file\\";
@@ -146,7 +151,7 @@ public class UsedmarketController {
 		
 		return changeName;
 	}
-
+	*/
 	
 	
 	@RequestMapping("detail.um")
@@ -183,11 +188,13 @@ public class UsedmarketController {
 		
 		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는경우
 			if(u.getChangeName() != null) {//새로넘어온 파일이 있는데 기존에 파일도  있는경우 ->서버에 업로드 되어있는 파일을 삭제
-				deleteFile(u.getChangeName(),request);
+				upload.deleteFile(5, u.getChangeName(), request);
+				//deleteFile(u.getChangeName(),request);
 					
 		}
 		
-		String changeName = saveFile(file,request); //새로 넘어온 파일을 서버에 업로드
+		String changeName = upload.saveFile(5, false, file, request);
+		//String changeName = saveFile(file,request); //새로 넘어온 파일을 서버에 업로드
 		u.setOriginName(file.getOriginalFilename());
 		u.setChangeName(changeName);
 		}
@@ -209,7 +216,7 @@ public class UsedmarketController {
 	
 	}
 	 
-
+	/*
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		
@@ -221,7 +228,7 @@ public class UsedmarketController {
 		deleteFile.delete();
 		
 	}
-	
+	*/
 	@RequestMapping("delete.um")
 	public String deleteUsedMarket(int uno ,String fileName , HttpServletRequest request, Model model) {
 		
@@ -229,7 +236,8 @@ public class UsedmarketController {
 		
 		if(result > 0 ) {
 			if(!fileName.equals("")) {
-				deleteFile(fileName,request);
+				upload.deleteFile(5, fileName, request);
+				//deleteFile(fileName,request);
 			}
 			return "redirect:list.um";
 		}else {
