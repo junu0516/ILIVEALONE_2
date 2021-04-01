@@ -253,10 +253,14 @@
     		<groupId>net.nurigo</groupId>
     		<artifactId>javaSDK</artifactId>
     		<version>2.2</version>
-  		</dependency>
-		
-		<!-- CK에디터 사용 관련 -->
+  	</dependency>
 
+  	<!-- web socket 채팅 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 		
 	</dependencies>
 	<build>
