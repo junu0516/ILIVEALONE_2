@@ -123,9 +123,10 @@ dd {
   <jsp:include page="common/header.jsp"/>
   <!-- 메인 로고 -->
   <header class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
-    <img class="img-fluid d-block mx-auto" src="http://placehold.it/200x200&text=Logo" alt="">
+    <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="" width="200px" height="200px">
   </header>
   
+  <!-- http://placehold.it/200x200&text=Logo -->
   
   <!-- Content section -->
   <section class="py-5">
