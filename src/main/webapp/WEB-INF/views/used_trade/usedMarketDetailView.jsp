@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-img {
+.card-img-top {
   width: 550px;
   height: 550px;
   object-fit: none;
