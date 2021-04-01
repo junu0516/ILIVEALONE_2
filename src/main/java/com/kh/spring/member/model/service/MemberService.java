@@ -20,5 +20,5 @@ public interface MemberService {
 
 	int idCheck(String userId);
 
-	int pwdCheck(String userPwd);
+	
 }
