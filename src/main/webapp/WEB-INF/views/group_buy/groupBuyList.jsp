@@ -42,8 +42,8 @@
         <jsp:include page="../common/header.jsp"/>
         <script>
             $(function () {
-                if ($ {not empty message}) {
-                    alert("${message}");
+                if(${not empty message}) {
+                	alert("${message}");
                 }
             })
         </script>
@@ -75,7 +75,7 @@
                         </h5>
                     </div>
                     <div>
-                        <img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload_files/${gbBoard.gbChangedName}" height="400px"/>
+                        <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/group_buy/${gbBoard.gbChangedName}" height="400px"/>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">${products[gbBoard.gbNo].PName}</h4>

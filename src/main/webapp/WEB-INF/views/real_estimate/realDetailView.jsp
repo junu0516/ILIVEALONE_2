@@ -26,15 +26,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<script>
-if(${result }!=null){
+
+<c:if test="${ !empty result }">
+	<script>
 	if(${result}==0){
 		alert("이미 찜했거나 찜하기에 실패했습니다.");
 	}else if( ${result}==1){
 		alert("찜하기 성공!");
 	}
-}
-</script>
+	</script>
+</c:if>
 	
 		<jsp:include page="../common/header.jsp"/>
 		

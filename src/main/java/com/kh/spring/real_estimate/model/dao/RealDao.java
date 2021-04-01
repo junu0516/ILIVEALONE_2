@@ -70,8 +70,8 @@ public class RealDao {
 
 	public ArrayList<Real> selectRealList(SqlSessionTemplate sqlSession, ArrayList<Integer> list) {
 		// TODO Auto-generated method stub
-		
 		return (ArrayList)sqlSession.selectList("realMapper.selectRealList",list);
+		
 	}
 
 	public int deleteWish(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {

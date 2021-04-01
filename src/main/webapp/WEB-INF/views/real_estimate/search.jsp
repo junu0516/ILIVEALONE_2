@@ -101,7 +101,7 @@ li {
 					onclick="location.href='enrollform.re'">
 			</div>
 			<div class="search" style="float: right">
-				<input type="button" value="찜하기 목록" onclick="postFormSubmit()">
+				<input type="button" value="찜한 목록" onclick="postFormSubmit()">
 			</div>
 		</c:if>
 		

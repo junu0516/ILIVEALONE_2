@@ -7,33 +7,58 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<style>
+li {
+	list-style: none;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+<c:if test="${ !empty message }">
+		<script>
+			alert("${message}");
+		</script>
+	</c:if>
 
-	<c:forEach items="${ list }" var="r">
-		<li>
-			<span class="thumb"> 
-				<c:if test="${ !empty r.originName }">
-						<!-- 저장된 changeName을 통해 이미지 사진 로드 -->
-						<img src="${ pageContext.servletContext.contextPath }/resources/upload_file_real/${r.changeName}"
-							alt="">
-				</c:if> 
-					<c:if test="${ empty r.originName }">
-						<!-- 매물 사진이 등록되지 않았을 경우 디폴트 사진 출력 -->
-						<img src="resources/img/thumbnail.jpeg" alt="">
-					</c:if>
-			</span><br>
-			<strong>매물번호 : </strong> <strong>${ r.stuffNo }</strong><br>
-			<input type="hidden" name="userId" value="${loginUser.userId}">
-			<strong>${ r.structure }</strong><br> 
-			<strong>${ r.money_kind } </strong> <strong>${ r.money1 }</strong><br> 
-			<strong>관리비 ${ r.admin_money }만원</strong><br>
-			<strong>${ r.location }</strong><br>
-			<button onclick="postFormSubmit();">찜하기 취소</button>
-		</li>	
+	<jsp:include page="../common/header.jsp" />
+
+	<br>
+	<br>
+
+	<div class="container" style="height: 1200px">
+
 		<br>
-	</c:forEach>
-	
+		<br>
+		<div class="innerOuter">
+			<h2 style="align: center">찜한 목록</h2>
+
+			<br>
+			<br>
+			<c:if test="${ !empty list }">
+				<c:forEach items="${ list }" var="r">
+					<li><span class="thumb"> <c:if
+								test="${ !empty r.originName }">
+								<!-- 저장된 changeName을 통해 이미지 사진 로드 -->
+								<img
+									src="${ pageContext.servletContext.contextPath }/resources/upload_file_real/${r.changeName}"
+									alt="">
+							</c:if> <c:if test="${ empty r.originName }">
+								<!-- 매물 사진이 등록되지 않았을 경우 디폴트 사진 출력 -->
+								<img src="resources/img/thumbnail.jpeg" alt="">
+							</c:if>
+					</span><br> <strong>매물번호 : </strong> <strong>${ r.stuffNo }</strong><br>
+						<input type="hidden" name="userId" value="${loginUser.userId}">
+						<strong>${ r.structure }</strong><br> <strong>${ r.money_kind }
+					</strong> <strong>${ r.money1 }</strong><br> <strong>관리비 ${ r.admin_money }만원</strong><br>
+						<strong>${ r.location }</strong><br>
+						<button onclick="postFormSubmit();">찜하기 취소</button></li>
+					<br>
+				</c:forEach>
+			</c:if>
+
+		</div>
+	</div>
 
 	<script>
     	
@@ -45,6 +70,10 @@
     		});
     	});
     </script>
+
+
+
+	<jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

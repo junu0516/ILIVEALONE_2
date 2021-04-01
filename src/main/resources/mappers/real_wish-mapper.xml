@@ -15,7 +15,7 @@
 		#{loginUser}
 		)
 	</insert>
-
+	
 	
 	<delete id="deleteIdWish" parameterType="String">
 		DELETE FROM USER_WISH WHERE USERID=#{userId}

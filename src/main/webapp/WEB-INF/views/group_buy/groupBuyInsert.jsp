@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Insert title here</title>
+	<title>공동구매 게시물 등록하기</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+	<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 	<style>
 	
 		thead>tr>th{
@@ -68,8 +68,8 @@
             
             <div class="form-group">
                 <label>입금 계좌 정보 : </label>
-                <input type="text" class="form-control" id="account" placeholder="예금주" name="accountName" required>&nbsp
-                <select type="text" class="form-control" id="account" name="accountBankType" required>
+                <input type="text" class="form-control" id="accountName" placeholder="예금주" name="accountName" required>&nbsp
+                <select type="text" class="form-control" id="accountBankType" name="accountBankType" required>
                 	<option>농협</option>
                 	<option>우리</option>
                 	<option>국민</option>
@@ -90,7 +90,7 @@
                 	<option>한국씨티</option>
                 	<option>SC(구 제일)</option>
                 </select><br>
-                <input type="text" class="form-control" id="account" placeholder="계좌번호(-포함)" name="accountNumber" required>
+                <input type="text" class="form-control" id="accountNumber" placeholder="계좌번호(-포함)" name="accountNumber" required>
             </div>
             <br>
             <div class="form-group">
@@ -99,7 +99,11 @@
             </div>
             
             <script>
-            	CKEDITOR.replace('gbContent');
+            	CKEDITOR.replace('gbContent',{
+            		height: 500,
+            	    filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditor/upload.ck?function=4'
+            	});
+				
             </script>
             
             <button type="submit" class="btn btn-primary">등록하기</button>
