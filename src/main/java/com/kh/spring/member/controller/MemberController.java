@@ -86,7 +86,7 @@ public class MemberController {
 			return "redirect:/";
 		}catch(Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg","로그인실패!!");
+			model.addAttribute("msg","로그인 실패!!");
 			return "common/errorPage";
 		}
 		

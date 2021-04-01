@@ -38,12 +38,21 @@
 	
 	<select id="selectRealList"
 			resultMap="realResultSet">
-		SELECT *
-		FROM STUFF
-		WHERE STUFF_NO IN
-		<foreach collection="list" item="arr" open="(" close=")" separator=",">
-			#{arr}
-		</foreach>
+				SELECT *
+				FROM STUFF
+				<choose>
+					<when test="list!=null and list.size!=0">
+					WHERE STUFF_NO IN
+						<foreach collection="list" item="arr" open="(" close=")" separator=",">
+						#{arr}
+						</foreach>
+					</when>
+					<otherwise>
+						WHERE STUFF_NO = 0
+					</otherwise>
+				
+				</choose>
+				
 	</select>
 	
 	

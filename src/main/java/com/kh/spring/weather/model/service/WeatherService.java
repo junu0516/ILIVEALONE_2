@@ -15,7 +15,7 @@ import org.jsoup.nodes.Element;
 @Service
 public class WeatherService {
 
-	/*private static String WEATHER_URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%82%A0%EC%94%A8";
+	private static String WEATHER_URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%82%A0%EC%94%A8";
 
 	public Weather getWeather() throws IOException {
 		 	
@@ -62,5 +62,5 @@ public class WeatherService {
 	        
 	        return weather;
 	}
-	*/
+	
 }
