@@ -250,14 +250,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>		
 	</select>
 
-	<select id = "selectOneTopList" resultMap= "foodResultSet"> 
-	<![CDATA[ 
-		select *
-		from(select *
-			from food
-			where fd_status = 'Y'
-			order by fd_count desc)
-		where rownum <=3		
-	]]>
-	</select>
+	
 </mapper>
