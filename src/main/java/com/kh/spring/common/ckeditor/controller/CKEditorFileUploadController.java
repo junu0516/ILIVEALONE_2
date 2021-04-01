@@ -30,9 +30,8 @@ public class CKEditorFileUploadController {
 	@PostMapping("/upload.ck")
 	@ResponseBody
 	public String uploadFileOnCKEditor(HttpServletRequest request, HttpServletResponse response, 
-									   MultipartHttpServletRequest uploadedFile, @RequestParam int function ) throws Exception {
-		
-		System.out.println("에디터용 컨트롤러 진입 확인");
+									   MultipartHttpServletRequest uploadedFile, @RequestParam int function) throws Exception {
+
 		JsonObject jsonObject = new JsonObject();
 		PrintWriter writer = null;
 		MultipartFile file = uploadedFile.getFile("upload");

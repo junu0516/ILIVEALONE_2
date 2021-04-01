@@ -42,8 +42,8 @@
         <jsp:include page="../common/header.jsp"/>
         <script>
             $(function () {
-                if (${not empty message}) {
-                    alert("${message}");
+                if(${not empty message}) {
+                	alert("${message}");
                 }
             })
         </script>

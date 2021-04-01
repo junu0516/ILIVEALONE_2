@@ -39,50 +39,50 @@ public class Upload {
 		if(!isCK) {//ck에디터를 통해 업로드한 이미지가 아닌 경우
 			
 			switch(function) {
-			case 1:
-				savePath = resources+"\\images\\commuity_fashion\\";
-				break;
-			case 2:
-				savePath = resources+"\\images\\commuity_food\\";
-				break;
-			case 3:
-				savePath = resources+"\\images\\commuity_housing\\";
-				break;
-			case 4:
-				savePath = resources+"\\images\\group_buy\\";
-				break;
-			case 5:
-				savePath = resources+"\\images\\used_market\\";
-				break;
-			case 6:
-				savePath = resources+"\\images\\real_estate\\";
-				break;
-			default:
-				throw new CommonException("사진 저장 경로가 잘못되었습니다.");
+				case 1:
+					savePath = resources+"\\images\\commuity_fashion\\";
+					break;
+				case 2:
+					savePath = resources+"\\images\\commuity_food\\";
+					break;
+				case 3:
+					savePath = resources+"\\images\\commuity_housing\\";
+					break;
+				case 4:
+					savePath = resources+"\\images\\group_buy\\";
+					break;
+				case 5:
+					savePath = resources+"\\images\\used_market\\";
+					break;
+				case 6:
+					savePath = resources+"\\images\\real_estate\\";
+					break;
+				default:
+					throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 			}
 		}else {//ck에디터를 통해 업로드한 경우
 			
 			switch(function) {
-			case 1:
-				savePath = resources+"\\images\\commuity_fashion\\ckeditor\\";
-				break;
-			case 2:
-				savePath = resources+"\\images\\commuity_food\\ckeditor\\";
-				break;
-			case 3:
-				savePath = resources+"\\images\\commuity_housing\\ckeditor\\";
-				break;
-			case 4:
-				savePath = resources+"\\images\\group_buy\\ckeditor\\";
-				break;
-			case 5:
-				savePath = resources+"\\images\\used_market\\ckeditor\\";
-				break;
-			case 6:
-				savePath = resources+"\\images\\real_estate\\ckeditor\\";
-				break;
-			default:
-				throw new CommonException("사진 저장 경로가 잘못되었습니다.");
+				case 1:
+					savePath = resources+"\\images\\commuity_fashion\\ckeditor\\";
+					break;
+				case 2:
+					savePath = resources+"\\images\\commuity_food\\ckeditor\\";
+					break;
+				case 3:
+					savePath = resources+"\\images\\commuity_housing\\ckeditor\\";
+					break;
+				case 4:
+					savePath = resources+"\\images\\group_buy\\ckeditor\\";
+					break;
+				case 5:
+					savePath = resources+"\\images\\used_market\\ckeditor\\";
+					break;
+				case 6:
+					savePath = resources+"\\images\\real_estate\\ckeditor\\";
+					break;
+				default:
+					throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 			}			
 		}
 				
