@@ -84,10 +84,6 @@ public class MemberServiceImpl implements MemberService {
 		return  memberDao.idCheck(sqlSession, userId);
 	}
 
-	@Override
-	public int pwdCheck(String userPwd) {
-		// TODO Auto-generated method stub
-		return memberDao.pwdCheck(sqlSession, userPwd);
-	}
+	
 
 }

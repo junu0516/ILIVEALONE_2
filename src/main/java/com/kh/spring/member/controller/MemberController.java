@@ -173,11 +173,5 @@ public class MemberController {
 			return String.valueOf(count);
 		}
 	   
-	   @ResponseBody
-		@RequestMapping("pwdCheck.me")
-		public String pwdCheck(String userPwd) {
-			int count = memberService.pwdCheck(userPwd);
-			
-			return String.valueOf(count);
-		}
+	  
 }

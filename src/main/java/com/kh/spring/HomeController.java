@@ -29,12 +29,12 @@ public class HomeController {
 
 
 		 	List<KoreaStats> koreaStatsList = coronaVirusDataService.getKoreaCovidDatas();
-		 	//Weather weather=weatherService.getWeather();
+		 	Weather weather=weatherService.getWeather();
 		 
 	        model.addAttribute("koreaStats", koreaStatsList);
-	       // model.addAttribute("weather", weather);
+	        model.addAttribute("weather", weather);
 	        
-	        //System.out.println(weather);
+	        System.out.println(weather);
 
 
 
