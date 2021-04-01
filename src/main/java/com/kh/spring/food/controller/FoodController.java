@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.food.model.service.FoodService;
 import com.kh.spring.food.model.vo.Food;
 import com.kh.spring.food.model.vo.PageInfo;
@@ -431,7 +432,16 @@ public class FoodController {
 			return "food/foodPListView";
 	}
 	
-
+	//1위 게시글 
+	@RequestMapping("OtopListP.fo")
+	public void foodOneTopList(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Food> list = foodService.selectOneTopList();
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list,response.getWriter());
+	}
+	
 
 
 }

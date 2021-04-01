@@ -7,8 +7,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: auto;}
@@ -47,7 +49,7 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
       <ul class = "list-group">
-      	<a href="main.bo" class="list-group-item list-group-item-success">Home</a></p>
+      	<a href="${pageContext.servletContext.contextPath}"  class="list-group-item list-group-item-success">Home</a></p>
       	<a href="Toplistf.fo" class="list-group-item list-group-item-success">푸드 메인 페이지</a></p>
       	<a href="list.fo" class="list-group-item list-group-item-success">푸드 게시물</a></p>
       	<a href="blist.fo" class="list-group-item list-group-item-success">푸드 최신뉴스</a></p>
@@ -60,7 +62,7 @@
     <div class="col-sm-8 text-left">
       <br><br> 
       
-      <h1 align="center">푸드 게시글 TOP 5 목록</h1>
+      <h1 align="center">푸드 <i class="far fa-clipboard"></i> TOP 5</h1>
       <table id="foodList" class="table table-hover" align="center">
       <thead>
       <tr>
@@ -73,6 +75,14 @@
       <a class="btn btn-secondary" style="float:right" href="list.fo">목록</a>
       <hr>
 		<script>
+		
+		$(function(){
+			topList();
+			$("#foodList").on("click",".foodList",function(){
+				var fdno = $(this).data("fdno");
+				location.href="detailf.fo?fdno=" + $(this).children().eq(0).text();
+		    });
+		});
 		function topList(){
 			$.ajax({
 				url: 'topListf.fo',
@@ -80,7 +90,7 @@
 					$tableBody = $('#foodList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
-						var $tr = $('<tr>');
+						var $tr = $('<tr class = "foodList">');
 						var $bId = $('<td>').text(obj.foodNo);
 						var $bTitle = $('<td>').text(obj.foodTitle);
 						var $bWriter = $('<td>').text(obj.foodWriter);
@@ -110,7 +120,7 @@
 	</script>
 		
 		<br>
-      <h1 align="center">푸드 사진 TOP 5 목록</h1>
+      <h1 align="center">푸드 <i class="fa fa-camera"></i> TOP 5 목록</h1>
       <table id="foodPList" class="table table-hover" align="center">
       <thead>
       <tr>
@@ -123,6 +133,13 @@
       <a class="btn btn-secondary" style="float:right" href="blist.fo">목록</a>
       <hr>
 		<script>
+		$(function(){
+			topListF();
+			$("#foodPList").on("click",".foodPList",function(){
+				var fdpno = $(this).data("fdpno");
+				location.href="detailP.fo?fdpno=" + $(this).children().eq(0).text();
+		    });
+		});
 		function topListF(){
 			$.ajax({
 				url: 'topListP.fo',
@@ -130,7 +147,7 @@
 					$tableBody = $('#foodPList tbody');
 					$tableBody.html('');
     				$.each(list, function(i, obj){
-						var $tr = $('<tr>');
+						var $tr = $('<tr class = "foodPList">');
 						var $fId = $('<td>').text(obj.foodPNo);
 						var $fTitle = $('<td>').text(obj.foodPTitle);
 						var $fWriter = $('<td>').text(obj.foodPWriter);

@@ -59,6 +59,8 @@ public interface HousingService {
 
 	ArrayList<HousingP> selectPList(PageInfo pageInfo, HousingSearchCondition searchCondition);
 
+	ArrayList<Housing> selectOneTopList();
+
 
 
 

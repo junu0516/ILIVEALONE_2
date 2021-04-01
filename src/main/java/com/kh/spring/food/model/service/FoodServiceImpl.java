@@ -163,6 +163,12 @@ public class FoodServiceImpl implements FoodService {
 		return foodDao.selectPList(sqlSession,pageInfo,searchCondition);
 	}
 
+	@Override
+	public ArrayList<Food> selectOneTopList() {
+		// TODO Auto-generated method stub
+		return foodDao.selectOneTopList(sqlSession);
+	}
+
 
 
 

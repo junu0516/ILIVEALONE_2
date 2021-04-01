@@ -148,5 +148,10 @@ public class HousingDao {
 
 	}
 
+	public ArrayList<Housing> selectOneTopList(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("housingMapper.selectOneTopList");	
+		}
+
 
 }
