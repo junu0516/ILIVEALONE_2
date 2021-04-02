@@ -84,8 +84,8 @@
 
  		<form id="cardForm" >
 				<div id="cardAll" class="card" style="width: 18rem;">
-				  <img src="./resources/upload_file/${u.changeName }" class="card-img-top"  width="200" height="200">
-				  
+				  <img src="./resources/images/used_market/${u.changeName }" class="card-img-top"  width="200" height="200">
+				 
 				  <div class="card-body">
 				  	
 				  	<input type="hidden" value =${u.um_No }>
@@ -191,7 +191,7 @@ $(function(){
 						
 						var output ="";
 						
-						$.each(listArr,function(index,item){
+						$.each(listArr,function(index,item){ 
 	
 							output += '<form id="cardFor">';
 							output += '<div id="cardAll" class="card" style ="width:18rem;">';
@@ -222,7 +222,7 @@ $(function(){
 						
 						
 						
-						alert("성공");
+						//alert("성공");
 						
 
 					}
