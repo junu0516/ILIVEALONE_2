@@ -1,5 +1,6 @@
 # 나 혼자 산다
-자취생들을 위한 종합 웹커뮤니티 서비스입니다.
+<p align="center"><img src="/src/main/webapp/resources/images/logo/logo.png" width="200" height="200"></p>   
+<p align="center">자취생들을 위한 종합 웹커뮤니티 서비스입니다.</p>
 
 ### :busts_in_silhouette:팀원
 - [권석호](https://github.com/ksh950329) : 회원관리 서비스 구현
