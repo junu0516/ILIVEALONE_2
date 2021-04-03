@@ -154,8 +154,7 @@
 	        }
 	        
 	    })       
-                                    
-                                    
+                                                                      
         $("#submitBtn").on("click", function () {
             $("#phBuyer-modal").val(buyerId);
             $("#phProduct-modal").val(productId);

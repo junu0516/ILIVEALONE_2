@@ -102,6 +102,7 @@
 	        if(${not empty message}){
 	        	alert("${message}");
 	        };
+	        
 	    })  
 	    
 		function cancelDeal(){
