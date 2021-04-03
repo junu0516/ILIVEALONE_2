@@ -16,30 +16,8 @@
 <body id="page-top">
 	<jsp:include page="../common/header.jsp"/>
  	<div id="wrapper">
-  		<!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="list.gb">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">공동구매</div>
-            </a>
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="purchaseHistory.gb">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>구매내역 조회</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="salesHistory.gb">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>판매 관리하기</span></a>
-            </li>
-        </ul>
-        <!-- End of Sidebar -->    
+ 		<!-- Sidebar -->
+  		<jsp:include page="groupBuySideBar.jsp"/>   
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
