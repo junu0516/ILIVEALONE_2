@@ -139,5 +139,14 @@
     </div>
     <!-- End of Page Wrapper -->
     <jsp:include page="../common/footer.jsp"/>
+    <script>
+	    $(function () {
+	    	console.log("start");
+	        if(${not empty message}){
+	        	alert("${message}");
+	        }
+	        
+	    })   
+    </script>
 </body>
 </html>

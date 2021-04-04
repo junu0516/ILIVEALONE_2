@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -29,6 +30,7 @@ import com.kh.spring.group_buy.model.vo.GroupBuyBoard;
 import com.kh.spring.group_buy.model.vo.GroupBuyProduct;
 import com.kh.spring.group_buy.model.vo.PurchaseHistory;
 import com.kh.spring.group_buy.model.vo.SearchCondition;
+import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 
 import net.nurigo.java_sdk.api.Message;
@@ -167,11 +169,17 @@ public class GroupBuyController {
 	}
 	
 	@GetMapping("updateForm.gb")
-	public String showUpdateView(@RequestParam int gbNo, Model model) {
-		
-		System.out.println("gbNo : "+gbNo);
+	public String showUpdateView(@RequestParam int gbNo, Model model, @SessionAttribute("loginUser") Member loginUser
+								,RedirectAttributes redirectAttr) {
 		
 		GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(gbNo);
+		//만일 현재 로그인된 유저 아이디와, 수정하고자 할 글의 작성자 아이디가 일치하지 않으면 유효하지 않은 접근으로 간주해야 함
+		//updateForm.gb?gbNo=** 와 같은 식으로 url만 입력하는 식으로 다른 사용자가 무단으로 접근할 수 있기 때문
+		if(!loginUser.getUserId().equals(groupBuyBoard.getGbMno())) {
+			System.out.println("유효하지 않은 접근");
+			redirectAttr.addFlashAttribute("message","유효하지 않은 접근입니다.");
+			return "redirect:list.gb";
+		}
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProduct(gbNo);
 		
 		model.addAttribute("gbBoard",groupBuyBoard);
@@ -353,14 +361,8 @@ public class GroupBuyController {
 		return "group_buy/purchaseHistoryList";
 	}
 
-	/*
-	 * TODO
-	 * 아래 메소드는 DB 내용을 수정하는 작업을 포함하고 있기 때문에,
-	 * GET방식이 아닌 POST방식으로 변경해야 안전함
-	 * 
-	 * */
-	@GetMapping("prepareDeal.gb")
-	public String prepareDeal(@RequestParam int phProduct, @RequestParam String phBuyer, RedirectAttributes redirectAttr) {
+	@PostMapping("prepareDeal.gb")
+	public String prepareDeal(int phProduct, String phBuyer, int phNo, RedirectAttributes redirectAttr) {
 	
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(phProduct);
 		if(groupBuyProduct.getPPurchase()<groupBuyProduct.getPLimit()) {
@@ -371,12 +373,14 @@ public class GroupBuyController {
 		HashMap<String,String> mapKey = new HashMap<>();
 		mapKey.put("phProduct",String.valueOf(phProduct));
 		mapKey.put("phBuyer",phBuyer);
+		mapKey.put("phNo", String.valueOf(phNo));
 		
 		int result = groupBuyService.updatePreparingDeal(mapKey);
 		if(result>0) {
 			System.out.println("배송준비처리 성공");
 		}
 		
+		redirectAttr.addFlashAttribute("message","입금이 확인되었습니다. 배송정보를 입력해주세요");
 		return "redirect:salesHistory.gb";
 	}
 	

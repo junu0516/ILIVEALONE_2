@@ -160,9 +160,4 @@ public class GroupBuyDao {
 		return sqlSession.selectOne("groupBuyMapper.selectPreviousPurchaseCount",mapKey);
 	}
 
-	public int insertTransactionTest(SqlSessionTemplate sqlSession, GroupBuyProduct groupBuyProduct) {
-		
-		return sqlSession.insert("groupBuyMapper.insertTransactionTest",groupBuyProduct);
-	}
-
 }

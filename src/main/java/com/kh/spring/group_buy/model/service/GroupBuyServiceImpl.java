@@ -118,9 +118,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			System.out.println("제품정보 업데이트 완료");
 		}
 		 */
-		int result3 = groupBuyDao.insertTransactionTest(sqlSession, groupBuyProduct);
-			
-		return result1 * result2 * result3;
+		return result1 * result2;
 	}
 
 	@Override

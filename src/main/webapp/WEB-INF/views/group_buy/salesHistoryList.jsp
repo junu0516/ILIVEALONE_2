@@ -65,7 +65,12 @@
 		                        	<c:if test="${purchaseHistory.phSalesStatus eq 'W'}">
 		                            <td>판매 모집</td>
 		                            <td>
-		                            	<a class="btn btn-primary btn-sm" href="prepareDeal.gb?phProduct=${purchaseHistory.phProduct}&phBuyer=${purchaseHistory.phBuyer}">마감하기</a>
+		                            	<form action="prepareDeal.gb" method="post">
+		                            		<input type="hidden" name="phProduct" value="${purchaseHistory.phProduct}"/>
+		                            		<input type="hidden" name="phBuyer" value="${purchaseHistory.phBuyer}"/>
+		                            		<input type="hidden" name="phNo" value="${purchaseHistory.phNo}"/>
+		                            		<button type="submit" class="btn btn-primary btn-sm">입금확인</button>
+		                            	</form>
 		                            </td>
 		                            </c:if>
 		                           	<c:if test="${purchaseHistory.phSalesStatus eq 'R'}">
