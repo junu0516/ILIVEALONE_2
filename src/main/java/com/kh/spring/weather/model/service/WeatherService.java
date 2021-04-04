@@ -38,7 +38,7 @@ public class WeatherService {
 	        Elements e=doc.select(".today_area .sub_info .detail_box .indicator dd");
 
 	        System.out.println(e.size());
-	       String finedust_txt=e.get(0).text();
+	        String finedust_txt=e.get(0).text();
 	        String ultrafinedust_txt=e.get(1).text();
 	        String ozone_txt=e.get(2).text();
 	       
