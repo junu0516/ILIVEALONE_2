@@ -22,12 +22,15 @@ public class Upload {
 	 * function : 기능별로 사진이 저장될 폴더를 달리하기 위해, 일단 기능별 번호를 구분하여 각기 다른 폴더에 사진을 저장하는 처리를 진행하게 될 것
 	 * 
 	 * 기능별 번호
-	 * 1: 커뮤니티
-	 * 2: 커뮤니티
-	 * 3: 커뮤니티
+	 * 1: 패션 커뮤니티
+	 * 2: 푸드 커뮤니티
+	 * 3: 하우징 커뮤니티
 	 * 4: 공동구매
 	 * 5: 중고거래
 	 * 6: 부동산
+	 * 7: 패션 사진 커뮤니티
+	 * 8: 푸드 사진 커뮤니티
+	 * 9: 하우징 사진 커뮤니티
 	 * 
 	 * */
 	
@@ -57,6 +60,16 @@ public class Upload {
 				case 6:
 					savePath = resources+"\\images\\real_estate\\";
 					break;
+				case 7:
+					savePath = resources+"\\images\\commuity_fashionP\\";
+					break;
+				case 8:
+					savePath = resources+"\\images\\commuity_foodP\\";
+					break;
+				case 9:
+					savePath = resources+"\\images\\commuity_housingP\\";
+					break;
+					
 				default:
 					throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 			}
@@ -81,6 +94,16 @@ public class Upload {
 				case 6:
 					savePath = resources+"\\images\\real_estate\\ckeditor\\";
 					break;
+				case 7:
+					savePath = resources+"\\images\\commuity_fashionP\\ckeditor\\";
+					break;
+				case 8:
+					savePath = resources+"\\images\\commuity_foodP\\ckeditor\\";
+					break;
+				case 9:
+					savePath = resources+"\\images\\commuity_housingP\\ckeditor\\";
+					break;
+				
 				default:
 					throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 			}			
@@ -126,6 +149,16 @@ public class Upload {
 			case 6:
 				savePath = resources+"\\images\\real_estate\\";
 				break;
+			case 7:
+				savePath = resources+"\\images\\commuity_fashionP\\";
+				break;
+			case 8:
+				savePath = resources+"\\images\\commuity_foodP\\";
+				break;
+			case 9:
+				savePath = resources+"\\images\\commuity_housingP\\";
+				break;
+				
 			default:
 				throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 		}
