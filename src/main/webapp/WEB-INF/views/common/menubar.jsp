@@ -110,7 +110,7 @@
             <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Login</h4>
+                <h3 align="center" class="modal-title">로그인</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button> 
             </div>
 
