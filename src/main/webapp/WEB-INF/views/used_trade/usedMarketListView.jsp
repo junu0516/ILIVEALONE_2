@@ -1,17 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>중고거래</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
 <style>
 .card{
  		
@@ -40,6 +57,12 @@
 
 }
 
+#categoryForm{
+
+	background-color: skyblue;
+	color:white;
+
+}
 
 
 
@@ -51,11 +74,66 @@
 
 </style>
 </head>
-<body>
-	  <jsp:include page="../common/header.jsp"/>
 
+<body id="page-top">
+	<jsp:include page="../common/header.jsp"/>
+	<!-- 바디 부분 -->
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
- <div align="center">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">중고거래</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+               	category
+            </div>
+             <hr class="sidebar-divider">
+            
+		 <li class="nav-item">
+			                                   
+			 <select id="categoryForm" class="form-control" >
+			 
+				<option id="all" value="전체 ">전체</option>
+				<option id="wear" value="의류">의류</option>
+				<option id="electronics" value="전자제품">전자제품</option>
+				<option id="living" value ="생활용품">생활용품</option>
+				<option id="book" value ="도서">도서</option>
+				<option id="food" value ="식품">식품</option>
+				<option id="furniture" value ="가구">가구</option>
+				
+			
+			</select>   
+       
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+  
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+<div align="center">
  
  <h2>중고거래</h2>
 <div id="categoryTitle"></div>
@@ -63,18 +141,7 @@
  <c:if test="${! empty sessionScope.loginUser }">
  <a class="btn btn-secondary" style="float:right" href="enrollForm.um">글쓰기</a> 
  </c:if>
- <select id="categoryForm" class="form-control " >
- 
-	<option id="all" value="전체">전체</option>
-	<option id="wear" value="의류">의류</option>
-	<option id="electronics" value="전자제품">전자제품</option>
-	<option id="living" value ="생활용품">생활용품</option>
-	<option id="living" value ="도서">도서</option>
-	<option id="living" value ="식품">식품</option>
-	<option id="living" value ="가구">가구</option>
-	
 
-</select>
 
  </div>
  <br>
@@ -84,8 +151,8 @@
 
  		<form id="cardForm" >
 				<div id="cardAll" class="card" style="width: 18rem;">
-				  <img src="./resources/upload_file/${u.changeName }" class="card-img-top"  width="200" height="200">
-				  
+				  <img src="./resources/images/used_market/${u.changeName }" class="card-img-top"  width="200" height="200">
+				 
 				  <div class="card-body">
 				  	
 				  	<input type="hidden" value =${u.um_No }>
@@ -97,7 +164,7 @@
 				    <hr>
 				    <p class="card-text"><b>작성자: </b>${u.um_Writer} </p>
 				    <a href="detail.um?uno=${u.um_No }" class="btn btn-primary">상세보기</a>
-				  	  
+				  	   
 				  </div>
 				</div>	
 		
@@ -151,12 +218,45 @@
             <br><br>
     
 
-    <script>
     
+            </div>
+            <!-- End of Main Content -->
 
+        </div>
+        <!-- End of Content Wrapper -->
 
-$(function(){
+    </div>
+    <!-- End of Page Wrapper -->
 
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+ $(function(){
+	
 	var $categoryForm = $("#categoryForm"); 
 	
 	
@@ -165,9 +265,10 @@ $(function(){
 		var listArr = [];
 		var categoryVal = $categoryForm.val();
 		
+		
 		 console.log("ajax Function 테스트 값 전달:  "+$categoryForm.val());
 		 
-		if($categoryForm.val() != "전체"){
+		 if($categoryForm.val() != "전체"){
 			
 				$.ajax({
 					url:"listCategory.um",
@@ -191,11 +292,11 @@ $(function(){
 						
 						var output ="";
 						
-						$.each(listArr,function(index,item){
+						$.each(listArr,function(index,item){ 
 	
 							output += '<form id="cardFor">';
 							output += '<div id="cardAll" class="card" style ="width:18rem;">';
-							output += '<img src ="./resources/upload_file/'+ item.changeName +' " class="card-img-top" width="200" height="200">';
+							output += '<img src ="./resources/images/used_market/'+ item.changeName +' " class="card-img-top" width="200" height="200">';
 							output += '<div class="card-body">';
 							output += '<input type="hidden" value='+ item.um_No;
 							output += '<h5 class ="card-title"><b>' +item.um_Title +' </b></h5>';
@@ -234,6 +335,7 @@ $(function(){
 				
 		}else{
 			
+			console.log("else구문 실행  테스트 왜 조건문이 안먹는건데 잘만먹다가 사이드바 추가하니까 그러네 ");
 			$('#testDiv').show();
 			$('#pagingArea').show();
 
@@ -241,9 +343,10 @@ $(function(){
 		
 	});
 });
-
-</script>
-		  <jsp:include page="../common/footer.jsp"/>
-	
+   </script>
+   
+   
+   
 </body>
+
 </html>

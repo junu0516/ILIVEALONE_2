@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+	<title>ILIVEALONE(나혼자산다)</title>
 <style>
 	.info_data {
     float: left;
@@ -221,7 +221,7 @@ dd {
    <section class="py-5">
     <div class="container">
     	 <div class= "center">
-    	 <h2 style="margin-top:10px;" >인기게시물<i class="fas fa-icons"></i></h2>
+    	 <h2 style="margin-top:10px;" class = "text-center">인기게시물<i class="fas fa-icons"></i></h2>
          </div>
          <ul>
          <button type="button" class="btn btn-primary">패션</button>

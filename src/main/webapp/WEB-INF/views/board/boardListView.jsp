@@ -2,37 +2,43 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+    <title>패션 게시판 리스트</title>
 
     
+	<style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
+    .row.content {height: 100%;}
     
     /* Set gray background color and 100% height */
     .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
       height: 100%;
     }
-    
 
-    
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
         height: auto;
-        padding: 5px;
       }
       .row.content {height:auto;} 
     }
-	#boardList{text-align: center;}
+    
+    #showImage {
+    	height: auto;
+    	
+    }
+    
+    #page-top{ padding-top: 61px; }
+    #boardList{text-align: center;}
     #boardList>tbody>tr:hover{cursor:pointer;}
 
     #pagingArea{width:fit-content;margin:auto;}
@@ -54,30 +60,76 @@
             display: flex;
             float:left;
         }
-  </style>
+    </style>
 </head>
-<body>
-	<jsp:include page="../common/header.jsp"/>
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-     <ul class = "list-group">
-      	<a href="${pageContext.servletContext.contextPath}"  class="list-group-item list-group-item-success">Home</a></p>
-      	<a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 페이지</a></p>
-      	<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
-      	<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
-      	<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
-      </ul>
-    </div>
-    
-    <div class="col-sm-8 text-left" style="padding:5% 10%;"> 
-      
-             <h2>게시판 <i class="far fa-clipboard" style="font-size: 20px;"></i></h2>
+
+	  <jsp:include page="../common/header.jsp"/>
+<body id="page-top" >
+	
+	<!-- Page Wrapper -->
+    <div id="wrapper">
+	
+
+	
+	
+		<!-- 사이드 부분 -->
+        <!-- Sidebar -->
+           <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" a href="${pageContext.servletContext.contextPath}">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">패션</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+               <hr class="sidebar-divider">
+               <a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 </a></p>
+      			<hr class="sidebar-divider">
+      			<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
+      			<hr class="sidebar-divider">
+      			<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
+      			<hr class="sidebar-divider">
+      			
+      			<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
+            </li>
+
+            <!-- Divider -->
+            
+
+            <!-- Heading -->
+            
+            <!-- Nav Item - Pages Collapse Menu -->
+          </ul>
+       	 <!-- End of Sidebar -->
+
+
+		<!-- 바디부분  -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+              <div class="col-sm-15 text-center">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid center">
+				
+
+	<br>      
+      <h2>패션 게시판 <i class="far fa-clipboard" style="font-size: 20px;"></i></h2>
              
             <br>
             <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
             <c:if test="${ !empty loginUser }">
-            	<a class="btn btn-secondary" style="float:right" href="enrollForm.bo">글쓰기</a>
+            	<a class="btn btn-secondary" style="float:right" href="enrollForm.bo">글쓰기<i class="fas fa-pen"></i></a>
             </c:if>
             <br>
             
@@ -166,17 +218,36 @@
            
             
             <br><br>
+   
+    		</div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
         </div>
-    
-    <div class="col-sm-2 sidenav">
+        <!-- End of Content Wrapper -->
+	
+     <script>
+    	$(function(){
+    		$("#boardList tbody tr").click(function(){
+    			location.href="detail.bo?bno=" + $(this).children().eq(0).text();
+    		});
+    	});
+    </script>	
+    <!-- End of Page Wrapper -->
+	<div class="col-sm-2 sidenav">
       	<body onload = "showImage()">
+    
       	<div class = "well" >
-      		<h2>오늘의 패션(남자)</h2>
+      	<br>
+      		<h3>오늘의 패션(남자)</h3>
 			<img class = "introImg" id = "introImg" border="0" >
        	<br><br><br>
         <hr>
         <br><br>
-        	<h2>오늘의 패션(여자)</h2>
+        	<h3>오늘의 패션(여자)</h3>
 			<img class = "introImg1" id = "introImg1" border="0" >
       	</div>
       	</body>
@@ -208,19 +279,15 @@
 			
 	</script>
   </div>
-    
-  </div>
-
- 	</div>
-	 <script>
-    	$(function(){
-    		$("#boardList tbody tr").click(function(){
-    			location.href="detail.bo?bno=" + $(this).children().eq(0).text();
-    		});
-    	});
-    </script>	
   
-   <jsp:include page="../common/footer.jsp"/>
+</div>
+	
+   
+	
+	
+    
 
 </body>
+
+	  <jsp:include page="../common/footer.jsp"/>
 </html>

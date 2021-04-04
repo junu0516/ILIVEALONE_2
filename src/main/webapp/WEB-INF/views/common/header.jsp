@@ -124,17 +124,17 @@
             <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Login</h4>
+                <h4 class="modal-title">로그인 <i class="fas fa-users"></i></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button> 
             </div>
 
             <form action="login.me" method="post">
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <label for="userId" class="mr-sm-2">ID :</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId" name="userId"> <br>
-                    <label for="userPwd" class="mr-sm-2">Password:</label>
-                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter password" id="userPwd" name="userPwd">
+                    <label for="userId" class="mr-sm-2"><i class="fas fa-user-tag"></i> 아이디 :</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="ID를 입력하세요" id="userId" name="userId"> <br>
+                    <label for="userPwd" class="mr-sm-2"><i class="fas fa-user-lock"></i> 비밀번호:</label>
+                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="userPwd" name="userPwd">
                 </div>
                 
                 <!-- Modal footer -->

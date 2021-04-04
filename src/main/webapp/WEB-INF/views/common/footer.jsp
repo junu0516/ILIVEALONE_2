@@ -61,7 +61,7 @@
         </div>
 
         <div id="footer-2">    
-            <p id="p2">Copyright ⓒ 2021 ILIVEALONE BY LEE, NAM, GWON, YUN, BAE</p>     
+            <p id="p2">Copyright ⓒ 2021 ILIVEALONE BY LEE, NAM, KWON, YUN, BAE</p>     
         </div>
     </div>
     </footer>

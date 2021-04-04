@@ -7,25 +7,105 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
+<!-- Custom fonts for this template -->
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="vendor/datatables/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
+	
+	
 <style>
 li {
 	list-style: none;
 }
+       #page-top{
+padding-top:13px;
+}
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
+
+	<jsp:include page="../common/header.jsp" />
+	
+	
+<body id="page-top">
+
 <c:if test="${ !empty message }">
 		<script>
 			alert("${message}");
 		</script>
 	</c:if>
 
-	<jsp:include page="../common/header.jsp" />
-
 	<br>
 	<br>
 
+
+	<!-- 바디 부분 -->
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+			id="accordionSidebar">
+
+			<!-- Sidebar - Brand -->
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="list.re">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-laugh-wink"></i>
+				</div>
+				<div class="sidebar-brand-text mx-3">부동산</div>
+			</a>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
+			
+<c:if test="${ !empty loginUser }">
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item"><a class="nav-link" onclick="postFormSubmit()" style="cursor: pointer">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>찜한 목록</span>
+			</a></li>
+			
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+
+			<li class="nav-item"><a class="nav-link" href='enrollform.re'>
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>매물 등록</span>
+			</a></li>
+			
+			</li>
+			
+			
+</c:if>
+		</ul>
+		<!-- End of Sidebar -->
+		
+		
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+				
+				
 	<div class="container" style="height: 1200px">
 
 		<br>
@@ -71,9 +151,54 @@ li {
     	});
     </script>
 
+  </div>
+				<!-- /.container-fluid -->
 
+			</div>
+			<!-- End of Main Content -->
 
-	<jsp:include page="../common/footer.jsp" />
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/datatables-demo.js"></script>
+	
+	
+		<form id="postForm" action="wishform.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
+				<input type="hidden" name="userId" value="${loginUser.getUserId() }">
+			</form>
+				
+			<script>
+				function postFormSubmit(){
+					var postForm = $("#postForm");
+				
+					postForm.submit();
+				}
+			</script>
+	
+<jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>
