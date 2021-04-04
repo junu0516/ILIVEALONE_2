@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,7 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
+@PropertySource("classpath:/properties/sendSMS/smsApiKey.properties")
 public class GroupBuyController {
 	
 	@Autowired
@@ -44,6 +47,12 @@ public class GroupBuyController {
 	
 	@Autowired
 	Upload upload;
+	
+	@Value("${apiKey}")
+	private String apiKey;
+	
+	@Value("${apiSecret}")
+	private String apiSecret;
 	
 	@RequestMapping("list.gb")
 	public String showList(@RequestParam(required=false, defaultValue="1")int currentPage, Model model) {
@@ -322,8 +331,6 @@ public class GroupBuyController {
 	@GetMapping("sendSMS.gb")
 	public String sendMessage(HttpServletRequest request, RedirectAttributes redirectAttr) {
 
-		String apiKey = "NCSK5GDCGL4H6TZH";
-		String apiSecret = "HY2EZEKPSCN6UMLUAT7QXFMYQ8MUXJ4B";
 		Message sms = new Message(apiKey,apiSecret);
 		
 		HashMap<String,String> smsInfos = new HashMap<>();
