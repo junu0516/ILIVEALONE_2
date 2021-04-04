@@ -30,6 +30,7 @@
 	rel="stylesheet">
 
 </head>
+<<<<<<< Updated upstream
 
 <body id="page-top">
 	<jsp:include page="../common/header.jsp" />
@@ -91,6 +92,60 @@
 					size="30"> <br>
 
 
+=======
+<body>
+	<jsp:include page="../common/header.jsp"/>
+	 <div class="content">
+        <br>
+        <br>
+        <br>
+        
+        <div class="innerOuter">
+            <h2 align="center">회원가입</h2>
+            <br>
+
+            <form id="enrollForm" action="insert.me" method="post">
+                <div class="form-group">
+                    <label for="userId">아이디 :</label>
+                    <input type="text" class="form-control" id="userId" name="userId" placeholder="ID를 입력하세요" required>
+                    <div id="checkResult" style="display:none; font-size:1.2em"></div>
+                    <br>
+                    
+                    <label for="userPwd">비밀번호 :</label>
+                    <input type="password" maxlength='10' class="form-control" id="userPwd" name="userPwd" placeholder="비밀번호를 입력하세요(최대10자리)" required><br>
+                    <label for="checkPwd">비밀번호 확인 :</label>
+                    <input type="password" maxlength='10' class="form-control" id="checkPwd" name="checkPwd" placeholder="비밀번호 확인(최대10자리)" required><br>
+                    <div id="checkResult2" style="display:none; font-size:1.2em"></div>
+                    <br>
+                    
+                    <label for="userName">이름 :</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="이름을 입력하세요" required><br>
+                    
+                    <label for="email"> &nbsp; 이메일주소 :</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email을 입력하세요"><br>
+                    
+                    <label for="age"> &nbsp; 나이 :</label>
+                    <input type="number" class="form-control" id="age" name="age" placeholder="나이를 입력하세요"><br>
+                    
+                    <label for="phone"> &nbsp; 휴대폰 번호 :</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="전화번호(-없이)를 입력하세요"><br>
+                    
+                    <label for="address"> &nbsp; 주소 :</label>
+             		<div class="form-inline">
+					<label> &nbsp; 우편번호 : &nbsp;</label>
+						<input type="text"  id="post" name="post" class="form-control mr-2 postcodify_postcode5" size="6">
+						<button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button>
+					</div>
+					<br>
+					<label> &nbsp; 도로명주소 : </label>
+					<input type="text" name="address1" class="form-control postcodify_address" size="30">
+					<br>
+				    <label> &nbsp; 상세주소 : </label>
+					<input type="text" name="address2" class="form-control postcodify_extra_info" size="30">
+					<br>
+				
+				
+>>>>>>> Stashed changes
 				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 				<script>
 					$(function() {
