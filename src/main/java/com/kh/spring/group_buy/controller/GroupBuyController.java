@@ -392,13 +392,15 @@ public class GroupBuyController {
 	}
 	
 	@PostMapping("completeDeal.gb")
-	public String completeDeal(String phProduct, String phBuyer, String company, String invoice) {
+	public String completeDeal(int phNo, int phProduct, String phBuyer, String company, String invoice) {
 		
+		System.out.println("거래번호 : "+phNo); //phNo
 		System.out.println("제품번호 : "+phProduct); //phProduct
 		System.out.println("구매자 아이디 : "+phBuyer); //phBuyer
 		System.out.println("배송정보 : "+company+", "+invoice);
 		
 		HashMap<String,String> mapKey = new HashMap<>();
+		mapKey.put("phNo",String.valueOf(phNo));
 		mapKey.put("phProduct",String.valueOf(phProduct));
 		mapKey.put("phBuyer",phBuyer);
 		mapKey.put("phInvoice", company+" , "+invoice);

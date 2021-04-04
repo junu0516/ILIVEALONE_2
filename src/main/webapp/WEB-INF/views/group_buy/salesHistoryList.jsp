@@ -79,13 +79,16 @@
 		                            	<a class="btn btn-success btn-sm" id="insertDeliveryInfo_${purchaseHistory.phNo}" data-toggle="modal" data-target="#invoiceModal">배송정보 입력</a>
 		                            </td>
 		                            <script>
+		                            	var phNo = "null";
 			                            var buyerId = "null";
 	                                	var productId = "null";
 	                                	
                                         $(window).on('load',function(){
                                         	$("#insertDeliveryInfo_${purchaseHistory.phNo}").on("click", function () {
-                                                buyerId = "<c:out value='${purchaseHistory.phBuyer}'/>";
+                                                phNo = "<c:out value='${purchaseHistory.phNo}'/>";
+                                        		buyerId = "<c:out value='${purchaseHistory.phBuyer}'/>";
                                                 productId = "<c:out value='${purchaseHistory.phProduct}'/>";
+                                                console.log(phNo);
                                                 console.log(buyerId);
                                                 console.log(productId);
                                             });	
@@ -138,6 +141,7 @@
                     <div class="modal-body">
                     	<input type="hidden" id="phProduct-modal" name="phProduct" value=""/>
                        	<input type="hidden" id="phBuyer-modal" name="phBuyer" value=""/>
+                       	<input type="hidden" id="phNo-modal" name="phNo" value=""/>
                         <label for="company" class="mr-sm-2">택배사 :</label>
                         <input type="text" class="form-control" name="company" id="company"/>
                         <label for="invoice" class="mr-sm-2">송장번호 :</label>
@@ -161,6 +165,7 @@
 	    })       
                                                                       
         $("#submitBtn").on("click", function () {
+        	$("#phNo-modal").val(phNo);
             $("#phBuyer-modal").val(buyerId);
             $("#phProduct-modal").val(productId);
         });            
