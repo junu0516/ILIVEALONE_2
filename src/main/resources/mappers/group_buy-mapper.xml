@@ -238,6 +238,37 @@
 		ORDER BY PH_RECORD_DATE
 	</select>
 	
+	<select id="selectSalesHistoriesWithKeyword"
+			parameterType="hashmap"
+			resultMap="purchaseHistory">
+		SELECT 
+		    PH_NO,
+		    PH_PRODUCT,
+		    PRODUCT_NAME AS PH_PRODUCT_NAME,
+		    PH_QUANTITY,
+		    PH_CNO,
+		    PH_BUYER,
+		    PH_BUYER_NAME,
+		    PH_SELLER,
+		    PH_RECORD_DATE,
+		    PH_CHANGE_DATE,
+		    PH_ADDRESS,
+		    PH_STATUS,
+		    PH_SALES_STATUS,
+		    PH_INVOICE
+		FROM GB_PURCHASE_HISTORY
+		JOIN GB_PRODUCT ON GB_PURCHASE_HISTORY.PH_PRODUCT = GB_PRODUCT.PRODUCT_NO
+		WHERE PH_SELLER = #{sellerId}
+		<if test='!keyword.equals("N")'>
+			AND PH_SALES_STATUS=#{keyword}
+			AND PH_STATUS='Y'
+		</if>
+		<if test='keyword.equals("N")'>
+			AND PH_STATUS='N'
+		</if>
+		ORDER BY PH_RECORD_DATE
+	</select>
+	
 	<select id="selectPurchaseHistories"
 			parameterType="string"
 			resultMap="purchaseHistory">
@@ -334,6 +365,31 @@
 			WHERE PRODUCT_NO=#{phProduct} AND PH_BUYER=#{phBuyer} AND PH_STATUS='Y'
 			GROUP BY PH_BUYER
 		)
+	</select>
+	
+	<select id="selectSalesHistoryListCount"
+			parameterType="string"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM GB_PURCHASE_HISTORY
+		WHERE PH_SELLER=#{sellerId}
+	</select>
+	
+	<select id="selectSalesHistoryListWithKeyword"
+			parameterType="hashmap"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM GB_PURCHASE_HISTORY
+		WHERE PH_SELLER=#{sellerId}
+		AND PH_SALES_STATUS=#{keyword}
+	</select>
+	
+	<select id="selectPurchaseHistoryListCount"
+			parameterType="string"
+			resultType="_int">
+		SELECT COUNT(*)
+		FROM GB_PURCHASE_HISTORY
+		WHERE PH_BUYER=#{buyerId}
 	</select>
 	
 </mapper>

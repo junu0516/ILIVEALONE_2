@@ -62,7 +62,9 @@
 			            </div>
 			            <div class="form-group">
 			                <label for="limit">목표 인원:</label>
-			                <input type="number" class="form-control" id="pLimit" name="pLimit" value="${gbProduct.PLimit}">
+			                <br>
+			                <input type="number" class="form-control" id="pLimit" name="pLimit" value="${gbProduct.PLimit}" readOnly>
+			                                    목표인원 수정은 관리자에게 문의해주세요 :)
 			            </div><br>
 			            <div class="form-group">
 			                <label for="gbContent">내용 : </label>

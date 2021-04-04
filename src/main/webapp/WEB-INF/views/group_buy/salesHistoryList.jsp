@@ -11,7 +11,16 @@
     <meta name="author" content="">
     <title>판매내역 조회</title>       
     <link href="resources/css/custom/group_buy/headerBalance.css" rel="stylesheet">
+    <style>
     
+   		 .custom-select{
+    		float: left;
+    	}
+    	.pagination{
+    		float : right;
+    	}
+    	
+    </style>
 </head>
 <body id="page-top">
 	<jsp:include page="../common/header.jsp"/>
@@ -27,7 +36,75 @@
             		<br>
 	    			<h2>판매기록 관리/조회</h2>
 	            	<br>
-	            	&nbsp 판매자 아이디 : ${loginUser.userId}
+	            	&nbsp판매자 아이디 : ${loginUser.userId}<br><br>
+	            	<select id="statusKeyword" class="custom-select" style="width:auto;">
+	            		<option selected value="A">모두 선택</option>
+	            		<option value="W">판매 모집</option>
+	            		<option value="R">발송 준비</option>
+	            		<option value="C">발송 완료</option>
+	            		<option value="N">거래 취소</option>
+	            	</select>
+	            	<ul class="pagination pagination-sm">
+		            <c:choose>
+		                <c:when test="${pageInfo.currentPage ne 1}">
+		                    <c:if test="${empty keyword}">
+		                        <li class="page-item">
+		                            <a class="page-link" href="salesHistory.gb?currentPage=${pageInfo.currentPage-1}">Previous</a>
+		                        </li>
+		                    </c:if>
+		                    <c:if test="${!empty keyword}">
+		                        <li class="page-item">
+		                            <a class="page-link" href="sortSalesHistory.gb?currentPage=${pageInfo.currentPage-1}&keyword=${keyword}">Previous</a>
+		                        </li>
+		                    </c:if>
+		                </c:when>
+		                <c:otherwise>
+		                    <li class="page-item disabled">
+		                        <a class="page-link" href="">Previous</a>
+		                    </li>
+		                </c:otherwise>
+		            </c:choose>
+		            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="p">
+		                <c:choose>
+		                    <c:when test="${pageInfo.currentPage ne p}">
+		                        <c:if test="${empty keyword}">
+		                            <li class="page-item">
+		                                <a class="page-link" href="salesHistory.gb?currentPage=${p}">${p}</a>
+		                            </li>
+		                        </c:if>
+		                        <c:if test="${!empty keyword}">
+		                            <li class="page-item">
+		                                <a class="page-link" href="sortSalesHistory.gb?currentPage=${p}&keyword=${keyword}">${p}</a>
+		                            </li>
+		                        </c:if>
+		                    </c:when>
+		                    <c:otherwise>
+		                        <li class="page-item disabled">
+		                            <a class="page-link" href="">${p}</a>
+		                        </li>
+		                    </c:otherwise>
+		                </c:choose>
+		            </c:forEach>
+		            <c:choose>
+		                <c:when test="${pageInfo.currentPage ne pageInfo.maxPage}">
+		                    <c:if test="${empty keyword}">
+		                        <li class="page-item">
+		                            <a class="page-link" href="salesHistory.gb?currentPage=${pageInfo.currentPage+1}">Next</a>
+		                        </li>
+		                    </c:if>
+		                    <c:if test="${!empty keyword}">
+		                        <li class="page-item">
+		                            <a class="page-link" href="sortSalesHistory.gb?currentPage=${pageInfo.currentPage+1}&keyword=${keyword}">Next</a>
+		                        </li>
+		                    </c:if>
+		                </c:when>
+		                <c:otherwise>
+		                    <li class="page-item disabled">
+		                        <a class="page-link" href="list.gb?currentPage=${pageInfo.currentPage+1}">Next</a>
+		                    </li>
+		                </c:otherwise>
+		            </c:choose>
+		        </ul>
 	            	<table class="table">
 	                	<thead>
 	                    	<tr>
@@ -120,15 +197,15 @@
 	                	</tbody>
 	            	</table>
 				</div>
+
+				
             	<!-- /.container-fluid -->
 			</div>
         	<!-- End of Main Content -->
 		</div>
     	<!-- End of Content Wrapper -->
     </div>
-    <script>
-    
-    </script>
+
     <!-- 송장번호 입력 모달 -->
 	<div class="modal fade" id="invoiceModal">
     	<div class="modal-dialog modal-sm">
@@ -154,15 +231,27 @@
 				</form>
 			</div>
 		</div>
-	</div>        
+	</div>       
     <script>
-	    $(function () {
+	    $(function() {
 	    	console.log("start");
 	        if(${not empty message}){
 	        	alert("${message}");
 	        }
 	        
-	    })       
+	    })   
+	    
+	    $("#statusKeyword").change(function(){
+	    	var keyword = $("#statusKeyword").val(); 
+	    	console.log(keyword);
+	    	
+	    	if(keyword != "A"){
+				location.href="sortSalesHistory.gb?keyword="+keyword;		    		
+	    	}else if(keyword === 'A'){
+	    		location.href="salesHistory.gb";
+	    	}
+	    	
+	    })
                                                                       
         $("#submitBtn").on("click", function () {
         	$("#phNo-modal").val(phNo);
