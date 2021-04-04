@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.spring.common.upload.Upload;
 import com.kh.spring.housing.model.service.HousingService;
 import com.kh.spring.housing.model.vo.Housing;
 import com.kh.spring.housing.model.vo.PageInfo;
@@ -38,6 +39,9 @@ import com.kh.spring.housing.model.vo.HousingPReply;
 public class HousingController {
 	@Autowired
 	private HousingService housingService;
+	
+	@Autowired
+	Upload upload;
 	
 	@RequestMapping("Toplistf.ho")
 	public String housingToplist() {
@@ -94,7 +98,7 @@ public class HousingController {
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
-			String changeName = saveFile(file, request);
+			String changeName = upload.saveFile(3,false,file, request);
 			
 			if(changeName != null) {
 				h.setOriginName(file.getOriginalFilename());
@@ -112,31 +116,6 @@ public class HousingController {
 			return "";
 		}
 	}
-	private String saveFile(MultipartFile file, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		System.out.println("savePath "+ savePath);
-		
-		String originName = file.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ext;
-		
-		
-		try {
-			file.transferTo(new File(savePath+changeName));
-		} catch (IllegalStateException | IOException e) {
-		
-			System.out.println("파일 업로드 에러 "+e.getMessage());
-		}
-		
-		
-		return changeName;
-	}
 	
 	@RequestMapping("insertP.ho")
 	public String insertFhousing(HousingP hp, HttpServletRequest request, Model model, 
@@ -147,7 +126,7 @@ public class HousingController {
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
-			String changeName = saveFFile(file, request);
+			String changeName = upload.saveFile(9,false,file, request);
 			
 			if(changeName != null) {
 				hp.setHousingPOriginName(file.getOriginalFilename());
@@ -165,32 +144,6 @@ public class HousingController {
 			return "";
 		}
 	}
-	private String saveFFile(MultipartFile file, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		System.out.println("savePath "+ savePath);
-		
-		String originName = file.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ext;
-		
-		
-		try {
-			file.transferTo(new File(savePath+changeName));
-		} catch (IllegalStateException | IOException e) {
-		
-			System.out.println("파일 업로드 에러 "+e.getMessage());
-		}
-		
-		
-		return changeName;
-	}
-	
 	@RequestMapping("detailf.ho")
 	public ModelAndView selecthousing(int hno, ModelAndView mv) {
 	
@@ -222,7 +175,7 @@ public class HousingController {
 		int result = housingService.deletehousing(hno);
 		if(result > 0 ) {
 			if(fileName.equals("")) {
-				deleteFile(fileName, request);
+				upload.deleteFile(3,fileName, request);
 			}
 			return "redirect:list.ho";
 		}else {
@@ -238,7 +191,7 @@ public class HousingController {
 		int result = housingService.deletePhousing(hpno);
 		if(result > 0 ) {
 			if(fileName.equals("")) {
-				deletePFile(fileName, request);
+				upload.deleteFile(9,fileName, request);
 			}
 			return "redirect:blist.ho";
 		}else {
@@ -249,21 +202,6 @@ public class HousingController {
 		
 	}
 	
-	private void deleteFile(String fileName, HttpServletRequest request) {
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		File deleteFile = new File(savePath+fileName);
-		deleteFile.delete();
-	}
-	
-	private void deletePFile(String fileName, HttpServletRequest request) {
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		File deleteFFile = new File(savePath+fileName);
-		deleteFFile.delete();
-	}
 	
 	@RequestMapping("updateFormf.ho")
 	public ModelAndView updateFormhousing(int hno, ModelAndView mv) {
@@ -282,9 +220,9 @@ public class HousingController {
 									@RequestParam(value = "reUploadFile", required=false) MultipartFile file) {
 		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우 
 			if(h.getChangeName() != null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-				deleteFile(h.getChangeName(), request);
+				upload.deleteFile(3,h.getChangeName(), request);
 			}
-			String changeName = saveFile(file, request); // 새로 넘어온 파일을 서버에 업로드
+			String changeName = upload.saveFile(3,false,file, request); // 새로 넘어온 파일을 서버에 업로드
 			h.setOriginName(file.getOriginalFilename());
 			h.setChangeName(changeName);
 			
@@ -306,9 +244,9 @@ public class HousingController {
 									@RequestParam(value = "reUploadFile", required=false) MultipartFile file) {
 		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우 
 			if(hp.getHousingPChangeName()!= null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-				deletePFile(hp.getHousingPChangeName(), request);
+				upload.deleteFile(9,hp.getHousingPChangeName(), request);
 			}
-			String changeName = saveFile(file, request); // 새로 넘어온 파일을 서버에 업로드
+			String changeName = upload.saveFile(9,false,file, request); // 새로 넘어온 파일을 서버에 업로드
 			hp.setHousingPOriginName(file.getOriginalFilename());
 			hp.setHousingPChangeName(changeName);
 		

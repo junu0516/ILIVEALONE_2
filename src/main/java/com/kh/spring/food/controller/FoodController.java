@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.common.upload.Upload;
 import com.kh.spring.food.model.service.FoodService;
 import com.kh.spring.food.model.vo.Food;
 import com.kh.spring.food.model.vo.PageInfo;
@@ -39,6 +39,9 @@ import com.kh.spring.food.model.vo.FoodPReply;
 public class FoodController {
 	@Autowired
 	private FoodService foodService;
+	
+	@Autowired
+	Upload upload;
 	
 	@RequestMapping("Toplistf.fo")
 	public String foodToplist() {
@@ -95,7 +98,7 @@ public class FoodController {
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
-			String changeName = saveFile(file, request);
+			String changeName = upload.saveFile(2,false,file, request);
 			
 			if(changeName != null) {
 				fd.setOriginName(file.getOriginalFilename());
@@ -113,31 +116,7 @@ public class FoodController {
 			return "";
 		}
 	}
-	private String saveFile(MultipartFile file, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		System.out.println("savePath "+ savePath);
-		
-		String originName = file.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ext;
-		
-		
-		try {
-			file.transferTo(new File(savePath+changeName));
-		} catch (IllegalStateException | IOException e) {
-		
-			System.out.println("파일 업로드 에러 "+e.getMessage());
-		}
-		
-		
-		return changeName;
-	}
+	
 	
 	@RequestMapping("insertP.fo")
 	public String insertFfood(FoodP fdp, HttpServletRequest request, Model model, 
@@ -148,7 +127,7 @@ public class FoodController {
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
-			String changeName = saveFFile(file, request);
+			String changeName = upload.saveFile(8, false,file, request);
 			
 			if(changeName != null) {
 				fdp.setFoodPOriginName(file.getOriginalFilename());
@@ -166,32 +145,6 @@ public class FoodController {
 			return "";
 		}
 	}
-	private String saveFFile(MultipartFile file, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		System.out.println("savePath "+ savePath);
-		
-		String originName = file.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ext;
-		
-		
-		try {
-			file.transferTo(new File(savePath+changeName));
-		} catch (IllegalStateException | IOException e) {
-		
-			System.out.println("파일 업로드 에러 "+e.getMessage());
-		}
-		
-		
-		return changeName;
-	}
-	
 	@RequestMapping("detailf.fo")
 	public ModelAndView selectfood(int fdno, ModelAndView mv) {
 	
@@ -223,7 +176,7 @@ public class FoodController {
 		int result = foodService.deletefood(fdno);
 		if(result > 0 ) {
 			if(fileName.equals("")) {
-				deleteFile(fileName, request);
+				upload.deleteFile(2,fileName, request);
 			}
 			return "redirect:list.fo";
 		}else {
@@ -239,7 +192,7 @@ public class FoodController {
 		int result = foodService.deletePfood(fdpno);
 		if(result > 0 ) {
 			if(fileName.equals("")) {
-				deletePFile(fileName, request);
+				upload.deleteFile(8,fileName, request);
 			}
 			return "redirect:blist.fo";
 		}else {
@@ -248,22 +201,6 @@ public class FoodController {
 		}
 		
 		
-	}
-	
-	private void deleteFile(String fileName, HttpServletRequest request) {
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		File deleteFile = new File(savePath+fileName);
-		deleteFile.delete();
-	}
-	
-	private void deletePFile(String fileName, HttpServletRequest request) {
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		File deleteFFile = new File(savePath+fileName);
-		deleteFFile.delete();
 	}
 	
 	@RequestMapping("updateFormf.fo")
@@ -283,9 +220,9 @@ public class FoodController {
 									@RequestParam(value = "reUploadFile", required=false) MultipartFile file) {
 		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우 
 			if(fd.getChangeName() != null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-				deleteFile(fd.getChangeName(), request);
+				upload.deleteFile(2,fd.getChangeName(), request);
 			}
-			String changeName = saveFile(file, request); // 새로 넘어온 파일을 서버에 업로드
+			String changeName = upload.saveFile(2,false,file, request); // 새로 넘어온 파일을 서버에 업로드
 			fd.setOriginName(file.getOriginalFilename());
 			fd.setChangeName(changeName);
 			
@@ -307,9 +244,9 @@ public class FoodController {
 									@RequestParam(value = "reUploadFile", required=false) MultipartFile file) {
 		if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우 
 			if(fdp.getFoodPChangeName()!= null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-				deletePFile(fdp.getFoodPChangeName(), request);
+				upload.deleteFile(8,fdp.getFoodPChangeName(), request);
 			}
-			String changeName = saveFile(file, request); // 새로 넘어온 파일을 서버에 업로드
+			String changeName = upload.saveFile(8,false,file, request); // 새로 넘어온 파일을 서버에 업로드
 			fdp.setFoodPOriginName(file.getOriginalFilename());
 			fdp.setFoodPChangeName(changeName);
 			
