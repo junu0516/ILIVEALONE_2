@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+	<title>ILIVEALONE(나혼자산다)</title>
 <style>
 	.info_data {
     float: left;

@@ -11,11 +11,43 @@
   <meta name="author" content="">
 
   <title>메인화면</title>
+ 	 
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+	 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  	
+  	<!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+  	
 </head>
 <body>
  <!-- Navigation -->
@@ -119,17 +151,17 @@
             <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Login</h4>
+                <h4 class="modal-title">로그인 <i class="fas fa-users"></i></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button> 
             </div>
 
             <form action="login.me" method="post">
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <label for="userId" class="mr-sm-2">ID :</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId" name="userId"> <br>
-                    <label for="userPwd" class="mr-sm-2">Password:</label>
-                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter password" id="userPwd" name="userPwd">
+                    <label for="userId" class="mr-sm-2"><i class="fas fa-user-tag"></i> 아이디 :</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="ID를 입력하세요" id="userId" name="userId"> <br>
+                    <label for="userPwd" class="mr-sm-2"><i class="fas fa-user-lock"></i> 비밀번호:</label>
+                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="userPwd" name="userPwd">
                 </div>
                 
                 <!-- Modal footer -->
