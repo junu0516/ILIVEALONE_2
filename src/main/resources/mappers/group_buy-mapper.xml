@@ -274,6 +274,7 @@
 		PH_CHANGE_DATE = SYSDATE
 		WHERE PH_BUYER = #{phBuyer} 
 		AND PH_PRODUCT = #{phProduct}
+		AND PH_NO = #{phNo}
 	</update>
 	
 	<update id="completeDeal"
@@ -284,6 +285,7 @@
 		PH_INVOICE = #{phInvoice}
 		WHERE PH_BUYER = #{phBuyer} 
 		AND PH_PRODUCT = #{phProduct}
+		AND PH_NO = #{phNo}
 	</update>
 	
 	<update id="cancelDeal"
