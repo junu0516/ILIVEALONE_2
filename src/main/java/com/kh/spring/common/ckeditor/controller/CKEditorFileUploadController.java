@@ -1,4 +1,4 @@
-package com.kh.spring.ckeditor.controller;
+package com.kh.spring.common.ckeditor.controller;
 
 import java.io.PrintWriter;
 

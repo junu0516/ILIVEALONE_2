@@ -1,4 +1,4 @@
-package com.kh.spring.ckeditor.vo;
+package com.kh.spring.common.ckeditor.vo;
 
 import java.sql.Date;
 
