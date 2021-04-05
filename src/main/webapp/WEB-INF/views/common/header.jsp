@@ -20,7 +20,8 @@
 	<!-- 템플릿 커스텀 css 적용 -->
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-	
+
+
 </head>
 <body>
  	<!-- Navigation -->
@@ -45,7 +46,7 @@
 	          		</li>
 	          
 	         		<li class="nav-item">
-	            		<a class="nav-link" href="list.um">중고거래</a>
+	            		<a class="nav-link" href="list.um" >중고거래</a>
 	          		</li>
 	          
 	          		<li class="nav-item">

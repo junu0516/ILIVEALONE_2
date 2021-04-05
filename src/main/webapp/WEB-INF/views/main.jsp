@@ -99,6 +99,18 @@ dd {
     white-space: nowrap;
 }
 
+.footer_emoticon{
+	margin-top : -50px;
+	display : flex;
+	justify-content : center;
+}
+
+.footer_emoticon img{
+	width : 180px;
+	height : 180px;
+}
+
+
 </style>
 
 </head>
@@ -109,6 +121,7 @@ dd {
   <jsp:include page="common/header.jsp"/>
   <!-- 메인 로고 -->
   <header class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
+  <br><br>
     <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="" width="200px" height="200px">
   </header>
   
@@ -222,43 +235,31 @@ dd {
     <div class="container">
     	 <div class= "center">
     	 <h2 style="margin-top:10px;" class = "text-center">인기게시물<i class="fas fa-icons"></i></h2>
+
          </div>
-         <ul>
-         <button type="button" class="btn btn-primary">패션</button>
+         <ul class = "farBody">
+         <button type="button" class="btn btn-primary" onclick="location.href='Toplist.bo'">패션</i></a></button>
          <table id="OneboardList" class="table table-hover" align="center">
 			<tbody>
 			</tbody>
 		 </table>
-		 <button type="button" class="btn btn-success">푸드</button>
+		 <button type="button" class="btn btn-success" onclick="location.href='Toplistf.fo'">푸드</button>
          <table id="foodPList" class="table table-hover" align="center">
 			<tbody>
 			</tbody>
 		 </table>
-         <button type="button" class="btn btn-info">하우징</button>
+         <button type="button" class="btn btn-info" onclick="location.href='Toplistf.ho'">하우징</button>
          <table id="housingPList" class="table table-hover" align="center">
 			<tbody>
 			</tbody>
 		 </table>
          </ul>
-         <!-- 
-         <p class="lead" style="margin-left:50%;">인기 게시물 <i class="fas fa-icons"></i></p>
-    	 
-    	 <table id="OneboardList" class="table table-hover" align="center">
-			<tbody>
-			</tbody>
-		</table>
-		 <table id="TwotopList" class="table table-hover" align="center">
-			<tbody>
-			</tbody>
-		</table>
-		 <table id="ThreetopList" class="table table-hover" align="center">
-			<tbody>
-			</tbody>
-		</table>
-		</div>
-		 -->
-		 </div>
+    	</div>
 	</section>
+
+	<div class = "footer_emoticon">
+	         <img src = "https://tistory2.daumcdn.net/tistory/2916313/skin/images/kakao_image_1.gif">
+    </div>     
    
 
    
@@ -271,7 +272,7 @@ dd {
 				var bno = $(this).data("bno");
 				location.href="detail.bo?bno=" + $(this).children().eq(0).text();
 		    });
-			TwotopList();
+			 TwotopList();
 			$("#foodPList").on("click",".foodPList",function(){
 				var fdpno = $(this).data("fdpno");
 				location.href="detailP.fo?fdpno=" + $(this).children().eq(0).text();
@@ -281,7 +282,7 @@ dd {
 				var hpno = $(this).data("hpno");
 				location.href="detailP.ho?hpno=" + $(this).children().eq(0).text();
 		    });
-					
+			
 		});
 		function OnetopList(){
 			$.ajax({
@@ -308,6 +309,7 @@ dd {
 				}
 			});
 		}
+		
 		function TwotopList(){
 			$.ajax({
 				url: 'topListP.fo',
@@ -360,6 +362,7 @@ dd {
 				}
 			});
 		}
+		
 		$(function(){
 
 			OnetopList();
