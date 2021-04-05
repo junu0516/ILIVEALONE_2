@@ -173,9 +173,11 @@
 					<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/commuity_housingP/${hp.housingPChangeName}" height="200px"/>
 		        </div>
 		        <div class="card-body">
-		          <h4 class="card-title">번호 : ${hp.housingPNo}</h4>
+		          
 		          <p class="card-text">작성자 : ${hp.housingPWriter}</p>
 		          <p class="card-text">날짜 : ${hp.housingPCreateDate}</p>
+		          <p class="card-text">조회수 : ${hp.housingPCount}</p>
+		          
 		          <a href="detailP.ho?hpno=${hp.housingPNo}" class="btn btn-primary">상세 보기</a>
 		        </div>
 		     </div>

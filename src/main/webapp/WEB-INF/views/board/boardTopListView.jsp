@@ -115,6 +115,7 @@
 
 	<br>      
       <h3 align="center"><i class="far fa-clipboard"></i> TOP 5 목록</h3>
+      
       <table id="boardList" class="table table-hover" align="center">
       <thead>
       <tr>

@@ -173,9 +173,11 @@
 					<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/commuity_fashionP/${f.fashionChangeName}" height="200px"/>
 		        </div>
 		        <div class="card-body">
-		          <h4 class="card-title">번호 : ${f.fashionNo}</h4>
+		          
 		          <p class="card-text">작성자 : ${f.fashionWriter}</p>
 		          <p class="card-text">날짜 : ${f.fashionCreateDate}</p>
+		          <p class="card-text">조회수 : ${f.fashionCount}</p>
+		          
 		          <a href="detail.fo?fno=${f.fashionNo}" class="btn btn-primary">상세 보기</a>
 		        </div>
 		     </div>

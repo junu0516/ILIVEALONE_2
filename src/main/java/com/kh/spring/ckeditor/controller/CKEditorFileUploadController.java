@@ -38,12 +38,14 @@ public class CKEditorFileUploadController {
 		
 		String changedName="";
 		//changedName1,2,3,7,8,9 -> 순서는 패션,푸드,하우징,패션 사진, 푸드 사진, 하우징 사진 
+		//10은 공지사항
 		String changedName1="";
 		String changedName2="";
 		String changedName3="";
 		String changedName7="";
 		String changedName8="";
 		String changedName9="";
+		String changedName10 = "";
 		
 		if(file!=null) {
 			if(file.getSize()>0 && StringUtils.isNotBlank(file.getName())) {
@@ -54,7 +56,8 @@ public class CKEditorFileUploadController {
 				changedName7 = upload.saveFile(7, true, file, request);
 				changedName8 = upload.saveFile(8, true, file, request);
 				changedName9 = upload.saveFile(9, true, file, request);
-				
+				changedName10 = upload.saveFile(10, true, file, request);
+							
 			}
 		}
 		
@@ -87,6 +90,9 @@ public class CKEditorFileUploadController {
 				break;
 			case 9:
 				jsonObject.addProperty("url", request.getContextPath()+"/resources/images/commuity_housingP/ckeditor/"+changedName9);								
+				break;
+			case 10:
+				jsonObject.addProperty("url", request.getContextPath()+"/resources/images/notice/ckeditor/"+changedName10);								
 				break;
 				
 			default:
