@@ -51,8 +51,8 @@ insert into stuff values(1,
 '60', 
 '1000',
 DEFAULT,
-DEFAULT,
-DEFAULT);
+'1.jpeg',
+'20210405092709.jpeg');
 
 insert into stuff values(2,
 'admin',
@@ -67,8 +67,8 @@ insert into stuff values(2,
 '1억 3000', 
 'null',
 DEFAULT,
-DEFAULT,
-DEFAULT);
+'2.jpeg',
+'20210405093146.jpeg');
 
 insert into stuff values(3,
 'admin',
@@ -84,8 +84,8 @@ insert into stuff values(3,
 '35', 
 '300',
 DEFAULT,
-DEFAULT,
-DEFAULT);
+'3.jpeg',
+'20210405093200.jpeg');
 
 insert into stuff values(4,
 'admin',
@@ -101,8 +101,8 @@ insert into stuff values(4,
 '1억 6000', 
 'null',
 DEFAULT,
-DEFAULT,
-DEFAULT);
+'4.jpeg',
+'20210405093214.jpeg');
 
 
 insert into stuff values(5,
@@ -119,8 +119,8 @@ insert into stuff values(5,
 '1억 6000', 
 'null',
 DEFAULT,
-DEFAULT,
-DEFAULT);
+'5.jpeg',
+'20210405093225.jpeg');
 
 insert into stuff values(6,
 'admin',
@@ -154,8 +154,8 @@ insert into stuff values(7,
 '1억 6000', 
 'null',
 DEFAULT,
-DEFAULT,
-DEFAULT);
+'7.jpeg',
+'20210405093252.jpeg');
 
 insert into stuff values(8,
 'admin',
@@ -171,8 +171,8 @@ insert into stuff values(8,
 '2억 6000', 
 'null',
 DEFAULT,
-DEFAULT,
-DEFAULT);
+'8.jpeg',
+'20210405093409.jpeg');
 
 DROP SEQUENCE SEQ_R_NO;
 CREATE SEQUENCE SEQ_R_NO --게시물번호 시퀀스
