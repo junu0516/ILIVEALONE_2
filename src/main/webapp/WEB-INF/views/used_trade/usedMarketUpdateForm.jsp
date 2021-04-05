@@ -21,6 +21,7 @@ position: relative;
 <body>
 	  <jsp:include page="../common/header.jsp"/>
 	
+	<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
 	    <div class="card shadow mb-4" id="big_div" >
                   <div class="card-header py-3" align="center">
@@ -41,17 +42,25 @@ position: relative;
                         <th><label for="title">제목</label></th>
                         <td><input type="text" id="title" class="form-control" name="um_Title" required value="${u.um_Title }"></td>
                     </tr>
+                                        <td> <br> </td>
+                    
                     <tr>
                         <th><label for="writer">작성자</label></th>
                         <td><input type="text" id="writer" class="form-control"   name="um_Writer" value="${u.um_Writer }"></td>
                     </tr>
+                                        <td> <br> </td>
+                    
                     <tr> 
                         <th><label for="price">가격</label></th>
                         <td><input type="text" id="price" class="form-control-file border" name="um_Price" placeholder="원" value="${u.um_Price }"></td>
                     </tr>
+                                        <td> <br> </td>
+                    
                             
                      <input type="hidden" id="categoryVal" value=${u.um_Category}>
+                     
                      <input type="hidden" id="systemVal" value=${u.um_System}>
+                     
               
               
                     <tr> 
@@ -71,6 +80,8 @@ position: relative;
 									
 								</div></td>
                     </tr>
+                                        <td> <br> </td>
+                    
                     
             
                     <tr> 
@@ -85,6 +96,8 @@ position: relative;
 									</select>
 								</div></td>
                     </tr>
+                                        <td> <br> </td>
+                    
                     
      
                    <tr>
@@ -98,12 +111,18 @@ position: relative;
                             </c:if>
                         </td>
                     </tr>
+                                        <td> <br> </td>
+                    
                     <tr>
                         <th colspan="2"><label for="um_Content">내용</label></th>
                     </tr>
+                                        <td> <br> </td>
+                    
                     <tr>
-                        <th colspan="2"><textarea class="form-control" required name="um_Content" id="um_Content" rows="10" style="resize:none;" >${ u.um_Content}</textarea></th>
+                        <th colspan="2"><textarea class="form-control"  name="um_Content" id="um_Content"> ${ u.um_Content}</textarea></th>
                     </tr>
+                                  <td> <br> </td>
+                    
                 </table>
                 
             
@@ -111,8 +130,8 @@ position: relative;
                 <br>
 
                 <div align="center">
+                
                     <button type="submit" class="btn btn-primary">수정하기</button>
-                    <button type="reset" class="btn btn-danger">취소하기</button>
                     
                 </div>
                 
@@ -184,6 +203,18 @@ position: relative;
 					
 					
 				</script>
+				<script>
+    	CKEDITOR.replace('um_Content',{
+        	height: 500,
+           	filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditor/upload.ck?function=4'
+        });	
+    	
+    	CKEDITOR.editorConfig = function( config ) {
+    		config.enterMode = CKEDITOR.ENTER_BR;
+    		
+    	};
+    
+    </script>
    			
  		  <jsp:include page="../common/footer.jsp"/>
  	
