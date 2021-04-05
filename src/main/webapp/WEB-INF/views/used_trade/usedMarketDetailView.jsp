@@ -10,12 +10,10 @@
 <title>Insert title here</title>
 <style>
 #detail_div{
- position: relative;
+ 	position: relative;
 	top:50px;
 	color:black;
-	background-color: skyblue;
 	
-
 
 }
 .card-img-top {
@@ -28,10 +26,15 @@
 		text-align: center
 	
 	}
+#btn_chat{
+
+	float:center;
+}
 button {
 	float: right;
 	
 }
+
 #chatModal{
 	float: center;
 }
