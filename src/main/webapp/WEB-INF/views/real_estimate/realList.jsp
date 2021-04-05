@@ -38,7 +38,7 @@
 				<li style="cursor: pointer">
 					<span class="thumb">
 						<c:if test="${ !empty r.originName }"> <!-- 저장된 changeName을 통해 이미지 사진 로드 -->
-							<img src="${ pageContext.servletContext.contextPath }/resources/upload_file_real/${r.changeName}" alt="">
+				<img src="${ pageContext.servletContext.contextPath }/resources/images/real_estate/${r.changeName}" alt="">
 						</c:if>
 						<c:if test="${ empty r.originName }"> <!-- 매물 사진이 등록되지 않았을 경우 디폴트 사진 출력 -->
 							<img src="resources/img/thumbnail.jpeg" alt="">

@@ -121,7 +121,7 @@ padding-top:13px;
 								test="${ !empty r.originName }">
 								<!-- 저장된 changeName을 통해 이미지 사진 로드 -->
 								<img
-									src="${ pageContext.servletContext.contextPath }/resources/upload_file_real/${r.changeName}"
+									src="${ pageContext.servletContext.contextPath }/resources/images/real_estate/${r.changeName}"
 									alt="">
 							</c:if> <c:if test="${ empty r.originName }">
 								<!-- 매물 사진이 등록되지 않았을 경우 디폴트 사진 출력 -->
@@ -132,7 +132,8 @@ padding-top:13px;
 						<strong>${ r.structure }</strong><br> <strong>${ r.money_kind }
 					</strong> <strong>${ r.money1 }</strong><br> <strong>관리비 ${ r.admin_money }만원</strong><br>
 						<strong>${ r.location }</strong><br>
-						<button onclick="postFormSubmit();">찜하기 취소</button></li>
+						<button onclick="postFormSubmit();" class="form-control bg-light border" style="width:270px">찜하기 취소</button>
+						</li>
 					<br>
 				</c:forEach>
 			</c:if>

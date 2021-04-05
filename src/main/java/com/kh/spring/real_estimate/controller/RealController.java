@@ -186,7 +186,8 @@ public class RealController {
 			int result=realService.deleteReal(rno);
 				
 				if(result<0) {
-					throw new CommonException("매물 삭제에 실패 하였습니다.");
+					model.addAttribute("msg","매물 삭제에 실패하였습니다.");
+					return "common/errorPage";
 				}
 				
 				result=realService.deleteStuffWish(rno);
@@ -194,7 +195,7 @@ public class RealController {
 				if(result>0) {
 					if(!fileName.equals("")) {
 						upload.deleteFile(6,fileName, request);
-						//deleteFile(fileName, request);
+						
 					}
 					
 					return "redirect:list.re";
@@ -205,8 +206,10 @@ public class RealController {
 	}
 	@RequestMapping("detail.re")
 	public ModelAndView selectReal(int rno, ModelAndView mv){
+		
 		try{
 			Real real = realService.selectReal(rno);
+			System.out.println(real);
 				mv.addObject("r",real).setViewName("real_estimate/realDetailView");
 				
 				return mv;
@@ -249,35 +252,12 @@ public class RealController {
 			return "common/errorPage";
 		}
 	}
-	/*
-	private String saveFile(MultipartFile file, HttpServletRequest request) {
-		
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		System.out.println("resources : "+resources);
-		String savePath = resources+"\\upload_file_real\\";
-		
-		String originalName = file.getOriginalFilename();
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()); //java.util로 import
-		
-		String ext = originalName.substring(originalName.lastIndexOf(".")); //확장자
-		
-		String changeName = currentTime + ext; //저장할 이름은 시간+확장자 형식으로 사용하게 될 것
-		
-		try {
-			file.transferTo(new File(savePath+changeName)); //바뀐 이름과 경로 정보 반영해서 첨부한 파일을 transfer
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-			System.out.println("파일 업로드 에러 "+e.getMessage());
-		}
-		
-		return changeName;
-	}
-	*/
 	
 	@RequestMapping("wish.re")
 	public ModelAndView insertWish(Model model, ModelAndView mv, @RequestParam(name="rno")int rno, @RequestParam(name="userId")String userId) throws Exception{
 		try{
-			RealWish realWish=new RealWish(rno,userId);
+				RealWish realWish=new RealWish(rno,userId);
+				
 				Real real = realService.selectReal(rno);
 				
 				int result=realService.insertWish(realWish);
@@ -301,15 +281,9 @@ public class RealController {
 				}
 		
 	}
-	/*
-	private void deleteFile(String fileName, HttpServletRequest request) {
-		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\upload_files\\";
-		
-		File deleteFile=new File(savePath+fileName);
-		deleteFile.delete();
-		
-	}
+	
+	
+	
 	
 	@RequestMapping("updateForm.re")
 	public ModelAndView updateForm(int rno, ModelAndView mv) {
@@ -326,7 +300,7 @@ public class RealController {
 			return mv;
 				}
 	}
-	*/
+	
 	@RequestMapping("update.re")
 	public ModelAndView updateBoard(Real r, ModelAndView mv, HttpServletRequest request, 
 											@RequestParam(value="reUploadFile", required=false) MultipartFile file) {
