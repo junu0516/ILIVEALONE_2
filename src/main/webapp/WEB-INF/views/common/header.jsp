@@ -20,7 +20,27 @@
 	<!-- 템플릿 커스텀 css 적용 -->
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+<style>
+#member_name{
+	position:fixed;
+	right:70px;
+
+}
+.nav-link{
+	margin-left: 30px;
+	font-size: 20px;
+	color:red;
 	
+
+}
+#header_2{
+	margin-left: 30px;
+	font-size: 20px;
+	
+}
+
+</style>	
 </head>
 <body>
  	<!-- Navigation -->
@@ -33,12 +53,8 @@
         		<span class="navbar-toggler-icon"></span>
       		</button>
 	      	<div class="collapse navbar-collapse" id="navbarResponsive">
-	        	<ul class="navbar-nav ml-auto">
-	          		<li class="nav-item active">
-	            		<a class="nav-link" href="${pageContext.servletContext.contextPath}">Home
-	              			<span class="sr-only">(current)</span>
-	            		</a>
-	          		</li>
+	        	<ul class="navbar-nav  ml-auto ">
+	          	
 	          
 	          		<li class="nav-item">
 	            		<a class="nav-link" href="list.gb">공동구매</a>
@@ -55,7 +71,7 @@
 	 		        <li>
 	          			<div id ="header_2">
 	    					<ul class="nav navbar-nav">
-	      						<li class="dropdown"> <a class="dropdown-toggle btn text-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false" >게시판<span class="caret"></span></a>
+	      						<li class="dropdown"> <a class="dropdown-toggle btn text-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false" style="font-size: 20px;" >게시판<span class="caret"></span></a>
 				        			<ul class="dropdown-menu">				        			
 					         			<li class="nav-item"><a class = "dropdown-item" href="Toplist.bo">패션 게시판</a></li>
 					          			<li class="nav-item"><a class = "dropdown-item" href="Toplistf.fo">푸드 게시판</a></li>
@@ -85,9 +101,9 @@
                     </c:if>
                     
                     <c:if test="${ !empty sessionScope.loginUser }">
-	                <div class="dropdown ">
+	                <div class="dropdown " id="member_name">
 		 				 <a class="btn color-white dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-		 				 <i class="fas fa-user-circle"></i> <b>&nbsp; ${ loginUser.userName } 님</b>
+		 				 <i class="fas fa-user-circle"></i> <b style="color:white">&nbsp; ${ loginUser.userName } 님</b>
 		  				</a>
 		
 		 			 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" 	style="text-align: center;" >
