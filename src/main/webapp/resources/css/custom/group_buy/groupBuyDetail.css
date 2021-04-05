@@ -6,3 +6,6 @@
         	display: none;
         }
         
+        #deleteForm{
+        	display : inline;
+        }

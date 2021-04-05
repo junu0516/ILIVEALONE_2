@@ -265,7 +265,13 @@ dd {
    
   <script>
 		
+  
 		$(function(){
+			console.log("${message}");
+			if(${not empty message}){
+				alert("${message}");
+			}
+			
 			OnetopList();
 			$("#OneboardList").on("click",".OneboardList",function(){
 				var bno = $(this).data("bno");

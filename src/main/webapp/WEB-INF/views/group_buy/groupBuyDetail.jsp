@@ -58,7 +58,10 @@
           				<c:if test="${gbProduct.PStatus eq 'Y'}">
 	        			<a href="updateForm.gb?gbNo=${gbBoard.gbNo}" class="btn btn-primary">수정하기</a>	
           				</c:if>
-          				<button type="button" class="btn btn-danger" onclick="deleteBoard();">삭제하기</button>
+          				<form class="form-inline" id="deleteForm" action="delete.gb" method="post">
+          					<input type="hidden" name="gbNo" value="${gbBoard.gbNo}"/>		
+	          				<button type="submit" class="btn btn-danger" onsubmit="return confirm('정말 삭제하시겠습니까?');">삭제하기</button>     				
+          				</form>
           			</c:if>
           			<c:if test="${gbBoard.gbMno ne sessionScope.loginUser.userId }">
           				<button type="button" onclick="checkPurchase();" class="btn btn-primary" id="purchase">구매하기</button>
@@ -88,15 +91,7 @@
           		alert("구매페이지로 넘어갑니다.");
           		location.href="purchaseForm.gb?phCno=${gbBoard.gbNo}&phProduct=${gbProduct.PNo}&phBuyer=${loginUser.userId}";	
           	}
-         }          	
-          
-		function deleteBoard(){
-      		if(confirm("정말 삭제하시겠습니까?")){
-      			location.href="delete.gb?gbNo=${gbBoard.gbNo}";
-      		}else{
-      			console.log("취소");
-      		}
-      	}          	
+         }          	         	
           	
 		$(function(){
       		console.log('현재인원 : '+"${gbProduct.PPurchase}")
