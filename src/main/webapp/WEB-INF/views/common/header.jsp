@@ -142,6 +142,9 @@
 	          		</li>
 	          		-->
 	          		<li>
+	            		<a href="find_id_form.do">아이디 찾기</a>
+	          		</li>
+	          		<li>
 	            		<a href="findPwd.me">비밀번호 찾기</a>
 	          		</li>
                 </div>
