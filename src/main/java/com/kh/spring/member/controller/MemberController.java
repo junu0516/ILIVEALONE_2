@@ -177,4 +177,17 @@ public class MemberController {
 		public String findPwd() {
 			return "member/findPwd";
 		}
+	   
+	// 아이디 찾기 폼
+		@RequestMapping(value = "/find_id_form.do")
+		public String find_id_form() throws Exception{
+			return "/member/find_id_form";
+		}
+		
+		// 아이디 찾기
+		@RequestMapping(value = "/find_id.do", method = RequestMethod.POST)
+		public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception{
+			md.addAttribute("id", memberService.find_id(email));
+			return "/member/find_id";
+		}
 }

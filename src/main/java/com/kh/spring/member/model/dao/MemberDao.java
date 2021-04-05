@@ -1,5 +1,7 @@
 package com.kh.spring.member.model.dao;
 
+import javax.mail.Session;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +38,17 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idCheck", userId);
 	}
 
+	// 아이디 찾기
+	public String find_id(String email) throws Exception{
+		SqlSessionTemplate sqlSession = null;
+		return sqlSession.selectOne("memberMapper.find_id", email);
+	}
+
+	public String find_id(SqlSessionTemplate sqlSession, String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 }

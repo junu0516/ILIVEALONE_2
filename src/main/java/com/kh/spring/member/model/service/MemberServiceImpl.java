@@ -1,5 +1,9 @@
 package com.kh.spring.member.model.service;
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -82,6 +86,38 @@ public class MemberServiceImpl implements MemberService {
 	public int idCheck(String userId) {
 		// TODO Auto-generated method stub
 		return  memberDao.idCheck(sqlSession, userId);
+	}
+
+	
+	// 아이디 찾기
+	@Override
+		public String find_id(HttpServletResponse response, String email, MemberDao manager) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String id = manager.find_id(email);
+			
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('가입된 아이디가 없습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			return id;
+		}
+	}
+
+	@Override
+	public String find_id(String email) {
+		// TODO Auto-generated method stub
+		return  memberDao.find_id(sqlSession, email);
+	}
+
+	public String find_id(HttpServletResponse response, String email) throws Exception {
+		// TODO Auto-generated method stub
+		return  memberDao.find_id(sqlSession, email);
+		
 	}
 
 	
