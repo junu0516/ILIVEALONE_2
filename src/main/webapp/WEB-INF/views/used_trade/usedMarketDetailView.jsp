@@ -28,7 +28,7 @@
 	}
 #btn_chat{
 
-	float:center;
+	text-align: center
 }
 button {
 	float: right;
