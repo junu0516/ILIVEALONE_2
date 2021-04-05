@@ -128,99 +128,96 @@ dd {
   <!-- http://placehold.it/200x200&text=Logo -->
   
   <!-- Content section -->
-  <section class="py-5">
-		<div class="container" style="height:300px">
-			<div class="main_info">
-				<p class="info_temperature">
-					<span class="ico_state ws1"></span> <span class="todaytemp">${weather.todaytemp}</span>
-					<span class="tempmark"> <span class="blind"></span> ℃
-					</span>
-				</p>
-				<ul class="info_list">
-					<li>
-						<p class="cast_txt">${weather.cast_txt}</p>
-					</li>
-					<li><span class="merge"> <span class="min"> <span
-								class="num">${weather.min}</span> ˚
-						</span> <span class="slash">/</span> <span class="min"> <span
-								class="num">${weather.max}</span> ˚
+  <section class="py-5 jumbotron">
+		<div class="container jumbotron" style="height:700px">
+		<br><br>
+		
+		
+			<div class="col-sm-4 mb-0" style="float:left">
+				<div class="main_info">
+					<p class="info_temperature">
+						<span class="ico_state ws1"></span> <span class="todaytemp">${weather.todaytemp}</span>
+						<span class="tempmark"> <span class="blind"></span> ℃
 						</span>
-					</span> <span class="bar"></span> <span class="sensible"> 체감온도 <em>
-								<span class="num">${weather.bodytemp}</span> ˚
-						</em>
-					</span></li>
-				</ul>
-			</div>
-			<div class="sub_info">
-				<div class="detail_box">
-				<br><br><br>
-					<dl class="indicator">
-						<dt>자외선 </dt>
-						<dd class="lv2">
-							<span class="num"> ${weather.uv} </span> ${weather.uv_txt}
-						</dd>
-						<dt>미세먼지 </dt>
-						<dd class="lv2">
-							<span class="num"> ${weather.finedust} </span> ${weather.finedust_txt}
-						</dd>
-						<dt>초미세먼지 </dt>
-						<dd class="lv2">
-							<span class="num"> ${weather.ultrafinedust} </span> ${weather.ultrafinedust_txt}
-						</dd>
-						<dt>오존 </dt>
-						<dd class="lv2">
-							<span class="num"> ${weather.ozone} </span> ${weather.ozone_txt}
-						</dd>
-					</dl>
+					</p>
+					<ul class="info_list">
+						<li>
+							<p class="cast_txt">${weather.cast_txt}</p>
+						</li>
+						<li><span class="merge"> <span class="min"> <span
+									class="num">${weather.min}</span> ˚
+							</span> <span class="slash">/</span> <span class="min"> <span
+									class="num">${weather.max}</span> ˚
+							</span>
+						</span> <span class="bar"></span> <span class="sensible"> 체감온도 <em>
+									<span class="num">${weather.bodytemp}</span> ˚
+							</em>
+						</span></li>
+					</ul>
 				</div>
-			</div>
+				<div class="sub_info">
+					<div class="detail_box">
+					<br><br><br>
+						<dl class="indicator">
+							<dt>자외선 </dt>
+							<dd class="lv2">
+								<span class="num"> ${weather.uv} </span> ${weather.uv_txt}
+							</dd>
+							<dt>미세먼지 </dt>
+							<dd class="lv2">
+								<span class="num"> ${weather.finedust} </span> ${weather.finedust_txt}
+							</dd>
+							<dt>초미세먼지 </dt>
+							<dd class="lv2">
+								<span class="num"> ${weather.ultrafinedust} </span> ${weather.ultrafinedust_txt}
+							</dd>
+							<dt>오존 </dt>
+							<dd class="lv2">
+								<span class="num"> ${weather.ozone} </span> ${weather.ozone_txt}
+							</dd>
+						</dl>
+					</div>
+				</div>
 		</div>
+		<div class="col-sm-8" style="float:left">
+		
+		    <div class="jumbotron" style="background-color:#474747">
+		    	 <h2 style="color:white">코로나19 현황테이블</h2>
+		    	 <br><br>
+		    	 
+		        <h1 class="display-4" style="color:white">"${koreaStats[0].diffFromPrevDay}"</h1>
+		        <p class="lead" style="color:white">Total cases reported</p>
+		        <hr class="my-4">
+		        <table class="table">
+					<tr>
+						<th style="color:#C5C5C5">확진환자수(전일 대비 증감량)</th>
+						<th style="color:#C5C5C5">해외유입</th>
+						<th style="color:#C5C5C5">일일 검사건수</th>
+						<th title="인구 10만 명당" style="color:#C5C5C5">발생률(*)</th>
+					</tr>
+		
+		
+					<tr>
+						<td style="color:#C5C5C5">"${koreaStats[0].total}"</td>
+						<td style="color:#C5C5C5">"${koreaStats[0].death}"</td>
+						<td style="color:#C5C5C5">"${koreaStats[0].inspection}"</td>
+						<td style="color:#C5C5C5">"${koreaStats[0].incidence}"</td>
+					</tr>
+		
+				</table>
+				<br><br>
+		    </div>
+	     
+     
+    </div>
+		</div>
+		
 	</section>
-
-  <!-- Image element - set the background image for the header in the line below -->
-  <div class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
-    <!-- Put anything you want here! There is just a spacer below for demo purposes! -->
-    <div style="height: 200px;"></div>
-  </div>
 
 
 <!-- 콘텐츠 영역 -->
   <section class="py-5">
-    <div class="container">
-     
-     <h1 class="display-4">Coronavirus Tracker Application(Korea)</h1>
-    <p class="lead">한국의 코로나19 현황테이블</p>
-
-    <div class="jumbotron">
-        <h1 class="display-4">"${koreaStats[0].diffFromPrevDay}"</h1>
-        <p class="lead">Total cases reported</p>
-        <hr class="my-4">
-        <p>
-            <span>New domestic cases reported since previous day</span>
-            <span>"${koreaStats[0].total}"</span>
-        </p>
-    </div>
-
-		<table class="table">
-			<tr>
-				<th>확진환자수(전일 대비 증감량)</th>
-				<th>해외유입</th>
-				<th>일일 검사건수</th>
-				<th title="인구 10만 명당">발생률(*)</th>
-			</tr>
-
-
-			<tr>
-				<td>"${koreaStats[0].total}"</td>
-				<td>"${koreaStats[0].death}"</td>
-				<td>"${koreaStats[0].inspection}"</td>
-				<td>"${koreaStats[0].incidence}"</td>
-			</tr>
-
-		</table>
-     
-     
-    </div>
+    
   </section>
   <!-- Image element - set the background image for the header in the line below -->
   <div class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
