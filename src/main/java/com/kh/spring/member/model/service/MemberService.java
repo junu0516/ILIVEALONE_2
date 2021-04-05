@@ -1,7 +1,10 @@
 package com.kh.spring.member.model.service;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.kh.spring.member.model.dao.MemberDao;
 import com.kh.spring.member.model.vo.Member;
 
 public interface MemberService {
@@ -19,6 +22,12 @@ public interface MemberService {
 	int updatePassword(Member member);
 
 	int idCheck(String userId);
+	
+	
+
+	String find_id(HttpServletResponse response, String email, MemberDao manager) throws Exception;
+
+	String find_id(String email);
 
 	
 }

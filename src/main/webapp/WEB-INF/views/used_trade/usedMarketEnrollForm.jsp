@@ -4,13 +4,23 @@
 <html>
 <head>
 <title>Insert title here</title>
+<style>
 
+
+#big_div{
+
+position: relative;
+	top:50px;
+	color:black;
+}
+
+</style>
 </head>
 <body>
 	  <jsp:include page="../common/header.jsp"/>
 	
 
-	    <div class="card shadow mb-4"  >
+	    <div class="card shadow mb-4" id="big_div" >
                   <div class="card-header py-3" align="center">
    
     		<h2>판매글 작성하기</h2>
