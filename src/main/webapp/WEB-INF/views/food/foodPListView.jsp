@@ -176,9 +176,9 @@
 					<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/commuity_foodP/${fdp.foodPChangeName}" height="200px"/>
 		        </div>
 		        <div class="card-body">
-		          <h4 class="card-title">번호 : ${fdp.foodPNo}</h4>
 		          <p class="card-text">작성자 : ${fdp.foodPWriter}</p>
 		          <p class="card-text">날짜 : ${fdp.foodPCreateDate}</p>
+		          <p class="card-text">조회수 : ${fdp.foodPCount}</p>
 		          <a href="detailP.fo?fdpno=${fdp.foodPNo}" class="btn btn-primary">상세 보기</a>
 		        </div>
 		     </div>

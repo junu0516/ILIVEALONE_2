@@ -118,9 +118,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			System.out.println("제품정보 업데이트 완료");
 		}
 		 */
-		int result3 = groupBuyDao.insertTransactionTest(sqlSession, groupBuyProduct);
-			
-		return result1 * result2 * result3;
+		return result1 * result2;
 	}
 
 	@Override
@@ -130,15 +128,21 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	}
 
 	@Override
-	public ArrayList<PurchaseHistory> selectSalesHistories(String sellerId) {
+	public ArrayList<PurchaseHistory> selectSalesHistories(String sellerId, PageInfo pageInfo) {
 		
-		return groupBuyDao.selectSalesHistories(sqlSession,sellerId);
+		return groupBuyDao.selectSalesHistories(sqlSession,sellerId, pageInfo);
 	}
-
+	
 	@Override
-	public ArrayList<PurchaseHistory> selectPurchaseHistories(String buyerId) {
+	public ArrayList<PurchaseHistory> selectSalesHistories(String sellerId, String keyword, PageInfo pageInfo) {
+		
+		return groupBuyDao.selectSalesHistories(sqlSession, sellerId, keyword, pageInfo);
+	}
+	
+	@Override
+	public ArrayList<PurchaseHistory> selectPurchaseHistories(String buyerId, PageInfo pageInfo) {
 
-		return groupBuyDao.selectPurchaseHistories(sqlSession,buyerId);
+		return groupBuyDao.selectPurchaseHistories(sqlSession,buyerId,pageInfo);
 	}
 	
 	@Override
@@ -275,6 +279,26 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	public int selectPreviousPurchaseCount(HashMap<String, String> mapKey) {
 	
 		return groupBuyDao.selectPreviousPurchaseCount(sqlSession,mapKey);
-	}	
+	}
+
+	@Override
+	public int selectSalesHistoryListCount(String sellerId) {
+		
+		return groupBuyDao.selectSalesHistoryListCount(sqlSession,sellerId);
+	}
+
+	@Override
+	public int selectSalesHistoryListCount(String keyword, String sellerId) {
+		
+		return groupBuyDao.selectSalesHistoryListCount(sqlSession,keyword,sellerId);
+	}
+
+	@Override
+	public int selectPurchaseHistoryListCount(String buyerId) {
+		
+		return groupBuyDao.selectPurchaseHistoryListCount(sqlSession,buyerId);
+	}
+
+		
 
 }

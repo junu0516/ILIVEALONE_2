@@ -3,6 +3,10 @@
 <p align="center">자취생들을 위한 종합 웹커뮤니티 서비스입니다.</p>
 
 ### :busts_in_silhouette:팀원
+<a href="https://github.com/junu0516/ILIVEALONE_2/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=junu0516/ILIVEALONE_2" />
+</a>
+
 - [권석호](https://github.com/ksh950329) : 회원관리 서비스 구현
 - [남궁수영](https://github.com/ngsy) : 중고거래 서비스 구현
 - [배채은](https://github.com/baechaeeun) : 부동산 매물 거래 서비스 구현

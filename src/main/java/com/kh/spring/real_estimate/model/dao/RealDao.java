@@ -60,7 +60,7 @@ public class RealDao {
 
 	public int deleteStuffWish(SqlSessionTemplate sqlSession, int rno) {
 		// TODO Auto-generated method stub
-		return	sqlSession.delete("realWishMapper.deleteStuffWish", rno);
+		return	sqlSession.update("realWishMapper.deleteStuffWish", rno);
 	}
 
 	public ArrayList<Integer> selectWishList(SqlSessionTemplate sqlSession, String userId) {
@@ -77,7 +77,7 @@ public class RealDao {
 	public int deleteWish(SqlSessionTemplate sqlSession, HashMap<String, String> mapKey) {
 		// TODO Auto-generated method stub
 		
-		return	sqlSession.delete("realWishMapper.deleteWish", mapKey);
+		return	sqlSession.update("realWishMapper.deleteWish", mapKey);
 	}
 
 }

@@ -115,14 +115,34 @@ public class GroupBuyDao {
 		return sqlSession.update("groupBuyMapper.updatePurchase",pNo);
 	}
 	
-	public ArrayList<PurchaseHistory> selectSalesHistories(SqlSessionTemplate sqlSession, String sellerId) {
-
-		return (ArrayList)sqlSession.selectList("groupBuyMapper.selectSalesHistories",sellerId);
+	public ArrayList<PurchaseHistory> selectSalesHistories(SqlSessionTemplate sqlSession, String sellerId, PageInfo pageInfo) {
+		
+		int offset = (pageInfo.getCurrentPage()-1) * pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("groupBuyMapper.selectSalesHistories",sellerId,rowBounds);
+	}
+	
+	public ArrayList<PurchaseHistory> selectSalesHistories(SqlSessionTemplate sqlSession, String sellerId,
+			String keyword, PageInfo pageInfo) {
+		
+		int offset = (pageInfo.getCurrentPage()-1) * pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
+		
+		HashMap<String,Object> mapKey = new HashMap<>();
+		mapKey.put("sellerId", sellerId);
+		mapKey.put("keyword", keyword);
+		System.out.println(mapKey);
+		
+		return (ArrayList)sqlSession.selectList("groupBuyMapper.selectSalesHistoriesWithKeyword",mapKey,rowBounds);
 	}
 
-	public ArrayList<PurchaseHistory> selectPurchaseHistories(SqlSessionTemplate sqlSession, String buyerId) {
-	
-		return (ArrayList)sqlSession.selectList("groupBuyMapper.selectPurchaseHistories",buyerId);
+	public ArrayList<PurchaseHistory> selectPurchaseHistories(SqlSessionTemplate sqlSession, String buyerId, PageInfo pageInfo) {
+		
+		int offset = (pageInfo.getCurrentPage()-1) * pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("groupBuyMapper.selectPurchaseHistories",buyerId, rowBounds);
 	}
 
 	public int updateClosingDeal(SqlSessionTemplate sqlSession, int pNo) {
@@ -160,9 +180,24 @@ public class GroupBuyDao {
 		return sqlSession.selectOne("groupBuyMapper.selectPreviousPurchaseCount",mapKey);
 	}
 
-	public int insertTransactionTest(SqlSessionTemplate sqlSession, GroupBuyProduct groupBuyProduct) {
-		
-		return sqlSession.insert("groupBuyMapper.insertTransactionTest",groupBuyProduct);
+	public int selectSalesHistoryListCount(SqlSessionTemplate sqlSession, String sellerId) {
+	
+		return sqlSession.selectOne("groupBuyMapper.selectSalesHistoryListCount",sellerId);
 	}
 
+	public int selectSalesHistoryListCount(SqlSessionTemplate sqlSession, String keyword, String sellerId) {
+		
+		HashMap<String,Object> mapKey = new HashMap<>();
+		mapKey.put("sellerId", sellerId);
+		mapKey.put("keyword", keyword);
+		
+		return sqlSession.selectOne("groupBuyMapper.selectSalesHistoryListWithKeyword",mapKey);
+	}
+
+	public int selectPurchaseHistoryListCount(SqlSessionTemplate sqlSession, String buyerId) {
+		
+		return sqlSession.selectOne("groupBuyMapper.selectPurchaseHistoryListCount",buyerId);
+	}
+
+	
 }

@@ -91,7 +91,7 @@ padding-top:13px;
 			
 <c:if test="${ !empty loginUser }">
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" onclick="postFormSubmit()" style="cursor: pointer">
+			<li class="nav-item"><a class="nav-link" onclick="postFormSubmit1()" style="cursor: pointer">
 					<i class="fas fa-fw fa-tachometer-alt"></i> <span>찜한 목록</span>
 			</a></li>
 			
@@ -132,7 +132,7 @@ padding-top:13px;
             <br><br>
             
             <c:if test="${ !empty r.originName }">
-				<img src="${ pageContext.servletContext.contextPath }/resources/upload_file_real/${r.changeName}" alt="">
+				<img src="${ pageContext.servletContext.contextPath }/resources/images/real_estate/${r.changeName}" alt="">
 			</c:if>
 			<c:if test="${ empty r.originName }">
 				<img src="resources/img/thumbnail.jpeg" alt="">
@@ -192,20 +192,15 @@ padding-top:13px;
 
              <div align="center">
              		<c:if test="${ r.userId eq loginUser.userId }">
-	                	<button onclick="postFormSubmit(1);">수정하기</button>
-	                	<button onclick="postFormSubmit(2);">삭제하기</button>
+	                	<button onclick="postFormSubmit2(1);" class="form-control bg-light border">수정하기</button>
+	                	<button onclick="postFormSubmit2(2);" class="form-control bg-light border">삭제하기</button>
 	                 </c:if>
-	                 <button class="form-control bg-light border" onclick="postFormSubmit(3);">찜하기</button>
+	                 <button class="form-control bg-light border" onclick="postFormSubmit2(3);">찜하기</button>
 	         </div>
-	
-			
-			
-			
-        
+       
         </div>
     </div>
 
-    	
 				</div>
 				<!-- /.container-fluid -->
 
@@ -242,14 +237,38 @@ padding-top:13px;
 	
 	
 	
-		<form id="postForm" action="wishform.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
+	<form id="postForm1" action="wishform.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
 				<input type="hidden" name="userId" value="${loginUser.getUserId() }">
 			</form>
 				
 			<script>
-				function postFormSubmit(){
-					var postForm = $("#postForm");
+				function postFormSubmit1(){
+					var postForm = $("#postForm1");
 				
+					postForm.submit();
+				}
+			</script>
+			
+			
+			
+		<form id="postForm2" action="" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
+				<input type="hidden" name="userId" value="${loginUser.getUserId() }">
+				<input type="hidden" name="rno" value="${ r.stuffNo }">
+				<input type="hidden" name="fileName" value="${ r.changeName }">
+			</form>
+				
+			<script>
+				function postFormSubmit2(num){
+					var postForm = $("#postForm2");
+				
+					if(num == 1){//수정
+						postForm.attr("action", "updateForm.re");
+					}else if(num==2){//삭제
+						postForm.attr("action", "delete.re");
+					}else{//찜하기
+						postForm.attr("action", "wish.re");
+					}
+					
 					postForm.submit();
 				}
 			</script>

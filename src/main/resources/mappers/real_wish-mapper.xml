@@ -4,6 +4,7 @@
 	<resultMap type="RealWish" id="realWishResultSet">
 		<id property="stuffNo" column="STUFF_NO"/>
 		<id property="loginUser" column="USERID"/>
+		<id property="status" column="STATUS"/>
 	</resultMap>
 
 	
@@ -12,29 +13,36 @@
 		INSERT INTO USER_WISH
 		VALUES(
 		#{stuffNo}, 
-		#{loginUser}
+		#{loginUser},
+		'Y'
 		)
 	</insert>
 	
+		<update id="deleteStuffWish"
+			parameterType="_int">
+		UPDATE USER_WISH
+		SET STATUS='N'
+		WHERE STUFF_NO = #{stuff_no}
+	</update>
 	
-	<delete id="deleteIdWish" parameterType="String">
-		DELETE FROM USER_WISH WHERE USERID=#{userId}
-	</delete>
+	<update id="deleteIdWish"
+			parameterType="String">
+		UPDATE USER_WISH
+		SET STATUS='N'
+		WHERE USERID = #{userId}
+	</update>
 	
-	<delete id="deleteStuffWish" parameterType="_int">
-		DELETE FROM USER_WISH WHERE STUFF_NO=#{stuff_no}
-	</delete>
 	
 	<select id="selectWishList" parameterType="String"
 	resultType="_int">
 		SELECT STUFF_NO
 		FROM USER_WISH
-		WHERE USERID=#{userId}
+		WHERE USERID=#{userId} AND STATUS='Y'
 	</select>
 
-	<delete id="deleteWish" parameterType="hashmap">
-		DELETE FROM USER_WISH WHERE STUFF_NO=#{rno} AND USERID=#{userId}
-	</delete>
+	<update id="deleteWish" parameterType="hashmap">
+		UPDATE FROM USER_WISH SET STATUS='N' WHERE STUFF_NO=#{rno} AND USERID=#{userId}
+	</update>
 	
 </mapper>
 	
