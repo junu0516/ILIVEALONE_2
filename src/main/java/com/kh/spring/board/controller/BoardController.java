@@ -114,10 +114,11 @@ public class BoardController {
 		System.out.println(b);
 		System.out.println(result);
 		if(result >0) {
+			model.addAttribute("message", "게시판 작성 성공");
 			return "redirect:list.bo";
 		}else {
-			System.out.println("에러");
-			return "";
+			model.addAttribute("msg","게시판 작성 실패");
+			return "common/errorPage";
 		}
 	}
 	
@@ -187,8 +188,9 @@ public class BoardController {
 			}
 			return "redirect:list.bo";
 		}else {
-			System.out.println("게시물 삭제 시패");
-			return "";
+			model.addAttribute("msg","게시판 삭제 실패");
+			return "common/errorPage";
+
 		}
 		
 		

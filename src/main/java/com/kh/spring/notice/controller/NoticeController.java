@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.notice.model.vo.PageInfo;
 import com.kh.spring.notice.model.vo.Pagination;
+import com.kh.spring.common.upload.Upload;
 import com.kh.spring.notice.model.service.NoticeService;
 import com.kh.spring.notice.model.vo.Notice;
 
@@ -27,6 +28,8 @@ public class NoticeController {
 		@Autowired
 		private NoticeService noticeService;
 		
+		@Autowired
+		Upload upload;
 		@RequestMapping("enrollForm.no")
 		public String noticeEnrollForm() {
 			return "notice/noticeEnrollForm";
@@ -53,7 +56,7 @@ public class NoticeController {
 			
 			if(!file.getOriginalFilename().equals("")) {
 				
-				String changeName = saveFile(file, request);
+				String changeName = upload.saveFile(10,false,file, request);
 				
 				if(changeName != null) {
 					n.setOriginName(file.getOriginalFilename());
@@ -69,31 +72,7 @@ public class NoticeController {
 				return "";
 			}
 		}
-		private String saveFile(MultipartFile file, HttpServletRequest request) {
-			
-			String resources = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = resources+"\\upload_files\\";
-			
-			System.out.println("savePath "+ savePath);
-			
-			String originName = file.getOriginalFilename();
-			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			
-			String ext = originName.substring(originName.lastIndexOf("."));
-			
-			String changeName = currentTime + ext;
-			
-			
-			try {
-				file.transferTo(new File(savePath+changeName));
-			} catch (IllegalStateException | IOException e) {
-			
-				System.out.println("파일 업로드 에러 "+e.getMessage());
-			}
-			
-			
-			return changeName;
-		}
+		
 		
 		@RequestMapping("detail.no")
 		public ModelAndView selectBoard(int nno, ModelAndView mv) {
@@ -114,7 +93,7 @@ public class NoticeController {
 			int result = noticeService.deleteNotice(nno);
 			if(result > 0 ) {
 				if(fileName.equals("")) {
-					deleteFile(fileName, request);
+					upload.deleteFile(10,fileName, request);
 				}
 				return "redirect:list.no";
 			}else {
@@ -125,13 +104,7 @@ public class NoticeController {
 			
 		}
 		
-		private void deleteFile(String fileName, HttpServletRequest request) {
-			String resources = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = resources+"\\upload_files\\";
-			
-			File deleteFile = new File(savePath+fileName);
-			deleteFile.delete();
-		}
+	
 		
 		@RequestMapping("updateForm.no")
 		public ModelAndView updateFormNotice(int nno, ModelAndView mv) {
@@ -144,9 +117,9 @@ public class NoticeController {
 										@RequestParam(value = "reUploadFile", required=false) MultipartFile file) {
 			if(!file.getOriginalFilename().equals("")) { //새로 넘어온 파일이 있는 경우 
 				if(n.getChangeName() != null) { //새로 불러온 파일이 있는데 기존에 파일이 있는 경우 -> 서버에 업로드 되어있는 파일 삭제
-					deleteFile(n.getChangeName(), request);
+					upload.deleteFile(10,n.getChangeName(), request);
 				}
-				String changeName = saveFile(file, request); // 새로 넘어온 파일을 서버에 업로드
+				String changeName = upload.saveFile(10,false,file, request); // 새로 넘어온 파일을 서버에 업로드
 				n.setOriginName(file.getOriginalFilename());
 				n.setChangeName(changeName);
 				

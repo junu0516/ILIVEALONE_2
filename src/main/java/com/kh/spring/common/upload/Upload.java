@@ -31,7 +31,7 @@ public class Upload {
 	 * 7: 패션 사진 커뮤니티
 	 * 8: 푸드 사진 커뮤니티
 	 * 9: 하우징 사진 커뮤니티
-	 * 
+	 * 10: 공지사항 커뮤니티
 	 * */
 	
 	public String saveFile(int function, boolean isCK, MultipartFile multipartFile, HttpServletRequest request) {
@@ -69,7 +69,9 @@ public class Upload {
 				case 9:
 					savePath = resources+"\\images\\commuity_housingP\\";
 					break;
-					
+				case 10:
+					savePath = resources+"\\images\\notice\\";
+					break;	
 				default:
 					throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 			}
@@ -102,6 +104,9 @@ public class Upload {
 					break;
 				case 9:
 					savePath = resources+"\\images\\commuity_housingP\\ckeditor\\";
+					break;
+				case 10:
+					savePath = resources+"\\images\\notice\\ckeditor\\";
 					break;
 				
 				default:
@@ -158,7 +163,9 @@ public class Upload {
 			case 9:
 				savePath = resources+"\\images\\commuity_housingP\\";
 				break;
-				
+			case 10:
+				savePath = resources+"\\images\\notice\\";
+				break;	
 			default:
 				throw new CommonException("사진 저장 경로가 잘못되었습니다.");
 		}
