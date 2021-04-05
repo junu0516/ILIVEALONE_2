@@ -11,6 +11,13 @@
     <meta name="author" content="">
 	<title>구매내역 조회</title>
 	<link href="resources/css/custom/group_buy/headerBalance.css" rel="stylesheet">
+	<style>
+    
+    	.pagination{
+    		float : right;
+    	}
+    	
+    </style>
 </head>
 <body  id="page-top">
 	<jsp:include page="../common/header.jsp"/>
@@ -27,6 +34,48 @@
 	            	<h2>구매내역 조회</h2>
 					<br>
 					&nbsp 구매자 아이디 : ${loginUser.userId}
+					<ul class="pagination pagination-sm">
+			            <c:choose>
+			                <c:when test="${pageInfo.currentPage ne 1}">
+			                   
+			                        <li class="page-item">
+			                            <a class="page-link" href="purchaseHistory.gb?currentPage=${pageInfo.currentPage-1}">Previous</a>
+			                        </li>
+			                 
+			                </c:when>
+			                <c:otherwise>
+			                    <li class="page-item disabled">
+			                        <a class="page-link" href="">Previous</a>
+			                    </li>
+			                </c:otherwise>
+			            </c:choose>
+			            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="p">
+			                <c:choose>
+			                    <c:when test="${pageInfo.currentPage ne p}">
+			                    	<li class="page-item">
+			                        	<a class="page-link" href="purchaseHistory.gb?currentPage=${p}">${p}</a>
+			                    	</li>
+			                    </c:when>
+			                    <c:otherwise>
+			                        <li class="page-item disabled">
+			                            <a class="page-link" href="">${p}</a>
+			                        </li>
+			                    </c:otherwise>
+			                </c:choose>
+			            </c:forEach>
+			            <c:choose>
+			                <c:when test="${pageInfo.currentPage ne pageInfo.maxPage}">
+			                	<li class="page-item">
+			                    	<a class="page-link" href="purchaseHistory.gb?currentPage=${pageInfo.currentPage+1}">Next</a>
+			                	</li> 
+			                </c:when>
+			                <c:otherwise>
+			                    <li class="page-item disabled">
+			                        <a class="page-link" href="purchaseHistory.gb?currentPage=${pageInfo.currentPage+1}">Next</a>
+			                    </li>
+			                </c:otherwise>
+			            </c:choose>
+			        </ul>
 					<table class="table">
 						<thead>
 							<tr>

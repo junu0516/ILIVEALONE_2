@@ -43,10 +43,10 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class GroupBuyController {
 	
 	@Autowired
-	GroupBuyService groupBuyService;
+	private GroupBuyService groupBuyService;
 	
 	@Autowired
-	Upload upload;
+	private Upload upload;
 	
 	@Value("${apiKey}")
 	private String apiKey;
@@ -143,9 +143,9 @@ public class GroupBuyController {
 	public String searchList(@RequestParam(required=false)String condition, @RequestParam(required=false)String keyword, 
 							 @RequestParam(required=false, defaultValue="1")int currentPage,Model model) {
 		
-		System.out.println("condition : "+condition);
-		System.out.println("keyword : "+keyword);
-		System.out.println("currentPage : "+currentPage);
+		//System.out.println("condition : "+condition);
+		//System.out.println("keyword : "+keyword);
+		//System.out.println("currentPage : "+currentPage);
 		model.addAttribute("condition",condition);
 		model.addAttribute("keyword",keyword);
 		
@@ -158,14 +158,14 @@ public class GroupBuyController {
 		}
 		
 		int listCount = groupBuyService.selectListCount(searchCondition);
-		System.out.println("listCount : "+listCount);
+		//System.out.println("listCount : "+listCount);
 		PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 5, 6);
 		model.addAttribute("pageInfo",pageInfo);
 		
 		ArrayList<GroupBuyBoard> list = groupBuyService.selectList(pageInfo,searchCondition);
 		model.addAttribute("list",list);
-		System.out.println(list);
-		System.out.println(list.size());
+		//System.out.println(list);
+		//System.out.println(list.size());
 		
 		HashMap<Integer,GroupBuyProduct> products = new HashMap<Integer,GroupBuyProduct>();
 		ArrayList<GroupBuyProduct> productList = groupBuyService.selectProducts(pageInfo,searchCondition);
@@ -185,7 +185,7 @@ public class GroupBuyController {
 		//만일 현재 로그인된 유저 아이디와, 수정하고자 할 글의 작성자 아이디가 일치하지 않으면 유효하지 않은 접근으로 간주해야 함
 		//updateForm.gb?gbNo=** 와 같은 식으로 url만 입력하는 식으로 다른 사용자가 무단으로 접근할 수 있기 때문
 		if(!loginUser.getUserId().equals(groupBuyBoard.getGbMno())) {
-			System.out.println("유효하지 않은 접근");
+			//System.out.println("유효하지 않은 접근");
 			redirectAttr.addFlashAttribute("message","유효하지 않은 접근입니다.");
 			return "redirect:list.gb";
 		}
@@ -206,11 +206,9 @@ public class GroupBuyController {
 		if(!thumbnail.getOriginalFilename().equals("")) { 
 			if(groupBuyBoard.getGbChangedName() != null) {
 				upload.deleteFile(4, groupBuyBoard.getGbChangedName(),request);
-				//deleteFile(groupBuyBoard.getGbChangedName(),request); 
 			}
 			
 			String gbChangedName = upload.saveFile(4, false, thumbnail,request);
-			//saveFile(thumbnail,request);
 			groupBuyBoard.setGbOriginalName(thumbnail.getOriginalFilename());
 			groupBuyBoard.setGbChangedName(gbChangedName);
 		}
@@ -221,13 +219,22 @@ public class GroupBuyController {
 		if(result>0){
 			redirectAttr.addFlashAttribute("message","업데이트 완료");
 			return "redirect:detail.gb?gbNo="+groupBuyBoard.getGbNo();			
+		}else {
+			redirectAttr.addFlashAttribute("message","업데이트 실패");
+			return "redirect:list.gb";
 		}
-		
-		return "redirect:list.gb";
 	}
 
 	@GetMapping("delete.gb")
-	public String deleteBoard(@RequestParam int gbNo, HttpServletRequest request, RedirectAttributes redirectAttr) {
+	public String deleteBoard(@RequestParam int gbNo, HttpServletRequest request
+							  ,RedirectAttributes redirectAttr, @SessionAttribute("loginUser")Member loginUser) {
+		
+		GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(gbNo);
+		if(!loginUser.getUserId().equals(groupBuyBoard.getGbMno())) {
+			//System.out.println("유효하지 않은 접근");
+			redirectAttr.addFlashAttribute("message","유효하지 않은 접근입니다.");
+			return "redirect:list.gb";
+		}
 		
 		//업로드된 이미지를 먼저 삭제
 		String fileName = groupBuyService.selectBoard(gbNo).getGbChangedName();
@@ -238,7 +245,7 @@ public class GroupBuyController {
 		
 		if(result>0) {
 			redirectAttr.addFlashAttribute("message","게시글 삭제 완료");
-			System.out.println("삭제 완료");
+			//System.out.println("삭제 완료");
 			return "redirect:list.gb";
 		}else {
 			redirectAttr.addFlashAttribute("message","게시글 삭제 실패");
@@ -249,16 +256,16 @@ public class GroupBuyController {
 	@GetMapping("purchaseForm.gb")
 	public String showPurchaseForm(@ModelAttribute PurchaseHistory purchaseHistory, Model model, RedirectAttributes redirectAttr) {
 		
-		System.out.println(purchaseHistory);
+		//System.out.println(purchaseHistory);
 		GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
-		System.out.println("인당 제한 수량 : "+gbProduct.getPMaxPurchase());
+		//System.out.println("인당 제한 수량 : "+gbProduct.getPMaxPurchase());
 		
 		//현재 구매신청한 회원이 이전에 동일상품을 주문한 총 수량 조회
 		HashMap<String,String> mapKey = new HashMap<>();
 		mapKey.put("phBuyer", purchaseHistory.getPhBuyer());
 		mapKey.put("phProduct", String.valueOf(purchaseHistory.getPhProduct()));
 		int previousPurchaseCount = groupBuyService.selectPreviousPurchaseCount(mapKey);
-		System.out.println("이전까지 총 주문수량 : "+previousPurchaseCount);
+		//System.out.println("이전까지 총 주문수량 : "+previousPurchaseCount);
 		
 		//허용된 수량을 넘어섰을 경우에는 구매 불가 팝업과 함께 리스트로 redirect
 		if(gbProduct.getPMaxPurchase()<=previousPurchaseCount) {
@@ -280,9 +287,14 @@ public class GroupBuyController {
 	}
 	
 	@GetMapping("salesHistory.gb")
-	public String showSalesHistory(@SessionAttribute("loginUser")Member loginUser, Model model) {
+	public String showSalesHistory(@RequestParam(required=false, defaultValue="1")int currentPage,
+								   @SessionAttribute("loginUser")Member loginUser, Model model) {
 		
-		ArrayList<PurchaseHistory> purchaseHistories = groupBuyService.selectSalesHistories(loginUser.getUserId());
+		int historyCount = groupBuyService.selectSalesHistoryListCount(loginUser.getUserId());
+		PageInfo pageInfo = Pagination.getPageInfo(historyCount, currentPage, 5,10);
+		model.addAttribute("pageInfo",pageInfo);
+		
+		ArrayList<PurchaseHistory> purchaseHistories = groupBuyService.selectSalesHistories(loginUser.getUserId(),pageInfo);
 		model.addAttribute("purchaseHistories",purchaseHistories);
 		
 		return "group_buy/salesHistoryList";
@@ -294,7 +306,7 @@ public class GroupBuyController {
 							 RedirectAttributes redirectAttr, HttpSession session) throws Exception  {
 		
 		//넘어온 기록내역 확인
-		System.out.println(purchaseHistory);
+		//System.out.println(purchaseHistory);
 		
 		//주소 업데이트
 		String address = post+" "+address1+" "+address2;
@@ -345,13 +357,13 @@ public class GroupBuyController {
 		
 		try {
 			JSONObject result = (JSONObject)sms.send(smsInfos);
-			System.out.println(result.toString());
+			//System.out.println(result.toString());
 			redirectAttr.addFlashAttribute("message","구매가 완료되었습니다.");
 		} catch (CoolsmsException e) {
 			//예외발생시 메시지 출력
 			redirectAttr.addFlashAttribute("message","문자메시지 전송 실패");
-			System.out.println(e.getMessage());
-			System.out.println(e.getCode());
+			//System.out.println(e.getMessage());
+			//System.out.println(e.getCode());
 		}
 		
 		redirectAttr.addFlashAttribute("message","구매가 완료되었습니다. 문자메시지로 입금계좌를 확인하세요");
@@ -359,11 +371,16 @@ public class GroupBuyController {
 	}
 	
 	@GetMapping("purchaseHistory.gb")
-	public String showPurchaseHistory(@SessionAttribute("loginUser")Member loginUser, Model model) {
+	public String showPurchaseHistory(@SessionAttribute("loginUser")Member loginUser, @RequestParam(required=false, defaultValue="1")int currentPage
+									  ,Model model) {
 		
-		ArrayList<PurchaseHistory> purchaseHistories = groupBuyService.selectPurchaseHistories(loginUser.getUserId());
+		int historyCount = groupBuyService.selectPurchaseHistoryListCount(loginUser.getUserId());
+		PageInfo pageInfo = Pagination.getPageInfo(historyCount, currentPage, 5, 10);
+		model.addAttribute("pageInfo",pageInfo);
+		
+		ArrayList<PurchaseHistory> purchaseHistories = groupBuyService.selectPurchaseHistories(loginUser.getUserId(),pageInfo);
 		model.addAttribute("purchaseHistories",purchaseHistories);
-		System.out.println(purchaseHistories);
+		//System.out.println(purchaseHistories);
 		
 		return "group_buy/purchaseHistoryList";
 	}
@@ -392,12 +409,12 @@ public class GroupBuyController {
 	}
 	
 	@PostMapping("completeDeal.gb")
-	public String completeDeal(int phNo, int phProduct, String phBuyer, String company, String invoice) {
+	public String completeDeal(int phNo, int phProduct, String phBuyer, String company, String invoice, RedirectAttributes redirectAttr) {
 		
-		System.out.println("거래번호 : "+phNo); //phNo
-		System.out.println("제품번호 : "+phProduct); //phProduct
-		System.out.println("구매자 아이디 : "+phBuyer); //phBuyer
-		System.out.println("배송정보 : "+company+", "+invoice);
+		//System.out.println("거래번호 : "+phNo); //phNo
+		//System.out.println("제품번호 : "+phProduct); //phProduct
+		//System.out.println("구매자 아이디 : "+phBuyer); //phBuyer
+		//System.out.println("배송정보 : "+company+", "+invoice);
 		
 		HashMap<String,String> mapKey = new HashMap<>();
 		mapKey.put("phNo",String.valueOf(phNo));
@@ -407,7 +424,7 @@ public class GroupBuyController {
 		
 		int result = groupBuyService.updateCompletingDeal(mapKey);
 		if(result>0) {
-			System.out.println("송장번호 추가 완료");
+			redirectAttr.addFlashAttribute("message","배송정보 업데이트 완료");
 		}
 		
 		return "redirect:salesHistory.gb";
@@ -440,6 +457,24 @@ public class GroupBuyController {
 		}
 		
 		return "redirect:purchaseHistory.gb";
+	}
+	
+	@GetMapping("sortSalesHistory.gb")
+	public String searchList(@SessionAttribute("loginUser")Member loginUser, @RequestParam(required=false)String keyword,  
+							 @RequestParam(required=false, defaultValue="1")int currentPage,Model model) {
+		
+		System.out.println("keyword : "+keyword);
+		model.addAttribute("keyword",keyword);
+		
+		int historyCount = groupBuyService.selectSalesHistoryListCount(keyword,loginUser.getUserId());
+		PageInfo pageInfo = Pagination.getPageInfo(historyCount, currentPage, 5, 10);
+		model.addAttribute("pageInfo",pageInfo);
+		
+		ArrayList<PurchaseHistory> purchaseHistories = groupBuyService.selectSalesHistories(loginUser.getUserId(),keyword,pageInfo);
+		System.out.println(purchaseHistories);
+		model.addAttribute("purchaseHistories",purchaseHistories);
+		
+		return "group_buy/salesHistoryList";
 	}
 	
 }

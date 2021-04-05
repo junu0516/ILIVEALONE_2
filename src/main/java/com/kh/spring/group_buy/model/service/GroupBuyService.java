@@ -35,9 +35,11 @@ public interface GroupBuyService {
 
 	int deleteBoard(int gbNo);
 
-	ArrayList<PurchaseHistory> selectSalesHistories(String sellerId);
+	ArrayList<PurchaseHistory> selectSalesHistories(String sellerId, PageInfo pageInfo);
+	
+	ArrayList<PurchaseHistory> selectSalesHistories(String userId, String keyword, PageInfo pageInfo);
 
-	ArrayList<PurchaseHistory> selectPurchaseHistories(String buyerId);
+	ArrayList<PurchaseHistory> selectPurchaseHistories(String buyerId, PageInfo pageInfo);
 
 	int updateClosingDeal(int pNo);
 
@@ -50,5 +52,12 @@ public interface GroupBuyService {
 	int selectPreviousPurchaseCount(HashMap<String, String> mapKey);
 
 	int updateDeal(PurchaseHistory purchaseHistory) throws Exception;
+
+	int selectSalesHistoryListCount(String sellerId);
+
+	int selectSalesHistoryListCount(String keyword, String userId);
+
+	int selectPurchaseHistoryListCount(String userId);
+
 
 }
