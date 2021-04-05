@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,7 +147,8 @@
 				</form>
 			</div>
 			<br>
-			
+			<jsp:useBean id="now" class="java.util.Date" />
+				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
             <table id="boardList" class="table table-hover" align="center">
                 <thead>
                   <tr>
@@ -162,7 +164,11 @@
                 	<c:forEach items="${ list }" var="b">
 	                    <tr>
 	                        <td>${ b.boardNo }</td>
-	                        <td>${ b.boardTitle }</td>
+	                        <td>${ b.boardTitle }
+	                        	<c:if test = "${today == b.createDate }">
+	                        <img src = "https://tistory2.daumcdn.net/tistory/2916313/skin/images/new_icon_9.gif">
+	                         	</c:if>
+	                        </td>
 	                        <td>${ b.boardWriter }</td>
 	                        <td>${ b.count }</td>
 	                        <td>${ b.createDate }</td>
