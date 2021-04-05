@@ -30,9 +30,9 @@ public class WeatherService {
 	        
 	        
 	        //System.out.print("자외선 : "+doc.select(".today_area .main_info .info_data .info_list li .indicator .lv2 .num").text());
-	        String uv_txt=doc.select(".today_area .main_info .info_data .info_list li .indicator .lv2").text();
+	        String uv_txt=doc.select(".today_area .main_info .info_data .info_list li .indicator .lv3").text();
 	        
-	        String uv=doc.select(".today_area .main_info .info_data .info_list li .indicator .lv2 .num").text();
+	        String uv=doc.select(".today_area .main_info .info_data .info_list li .indicator .lv3 .num").text();
 
 	        
 	        Elements e=doc.select(".today_area .sub_info .detail_box .indicator dd");
