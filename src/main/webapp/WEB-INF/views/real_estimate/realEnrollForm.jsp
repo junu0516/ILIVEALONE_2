@@ -191,8 +191,8 @@ padding-top:13px;
                 <br>
 
                 <div align="center">
-                    <button type="submit">등록하기</button>
-                    <button type="reset">취소하기</button>
+                    <button type="submit" class="form-control bg-light border">등록하기</button>
+                    <button type="reset" class="form-control bg-light border">취소하기</button>
                 </div>
             </form>
         </div>

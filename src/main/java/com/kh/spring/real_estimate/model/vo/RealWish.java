@@ -3,6 +3,8 @@ package com.kh.spring.real_estimate.model.vo;
 public class RealWish {
 	private int stuffNo;
 	private String loginUser;
+	private String status="Y";
+	
 	
 	
 	public RealWish(int stuffNo, String loginUser) {
@@ -22,9 +24,16 @@ public class RealWish {
 	public void setLoginUser(String loginUser) {
 		this.loginUser = loginUser;
 	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
-		return "RealWish [stuffNo=" + stuffNo + ", loginUser=" + loginUser + "]";
+		return "RealWish [stuffNo=" + stuffNo + ", loginUser=" + loginUser + ", status=" + status + "]";
 	}
 	
 	
