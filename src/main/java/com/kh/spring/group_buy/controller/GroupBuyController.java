@@ -225,7 +225,7 @@ public class GroupBuyController {
 		}
 	}
 
-	@GetMapping("delete.gb")
+	@PostMapping("delete.gb")
 	public String deleteBoard(@RequestParam int gbNo, HttpServletRequest request
 							  ,RedirectAttributes redirectAttr, @SessionAttribute("loginUser")Member loginUser) {
 		

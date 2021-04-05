@@ -27,10 +27,32 @@
 	
 	<context:component-scan base-package="com.kh.spring" />
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/purchaseHistory.gb"/> 
+			<beans:bean id="purchaseHistoryInterceptor" class="com.kh.spring.common.interceptor.group_buy.PurchaseHistoryInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/salesHistory.gb"/> 
+			<beans:bean id="salesHistoryInterceptor" class="com.kh.spring.common.interceptor.group_buy.SalesHistoryInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/insertView.gb"/> 
+			<beans:bean id="groupBuyInsertViewInterceptor" class="com.kh.spring.common.interceptor.group_buy.GroupBuyInsertViewInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/updateForm.gb"/> 
+			<beans:bean id="groupBuyUpdateFormInterceptor" class="com.kh.spring.common.interceptor.group_buy.GroupBuyUpdateFormInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/purchaseForm.gb"/> 
+			<beans:bean id="groupBuyPurchaseFormInterceptor" class="com.kh.spring.common.interceptor.group_buy.PurchaseFormInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	<websocket:handlers>
-<websocket:mapping handler="chatHandler" path="/chat-ws"/>
-</websocket:handlers>
+		<websocket:mapping handler="chatHandler" path="/chat-ws"/>
+	</websocket:handlers>
 </beans:beans>
 
 
