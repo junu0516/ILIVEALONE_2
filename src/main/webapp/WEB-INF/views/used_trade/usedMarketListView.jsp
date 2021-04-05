@@ -30,6 +30,24 @@
     
     
 <style>
+#accordionSidebar{
+ position: relative;
+	top:50px;
+}
+
+#big_div{
+
+		 position: relative;
+        top: 80px;
+
+
+}
+#testDiv{
+	color:black;
+	background-color: blue;
+
+	
+}
 .card{
  		
 	  	float:left;
@@ -85,7 +103,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="list.um">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -132,7 +150,7 @@
   
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" id="big_div">
 <div align="center">
  
  <h2>중고거래</h2>
@@ -145,6 +163,7 @@
 
  </div>
  <br>
+ 
 <div id="testDiv">
 
 	<c:forEach items="${ list }" var="u" >

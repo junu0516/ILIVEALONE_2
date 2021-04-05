@@ -9,6 +9,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+#detail_div{
+ position: relative;
+	top:50px;
+	color:black;
+	background-color: skyblue;
+	
+
+
+}
 .card-img-top {
   width: 550px;
   height: 550px;
@@ -36,7 +45,7 @@ button {
 	  <jsp:include page="../common/header.jsp"/>
 	
 
-<div class="content">
+<div class="content" id="detail_div">
         <br><br>
         <div class="content">
             <h3><b>${ u.um_Title }</b></h3>
