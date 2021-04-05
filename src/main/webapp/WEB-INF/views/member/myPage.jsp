@@ -30,7 +30,7 @@
 	rel="stylesheet">
 
 </head>
-<<<<<<< Updated upstream
+
 
 <body id="page-top">
 	<jsp:include page="../common/header.jsp" />
@@ -154,61 +154,6 @@
 							</div>
 						</form>
 
-=======
-<body>
-	<jsp:include page="../common/header.jsp"/>
-	<div class="content">
-        <br>
-        <br>
-        <br>
-        
-        <div class="innerOuter">
-            <h2 align="center">마이페이지</h2>
-            <br>
-
-              <form action="update.me" method="post" onsubmit="">
-                <div class="form-group">
-                    <label>아이디 :</label>
-                    <input type="text" class="form-control" id="userId" name="userId" value="${ loginUser.userId }" readonly><br>
-                    
-                    <label for="userName">이름 :</label>
-                    <input type="text" class="form-control" id="userName" name="userName" value="${ loginUser.userName }" readonly><br>
-					
-                    <label for="userName">비밀번호 :</label>&nbsp;
-                    <button type="button" data-toggle="modal" data-target="#passwordCheckModal" class="btn btn-primary">비밀번호 확인</button><br><br>
-                    <input type="password" class="form-control" id="userPwd" name="userPwd" value="${ loginUser.userPwd }" readonly><br>
-                                                 
-                    <label for="email"> &nbsp; 이메일주소 :</label>
-                    <input type="email" class="form-control" id="email" name="email" value="${ loginUser.email }"><br>
-                    
-                    <label for="age"> &nbsp; 나이 :</label>
-                    <input type="number" class="form-control" id="age" name="age" value="${ loginUser.age }"><br>
-                    
-                    <label for="phone"> &nbsp; 휴대폰 번호 :</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" value="${ loginUser.phone }"><br>
-                    
-                    <label for="address"> &nbsp; 주소 :</label><br>
-                    
-              	
-				<c:forTokens var="addr" items="${ loginUser.address }" delims="/" varStatus="status">
-					<c:if test="${ status.index eq 0 && addr >= '0' && addr <= '99999' }">
-						<c:set var="post" value="${ addr }"/>
-					</c:if>
-					<c:if test="${ status.index eq 0 && !(addr >= '0' && addr <= '99999') }">
-						<c:set var="address1" value="${ addr }"/>
-					</c:if>
-					<c:if test="${ status.index eq 1 }">
-						<c:set var="address1" value="${ addr }"/>
-					</c:if>
-					<c:if test="${ status.index eq 2 }">
-						<c:set var="address2" value="${ addr }"/>
-					</c:if>
-				</c:forTokens>
-					<div class="form-inline">
-					<label> &nbsp; 우편번호 : &nbsp;</label>
-						<input type="text"  id="post" name="post" class="form-control mr-2 postcodify_postcode5" size="6">
-						<button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button>
->>>>>>> Stashed changes
 					</div>
 					<br>
 					<br>
