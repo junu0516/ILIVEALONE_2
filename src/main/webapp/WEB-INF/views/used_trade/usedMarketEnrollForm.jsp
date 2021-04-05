@@ -17,7 +17,9 @@ position: relative;
 </style>
 </head>
 <body>
+
 	  <jsp:include page="../common/header.jsp"/>
+		<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 	
 
 	    <div class="card shadow mb-4" id="big_div" >
@@ -36,14 +38,22 @@ position: relative;
                         <th><label for="title">제목</label></th>
                         <td><input type="text" id="title" class="form-control" name="um_Title" required></td>
                     </tr>
+                    
+                    <td> <br> </td>
+                    
                     <tr>
                         <th><label for="writer">작성자</label></th>
                         <td><input type="text" id="writer" class="form-control"   name="um_Writer" value="${loginUser.userName}" readonly></td>
                     </tr>
+                    
+                    <td> <br> </td>
+                    
                     <tr> 
                         <th><label for="price">가격</label></th>
                         <td><input type="text" id="price" class="form-control-file border" name="um_Price" placeholder="원"></td>
                     </tr>
+                    
+                     <td> <br> </td>
                     
                     <tr> 
                         <th><label for="category">상품종류</label></th>
@@ -61,6 +71,9 @@ position: relative;
 									</select>
 								</div></td>
                     </tr>
+                    
+                     <td> <br> </td>
+                     
                     <tr> 
                         <th><label for="system">거래방식</label></th>
                              <td><div class="container">
@@ -74,17 +87,30 @@ position: relative;
 								</div></td>
                     </tr>
                     
+                     <td> <br> </td>
+                    
                     
                     <tr>
                         <th><label for="upfile">이미지</label></th>
                         <td><input type="file" id="upfile" class="form-control-file border" name="uploadFile"></td>
                     </tr>
+                    
+                     <td> <br> </td>
+                     
+                     
                     <tr>
                         <th colspan="2"><label for="um_Content">내용</label></th>
                     </tr>
+                    
+                     <td> <br> </td>
+                     
+                     
                     <tr>
                         <th colspan="2"><textarea class="form-control" required name="um_Content" id="um_Content" rows="10" style="resize:none;"></textarea></th>
                     </tr>
+                    
+                     <td> <br> </td>
+                     
                 </table>
                 
             
@@ -93,7 +119,7 @@ position: relative;
 
                 <div align="center">
                     <button type="submit" class="btn btn-primary">등록하기</button>
-                    <button type="reset" class="btn btn-danger">취소하기</button>
+                    <button type="reset" class="btn btn-danger">초기화</button>
                 </div>
                 
                 
@@ -126,6 +152,13 @@ position: relative;
 			 <!-- card-body end -->
            </div>
    			<!-- card end -->
+   			
+	<script>
+    	CKEDITOR.replace('um_Content',{
+        	height: 500,
+           	filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditor/upload.ck?function=4'
+        });	
+    </script>
    			
  		  <jsp:include page="../common/footer.jsp"/>
  	
