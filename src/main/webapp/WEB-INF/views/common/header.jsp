@@ -132,9 +132,18 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <label for="userId" class="mr-sm-2"><i class="fas fa-user-tag"></i> 아이디 :</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="ID를 입력하세요" id="userId" name="userId"> <br>
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="ID를 입력하세요" id="userId" name="userId"> 
                     <label for="userPwd" class="mr-sm-2"><i class="fas fa-user-lock"></i> 비밀번호:</label>
                     <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="userPwd" name="userPwd">
+                	<br>
+                	<!-- 
+                	<li>
+	            		<a href="list.gb">아이디 찾기</a>
+	          		</li>
+	          		-->
+	          		<li>
+	            		<a href="findPwd.me">비밀번호 찾기</a>
+	          		</li>
                 </div>
                 
                 <!-- Modal footer -->

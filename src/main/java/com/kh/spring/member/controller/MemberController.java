@@ -173,5 +173,8 @@ public class MemberController {
 			return String.valueOf(count);
 		}
 	   
-	  
+	   @RequestMapping("findPwd.me")
+		public String findPwd() {
+			return "member/findPwd";
+		}
 }

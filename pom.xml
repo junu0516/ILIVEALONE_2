@@ -254,7 +254,12 @@
     		<artifactId>javaSDK</artifactId>
     		<version>2.2</version>
   	</dependency>
-
+	<!-- 메일 api -->
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-email</artifactId>
+		<version>1.2</version>
+	</dependency>
   	<!-- web socket 채팅 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -263,6 +268,7 @@
 		</dependency>
 		
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
