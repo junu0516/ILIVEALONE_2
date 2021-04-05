@@ -40,7 +40,7 @@ public class UsedmarketController {
 		
 		int listCount = usedMarketService.selectListCount();
 
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6); //페이지제한 10 	보드제한 6
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10); //페이지제한 10 	보드제한 6
 		
 		ArrayList<UsedMarket> list = usedMarketService.selectList(pi);
 		
