@@ -156,11 +156,11 @@ position: relative;
 	<script>
     	CKEDITOR.replace('um_Content',{
         	height: 500,
-           	filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditor/upload.ck?function=4'
+           	filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditor/upload.ck?function=5'
         });	
     </script>
    			
- 		  <jsp:include page="../common/footer.jsp"/>
+ 	<jsp:include page="../common/footer.jsp"/>
  	
 </body>
 </html>
