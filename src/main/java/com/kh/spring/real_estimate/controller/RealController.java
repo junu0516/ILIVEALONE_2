@@ -184,6 +184,8 @@ public class RealController {
 		
 		
 			int result=realService.deleteReal(rno);
+			
+			System.out.println(result);
 				
 				if(result<0) {
 					model.addAttribute("msg","매물 삭제에 실패하였습니다.");
@@ -191,6 +193,8 @@ public class RealController {
 				}
 				
 				result=realService.deleteStuffWish(rno);
+				
+				System.out.println(result);
 				
 				if(result>0) {
 					if(!fileName.equals("")) {
