@@ -48,6 +48,8 @@
 }
 
 
+
+
 </style>	
 
 </head>
@@ -55,7 +57,7 @@
  	<!-- Navigation -->
  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-		    <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo_transparent.png" alt="Logo" width="45px" height="45px">
+		    <img  class="img-fluid d-block mx-auto" src="./resources/images/logo/logo_transparent.png" alt="Logo" width="45px" height="45px">
 		
 			<a class="navbar-brand" href="${pageContext.servletContext.contextPath}">ILIVEALONE</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
