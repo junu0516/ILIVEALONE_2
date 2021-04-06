@@ -115,7 +115,9 @@ padding-top:13px;
 						<strong>${ r.structure }</strong><br> <strong>${ r.money_kind }
 					</strong> <strong>${ r.money1 }</strong><br> <strong>관리비 ${ r.admin_money }만원</strong><br>
 
+
 						<strong>${ r.location }</strong><br>
+
 						<strong>${ r.location }</strong><br><br>
 						<button onclick="postFormSubmit();" class="form-control bg-light border" style="width:270px">찜하기 취소</button>
 						</li>

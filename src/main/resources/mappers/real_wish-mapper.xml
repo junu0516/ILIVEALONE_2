@@ -43,13 +43,14 @@
 	<update id="deleteWish" parameterType="hashmap">
 		UPDATE FROM USER_WISH SET STATUS='N' WHERE STUFF_NO=#{rno} AND USERID=#{userId}
 	</update>
-	
+
 	<update id="deleteWish"
 			parameterType="hashmap">
 		UPDATE USER_WISH
 		SET STATUS='N'
 		WHERE STUFF_NO=#{rno} AND USERID=#{userId}
 	</update>
+
 	
 </mapper>
 	
