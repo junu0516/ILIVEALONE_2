@@ -2,6 +2,7 @@ package com.kh.spring.member.model.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -92,9 +93,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 아이디 찾기
 	@Override
-		public String find_id(String email){
-		System.out.println("serviceImp : "+ memberDao.find_id(sqlSession, email));
-		return memberDao.find_id(sqlSession, email);
+		public String find_id(HashMap<String,Object>mapKey){
+		System.out.println("serviceImp : "+ memberDao.find_id(sqlSession, mapKey));
+		return memberDao.find_id(sqlSession, mapKey);
 			
 	}
 

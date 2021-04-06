@@ -1,6 +1,7 @@
 package com.kh.spring.member.controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -185,9 +186,13 @@ public class MemberController {
 		
 		// 아이디 찾기
 		@RequestMapping(value = "/find_id.do", method = RequestMethod.POST)
-		public String find_id(@RequestParam("email") String email, Model md) throws Exception{
+		
+		public String find_id(@RequestParam("email") String email, Model md, @RequestParam("phone")String phone) throws Exception{
 			
-			String userChk = memberService.find_id(email);
+			HashMap<String,Object>mapKey = new HashMap<>();
+			mapKey.put("email", email);
+			mapKey.put("phone", phone);
+			String userChk = memberService.find_id(mapKey);
 			if(userChk == null) {
 				md.addAttribute("userId", "검색된아이디가 존재하지 않습니다.");
 			}else {				

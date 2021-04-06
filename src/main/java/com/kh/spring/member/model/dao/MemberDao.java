@@ -1,5 +1,7 @@
 package com.kh.spring.member.model.dao;
 
+import java.util.HashMap;
+
 import javax.mail.Session;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -40,9 +42,9 @@ public class MemberDao {
 	}
 
 	// 아이디 찾기
-	public String find_id(SqlSessionTemplate sqlSession, String email) {
+	public String find_id(SqlSessionTemplate sqlSession, HashMap<String, Object> mapKey) {
 		
-		return sqlSession.selectOne("memberMapper.find_id", email);
+		return sqlSession.selectOne("memberMapper.find_id", mapKey);
 	}
 	
 	// 비밀번호 변경
