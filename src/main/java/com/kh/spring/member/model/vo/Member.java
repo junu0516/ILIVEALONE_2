@@ -27,5 +27,9 @@ public class Member {
 	private Date enrollDate;
 	private Date modifyDate;
 	private String status;
+	public String getApproval_key() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -186,8 +185,31 @@ public class MemberController {
 		
 		// 아이디 찾기
 		@RequestMapping(value = "/find_id.do", method = RequestMethod.POST)
-		public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception{
-			md.addAttribute("id", memberService.find_id(email));
+		public String find_id(@RequestParam("email") String email, Model md) throws Exception{
+			
+			String userChk = memberService.find_id(email);
+			if(userChk == null) {
+				md.addAttribute("userId", "검색된아이디가 존재하지 않습니다.");
+			}else {				
+				md.addAttribute("userId", userChk);
+			}
+			
 			return "/member/find_id";
 		}
+		
+		// 비밀번호 찾기 폼
+		@RequestMapping(value = "/find_pw_form.do")
+		public String find_pw_form() throws Exception{
+			return "/member/find_pw_form";
+		}
+		
+		// 비밀번호 찾기
+		@RequestMapping(value = "/find_pw.do", method = RequestMethod.POST)
+		@ResponseBody
+		public void find_pw(@ModelAttribute Member member, HttpServletResponse response) throws Exception{
+			System.out.println("Controller");
+			memberService.find_pw(response, member);
+		}
+		
+		
 }
