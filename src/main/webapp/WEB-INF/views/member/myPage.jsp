@@ -16,7 +16,25 @@
 <title>ILIVEALONE마이페이지</title>
 
 <!-- Custom fonts for this template -->
-
+<style>
+ 	#enrollForm>table{width:100%;}
+    #enrollForm>table *{ margin:5px;}
+    .content{
+        background-color:rgb(247, 245, 245);
+        width:80%;
+        margin:auto;
+    }
+    .innerOuter{
+        
+        width:65%;
+        margin:auto;
+        padding:5% 10%;
+        background:white;
+    }
+    #page-top{
+padding-top:13px;
+}
+</style>
 
 </head>
 
@@ -246,7 +264,7 @@
 						</div>
 					</div>
 				</div>
-
+				</div>
 				<!-- Bootstrap core JavaScript-->
 
 				

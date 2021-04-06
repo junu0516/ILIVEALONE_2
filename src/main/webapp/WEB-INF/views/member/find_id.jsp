@@ -69,14 +69,14 @@ padding-top:13px;
 				<br>
 				
 				<div class="btns" align="center">
-					<button type="button" id="LoginModal" class= "btn btn-primary">Login</button>
-					<button type="button" onclick="history.go(-1);" class="btn btn-danger">Cancel</button>
+					
+					<button type="button" onclick="history.go(-1);" class="btn btn-danger">이전 화면으로</button>
 				</p>
 			</div>
 		</div>
 	</div>
 	
-
+<br><br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp" />	
 </body>
 <script>
