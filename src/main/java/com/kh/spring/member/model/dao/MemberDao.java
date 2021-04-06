@@ -4,6 +4,7 @@ import javax.mail.Session;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.spring.member.model.vo.Member;
 
@@ -39,16 +40,27 @@ public class MemberDao {
 	}
 
 	// 아이디 찾기
-	public String find_id(String email) throws Exception{
-		SqlSessionTemplate sqlSession = null;
+	public String find_id(SqlSessionTemplate sqlSession, String email) {
+		
 		return sqlSession.selectOne("memberMapper.find_id", email);
 	}
-
-	public String find_id(SqlSessionTemplate sqlSession, String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+	// 비밀번호 변경
+	@Transactional
+	public int update_pw(SqlSessionTemplate sqlSession, Member member) throws Exception{
+		return sqlSession.update("memberMapper.update_pw", member);
+	}
+
+	public int check_id(SqlSessionTemplate sqlSession, String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.check_id", userId);
+	}
+
+	public Member login(SqlSessionTemplate sqlSession, String email) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.check_id_email", email);
+	}
+
 	
 	
 }

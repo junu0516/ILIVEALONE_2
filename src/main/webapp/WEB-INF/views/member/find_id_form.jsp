@@ -42,6 +42,7 @@
 			<button type="button" onclick="history.go(-1);" class="btn btn-danger">취소</button>
 		</div>
 	</form>
+	</div>
 	<jsp:include page="../common/footer.jsp" />	
 </body>
 </html>
