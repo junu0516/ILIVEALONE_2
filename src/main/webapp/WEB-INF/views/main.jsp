@@ -5,6 +5,8 @@
 <html>
 <head>
 	<title>ILIVEALONE(나혼자산다)</title>
+	 <link href="css/animation.css" rel="stylesheet">
+	
 <style>
 	.info_data {
     float: left;
@@ -109,7 +111,10 @@ dd {
 	width : 180px;
 	height : 180px;
 }
-
+.img{
+	width : 40px;
+	height : 40px;
+}
 
 </style>
 
@@ -214,32 +219,48 @@ dd {
 		
 	</section>
 
+
+
+<!-- 콘텐츠 영역 -->
+ 
+  <!-- Image element - set the background image for the header in the line below -->
+  <div class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
+    <!-- Put anything you want here! There is just a spacer below for demo purposes! -->
+    <div style="height: 200px;"></div>
+  </div>
+  
   
   
    <section class="py-5">
     <div class="container">
     	 <div class= "center">
-    	 <h2 style="margin-top:10px;" class = "text-center">인기게시물<i class="fas fa-icons"></i></h2>
+    	 <h2 style="margin-top:10px;" class ="text-center">인기게시물<i class="fas fa-icons"></i></h2>
 
          </div>
          <ul class = "farBody">
-         <button type="button" class="btn btn-primary" onclick="location.href='Toplist.bo'">패션</i></a></button>
+         <button type="button" class="r-button ui-button text-outlined text-outlined_v5" onclick="location.href='Toplist.bo'">
+         	<span class="text-outlined__label"><b>패션</b><img src="resources/img/coat.png" class = img></img></span></button>     
          <table id="OneboardList" class="table table-hover" align="center">
 			<tbody>
 			</tbody>
 		 </table>
-		 <button type="button" class="btn btn-success" onclick="location.href='Toplistf.fo'">푸드</button>
+		 <button type="button" class="r-button ui-button text-outlined text-outlined_v5" onclick="location.href='Toplistf.fo'">
+		 <span class="text-outlined__label"><b>푸드</b><img src="resources/img/fruit.png" class = img></img></span></button>
          <table id="foodPList" class="table table-hover" align="center">
 			<tbody>
 			</tbody>
 		 </table>
-         <button type="button" class="btn btn-info" onclick="location.href='Toplistf.ho'">하우징</button>
+         <button type="button" class="r-button ui-button text-outlined text-outlined_v5" onclick="location.href='Toplistf.ho'">
+         <span class="text-outlined__label"><b>하우징</b><img src="resources/img/house.png" class = img></img></span></button>
          <table id="housingPList" class="table table-hover" align="center">
 			<tbody>
 			</tbody>
 		 </table>
          </ul>
     	</div>
+		</div>
+  </div>
+  
 	</section>
 
 	<div class = "footer_emoticon">

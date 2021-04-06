@@ -1,0 +1,704 @@
+@charset "UTF-8";/*
+!!!!
+This pen is being refactored
+
+Tasks:
+- check all styles for reusing for other demos (except for)
+- do you need to add the width and height properties for core styles from text-flat
+-- replace the transform on top/left for text-sliding
+- describe why you use default values for settings
+!!!!
+*/
+/*
+=====
+DEPENDENCES
+=====
+*/
+
+.r-link{
+  display: var(--rlink-display, inline-flex) !important;
+}
+
+.r-link[href]{
+  color: var(--rlink-color) !important;
+  text-decoration: var(--rlink-text-decoration, none) !important;
+}
+
+.r-button{
+  background-color: var(--rbutton-background-color, transparent) !important;
+  padding: var(--rbutton-padding, var(--rbutton-padding-top, 0) var(--rbutton-padding-right, 0) var(--rbutton-padding-bottom, 0) var(--rbutton-padding-left, 0)) !important;
+
+  border-width: var(--rbutton-border-width, var(--rbutton-border-top-width, 0) var(--rbutton-border-right-width, 0) var(--rbutton-border-bottom-width, 0) var(--rbutton-border-left-width, 0)) !important;
+  border-style: var(--rbutton-border-style, solid) !important;
+  border-color: var(--rbutton-border-color, currentColor) !important;
+
+  font-family: var(--rbutton-font-family, inherit) !important;
+  font-size: var(--rbutton-font-size, 1em) !important;
+  font-weight: var(--rbutton-font-weight, inherit) !important;
+  
+  color: var(--rbutton-color, currentColor) !important;
+  text-align: var(--rbutton-text-align, center) !important;
+  text-transform: var(--rbutton-text-transform, inherit) !important;
+  letter-spacing: var(--rbutton-letter-spacing, inherit) !important;
+  word-spacing: var(--rbutton-word-spacing, inherit) !important;
+
+  text-shadow: var(--rbutton-text-shadow, none) !important;
+  display: var(--rbutton-display, inline-flex) !important;
+}
+
+.ui-button:not(:disabled){
+  cursor: var(--uibutton-cursor, pointer);
+}
+
+/*
+=====
+OUTLINED TEXT
+=====
+*/
+
+/* 
+basic
+*/ 
+
+.text-outlined{
+  --ui-text-outlined-weight: var(--text-outlined-weight, 2px);
+  --ui-text-outlined-line-color: var(--text-outlined-line-color, currentColor);
+
+  position: var(--text-outlined-position, relative);
+}
+
+.text-outlined__label{
+  display: var(--text-outlined-label-display, block);
+}
+
+.text-outlined::before,
+.text-outlined::after,
+.text-outlined__label::before,
+.text-outlined__label::after{
+  content: "";     
+  background-color: var(--ui-text-outlined-line-color);
+  position: absolute; 
+}
+
+.text-outlined::before, 
+.text-outlined::after{
+  width: 100%;
+  height: var(--ui-text-outlined-weight);
+  left: 0;
+}
+
+.text-outlined__label::before,
+.text-outlined__label::after{
+  width: var(--ui-text-outlined-weight);
+  height: 100%;
+  top: 0;
+}
+
+.text-outlined::before{
+  top: 0;
+}
+
+.text-outlined::after{
+  bottom: 0;
+}
+
+.text-outlined__label::before{
+  left: 0;
+}
+
+.text-outlined__label::after{
+  right: 0;
+}
+
+/*
+adapters
+*/
+
+.text-outlined:not(.r-link):not(.r-button){
+  display: var(--text-outlined-display, inline-flex);
+  color: var(--text-outlined-color, currentColor);
+}
+
+.text-outlined.r-link[href]{
+  --rlink-display: var(--text-outlined-display);
+  --rlink-color: var(--text-outlined-color, currentColor);
+}
+
+.text-outlined:not(.r-button){
+  padding: var(--text-outlined-padding, .25rem);
+}
+
+.text-outlined.r-button{
+  --rbutton-color: var(--text-outlined-color, currentColor);
+  --rbutton-padding: var(--text-outlined-padding, .25rem);
+}
+
+/* 
+text-outlined extension
+
+1. The transition property isn't used because there are limits of the 
+transition property syntax, particularly multiple values can't be used. 
+
+2. I hide the lines so that they display the same regardless of what the 
+element is. But I only show the line for interactive elements, i.e the 
+button and the a
+*/ 
+
+.text-outlined{
+  --ui-text-outlined-line-opacity: var(--text-outlined-line-opacity, 0); /* 2 */
+}
+
+.text-outlined::before,
+.text-outlined::after,
+.text-outlined__label::before,
+.text-outlined__label::after{
+  opacity: var(--ui-text-outlined-line-opacity); /* 2 */
+}
+
+
+.r-link.text-outlined[href]:hover,
+.r-button.text-outlined:not(:disabled):hover{
+  --text-outlined-line-opacity: 1; /* 2 */
+}
+
+a.text-outlined[href],
+button.text-outlined:not(:disabled){
+  --ui-text-outlined-line-default-transition-property: var(--text-outlined-line-default-transition-property, transform, opacity);
+  --ui-text-outlined-line-default-transition-duration: var(--text-outlined-line-default-transition-duration, .2s, .15s);
+  --ui-text-outlined-line-default-transition-timing-function: var(--text-outlined-line-default-transition-timing-function, ease-out);
+  --ui-text-outlined-line-default-transition-delay: var(--text-outlined-line-default-transition-delay, 0s, .15s);
+  --ui-text-outlined-line-default-will-change: var(--text-outlined-line-default-will-change, transform, opacity);
+
+  overflow: hidden;
+}
+
+a.text-outlined[href]::before,
+button.text-outlined:not(:disabled)::before{
+  transform: var(--text-outlined-top-line-transform, translate3d(-105%, 0, 0));
+  transition-property: var(--text-outlined-top-line-transition-property, var(--ui-text-outlined-line-default-transition-property)); /* 1 */
+  transition-duration: var(--text-outlined-top-line-transition-duration, var(--ui-text-outlined-line-default-transition-duration)); /* 1 */
+  transition-timing-function: var(--text-outlined-top-line-transition-timing-function, var(--ui-text-outlined-line-default-transition-timing-function)); /* 1 */
+  transition-delay: var(--text-outlined-top-line-transition-delay, var(--ui-text-outlined-line-default-transition-delay)); /* 1 */
+  will-change: var(--text-outlined-top-line-will-change, var(--ui-text-outlined-line-default-will-change));
+}
+
+a.text-outlined[href]::after,
+button.text-outlined:not(:disabled)::after{
+  transform: var(--text-outlined-bottom-line-transform, translate3d(105%, 0, 0));
+  transition-property: var(--text-outlined-bottom-line-transition-property, var(--ui-text-outlined-line-default-transition-property)); /* 1 */
+  transition-duration: var(--text-outlined-bottom-line-transition-duration, var(--ui-text-outlined-line-default-transition-duration)); /* 1 */
+  transition-timing-function: var(--text-outlined-bottom-line-transition-timing-function, var(--ui-text-outlined-line-default-transition-timing-function)); /* 1 */
+  transition-delay: var(--text-outlined-bottom-line-transition-delay, var(--ui-text-outlined-line-default-transition-delay)); /* 1 */
+  will-change: var(--text-outlined-bottom-line-will-change, var(--ui-text-outlined-line-default-will-change));
+}
+
+a.text-outlined[href] .text-outlined__label::before,
+button.text-outlined:not(:disabled) .text-outlined__label::before{ 
+  transform: var(--text-outlined-left-line-transform, translate3d(0%, -100%, 0));
+  transition-property: var(--text-outlined-left-line-transition-property, var(--ui-text-outlined-line-default-transition-property)); /* 1 */
+  transition-duration: var(--text-outlined-left-line-transition-duration, var(--ui-text-outlined-line-default-transition-duration)); /* 1 */
+  transition-timing-function: var(--text-outlined-left-line-transition-timing-function, var(--ui-text-outlined-line-default-transition-timing-function)); /* 1 */
+  transition-delay: var(--text-outlined-left-line-transition-delay, var(--ui-text-outlined-line-default-transition-delay)); /* 1 */
+  will-change: var(--text-outlined-left-line-will-change, var(--ui-text-outlined-line-default-will-change))
+}
+
+a.text-outlined[href] .text-outlined__label::after,
+button.text-outlined:not(:disabled) .text-outlined__label::after{ 
+  transform: var(--text-outlined-right-line-transform, translate3d(0%, 100%, 0));
+  transition-property: var(--text-outlined-right-line-transition-property, var(--ui-text-outlined-line-default-transition-property)); /* 1 */
+  transition-duration: var(--text-outlined-right-line-transition-duration, var(--ui-text-outlined-line-default-transition-duration));  /* 1 */
+  transition-timing-function: var(--text-outlined-right-line-transition-timing-function, var(--ui-text-outlined-line-default-transition-timing-function)); /* 1 */
+  transition-delay: var(--text-outlined-right-line-transition-delay, var(--ui-text-outlined-line-default-transition-delay)); /* 1 */
+  will-change: var(--text-outlined-right-line-will-change, var(--ui-text-outlined-line-default-will-change));
+}
+
+/*
+modifiers
+*/
+
+.text-outlined_v1:hover,
+.text-outlined_v5:hover{
+  --text-outlined-top-line-transform: translate3d(0, 0, 0);
+  --text-outlined-right-line-transform: translate3d(0 0, 0);  
+  --text-outlined-bottom-line-transform: translate3d(0, 0, 0);
+  --text-outlined-left-line-transform: translate3d(0, 0, 0);
+
+  --text-outlined-top-line-transition-duration: .25s;
+  --text-outlined-right-line-transition-duration: .25s;  
+  --text-outlined-bottom-line-transition-duration: .25s;  
+  --text-outlined-left-line-transition-duration: .25s;
+
+  --text-outlined-top-line-transition-delay: 0s;
+  --text-outlined-right-line-transition-delay: 0s;
+  --text-outlined-bottom-line-transition-delay: 0s;
+  --text-outlined-left-line-transition-delay: 0s;  
+}
+
+.text-outlined_v5{
+  --text-outlined-top-line-transform: translate3d(-100%, 0, 0);
+  --text-outlined-right-line-transform: translate3d(0, -100%, 0);  
+  --text-outlined-bottom-line-transform: translate3d(100%, 0, 0);
+  --text-outlined-left-line-transform: translate3d(0, 100%, 0);
+}
+
+.text-outlined_v6{
+  --text-outlined-top-line-transform: translate3d(-105%, 0, 0);
+  --text-outlined-right-line-transform: translate3d(0, -105%, 0);  
+  --text-outlined-bottom-line-transform: translate3d(105%, 0, 0);
+  --text-outlined-left-line-transform: translate3d(0, 105%, 0);
+
+  --text-outlined-top-line-transition-duration: .2s;
+  --text-outlined-right-line-transition-duration: .2s;  
+  --text-outlined-bottom-line-transition-duration: .2s;  
+  --text-outlined-left-line-transition-duration: .2s;
+
+  --text-outlined-top-line-transition-delay: .35s;
+  --text-outlined-right-line-transition-delay: .25s;
+  --text-outlined-bottom-line-transition-delay: .15s;
+  --text-outlined-left-line-transition-delay: 0s;  
+}
+
+.text-outlined_v6:hover{
+  --text-outlined-top-line-transform: translate3d(0, 0, 0);
+  --text-outlined-right-line-transform: translate3d(0 0, 0);  
+  --text-outlined-bottom-line-transform: translate3d(0, 0, 0);
+  --text-outlined-left-line-transform: translate3d(0, 0, 0);
+
+  --text-outlined-top-line-transition-delay: 0s;
+  --text-outlined-right-line-transition-delay: .15s;
+  --text-outlined-bottom-line-transition-delay: .25s;
+  --text-outlined-left-line-transition-delay: .35s;  
+}
+
+/*
+=====
+UNDERLINED TEXT
+=====
+*/
+
+/*
+basic
+*/
+
+.text-underlined{
+  /*
+  1. I use pixels units because others units (em, rem, vw, vh, etc) can
+  lead to the mistake of displaying a circumcised line
+  */
+
+  --ui-text-underlined-line-height: var(--text-underlined-line-height, 2px); /* 1 */
+  --ui-text-underlined-line-gap: var(--text-underlined-line-gap, .5rem);
+  --ui-text-underlined-padding-bottom: calc(var(--ui-text-underlined-line-height) + var(--ui-text-underlined-line-gap));
+
+  padding-bottom: var(--ui-text-underlined-padding-bottom) !important;
+  position: var(--text-underlined-position, relative) !important;
+}
+
+.text-underlined::after{
+  content: "";
+  width: var(--text-underlined-line-widht, 100%) !important;
+  height: var(--ui-text-underlined-line-height) !important;
+
+  background-color: var(--text-underlined-line-color, currentColor) !important;
+
+  position: absolute;
+  left: var(--text-underlined-line-left, 0) !important;
+  bottom: var(--text-underlined-line-bottom, 0) !important;
+}
+
+/*
+adapters
+*/
+
+.text-underlined:not(.r-link):not(.r-button){
+  display: var(--text-underlined-display, inline-flex);
+}
+
+/*
+text-underlined extension
+
+1. 
+The transition property isn't used because there are limits of the 
+transition property syntax, particularly multiple values can't be used. 
+*/
+
+.text-underlined{
+  overflow: hidden;
+}
+
+.text-underlined::after{
+  transform: var(--text-underlined-line-transform);
+  transition-property: var(--text-underlined-line-transition-property, transform); /* 1 */
+  transition-duration: var(--text-underlined-line-transition-duration, .2s);  /* 1 */
+  transition-timing-function: var(--text-underlined-line-transition-timing-function, ease-in); /* 1 */
+  transition-delay: var(--text-underlined-line-transition-delay, 0s); /* 1 */
+  will-change: var(--text-underlined-line-will-change, transform);
+}
+
+/*
+modifiers
+*/
+
+.text-underlined_v3{
+  --text-underlined-line-transform: translate3d(-105%, 0, 0);
+}
+
+.text-underlined_v3:hover{
+  --text-underlined-line-transform: translate3d(0, 0, 0);
+}
+
+.text-underlined_v4{
+  --text-underlined-line-transform: translate3d(0, 105%, 0);
+}
+
+.text-underlined_v4:hover{
+  --text-underlined-line-transform: translate3d(0, 0, 0);
+}
+
+/*
+=====
+FLAT TEXT
+=====
+*/
+
+/* 
+basic
+*/ 
+
+.text-flat{
+  position: relative;
+  z-index: 0;
+}
+
+.text-flat::before, 
+.text-flat::after{
+  content: "";
+  background-color: var(--text-flat-background-color, currentColor);  
+  position: absolute;
+  z-index: -1;
+}
+
+.text-flat__label{
+  padding: var(--text-flat-padding, .25rem);
+}
+
+/* 
+flat text extension
+
+1. 
+The transition property isn't used because there are limits of the 
+transition property syntax, particularly multiple values can't be used. 
+*/ 
+
+a.text-flat[href],
+button.text-flat:not(:disabled){
+  --ui-text-flat-planes-default-opacity: var(--text-flat-planes-default-opacity, 0);
+  --ui-text-flat-planes-default-transition-property: var(--text-flat-planes-default-transition-property, transform, opacity);
+  --ui-text-flat-planes-default-transition-duration: var(--text-flat-planes-default-transition-duration, .2s);  
+  --ui-text-flat-planes-default-transition-timing-function: var(--text-flat-planes-default-transition-timing-function,  ease-out);
+  --ui-text-flat-planes-default-transition-delay: var(--text-flat-planes-default-transition-delay, 0, .03s);
+
+  --ui-text-flat-default-color-hover: var(--text-flat-default-color-hover, #fff);
+  
+  overflow: hidden;
+  transition-property: var(--text-flat-transition-property, color); /* 1 */
+  transition-duration: var(--text-flat-first-plane-transition-duration, .3s); /* 1 */
+  transition-timing-function: var(--text-flat-transition-timing-function, ease-out); /* 1 */
+  transition-delay: var(--text-flat-transition-delay); /* 1 */
+}
+
+.text-flat__label{
+  display: block;
+}
+
+a.text-flat[href]::before,
+button.text-flat:not(:disabled)::before{
+  width: var(--text-flat-first-plane-width, auto);
+  height: var(--text-flat-first-plane-height, auto);
+
+  top: var(--text-flat-first-plane-top, auto);
+  right: var(--text-flat-first-plane-right, auto);
+  bottom: var(--text-flat-first-plane-bottom, auto);
+  left: var(--text-flat-first-plane-left, auto);
+
+  opacity: var(--text-flat-first-plane-opacity, var(--ui-text-flat-planes-default-opacity));  
+  transform: var(--text-flat-first-plane-transform);
+  transition-property: var(--text-flat-first-plane-transition-property, var(--ui-text-flat-planes-default-transition-property)); /* 1 */
+  transition-duration: var(--text-flat-first-plane-transition-duration, var(--ui-text-flat-planes-default-transition-duration)); /* 1 */  
+  transition-timing-function: var(--text-flat-first-plane-transition-timing-function, var(--ui-text-flat-planes-default-transition-timing-function)); /* 1 */
+  transition-delay: var(--text-flat-first-plane-transition-delay, var(--ui-text-flat-planes-default-transition-delay)); /* 1 */
+}
+
+a.text-flat[href]::after,
+button.text-flat:not(:disabled)::after{
+  width: var(--text-flat-second-plane-width, auto);
+  height: var(--text-flat-second-plane-height, auto);
+
+  top: var(--text-flat-second-plane-top, auto);
+  right: var(--text-flat-second-plane-right, auto);
+  bottom: var(--text-flat-second-plane-bottom, auto);
+  left: var(--text-flat-second-plane-left, auto);  
+
+  transform: var(--text-flat-second-plane-transform);
+  opacity: var(--text-flat-second-plane-opacity, var(--ui-text-flat-planes-default-opacity)); 
+  transition-property: var(--text-flat-second-plane-transition-property, var(--ui-text-flat-planes-default-transition-property)); /* 1 */
+  transition-duration: var(--text-flat-second-plane-transition-duration, var(--ui-text-flat-planes-default-transition-duration)); /* 1 */
+  transition-timing-function: var(--text-flat-second-plane-transition-timing-function, var(--ui-text-flat-planes-default-transition-timing-function)); /* 1 */
+  transition-delay: var(--text-flat-second-plane-transition-delay, var(--ui-text-flat-planes-default-transition-delay)); /* 1 */
+}
+
+a.text-flat[href]:hover{
+  --rlink-color: var(--text-flat-color-hover, var(--ui-text-flat-default-color-hover));
+}
+
+button.text-flat:not(:disabled):hover{
+  --rbutton-color: var(--text-flat-color-hover, var(--ui-text-flat-default-color-hover));
+}
+
+/*
+modifiers
+*/
+
+.text-flat_v9{
+  --text-flat-first-plane-width: 51%;
+  --text-flat-first-plane-height: 100%;
+  --text-flat-first-plane-top: 0;
+  --text-flat-first-plane-left: 0;  
+  --text-flat-first-plane-transform: translate3d(-100%, 0, 0);
+  --text-flat-first-plane-transition-duration: .28s;
+
+  --text-flat-second-plane-width: 51%;
+  --text-flat-second-plane-height: 100%;
+  --text-flat-second-plane-top: 0;
+  --text-flat-second-plane-right: 0;
+  --text-flat-second-plane-transform: translate3d(100%, 0, 0);
+  --text-flat-second-plane-transition-duration: .28s;
+}
+
+.text-flat_v9:hover{
+  --text-flat-first-plane-transform: translate3d(0, 0, 0);
+  --text-flat-first-plane-opacity: 1;
+  --text-flat-second-plane-transform: translate3d(0, 0, 0);
+  --text-flat-second-plane-transition-duration: .18s;
+  --text-flat-second-plane-opacity: 1;
+}
+
+.text-flat_v10{
+  --text-flat-first-plane-width: 100%;
+  --text-flat-first-plane-height: 51%;
+  --text-flat-first-plane-top: 0;
+  --text-flat-first-plane-left: 0;  
+  --text-flat-first-plane-transform: translate3d(0, -50%, 0);
+  --text-flat-first-plane-transition-duration: .28s;
+
+  --text-flat-second-plane-width: 100%;
+  --text-flat-second-plane-height: 51%;
+  --text-flat-second-plane-bottom: 0;
+  --text-flat-second-plane-left: 0;
+  --text-flat-second-plane-transform: translate3d(0, 50%, 0);
+  --text-flat-second-plane-transition-duration: .28s;
+}
+
+.text-flat_v10:hover{
+  --text-flat-first-plane-transform: translate3d(0, 0, 0);
+  --text-flat-first-plane-opacity: 1;
+  --text-flat-second-plane-transform: translate3d(0, 0, 0);
+  --text-flat-second-plane-transition-duration: .18s;
+  --text-flat-second-plane-opacity: 1;
+}
+
+.text-flat_v11{
+  --text-flat-first-plane-width: 51%;
+  --text-flat-first-plane-height: 100%;
+  --text-flat-first-plane-top: 0;
+  --text-flat-first-plane-left: 0;
+  --text-flat-first-plane-transform: rotate(360deg);
+  --text-flat-first-plane-transition-duration: .35s;
+
+  --text-flat-second-plane-width: 51%;
+  --text-flat-second-plane-height: 100%;
+  --text-flat-second-plane-top: 0;
+  --text-flat-second-plane-right: 0;
+  --text-flat-second-plane-transform: rotate(360deg);
+  --text-flat-second-plane-transition-duration: .35s;
+}
+
+.text-flat_v11:hover{
+  --text-flat-first-plane-transform: rotate(0);
+  --text-flat-first-plane-opacity: 1;
+  --text-flat-second-plane-transform: rotate(0);
+  --text-flat-second-plane-opacity: 1;
+}
+
+.text-flat_v12{
+  --text-flat-first-plane-width: 51%;
+  --text-flat-first-plane-height: 100%;
+  --text-flat-first-plane-transform: translate3d(-100%, 0, 0) rotate(-45deg);
+  --text-flat-first-plane-transition-duration: .35s;
+
+  --text-flat-second-plane-width: 51%;
+  --text-flat-second-plane-height: 100%;
+  --text-flat-second-plane-right: 0;
+  --text-flat-second-plane-transform: translate3d(100%, 0, 0) rotate(-45deg);
+  --text-flat-second-plane-transition-duration: .35s;
+}
+
+.text-flat_v12:hover{
+  --text-flat-first-plane-transform: translate3d(0, 0, 0) rotate(0);
+  --text-flat-first-plane-opacity: 1;  
+  --text-flat-second-plane-transform: translate3d(0, 0, 0) rotate(0);
+  --text-flat-second-plane-opacity: 1;
+}
+
+/*
+=====
+SLIDING TEXT
+=====
+*/
+
+/* 
+This component doesn't have basic styles because any reasons aren't.
+
+1. 
+The transition property isn't used because there are limits of the 
+transition property syntax, particularly multiple values can't be used. 
+*/ 
+
+a.text-sliding[href],
+button.text-sliding:not(:disabled){
+  --ui-text-sliding-default-Color: var(--text-sliding-default-Color, currentColor);
+  --ui-text-sliding-default-transition-property: var(--text-sliding-default-transition-property, transform);
+  --ui-text-sliding-default-transition-duration: var(--text-sliding-default-transition-duration, .35s);  
+  --ui-text-sliding-default-transition-delay: var(--text-sliding-default-transition-delay);
+  --ui-text-sliding-default-transition-timing-function: var(--text-sliding-default-transition-timing-function, cubic-bezier(.86, .6, .08, 1.01)); 
+  --ui-text-sliding-default-will-change: var(--text-sliding-default-will-change, transform);
+
+  position: relative;
+  overflow: hidden;
+}
+
+a.text-sliding[href]::before,
+button.text-sliding:not(:disabled)::before{
+  content: attr(data-text-sliding);
+  position: absolute;
+  color: var(--text-sliding-back-color, var(--ui-text-sliding-default-Color));
+
+  transform: var(--text-sliding-back-transform);
+  transition-property: var(--text-sliding-back-transition-property, var(--ui-text-sliding-default-transition-property)); /* 1 */
+  transition-timing-function: var(--text-sliding-back-transition-timing-function, var(--ui-text-sliding-default-transition-timing-function)); /* 1 */
+  transition-duration: var(--text-sliding-back-transition-duration, var(--ui-text-sliding-default-transition-duration)); /* 1 */
+  transition-delay: var(--text-sliding-back-transition-delay, var(--ui-text-sliding-default-transition-delay)); /* 1 */
+  will-change: var(--text-sliding-back-will-change, var(--ui-text-sliding-default-will-change));
+}
+
+a.text-sliding[href] .text-sliding__label,
+button.text-sliding:not(:disabled) .text-sliding__label{
+  display: var(--text-sliding-front-display, block);
+  color: var(--text-sliding-front-color, var(--ui-text-sliding-default-Color));
+
+  transform: var(--text-sliding-front-transform);
+  transition-property: var(--text-sliding-front-transition-property, var(--ui-text-sliding-default-transition-property)); /* 1 */
+  transition-duration: var(--text-sliding-front-transition-duration, var(--ui-text-sliding-default-transition-duration)); /* 1 */
+  transition-timing-function: var(--text-sliding-front-transition-timing-function, var(--ui-text-sliding-default-transition-timing-function)); /* 1 */
+  transition-delay: var(--text-sliding-front-transition-delay, var(--ui-text-sliding-default-transition-delay)); /* 1 */
+  will-change: var(--text-sliding-front-will-change, var(--ui-text-sliding-default-will-change));
+}
+
+/*
+modifiers
+*/
+
+.text-sliding_v7{
+  --text-sliding-back-transform: translate3d(-110%, 0, 0);
+  --text-sliding-front-transform: translate3d(0, 0, 0);
+}
+
+.text-sliding_v7:hover{
+  --text-sliding-back-transform: translate3d(0, 0, 0);
+  --text-sliding-front-transform: translate3d(110%, 0, 0);
+}
+
+.text-sliding_v8{
+  --text-sliding-back-transform: translate3d(0, 140%, 0);
+  --text-sliding-front-transform: translate3d(0, 0, 0);
+}
+
+.text-sliding_v8:hover{
+  --text-sliding-back-transform: translate3d(0, 0, 0);
+  --text-sliding-front-transform: translate3d(0, -140%, 0);
+}
+
+/*
+SETTINGS
+*/
+
+:root{
+  --text-outlined-weight: 5px;
+  --text-outlined-line-color: #243aab;
+  --text-outlined-padding: 1rem 1.25rem;
+  --text-underlined-line-height: 5px;
+  --text-underlined-line-gap: .25rem;
+  --text-underlined-line-color: #243aab;
+  --text-flat-background-color: #243aab;
+  --text-flat-padding: .75rem;
+}
+
+/*
+=====
+DEMO
+=====
+*/
+
+body{
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Open Sans", "Helvetica Neue", "Segoe UI", "Arial", sans-serif;
+  margin: 0;
+}
+
+.section{
+  padding: 7.25rem 1rem 6.5rem;
+  position: relative;
+}
+
+.section:nth-child(odd){
+  background-color: #f1f4fa;
+}
+
+.section__label{
+  padding: .5rem 1.5rem;
+  
+  font-size: 1rem;
+  color: #4e4848;
+  letter-spacing: .075rem;
+  font-weight: 700;
+  font-variant-caps: small-caps;
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+.section:nth-child(odd) .section__label{
+  background-color: #fff;
+}
+
+.section:nth-child(even) .section__label{
+  background-color: #f1f4fa;
+}
+
+.section__group{
+  margin: .25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #243aab;
+  text-align: center;
+}
+
+@media (min-width: 641px){
+  
+  .section{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+  }
+}

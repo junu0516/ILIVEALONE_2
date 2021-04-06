@@ -22,12 +22,11 @@ public interface MemberService {
 	int updatePassword(Member member);
 
 	int idCheck(String userId);
-	
-	
-
-	String find_id(HttpServletResponse response, String email, MemberDao manager) throws Exception;
 
 	String find_id(String email);
+
+	void find_pw(HttpServletResponse response, Member member);
+
 
 	
 }

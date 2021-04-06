@@ -32,10 +32,7 @@
       .row.content {height:auto;} 
     }
     
-    #showImage {
-    	height: auto;
-    	
-    }
+
     
     #page-top{ padding-top: 61px; }
 
@@ -48,49 +45,8 @@
 	
 	<!-- Page Wrapper -->
     <div id="wrapper">
-	
-
-	
-	
-		<!-- 사이드 부분 -->
-        <!-- Sidebar -->
-           <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" a href="${pageContext.servletContext.contextPath}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">패션</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-               <hr class="sidebar-divider">
-               <a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 </a></p>
-      			<hr class="sidebar-divider">
-      			<a href="list.bo" class="list-group-item list-group-item-success">패션 게시물</a></p>
-      			<hr class="sidebar-divider">
-      			<a href="blist.bo" class="list-group-item list-group-item-success">패션 최신뉴스</a></p>
-      			<hr class="sidebar-divider">
-      			
-      			<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
-            </li>
-
-            <!-- Divider -->
-            
-
-            <!-- Heading -->
-            
-            <!-- Nav Item - Pages Collapse Menu -->
-          </ul>
-       	 <!-- End of Sidebar -->
-
-
-		<!-- 바디부분  -->
+	<jsp:include page="boardSideBar.jsp"/>
+	<!-- 바디부분  -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -216,48 +172,7 @@
 		</div>
   
     <!-- End of Page Wrapper -->
-	<div class="col-sm-2 sidenav">
-      	<body onload = "showImage()">
-    
-      	<div class = "well" >
-      	<br>
-      		<h3>오늘의 패션(남자)</h3>
-			<img class = "introImg" id = "introImg" border="0" >
-       	<br><br><br>
-        <hr>
-        <br><br>
-        	<h3>오늘의 패션(여자)</h3>
-			<img class = "introImg1" id = "introImg1" border="0" >
-      	</div>
-      	</body>
-    <script>
-			var imgArray = new Array();
-			imgArray[0] = "resources/img/A1.jfif";
-			imgArray[1] = "resources/img/A2.jfif";
-			imgArray[2] = "resources/img/A3.jfif";
-			imgArray[3] = "resources/img/A4.jfif";
-			
-			var imgArray1 = new Array();
-			imgArray1[0] = "resources/img/B1.jfif";
-			imgArray1[1] = "resources/img/B2.jfif";
-			imgArray1[2] = "resources/img/B3.jfif";
-			imgArray1[3] = "resources/img/B4.jfif";
-
-			
-			function showImage(){
-				var imgNum = Math.round(Math.random()*3);
-				var objImg = document.getElementById("introImg");
-				objImg.src = imgArray[imgNum];
-				
-				var imgNum1 = Math.round(Math.random()*3);
-				var objImg1 = document.getElementById("introImg1");
-				objImg1.src = imgArray1[imgNum1];
-			
-			}
-			
-			
-	</script>
-  </div>
+	 <jsp:include page="boardSideBar2.jsp"/>
   
 </div>
 	

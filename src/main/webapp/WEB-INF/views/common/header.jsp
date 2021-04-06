@@ -28,18 +28,25 @@
 	right:70px;
 
 }
+#member_join{
+	position:fixed;
+	right:150px;
+}
 .nav-link{
 	margin-left: 30px;
 	font-size: 20px;
-	color:red;
 	
+}	
 
-}
+
+
+
 #header_2{
 	margin-left: 30px;
 	font-size: 20px;
 	
 }
+
 
 </style>	
 
@@ -48,7 +55,7 @@
  	<!-- Navigation -->
  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-		    <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo_transparent.png" alt="" width="45px" height="45px">
+		    <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo_transparent.png" alt="Logo" width="45px" height="45px">
 		
 			<a class="navbar-brand" href="${pageContext.servletContext.contextPath}">ILIVEALONE</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,11 +99,11 @@
 
 	           		<c:if test="${ empty sessionScope.loginUser }">
 			
-	           		<li class="nav-item">
+	           		<li class="nav-item" id="member_join">
 	            		<a class="nav-link" href="enrollForm.me">회원가입</a>
 	          		</li>
 	          		
-	          		<li class="nav-item">
+	          		<li class="nav-item" id="member_name">
 	            		<a class="nav-link" data-toggle="modal" data-target="#loginModal">로그인</a>
 	          		</li>
 					
@@ -108,7 +115,7 @@
 		 				 <i class="fas fa-user-circle"></i> <b style="color:white">&nbsp; ${ loginUser.userName } 님</b>
 		  				</a>
 		
-		 			 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" 	style="text-align: center;" >
+		 			 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" 	style="text-align: center;"   >
 		  				<li><a class="dropdown-item" href="myPage.me">마이페이지</a></li>
 						<li><a class="dropdown-item" href="logout.me">로그아웃</a></li>
 		  			</ul>
@@ -163,7 +170,7 @@
 	            		<a href="find_id_form.do">아이디 찾기</a>
 	          		</li>
 	          		<li>
-	            		<a href="findPwd.me">비밀번호 찾기</a>
+	            		<a href="find_pw_form.do">비밀번호 찾기</a>
 	          		</li>
                 </div>
                 
