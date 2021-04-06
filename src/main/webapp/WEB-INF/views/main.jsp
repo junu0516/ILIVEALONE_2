@@ -181,13 +181,13 @@ dd {
 		</div>
 		<div class="col-sm-8" style="float:left">
 		
-		    <div class="jumbotron" style="background-color:#474747">
-		    	 <h2 style="color:white">코로나19 현황테이블</h2>
+		    <div class="jumbotron" style="background-color:#474747; border-radius: 40px 80px / 80px 40px;">
+		    	 <h2 style="color:#C5C5C5">COVID 19</h2>
 		    	 <br><br>
 		    	 
-		        <h1 class="display-4" style="color:white">"${koreaStats[0].diffFromPrevDay}"</h1>
-		        <p class="lead" style="color:white">Total cases reported</p>
-		        <hr class="my-4">
+		        <h1 class="display-4" style="color:#C5C5C5">"${koreaStats[0].diffFromPrevDay}"</h1>
+		        <p class="lead" style="color:#C5C5C5">Total cases reported</p>
+		        <hr style="color:#C5C5C5" class="my-4">
 		        <table class="table">
 					<tr>
 						<th style="color:#C5C5C5">확진환자수(전일 대비 증감량)</th>
@@ -214,18 +214,6 @@ dd {
 		
 	</section>
 
-
-<!-- 콘텐츠 영역 -->
-  <section class="py-5">
-    
-  </section>
-  <!-- Image element - set the background image for the header in the line below -->
-  <div class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
-    <!-- Put anything you want here! There is just a spacer below for demo purposes! -->
-    <div style="height: 200px;"></div>
-  </div>
-  
-  
   
   
    <section class="py-5">
