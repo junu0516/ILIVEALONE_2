@@ -44,13 +44,88 @@
     #p2{
         text-align:center;
     }
+    
+    #footer_text{
+    
+        color: white;
+    }
+    
+    #emj_img{
+    	color:white;
+    }
+    #why_ft{
+    	color:white;
+    }
+    #why_text{
+    	color:white;
+    }
+    
+  
 </style>
 </head>
 
 <body>
 
+  <footer class="py-5 bg-dark">
+          <div class="container">
+                <div class="row">
+                    <!-- Footer Location-->
+                    <div class="col-lg-4 mb-5 mb-lg-0" id="footer_text">
+                           <h1 class="text-uppercase mb-4">I LIVE ALONE</h1>
+                        <p class="lead mb-0" >
+        				   <hr>
+                            Developer
+                            <br>
+                           	 <small>&nbsp; Joonwoo Lee  
+                           		   <br>
+                    			   &nbsp; Chaeeun bae
+                    			   <br>
+                    			   &nbsp; Sooyeong namgoong
+                           		   <br>
+                           		   &nbsp; Woojin yoon
+                           		   <br>
+                           		   &nbsp; Seokho kwon
+                           		   </small>
+                        </p>
+                    </div>
+                    <!-- Footer Social Icons-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h1 class="text-uppercase mb-4" id="emj_img">  <i class="fas fa-gift"></i> &nbsp; 
+                        								<i class="fas fa-laptop-house"></i> &nbsp;
+                        								<i class="fas fa-handshake"></i> &nbsp;
+                        								<i class="fas fa-store"></i> &nbsp;
+                        													</h1>
+        
 
-     <!-- Footer-->
+                    </div>
+    
+		
+                    <!-- Footer About Text-->
+                    <div class="col-lg-4">
+                        <h4 class="mb-4" id="why_ft">Why?</h4>
+                        <p class="lead mb-0" id="why_text">
+   				           옷을 어떻게 입어야할지 고민이신가요?<br><br>
+						          집계약은 끝나가는데 주변 매물이 <br>궁금하신가요?<br><br>
+						          원하시는 상품이 너무 비싸다구요?<br><br>
+						         자취생들을 위한<br> 
+						         I LIVE ALONE 서비스를 이용해보세요!
+						             
+                            
+                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </footer>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+     <!-- Footer
        <footer class="py-5 bg-dark">
             <div id="footer">
         <div id="footer-1" >
@@ -65,18 +140,9 @@
         </div>
     </div>
     </footer>
-        <!-- Copyright Section
-        <div class="copyright py-4 text-center text-white">
-            <div class="container">           
-	        <small><a href="list.no">이용약관</a></small>
-            <small><a href="list.no">개인정보처리방침</a></small>
-            <small><a href="list.no">공지사항</a></small>
-            <small><a href="list.no">문의하기</a></small>
-            <small>©ILIVEALONE</small>
-        </div>
-        </div>
-  </footer>
-  -->
+ 
+ -->
+ 
 
 </body>
 </html>
