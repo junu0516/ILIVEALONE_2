@@ -14,6 +14,7 @@
 - [이준우](https://github.com/junu0516) : 공동구매 서비스 구현   
 
 **** 각종 이슈 발생에 대한 팀원 간 커뮤니케이션 과정은 [여기](https://github.com/junu0516/ILIVEALONE_2/issues)를 참고해주세요
+**** 학원에서 공통으로 배운 것 외에, 개인적으로 학습하여 프로젝트에 적용한 부분은 [위키](https://github.com/junu0516/ILIVEALONE_2/wiki)를 확인해주세요
 
 ### :computer:사용 기술
 - Version Control : Git & Github
