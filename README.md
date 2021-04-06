@@ -13,7 +13,7 @@
 - [윤우진](https://github.com/dbsrkrnd) : 주제별 커뮤니티 게시판 서비스 구현
 - [이준우](https://github.com/junu0516) : 공동구매 서비스 구현   
 
-**** 각종 이슈 발생에 대한 __팀원 간 커뮤니케이션 과정__은 [여기](https://github.com/junu0516/ILIVEALONE_2/issues)를 참고해주세요   
+**** 각종 이슈 발생에 대한 __팀원 간 커뮤니케이션 과정__ 은 [여기](https://github.com/junu0516/ILIVEALONE_2/issues)를 참고해주세요   
 **** 학원에서 공통으로 배운 것 외에, __개인적으로 학습하여 프로젝트에 적용한__ 부분은 [위키](https://github.com/junu0516/ILIVEALONE_2/wiki)를 확인해주세요   
 
 
