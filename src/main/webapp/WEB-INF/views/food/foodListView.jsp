@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,10 +33,7 @@
       .row.content {height:auto;} 
     }
     
-    #showImage {
-    	height: auto;
-    	
-    }
+
     
     #page-top{ padding-top: 61px; }
     #boardList{text-align: center;}
@@ -69,47 +67,10 @@
 	<!-- Page Wrapper -->
     <div id="wrapper">
 	
+		<jsp:include page="foodSideBar.jsp"/>
 
 	
 	
-		<!-- 사이드 부분 -->
-        <!-- Sidebar -->
-           <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" a href="${pageContext.servletContext.contextPath}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">푸드</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-             <li class="nav-item">
-               <hr class="sidebar-divider">
-               <a href="Toplistf.fo" class="list-group-item list-group-item-success">푸드 메인 </a></p>
-      			<hr class="sidebar-divider">
-      			<a href="list.fo" class="list-group-item list-group-item-success">푸드 게시물</a></p>
-      			<hr class="sidebar-divider">
-      			<a href="blist.fo" class="list-group-item list-group-item-success">푸드 최신뉴스</a></p>
-      			<hr class="sidebar-divider">
-      			
-      			<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
-            </li>
-
-
-
-            <!-- Divider -->
-            
-
-            <!-- Heading -->
-            
-            <!-- Nav Item - Pages Collapse Menu -->
-          </ul>
-       	 <!-- End of Sidebar -->
 
 
 		<!-- 바디부분  -->
@@ -148,7 +109,9 @@
 				</form>
 			</div>
 			<br>
-			
+			<jsp:useBean id="now" class="java.util.Date" />
+				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+           
             <table id="foodList" class="table table-hover" align="center">
                 <thead>
                   <tr>
@@ -164,7 +127,11 @@
                 	<c:forEach items="${ list }" var="fd">
 	                    <tr>
 	                        <td>${ fd.foodNo }</td>
-	                        <td>${ fd.foodTitle }</td>
+	                        <td>${ fd.foodTitle }
+	                         	<c:if test = "${today ==  fd.createDate  }">
+	                        <img src = "https://tistory2.daumcdn.net/tistory/2916313/skin/images/new_icon_9.gif">
+	                         	</c:if>
+	                         </td>	
 	                        <td>${ fd.foodWriter }</td>
 	                        <td>${ fd.count }</td>
 	                        <td>${ fd.createDate }</td>
@@ -239,49 +206,8 @@
     	});
     </script>	
     <!-- End of Page Wrapper -->
-<div class="col-sm-2 sidenav">
-      	<body onload = "showImage()">
-    
-      	<div class = "well" >
-      	<br>
-      		<h3>오늘의 푸드</h3>
-			<img class = "introImg" id = "introImg" border="0" >
-       	<br><br><br>
-        <hr>
-        <br><br>
-        	<h3>오늘의 디저트</h3>
-			<img class = "introImg1" id = "introImg1" border="0" >
-      	</div>
-      	</body>
-    <script>
-			var imgArray = new Array();
-			imgArray[0] = "resources/img/오사카.jfif";
-			imgArray[1] = "resources/img/토스트.jfif";
-			imgArray[2] = "resources/img/프랑스.jfif";
-			imgArray[3] = "resources/img/국수.jfif";
-			
-			var imgArray1 = new Array();
-			imgArray1[0] = "resources/img/딸기 케이크.jfif";
-			imgArray1[1] = "resources/img/마카로.jfif";
-			imgArray1[2] = "resources/img/마카롱.jfif";
-			imgArray1[3] = "resources/img/케이크.jfif";
+		<jsp:include page="foodSideBar2.jsp"/>
 
-			
-			function showImage(){
-				var imgNum = Math.round(Math.random()*3);
-				var objImg = document.getElementById("introImg");
-				objImg.src = imgArray[imgNum];
-				
-				var imgNum1 = Math.round(Math.random()*3);
-				var objImg1 = document.getElementById("introImg1");
-				objImg1.src = imgArray1[imgNum1];
-			
-			}
-			
-			
-	</script>
-  </div>
-  
 </div>
 	
    
