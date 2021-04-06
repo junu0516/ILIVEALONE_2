@@ -48,49 +48,12 @@
 	
 	<!-- Page Wrapper -->
     <div id="wrapper">
+	<jsp:include page="noticeSideBar.jsp"/>
 	
 
 	
 	
-		<!-- 사이드 부분 -->
-        <!-- Sidebar -->
-           <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" a href="${pageContext.servletContext.contextPath}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">공지사항</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-               <hr class="sidebar-divider">
-               <a href="Toplist.bo" class="list-group-item list-group-item-success">패션 메인 </a></p>
-      			<hr class="sidebar-divider">
-      			<a href="Toplistf.bo" class="list-group-item list-group-item-success">푸드 메인 </a></p>
-      			<hr class="sidebar-divider">
-      			<a href="Toplistf.ho" class="list-group-item list-group-item-success">하우징 메인</a></p>
-      			<hr class="sidebar-divider">      			
-      			<a href="list.no" class="list-group-item list-group-item-success">공지사항</a></p>
-            </li>
-
-
-
-
-
-            <!-- Divider -->
-            
-
-            <!-- Heading -->
-            
-            <!-- Nav Item - Pages Collapse Menu -->
-          </ul>
-       	 <!-- End of Sidebar -->
+		
 
 
 		<!-- 바디부분  -->
