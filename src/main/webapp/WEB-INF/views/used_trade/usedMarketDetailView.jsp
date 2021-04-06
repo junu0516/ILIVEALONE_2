@@ -99,7 +99,7 @@ button {
                 <img src="./resources/images/used_market/${u.changeName }" class="card-img-top"  >
                 </tr>
                 <tr>
-                    <td colspan="4"><textarea id="texta" class="form-control col-sm-5" style="height:150px " readonly>${ u.um_Content }</textarea></td>
+                    <td colspan="4">${ u.um_Content }</td>
                     
                 </tr>
             </table>

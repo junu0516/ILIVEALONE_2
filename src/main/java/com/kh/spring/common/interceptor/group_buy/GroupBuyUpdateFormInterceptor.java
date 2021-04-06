@@ -6,14 +6,20 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.kh.spring.group_buy.model.service.GroupBuyService;
+import com.kh.spring.group_buy.model.vo.GroupBuyBoard;
 import com.kh.spring.member.model.vo.Member;
 
 public class GroupBuyUpdateFormInterceptor extends HandlerInterceptorAdapter {
-
+	
+	@Autowired
+	GroupBuyService groupBuyService;
+	
 	private Logger log = LoggerFactory.getLogger(GroupBuyUpdateFormInterceptor.class);
 	
 	@Override
@@ -31,6 +37,18 @@ public class GroupBuyUpdateFormInterceptor extends HandlerInterceptorAdapter {
 			
 			return false; 
 		}else {
+			
+			//로그인한 사용자 아이디와, 글 작성자 아이디가 다를 경우에는 유효하지 않은 접근으로 처리
+			int gbNo = Integer.parseInt(request.getParameter("gbNo"));
+			GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(gbNo);
+			
+			if(!loginUser.getUserId().equals(groupBuyBoard.getGbMno())) {
+				System.out.println("유효하지 않은 접근");
+				response.sendRedirect("/spring/list.gb");
+				
+				return false;
+			};
+			
 			return super.preHandle(request, response, handler);
 		}
 		
