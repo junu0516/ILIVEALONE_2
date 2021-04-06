@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html lang="en">
+<html lang="kr">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,14 +29,14 @@
                 <div class="container-fluid">
 	                <br>
   					<h1 class="display-5">공동구매 리스트</h1>
-  					<br>
+  					<hr>
         			<c:if test="${!empty sessionScope.loginUser }">
-        				<div class="container">
-                			<a href="insertView.gb" class="btn btn-primary">판매 등록</a>
+        				<div class="container" id="btnArea">
+                			<a href="insertView.gb" class="btn btn-primary" id="insertBtn">판매 등록</a>
             			</div>
             			<br><br>
         			</c:if>
-        			<div class="container">
+        			<div class="container" id="searchArea">
             			<form class="form-inline" action="search.gb">
                 			<select class="form-control mb-2 mr-sm-2" name="condition">
                     			<option value="title">제목</option>
@@ -53,7 +53,7 @@
                         		<h5><b>${gbBoard.gbTitle}</b></h5>
                     		</div>
                     	<div>
-                        	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/group_buy/${gbBoard.gbChangedName}" height="400px"/>
+                        	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/group_buy/${gbBoard.gbChangedName}" height="200px"/>
                     	</div>
                     	<div class="card-body">
                         	<h4 class="card-title">${products[gbBoard.gbNo].PName}</h4>
@@ -74,18 +74,18 @@
 		                <c:when test="${pageInfo.currentPage ne 1}">
 		                    <c:if test="${empty keyword}">
 		                        <li class="page-item">
-		                            <a class="page-link" href="list.gb?currentPage=${pageInfo.currentPage-1}">Previous</a>
+		                            <a class="page-link" href="list.gb?currentPage=${pageInfo.currentPage-1}">이전</a>
 		                        </li>
 		                    </c:if>
 		                    <c:if test="${!empty keyword}">
 		                        <li class="page-item">
-		                            <a class="page-link" href="${searchUrl}&currentPage=${pageInfo.currentPage-1}">Previous</a>
+		                            <a class="page-link" href="${searchUrl}&currentPage=${pageInfo.currentPage-1}">이전</a>
 		                        </li>
 		                    </c:if>
 		                </c:when>
 		                <c:otherwise>
 		                    <li class="page-item disabled">
-		                        <a class="page-link" href="">Previous</a>
+		                        <a class="page-link" href="">이전</a>
 		                    </li>
 		                </c:otherwise>
 		            </c:choose>
@@ -114,18 +114,18 @@
 		                <c:when test="${pageInfo.currentPage ne pageInfo.maxPage}">
 		                    <c:if test="${empty keyword}">
 		                        <li class="page-item">
-		                            <a class="page-link" href="list.gb?currentPage=${pageInfo.currentPage+1}">Next</a>
+		                            <a class="page-link" href="list.gb?currentPage=${pageInfo.currentPage+1}">다음</a>
 		                        </li>
 		                    </c:if>
 		                    <c:if test="${!empty keyword}">
 		                        <li class="page-item">
-		                            <a class="page-link" href="${searchUrl}&currentPage=${pageInfo.currentPage+1}">Next</a>
+		                            <a class="page-link" href="${searchUrl}&currentPage=${pageInfo.currentPage+1}">다음</a>
 		                        </li>
 		                    </c:if>
 		                </c:when>
 		                <c:otherwise>
 		                    <li class="page-item disabled">
-		                        <a class="page-link" href="list.gb?currentPage=${pageInfo.currentPage+1}">Next</a>
+		                        <a class="page-link" href="list.gb?currentPage=${pageInfo.currentPage+1}">다음</a>
 		                    </li>
 		                </c:otherwise>
 		            </c:choose>

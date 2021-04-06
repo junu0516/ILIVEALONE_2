@@ -72,6 +72,7 @@
 			            </div>           
             			<button type="submit" class="btn btn-primary">수정하기</button>
          			</form>
+         			<br>
 				</div>
             	<!-- /.container-fluid -->
 			</div>
@@ -80,6 +81,7 @@
     	<!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
+    <jsp:include page="../common/footer.jsp"/>
     <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 	<script>
     	CKEDITOR.replace('gbContent',{

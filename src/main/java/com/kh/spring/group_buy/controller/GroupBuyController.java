@@ -58,7 +58,7 @@ public class GroupBuyController {
 	public String showList(@RequestParam(required=false, defaultValue="1")int currentPage, Model model) {
 		
 		int listCount = groupBuyService.selectListCount();
-		PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 5, 6);
+		PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 5, 12);
 		model.addAttribute("pageInfo",pageInfo);
 		
 		ArrayList<GroupBuyBoard> list = groupBuyService.selectList(pageInfo);
