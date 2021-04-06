@@ -220,7 +220,6 @@ padding-top:13px;
 
 	<!-- Page level custom scripts -->
 	<script src="js/demo/datatables-demo.js"></script>
-	
 
 	<form id="postForm1" action="wishform.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
 				<input type="hidden" name="userId" value="${loginUser.getUserId() }">
