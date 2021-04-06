@@ -38,7 +38,8 @@
 	            	<br>
 	            	&nbsp판매자 아이디 : ${loginUser.userId}<br><br>
 	            	<select id="statusKeyword" class="custom-select" style="width:auto;">
-	            		<option selected value="A">모두 선택</option>
+	            		<option selected value="A">조건 정렬하기</option>
+	            		<option value="A">모두 선택</option>
 	            		<option value="W">판매 모집</option>
 	            		<option value="R">발송 준비</option>
 	            		<option value="C">발송 완료</option>
@@ -244,6 +245,10 @@
 	    $("#statusKeyword").change(function(){
 	    	var keyword = $("#statusKeyword").val(); 
 	    	console.log(keyword);
+	    	
+	    	if(keyword == "A"){
+				location.href="sortSalesHistory.gb?keyword="+keyword;		    		
+	    	}
 	    	
 	    	if(keyword != "A"){
 				location.href="sortSalesHistory.gb?keyword="+keyword;		    		

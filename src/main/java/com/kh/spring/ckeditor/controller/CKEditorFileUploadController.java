@@ -67,6 +67,7 @@ public class CKEditorFileUploadController {
 				jsonObject.addProperty("url", request.getContextPath()+"/resources/images/used_market/ckeditor/"+changedName);
 				break;
 			case 6:
+				//부동산의 경우 ck에디터를 사용하지 않기 때문에 일단 pass
 				break;
 			case 7:
 				jsonObject.addProperty("url", request.getContextPath()+"/resources/images/commuity_fashionP/ckeditor/"+changedName);								

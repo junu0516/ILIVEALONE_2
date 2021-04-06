@@ -23,7 +23,7 @@
             <!-- Main Content -->
             <div id="content">
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" id="viewArea">
                 	<br>
 					<h1 class="display-5">상세보기</h1><br>
         			<input type="hidden" name="gbMno" value="${gbBoard.gbMno}"/>
@@ -67,6 +67,7 @@
           				<button type="button" onclick="checkPurchase();" class="btn btn-primary" id="purchase">구매하기</button>
           			</c:if>
           			<a href="list.gb" class="btn btn-secondary">목록으로</a>
+          			<br>
                 </div>
                 <!-- /.container-fluid -->
             </div>
