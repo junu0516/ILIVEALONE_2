@@ -18,7 +18,7 @@
 		)
 	</insert>
 	
-		<update id="deleteStuffWish"
+	<update id="deleteStuffWish"
 			parameterType="_int">
 		UPDATE USER_WISH
 		SET STATUS='N'
@@ -39,8 +39,6 @@
 		FROM USER_WISH
 		WHERE USERID=#{userId} AND STATUS='Y'
 	</select>
-
-
 
 	<update id="deleteWish"
 			parameterType="hashmap">

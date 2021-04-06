@@ -55,13 +55,13 @@
             			</tbody>
           			</table>
 					<c:if test="${gbBoard.gbMno eq sessionScope.loginUser.userId}">
+          				<form class="form-inline" id="postForm" method="post">
+          					<input type="hidden" name="gbNo" value="${gbBoard.gbNo}"/>		
+          				</form>
           				<c:if test="${gbProduct.PStatus eq 'Y'}">
 	        			<a href="updateForm.gb?gbNo=${gbBoard.gbNo}" class="btn btn-primary">수정하기</a>	
           				</c:if>
-          				<form class="form-inline" id="deleteForm" action="delete.gb" method="post">
-          					<input type="hidden" name="gbNo" value="${gbBoard.gbNo}"/>		
-	          				<button type="submit" class="btn btn-danger" onsubmit="return confirm('정말 삭제하시겠습니까?');">삭제하기</button>     				
-          				</form>
+	          			<button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>     				
           			</c:if>
           			<c:if test="${gbBoard.gbMno ne sessionScope.loginUser.userId }">
           				<button type="button" onclick="checkPurchase();" class="btn btn-primary" id="purchase">구매하기</button>
@@ -82,6 +82,10 @@
 			if(${not empty message}){
 				alert("${message}");
 			}
+			
+			if(${gbProduct.PPurchase} >= ${gbProduct.PLimit}){
+      			$("#purchase").attr("disabled",true);
+      		}; 
 		})
 		
 		function checkPurchase(){
@@ -91,16 +95,13 @@
           		alert("구매페이지로 넘어갑니다.");
           		location.href="purchaseForm.gb?phCno=${gbBoard.gbNo}&phProduct=${gbProduct.PNo}&phBuyer=${loginUser.userId}";	
           	}
-         }          	         	
-          	
-		$(function(){
-      		console.log('현재인원 : '+"${gbProduct.PPurchase}")
-      		console.log('제한인원 : '+"${gbProduct.PLimit}");
-      
-      		if(${gbProduct.PPurchase} >= ${gbProduct.PLimit}){
-      			$("#purchase").attr("disabled",true);
-      		} 		
-      	});          	
+         }
+		
+		function postFormSubmit(){
+			
+			$("#postForm").attr("action","delete.gb");
+			$("#postForm").submit();
+		}
 	</script>
 	<jsp:include page="../common/footer.jsp"/>
 </body>

@@ -178,17 +178,9 @@ public class GroupBuyController {
 	}
 	
 	@GetMapping("updateForm.gb")
-	public String showUpdateView(@RequestParam int gbNo, Model model, @SessionAttribute("loginUser") Member loginUser
-								,RedirectAttributes redirectAttr) {
+	public String showUpdateView(@RequestParam int gbNo, Model model) {
 		
 		GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(gbNo);
-		//만일 현재 로그인된 유저 아이디와, 수정하고자 할 글의 작성자 아이디가 일치하지 않으면 유효하지 않은 접근으로 간주해야 함
-		//updateForm.gb?gbNo=** 와 같은 식으로 url만 입력하는 식으로 다른 사용자가 무단으로 접근할 수 있기 때문
-		if(!loginUser.getUserId().equals(groupBuyBoard.getGbMno())) {
-			//System.out.println("유효하지 않은 접근");
-			redirectAttr.addFlashAttribute("message","유효하지 않은 접근입니다.");
-			return "redirect:list.gb";
-		}
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProduct(gbNo);
 		
 		model.addAttribute("gbBoard",groupBuyBoard);
@@ -227,14 +219,7 @@ public class GroupBuyController {
 
 	@PostMapping("delete.gb")
 	public String deleteBoard(@RequestParam int gbNo, HttpServletRequest request
-							  ,RedirectAttributes redirectAttr, @SessionAttribute("loginUser")Member loginUser) {
-		
-		GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(gbNo);
-		if(!loginUser.getUserId().equals(groupBuyBoard.getGbMno())) {
-			//System.out.println("유효하지 않은 접근");
-			redirectAttr.addFlashAttribute("message","유효하지 않은 접근입니다.");
-			return "redirect:list.gb";
-		}
+							  ,RedirectAttributes redirectAttr) {
 		
 		//업로드된 이미지를 먼저 삭제
 		String fileName = groupBuyService.selectBoard(gbNo).getGbChangedName();
