@@ -62,6 +62,11 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("memberMapper.check_id_email", email);
 	}
+	
+	public int updateNewPwd(SqlSessionTemplate sqlSession, HashMap<String, Object> mapKey) {
+	
+		return sqlSession.update("memberMapper.updateNewPwd",mapKey);
+	}
 
 	
 	

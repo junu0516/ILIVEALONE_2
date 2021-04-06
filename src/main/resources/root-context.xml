@@ -31,6 +31,7 @@
 		<property name="defaultAutoCommit" value="false"/>
 	</bean>
 	
+	<!-- dataSource bean 생성 -->
 	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="realDataSource"/>
 		<property name="logFormatter">
@@ -58,10 +59,27 @@
 		<aop:pointcut expression="execution(* com.kh.spring..*ServiceImpl.*(..))" id="serviceMethod"/>
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
 	</aop:config>
-
+	
+	<!-- 파일 업로드 위한 bean 등록 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000000" /> <!-- 최대 업로드 가능 크기 -->
 		<property name="maxInMemorySize" value="100000000" /> <!-- 메모리에 보관할 수 있는 최대 크기 -->
+	</bean>
+	
+	<!-- 메일 발송 위한 bean 등록 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/> <!-- 일단 gmail 기준으로 등록 -->
+		<property name="port" value="587"/>
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="username" value="junu051616@gmail.com"/> <!-- 추후에 공용 대표 이메일로 변경하면 됩니다. -->
+		<property name="password" value="wjdqhrydbrdnjs"/>
+		
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
 	</bean>
 	
 	<!-- 사용자정의 bean 등록 / 파일 업로드 전용 클래스 -->

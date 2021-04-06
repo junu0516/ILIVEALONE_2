@@ -29,6 +29,9 @@ public interface MemberService {
 
 	void find_pw(HttpServletResponse response, Member member);
 
+	int updateNewPwd(HashMap<String, Object> mapKey, String newPwd, String email);
+
+	
 
 	
 }
