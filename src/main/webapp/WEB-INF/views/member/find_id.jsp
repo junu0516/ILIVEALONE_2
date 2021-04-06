@@ -13,6 +13,25 @@
 	})
 </script>
 <title>아이디 찾기</title>
+<style>
+ 	#findForm>table{width:100%;}
+    #findForm>table *{ margin:5px;}
+    .content{
+        background-color:rgb(247, 245, 245);
+        width:80%;
+        margin:auto;
+    }
+    .innerOuter{
+        
+        width:60%;
+        margin:auto;
+        padding:5% 10%;
+        background:white;
+    }
+    #page-top{
+padding-top:13px;
+}
+</style>
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
 <link
@@ -34,25 +53,31 @@
 	<br>
 	<br>
 	<br>
-	<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
-			<div class="w3-center w3-large w3-margin-top">
-				<h3>아이디 찾기 검색결과</h3>
+	<div class="container-fluid">
+		
+
+
+	<h2 align="center">아이디 찾기 결과 <i class="far fa-address-book"></i></h2>
 			</div>
 			<div>
-				<h5>
-					${userId}
-				</h5>
-				<p class="w3-center">
-					<button type="button" id="LoginModal">Login</button>
-					<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">Cancel</button>
+			<div class="form-group">
+			<div class="innerOuter" style="height:200px">
+				<h3 align="center">
+					회원님의 아이디는  "${userId}" 입니다.
+				</h3>
+				<br>
+				<br>
+				
+				<div class="btns" align="center">
+					<button type="button" id="LoginModal" class= "btn btn-primary">Login</button>
+					<button type="button" onclick="history.go(-1);" class="btn btn-danger">Cancel</button>
 				</p>
 			</div>
 		</div>
 	</div>
-	</div>
+	
 
-
+	<jsp:include page="../common/footer.jsp" />	
 </body>
 <script>
 
