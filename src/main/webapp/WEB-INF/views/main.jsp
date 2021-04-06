@@ -122,6 +122,9 @@ dd {
 
 
 
+
+
+
 </style>
 
 </head>
@@ -131,12 +134,13 @@ dd {
   <!-- 좌측 로고 & 네비게이터 -->
   <jsp:include page="common/header.jsp"/>
   <!-- 메인 로고 -->
-  <header id="main" class="py-5 bg-image-full" style="background-image: url(./resources/images/logo/main.jpg);">
+
+  <div class="py-5 bg-image-full" style="background-image: url('./resources/img/배경.webp'); background-size : cover; background-repeat: no-repeat; " >
   <br><br>
-  		<img id="s_logo" class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="Logo" width="300px" height="300px">
-  
-  </header>
-  
+   <img id="s_logo" class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="Logo" width="300px" height="300px">
+  </div>
+ 
+
   <!-- http://placehold.it/200x200&text=Logo -->
   
   <!-- Content section --><!--  -->
@@ -386,7 +390,7 @@ dd {
 
 		})
 	</script>
-
+ 
 	<jsp:include page="common/footer.jsp"/>
 	
 </body>

@@ -1,5 +1,7 @@
 package com.kh.spring.member.model.service;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,10 +25,13 @@ public interface MemberService {
 
 	int idCheck(String userId);
 
-	String find_id(String email);
+	String find_id(HashMap<String, Object> mapKey);
 
 	void find_pw(HttpServletResponse response, Member member);
 
+	int updateNewPwd(HashMap<String, Object> mapKey, String newPwd, String email);
+
+	
 
 	
 }
