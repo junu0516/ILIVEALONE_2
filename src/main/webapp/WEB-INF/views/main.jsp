@@ -116,6 +116,9 @@ dd {
 	height : 40px;
 }
 
+
+
+
 </style>
 
 </head>
@@ -125,11 +128,11 @@ dd {
   <!-- 좌측 로고 & 네비게이터 -->
   <jsp:include page="common/header.jsp"/>
   <!-- 메인 로고 -->
-  <header class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
+  <div class="py-5 bg-image-full" style="background-image: url('./resources/img/배경.webp'); background-size : cover; background-repeat: no-repeat; " >
   <br><br>
     <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="" width="200px" height="200px">
-  </header>
-  
+  </div>
+ 
   <!-- http://placehold.it/200x200&text=Logo -->
   
   <!-- Content section --><!--  -->
@@ -378,7 +381,7 @@ dd {
 
 		})
 	</script>
-
+ 
 	<jsp:include page="common/footer.jsp"/>
 	
 </body>
