@@ -59,10 +59,15 @@
 	</select>
    
    <!-- 비밀번호 변경 -->
+	<!-- 
 	<update id="update_pw" parameterType="member">
 		UPDATE MEMBER SET USER_PWD = #{userPwd} WHERE USER_ID = #{userId}
 	</update>
-	
+	 -->
+	<update id="updateNewPwd" parameterType="hashmap">
+		UPDATE MEMBER SET USER_PWD = #{newPwd} WHERE USER_ID = #{userId}
+	</update>
+	 
 	<!-- 아이디 체크 -->
 	<select id="check_id" parameterType="String" resultType="int">
 		select count(*) from member where user_id = #{userId}
@@ -72,4 +77,5 @@
 	<select id="check_id_email" parameterType="String" resultType="String">
 		select user_id from member where email = #{email}
 	</select>
+	
 </mapper>

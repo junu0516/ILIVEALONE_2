@@ -211,9 +211,41 @@ public class MemberController {
 		// 비밀번호 찾기
 		@RequestMapping(value = "/find_pw.do", method = RequestMethod.POST)
 		@ResponseBody
-		public void find_pw(@ModelAttribute Member member, HttpServletResponse response) throws Exception{
-			System.out.println("Controller");
-			memberService.find_pw(response, member);
+		public String find_pw(String userId, String email, HttpServletResponse response) throws Exception{
+			
+			System.out.println("userId : "+userId);
+			System.out.println("email : "+email);
+			
+			//일단 새로운 비밀번호로 변경하기
+			HashMap<String,Object> mapKey = new HashMap<>();
+			mapKey.put("userId", userId);
+			
+			//임시비밀번호 생성
+			String newPwd = "";
+			for (int i = 0; i < 12; i++) {
+				newPwd += (char) ((Math.random() * 26) + 97);
+			}			
+			
+			//암호화 한 비밀번호를 mapKey에 추가하여 서비스 레이어로 넘겨 메일 전송
+			String encoded = bCryptPasswordEncoder.encode(newPwd);
+			mapKey.put("newPwd", encoded);
+			
+			System.out.println("newPwd : "+newPwd);
+			System.out.println("encoded : "+encoded);
+	
+			int result = memberService.updateNewPwd(mapKey,newPwd,email);
+			
+			//result 결과값에 따라 각기 다른 ajax 결과값 전송
+			PrintWriter out = response.getWriter();
+			if(result>0) {
+				out.print("success");	
+			}else {
+				out.print("fail");
+			}
+			
+			//memberService.find_pw(response, member);
+			return null;
+
 		}
 		
 		

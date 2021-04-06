@@ -44,7 +44,7 @@ padding-top:13px;
 	
 	<div class="innerOuter" style="height:200px">
 					<label>아이디</label><br>
-					<input class="form-control" type="text" id="userId" name="userId" placeholder="아이디를 입력하세요" required>
+					<input class="form-control" type="text" id="userIdInput" name="userIdInput" placeholder="아이디를 입력하세요" required>
 					<br>
 				
 					<label>이메일</label><br>
@@ -62,15 +62,20 @@ padding-top:13px;
 		<script>
 			$(function(){
 				$("#findBtn").click(function(){
-					console.log("진입");
+					
 					$.ajax({
 						url : "find_pw.do",
 						type : "POST",
 						data : {
-							userId : $("#userId").val(),
+							userId : $("#userIdInput").val(),
 							email : $("#email").val()
 						},
 						success : function(result) {
+							console.log(result);
+							alert("입력하신 메일주소로 변경된 비밀번호를 전송했습니다. \n 다시 로그인해주세요");
+						},
+						error : function(result){
+							console.log(result);
 							alert(result);
 						}
 					})
