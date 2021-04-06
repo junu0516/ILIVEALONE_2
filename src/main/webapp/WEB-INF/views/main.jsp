@@ -132,7 +132,7 @@ dd {
   
   <!-- http://placehold.it/200x200&text=Logo -->
   
-  <!-- Content section -->
+  <!-- Content section --><!--  -->
   <section class="py-5 jumbotron">
 		<div class="container jumbotron" style="height:700px">
 		<br><br>
