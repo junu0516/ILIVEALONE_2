@@ -39,6 +39,4 @@ public class SalesHistoryInterceptor extends HandlerInterceptorAdapter {
 		
 	}
 
-	
-
 }

@@ -91,6 +91,7 @@
 			            </div>
             			<button type="submit" class="btn btn-primary">등록하기</button>
             			<a class="btn btn-danger" href=list.gb>뒤로가기</a>
+            			<br><br>
          			</form> 
                 </div>
                 <!-- /.container-fluid -->
@@ -100,7 +101,7 @@
         <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
-    
+    <jsp:include page="../common/footer.jsp"/>
 	<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 	<script>
     	CKEDITOR.replace('gbContent',{

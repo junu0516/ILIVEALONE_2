@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>구매하기</title>
-	<link href="resources/css/custom/group_buy/purchaseForm.css" rel="stylesheet"> 
+	<link href="resources/css/custom/group_buy/headerBalance.css" rel="stylesheet"> 
 </head>
 <body id="page-top">
 	<jsp:include page="../common/header.jsp"/>
@@ -22,7 +22,8 @@
 	    	<!-- Main Content -->
 	        <div id="content">
 				<!-- Begin Page Content -->
-	           	<div class="container-fluid">                
+	           	<div class="container-fluid">   
+	           		<br>             
 					<h1 class="display-5">공동구매 신청</h1>
 					<br>
 					<div class="row">
@@ -85,6 +86,7 @@
 		<!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
+	 <jsp:include page="../common/footer.jsp"/>
     <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	<script>
 		$(function(){
@@ -123,6 +125,5 @@
 			}
 		}													
 	</script>
-	 <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
