@@ -23,7 +23,11 @@
     }
     .innerOuter{
         
+
         width:65%;
+
+        
+
         margin:auto;
         padding:5% 10%;
         background:white;
@@ -49,7 +53,9 @@ padding-top:13px;
 	<div class="container-fluid">
 
 		<br> <br> <br> <br>
+
 	<div class="innerOuter">
+
 		<h2 align="center">회원가입 <i class="fas fa-user-plus"></i></h2>
 		<br>
 		<form id="enrollForm" action="insert.me" method="post">
@@ -115,7 +121,11 @@ padding-top:13px;
 	<br>
 	<br>
 	</div>
+
 	
+
+	</div>
+
 	
 	<script>
 		function idCheckValidate(num) {
