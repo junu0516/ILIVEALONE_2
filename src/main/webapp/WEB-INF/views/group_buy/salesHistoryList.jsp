@@ -187,6 +187,7 @@
 		                                <br><br>
 		                                <ul>
 		                                	<li>제품명 : ${purchaseHistory.phProductName}</li>
+		                                	<li>입금계좌 : ${purchaseHistory.phAccount}</li>
 		                                    <li>구매자명 : ${purchaseHistory.phBuyerName}</li>
 		                                    <li>받는주소 : ${purchaseHistory.phAddress}</li>
 		                                    <li>배송정보 : ${purchaseHistory.phInvoice}</li>

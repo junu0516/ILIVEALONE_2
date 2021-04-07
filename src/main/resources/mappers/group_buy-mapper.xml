@@ -41,6 +41,7 @@
 		<result property="phStatus" column="PH_STATUS"/>
 		<result property="phSalesStatus" column="PH_SALES_STATUS"/>
 		<result property="phInvoice" column="PH_INVOICE"/>
+		<result property="phAccount" column="PH_ACCOUNT"/>
 	</resultMap>
 	
 	<select id="selectList"
@@ -231,7 +232,8 @@
 		    PH_ADDRESS,
 		    PH_STATUS,
 		    PH_SALES_STATUS,
-		    PH_INVOICE
+		    PH_INVOICE,
+		    PRODUCT_ACCOUNT AS PH_ACCOUNT
 		FROM GB_PURCHASE_HISTORY
 		JOIN GB_PRODUCT ON GB_PURCHASE_HISTORY.PH_PRODUCT = GB_PRODUCT.PRODUCT_NO
 		WHERE PH_SELLER = #{sellerId}
@@ -255,7 +257,8 @@
 		    PH_ADDRESS,
 		    PH_STATUS,
 		    PH_SALES_STATUS,
-		    PH_INVOICE
+		    PH_INVOICE,
+		    PRODUCT_ACCOUNT AS PH_ACCOUNT
 		FROM GB_PURCHASE_HISTORY
 		JOIN GB_PRODUCT ON GB_PURCHASE_HISTORY.PH_PRODUCT = GB_PRODUCT.PRODUCT_NO
 		WHERE PH_SELLER = #{sellerId}
@@ -286,7 +289,8 @@
 		    PH_ADDRESS,
 		    PH_STATUS,
 		    PH_SALES_STATUS,
-		    PH_INVOICE
+		    PH_INVOICE,
+		    PRODUCT_ACCOUNT AS PH_ACCOUNT
 		FROM GB_PURCHASE_HISTORY
 		JOIN GB_PRODUCT ON GB_PURCHASE_HISTORY.PH_PRODUCT = GB_PRODUCT.PRODUCT_NO
 		WHERE PH_BUYER = #{buyerId}		

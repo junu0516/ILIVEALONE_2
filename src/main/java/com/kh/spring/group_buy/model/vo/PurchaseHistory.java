@@ -29,5 +29,6 @@ public class PurchaseHistory {
 	private String phStatus; //거래 상태(Y: 진행 , N: 취소)
 	private String phSalesStatus; //판매상태(W : 발송 대기/R : 발송 준비/C: 발송 완료)
 	private String phInvoice;//송장번호
+	private String phAccount;//입금계좌
 	
 }
