@@ -13,7 +13,29 @@
     <meta name="author" content="">
 	-->
 <title>ILIVEALONE회원가입</title>
+<style>
+ 	#enrollForm>table{width:100%;}
+    #enrollForm>table *{ margin:5px;}
+    .content{
+        background-color:rgb(247, 245, 245);
+        width:80%;
+        margin:auto;
+    }
+    .innerOuter{
+        
 
+        width:65%;
+
+        
+
+        margin:auto;
+        padding:5% 10%;
+        background:white;
+    }
+    #page-top{
+padding-top:13px;
+}
+</style>
 
 <!-- Custom fonts for this template -->
 
@@ -31,6 +53,8 @@
 	<div class="container-fluid">
 
 		<br> <br> <br> <br>
+
+	<div class="innerOuter">
 
 		<h2 align="center">회원가입 <i class="fas fa-user-plus"></i></h2>
 		<br>
@@ -97,8 +121,12 @@
 	<br>
 	<br>
 	</div>
+
+	
+
 	</div>
 
+	
 	<script>
 		function idCheckValidate(num) {
 

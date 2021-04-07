@@ -56,17 +56,20 @@ padding-top:13px;
 			<div class="innerOuter" style="height:200px">
 			<label for="email"> <i class="fas fa-at"></i>&nbsp; 이메일주소 :</label> 
 			<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
-			</div>
-			<div class="innerOuter" style="height:200px">
-			<label for="phone">번호 : </label>
+			
+			<br>
+			<label for="phone"><i class="fas fa-mobile-alt"></i>번호 : </label>
 			<input type="text" class="form-control" id="phone" name="phone" placeholder="번호를 입력하세요">
 			</div>
+			</div>
+			<br>
 			<br>
 			<br>
 		<div class="btns" align="center">
 			<button type="submit" id=findBtn class="btn btn-primary">아이디 찾기</button>
-			<button type="button" onclick="history.go(-1);" class="btn btn-danger">취소</button>
+			<button type="button" onclick="history.go(-1);" class="btn btn-danger">이전 화면으로</button>
 		</div>
+		<br>
 	</form>
 	</div>
 	</div>

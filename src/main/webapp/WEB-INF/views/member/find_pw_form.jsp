@@ -43,11 +43,11 @@ padding-top:13px;
 	<div>
 	
 	<div class="innerOuter" style="height:200px">
-					<label>아이디</label><br>
+					<label><i class="fas fa-user-tag"></i>아이디 : </label><br>
 					<input class="form-control" type="text" id="userIdInput" name="userIdInput" placeholder="아이디를 입력하세요" required>
 					<br>
 				
-					<label>이메일</label><br>
+					<label><i class="fas fa-at"></i>이메일 : </label><br>
 					
 					<input class="form-control" type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
 					<br>
@@ -55,7 +55,7 @@ padding-top:13px;
 				<div class="btns" align="center">
 				<br>
 					<button type="button" id=findBtn class="btn btn-primary">비밀번호 찾기</button>
-					<button type="button" onclick="history.go(-1);" class="btn btn-danger">Cancel</button>
+					<button type="button" onclick="history.go(-1);" class="btn btn-danger">이전 화면으로</button>
 				</div>
 			</div>
 			</div>
@@ -82,7 +82,8 @@ padding-top:13px;
 				});
 			})
 </script>
-	
+<br><br><br><br><br><br><br><br><br><br><br>
+	<jsp:include page="../common/footer.jsp" />
 </body>
 
 </html>
