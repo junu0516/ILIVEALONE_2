@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.kh.spring.common.exception.CommonException;
 import com.kh.spring.common.paging.PageInfo;
 import com.kh.spring.common.paging.Pagination;
 import com.kh.spring.common.upload.Upload;
@@ -57,16 +58,21 @@ public class GroupBuyController {
 	@RequestMapping("list.gb")
 	public String showList(@RequestParam(required=false, defaultValue="1")int currentPage, Model model) {
 		
+		//전체 게시물 개수를 DB로부터 조회함
 		int listCount = groupBuyService.selectListCount();
+		
+		//게시물 개수를 가지고 페이징 처리를 위한 PageInfo 객체 생성
 		PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 5, 12);
 		model.addAttribute("pageInfo",pageInfo);
 		
+		//PageInfo 객체를 DB로 넘겨 원하는 개수(구간)의 게시물 정보를 가져옴
 		ArrayList<GroupBuyBoard> list = groupBuyService.selectList(pageInfo);
 		model.addAttribute("list",list);
 		
+		//게시물 정보에 해당하는 등록제품 정보도 DB로부터 가져와서 게시물 번호를 Key로 하는 HashMap<>으로 게시물과 매핑
 		HashMap<Integer,GroupBuyProduct> products = new HashMap<Integer,GroupBuyProduct>();
 		ArrayList<GroupBuyProduct> productList = groupBuyService.selectProducts(pageInfo);
-	
+		
 		for(GroupBuyProduct product : productList) {
 			products.put(product.getPCno(), product);
 		}
@@ -79,6 +85,8 @@ public class GroupBuyController {
 	@RequestMapping("insertView.gb")
 	public String showisnertView() {
 		
+		//바로 게시글 작성 페이지로 이동
+		
 		return "group_buy/groupBuyInsert";
 	}
 	
@@ -88,9 +96,11 @@ public class GroupBuyController {
 						 @RequestParam String accountName, @RequestParam String accountBankType, @RequestParam String accountNumber,
 						 HttpServletRequest request, @RequestParam(value="thumbnail", required=false)MultipartFile thumbnail) {
 		
+		//계좌번호 변수 초기화
 		String pAccount = accountBankType+" "+accountName+" / "+accountNumber; //계좌번호 조합
 		groupBuyProduct.setPAccount(pAccount); //계좌번호 정보 객체에 추가
 		
+		//새롭게 업데이트한 첨부파일이 있을 경우 기존의 첨부파일을 삭제한 후, 다시 업로드
 		if(!thumbnail.getOriginalFilename().equals("")) {
 			String gbOriginalName = thumbnail.getOriginalFilename();
 			//String gbChangedName = saveFile(thumbnail,request);
@@ -102,11 +112,12 @@ public class GroupBuyController {
 			}
 		}
 		
+		//입력받은 정보를 모두 DB로 넘겨서 새로운 게시글 정보를 등록
 		int result = groupBuyService.insertBoardAndProduct(groupBuyBoard,groupBuyProduct);
 		if(result>0) {
 			return "redirect:list.gb";
 		}else {
-			return "";
+			throw new CommonException("게시글 등록에 실패하였습니다.");
 		}
 		
 	}
@@ -118,6 +129,7 @@ public class GroupBuyController {
 		GroupBuyBoard gbBoard;
 		GroupBuyProduct gbProduct;
 		
+		//게시글 번호 혹은 제품 번호를 입력받아, 해당하는 게시물 정보를 DB로부터 불러옴
 		if(gbNo>0 && pNo<=0) {
 			gbBoard = groupBuyService.selectBoard(gbNo);
 			model.addAttribute("gbBoard",gbBoard);
@@ -126,7 +138,7 @@ public class GroupBuyController {
 			model.addAttribute("gbProduct",gbProduct);
 
 		}else if(gbNo<=0 && pNo>0) {
-			System.out.println("물품번호로 검색");
+			//System.out.println("물품번호로 검색");
 			
 			gbProduct = groupBuyService.selectProductWithPno(pNo);
 			model.addAttribute("gbProduct",gbProduct);
@@ -136,6 +148,7 @@ public class GroupBuyController {
 			
 		}
 		
+		// 상세조회 페이지로 이동
 		return "group_buy/groupBuyDetail";
 	}
 	
@@ -143,12 +156,10 @@ public class GroupBuyController {
 	public String searchList(@RequestParam(required=false)String condition, @RequestParam(required=false)String keyword, 
 							 @RequestParam(required=false, defaultValue="1")int currentPage,Model model) {
 		
-		//System.out.println("condition : "+condition);
-		//System.out.println("keyword : "+keyword);
-		//System.out.println("currentPage : "+currentPage);
-		model.addAttribute("condition",condition);
-		model.addAttribute("keyword",keyword);
+		model.addAttribute("condition",condition); //검색어 종류(게시글 제목으로 검색한건지, 제품 이름으로 검색한거지)
+		model.addAttribute("keyword",keyword); //사용자가 입력한 검색어
 		
+		//사용자가 입력한 검색어(keyword)와 검색어 종류(condition)을 SearchCondition 객체에 담아줌
 		SearchCondition searchCondition = new SearchCondition();
 		
 		if(condition.equals("product")) {
@@ -157,16 +168,17 @@ public class GroupBuyController {
 			searchCondition.setTitle(keyword);
 		}
 		
+		//SearchCondition 객체를 DB로 넘겨 검색결과에 해당하는 게시글의 총 개수를 조회
 		int listCount = groupBuyService.selectListCount(searchCondition);
-		//System.out.println("listCount : "+listCount);
+		
+		//조회한 게시글 개수를 기반으로 PageInfo 객체를 동일하게 생성하여 페이징 처리
 		PageInfo pageInfo = Pagination.getPageInfo(listCount, currentPage, 5, 6);
 		model.addAttribute("pageInfo",pageInfo);
 		
+		//원하는 구간만큼 게시글을 DB로 부터 불러옴
 		ArrayList<GroupBuyBoard> list = groupBuyService.selectList(pageInfo,searchCondition);
 		model.addAttribute("list",list);
-		//System.out.println(list);
-		//System.out.println(list.size());
-		
+
 		HashMap<Integer,GroupBuyProduct> products = new HashMap<Integer,GroupBuyProduct>();
 		ArrayList<GroupBuyProduct> productList = groupBuyService.selectProducts(pageInfo,searchCondition);
 		for(GroupBuyProduct product : productList) {
@@ -180,11 +192,14 @@ public class GroupBuyController {
 	@GetMapping("updateForm.gb")
 	public String showUpdateView(@RequestParam int gbNo, Model model) {
 		
+		//수정 화면에 보여줄 게시글 정보와 제품 정보를 DB에서 불러옴
 		GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(gbNo);
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProduct(gbNo);
 		
 		model.addAttribute("gbBoard",groupBuyBoard);
 		model.addAttribute("gbProduct",groupBuyProduct);
+		
+		//수정화면으로 이동
 		
 		return "group_buy/groupBuyUpdate";
 	}
@@ -195,6 +210,7 @@ public class GroupBuyController {
 			 			 HttpServletRequest request, @RequestParam(value="reuploadedThumbnail", required=false)MultipartFile thumbnail,
 			 			 RedirectAttributes redirectAttr) {
 		
+		//새롭게 올라온 첨부파일이 존재할 경우 기존의 첨부파일을 삭제한 후 업로드
 		if(!thumbnail.getOriginalFilename().equals("")) { 
 			if(groupBuyBoard.getGbChangedName() != null) {
 				upload.deleteFile(4, groupBuyBoard.getGbChangedName(),request);
@@ -205,6 +221,7 @@ public class GroupBuyController {
 			groupBuyBoard.setGbChangedName(gbChangedName);
 		}
 		
+		//입력받은 수정 정보를 DB로 넘겨 해당 게시글과 제품의 정보를 수정
 		groupBuyProduct.setPCno(groupBuyBoard.getGbNo());
 		int result = groupBuyService.updateBoardAndProduct(groupBuyBoard,groupBuyProduct);
 		
@@ -233,7 +250,7 @@ public class GroupBuyController {
 			//System.out.println("삭제 완료");
 			return "redirect:list.gb";
 		}else {
-			redirectAttr.addFlashAttribute("message","게시글 삭제 실패");
+			redirectAttr.addFlashAttribute("message","게시글 삭제 실패 \n 관리자에게 문의하세요");
 			return "redirect:detail.gb?gbNo="+gbNo;
 		}	
 	}
@@ -241,16 +258,14 @@ public class GroupBuyController {
 	@GetMapping("purchaseForm.gb")
 	public String showPurchaseForm(@ModelAttribute PurchaseHistory purchaseHistory, Model model, RedirectAttributes redirectAttr) {
 		
-		//System.out.println(purchaseHistory);
 		GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
-		//System.out.println("인당 제한 수량 : "+gbProduct.getPMaxPurchase());
 		
 		//현재 구매신청한 회원이 이전에 동일상품을 주문한 총 수량 조회
 		HashMap<String,String> mapKey = new HashMap<>();
 		mapKey.put("phBuyer", purchaseHistory.getPhBuyer());
 		mapKey.put("phProduct", String.valueOf(purchaseHistory.getPhProduct()));
 		int previousPurchaseCount = groupBuyService.selectPreviousPurchaseCount(mapKey);
-		//System.out.println("이전까지 총 주문수량 : "+previousPurchaseCount);
+
 		
 		//허용된 수량을 넘어섰을 경우에는 구매 불가 팝업과 함께 리스트로 redirect
 		if(gbProduct.getPMaxPurchase()<=previousPurchaseCount) {
@@ -275,10 +290,12 @@ public class GroupBuyController {
 	public String showSalesHistory(@RequestParam(required=false, defaultValue="1")int currentPage,
 								   @SessionAttribute("loginUser")Member loginUser, Model model) {
 		
+		//판매 건수를 DB로부터 조회한 후, 페이징 처리를 위한 PageInfo 객체를 생성하여 페이징 처리
 		int historyCount = groupBuyService.selectSalesHistoryListCount(loginUser.getUserId());
 		PageInfo pageInfo = Pagination.getPageInfo(historyCount, currentPage, 5,10);
 		model.addAttribute("pageInfo",pageInfo);
 		
+		//페이징 정보를 넘겨 원하는 개수의 구매건수 데이터를 DB로부터 불러와 응답
 		ArrayList<PurchaseHistory> purchaseHistories = groupBuyService.selectSalesHistories(loginUser.getUserId(),pageInfo);
 		model.addAttribute("purchaseHistories",purchaseHistories);
 		
@@ -359,26 +376,34 @@ public class GroupBuyController {
 	public String showPurchaseHistory(@SessionAttribute("loginUser")Member loginUser, @RequestParam(required=false, defaultValue="1")int currentPage
 									  ,Model model) {
 		
+		//세션에 존재하는 로그인된 사용자 아이디를 DB로 넘겨 기존의 구매 기록 건수를 DB로부터 조회
 		int historyCount = groupBuyService.selectPurchaseHistoryListCount(loginUser.getUserId());
+		
+		//전달받은 기록 건수로 PageInfo 객체를 만들어 페이징 처리
 		PageInfo pageInfo = Pagination.getPageInfo(historyCount, currentPage, 5, 10);
 		model.addAttribute("pageInfo",pageInfo);
 		
+		//페이징 정보를 전달하여 DB로부터 사용자에게 보여줄 구매 기록 정보를 불러옴
 		ArrayList<PurchaseHistory> purchaseHistories = groupBuyService.selectPurchaseHistories(loginUser.getUserId(),pageInfo);
 		model.addAttribute("purchaseHistories",purchaseHistories);
 		//System.out.println(purchaseHistories);
 		
+		//구매 기록 조회 페이지로 이동
 		return "group_buy/purchaseHistoryList";
 	}
 
 	@PostMapping("prepareDeal.gb")
 	public String prepareDeal(int phProduct, String phBuyer, int phNo, RedirectAttributes redirectAttr) {
-	
+		
+		//판매 완료 처리하기 전, 목표한 모집인원수와 구매 누적인원수가 일치하는 지를 먼저 판별
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(phProduct);
 		if(groupBuyProduct.getPPurchase()<groupBuyProduct.getPLimit()) {
+			//아직 도달하지 못했을 경우 별도의 처리 없이 다시 판매 기록 조회 페이지로 재연결
 			redirectAttr.addFlashAttribute("message","아직 모집인원에 도달하지 못해 마감이 불가능");
 			return "redirect:salesHistory.gb";
 		}
 		
+		//판매 완료가 가능한 경우에는, 해당 구매 기록 정보를 DB로 넘겨 판매 상태값을 W(판매중)->R(판매완료 후 배송준비)로 변경
 		HashMap<String,String> mapKey = new HashMap<>();
 		mapKey.put("phProduct",String.valueOf(phProduct));
 		mapKey.put("phBuyer",phBuyer);
@@ -387,6 +412,8 @@ public class GroupBuyController {
 		int result = groupBuyService.updatePreparingDeal(mapKey);
 		if(result>0) {
 			System.out.println("배송준비처리 성공");
+		}else {
+			throw new CommonException("배송준비 처리 과정에서 오류가 발생했습니다. \n 관리자에게 문의해주세요");
 		}
 		
 		redirectAttr.addFlashAttribute("message","입금이 확인되었습니다. 배송정보를 입력해주세요");
@@ -396,11 +423,7 @@ public class GroupBuyController {
 	@PostMapping("completeDeal.gb")
 	public String completeDeal(int phNo, int phProduct, String phBuyer, String company, String invoice, RedirectAttributes redirectAttr) {
 		
-		//System.out.println("거래번호 : "+phNo); //phNo
-		//System.out.println("제품번호 : "+phProduct); //phProduct
-		//System.out.println("구매자 아이디 : "+phBuyer); //phBuyer
-		//System.out.println("배송정보 : "+company+", "+invoice);
-		
+		//판매자가 입력한 배송정보를 등록하여 발송완료(상태값 C)로 처리한 후, 배송정보를 DB에 업데이트
 		HashMap<String,String> mapKey = new HashMap<>();
 		mapKey.put("phNo",String.valueOf(phNo));
 		mapKey.put("phProduct",String.valueOf(phProduct));
@@ -410,17 +433,13 @@ public class GroupBuyController {
 		int result = groupBuyService.updateCompletingDeal(mapKey);
 		if(result>0) {
 			redirectAttr.addFlashAttribute("message","배송정보 업데이트 완료");
+		}else {
+			throw new CommonException("배송준비 처리 과정에서 오류가 발생했습니다. \n 관리자에게 문의해주세요");
 		}
 		
 		return "redirect:salesHistory.gb";
 	}
 	
-	/*
-	 * TODO
-	 * 아래 메소드는 DB 내용을 수정하는 작업을 포함하고 있기 때문에,
-	 * GET방식이 아닌 POST방식으로 변경해야 안전함
-	 * 
-	 * */
 	@GetMapping("cancelDeal.gb")
 	public String cancelDeal(@RequestParam int phNo, @RequestParam int phProduct, @RequestParam String phBuyer, RedirectAttributes redirectAttr) {
 		
@@ -439,6 +458,8 @@ public class GroupBuyController {
 
 		if(result>0) {
 			redirectAttr.addFlashAttribute("message","구매취소 완료");
+		}else {
+			throw new CommonException("구매 취소 처리 도중 오류가 발생했습니다. \n 관리자에게 문의하세요");
 		}
 		
 		return "redirect:purchaseHistory.gb";
@@ -448,6 +469,7 @@ public class GroupBuyController {
 	public String searchList(@SessionAttribute("loginUser")Member loginUser, @RequestParam(required=false)String keyword,  
 							 @RequestParam(required=false, defaultValue="1")int currentPage,Model model) {
 		
+		//입력받은 분류기준에 따라, 분류기준과 일치하는 상태값을 가진 판매 기록만을 보여줌
 		System.out.println("keyword : "+keyword);
 		model.addAttribute("keyword",keyword);
 		
