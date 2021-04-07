@@ -58,7 +58,7 @@ padding-top:13px;
 			
 <c:if test="${ !empty loginUser }">
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" onclick="postFormSubmit()" style="cursor: pointer">
+			<li class="nav-item"><a class="nav-link" onclick="postFormSubmit1()" style="cursor: pointer">
 					<i class="fas fa-fw fa-tachometer-alt"></i> <span>찜한 목록</span>
 			</a></li>
 			
@@ -115,11 +115,8 @@ padding-top:13px;
 						<strong>${ r.structure }</strong><br> <strong>${ r.money_kind }
 					</strong> <strong>${ r.money1 }</strong><br> <strong>관리비 ${ r.admin_money }만원</strong><br>
 
-
-						<strong>${ r.location }</strong><br>
-
 						<strong>${ r.location }</strong><br><br>
-						<button onclick="postFormSubmit();" class="form-control bg-light border" style="width:270px">찜하기 취소</button>
+						<button onclick="postFormSubmit2();" class="form-control bg-light border" style="width:270px">찜하기 취소</button>
 						</li>
 					<br>
 				</c:forEach>
@@ -156,15 +153,28 @@ padding-top:13px;
 		class="fas fa-angle-up"></i>
 	</a>
 
-		<form id="postForm" action="wishform.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
+		<form id="postForm1" action="wishform.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
+				<input type="hidden" name="userId" value="${loginUser.getUserId() }">
+			</form>
+			<form id="postForm2" action="wishCancle.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
+				<input type="hidden" name="rno" value="${r.stuffNo }">
 				<input type="hidden" name="userId" value="${loginUser.getUserId() }">
 			</form>
 				
 			<script>
-				function postFormSubmit(){
-					var postForm = $("#postForm");
-				
-					postForm.submit();
+			
+			function postFormSubmit1(){
+				var postForm = $("#postForm1");
+			
+				postForm.submit();
+			}
+			
+				function postFormSubmit2(){
+					if (confirm("정말 취소하시겠습니까?") == true){
+						var postForm = $("#postForm1");
+						
+						postForm.submit();
+					}
 				}
 			</script>
 	

@@ -69,7 +69,6 @@ padding:10px;
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
-<c:if test="${ !empty loginUser }">
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link" onclick="postFormSubmit()" style="cursor: pointer">
 					<i class="fas fa-fw fa-tachometer-alt"></i> <span>찜한 목록</span>
@@ -78,14 +77,12 @@ padding:10px;
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
-			<li class="nav-item"><a class="nav-link" href='enrollform.re'>
+			<li class="nav-item"><a class="nav-link" onclick="enroll()">
 					<i class="fas fa-fw fa-tachometer-alt"></i> <span>매물 등록</span>
 			</a></li>
 			
 			</li>
-			
-			
-</c:if>
+
 		</ul>
 		<!-- End of Sidebar -->
 		
@@ -109,9 +106,9 @@ padding:10px;
                     <!-- Topbar Search -->
                     <form action="houselist" method="get">
                     
-                        <div class="input-group">
+                        <div class="input-group" style="margin-left:20%;">
                            
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend" style="padding:10px;">
                             	<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2" name="search">
                                 <button class="btn btn-primary">
@@ -119,7 +116,7 @@ padding:10px;
                                 </button>
                             </div>
                             
-                            <div class="input-group-append">
+                            <div class="input-group-append" style="padding:10px;">
                             <select name="type" onchange="formChange(this.form)" class="form-control bg-light border-0 small">
 								<option value="none" <c:if test="${type eq 'none'}">selected</c:if>>방
 								타입</option>
@@ -130,7 +127,7 @@ padding:10px;
 							</select>
 							</div>
 							
-							<div class="input-group-append">
+							<div class="input-group-append" style="padding:10px;">
 							<select name="setype" onchange="formChange(this.form)" class="form-control bg-light border">
 								<option value="none"
 									<c:if test="${setype eq 'none'}">selected</c:if>>세 종류</option>
@@ -139,7 +136,7 @@ padding:10px;
 							</select>
 							</div>
 							
-							<div class="input-group-append">
+							<div class="input-group-append" style="padding:10px;">
 							<select name="money" onchange="formChange(this.form)" class="form-control bg-light border">
 								<option value="none" <c:if test="${money eq 'none'}">selected</c:if>>가격대</option>
 								<c:if test="${setype eq '월세'}">
@@ -160,7 +157,7 @@ padding:10px;
 							</select>
 							</div>
 							
-							<div class="input-group-append">
+							<div class="input-group-append" style="padding:10px;">
 							<select name="admin" onchange="formChange(this.form)" class="form-control bg-light border">
 								<option value="none" <c:if test="${admin eq 'none'}">selected</c:if>>관리비</option>
 								<option value="5" <c:if test="${admin eq '5'}">selected</c:if>>~5만</option>
@@ -169,7 +166,7 @@ padding:10px;
 							</select>
 							</div>
 							
-							<div class="input-group-append">
+							<div class="input-group-append" style="padding:10px; margin-right:0px;">
 							<input type="button" value="필터 초기화" class="form-control bg-light border" onclick="location.href='list.re'">
 							</div>
 							
@@ -213,15 +210,31 @@ padding:10px;
 	<form id="postForm" action="wishform.re" method="post"> <!-- 삭제, 수정 시 필요한 매물 번호와 이미지 제목을 위한 form -->
 				<input type="hidden" name="userId" value="${loginUser.getUserId() }">
 			</form>
-				
+			
+			<c:if test="${ !empty loginUser }">
 			<script>
-				function postFormSubmit(){
-					var postForm = $("#postForm");
 				
+				function postFormSubmit() {
+					var postForm = $("#postForm");
+
 					postForm.submit();
 				}
+				function enroll(){
+					location="enrollform.re"
+				}
+				</script>
+			</c:if>
+			<c:if test="${ empty loginUser }">
+			<script>
+				function postFormSubmit(){
+				alert("로그인이 필요합니다.");
+				}
+				function enroll(){
+					alert("로그인이 필요합니다.");
+				}
 			</script>
-
+			</c:if>
+		
  <jsp:include page="../common/footer.jsp"/>
 
 </body>

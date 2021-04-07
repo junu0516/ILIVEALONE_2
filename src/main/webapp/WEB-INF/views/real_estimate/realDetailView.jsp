@@ -178,10 +178,10 @@ padding-top:13px;
 
              <div align="center">
              		<c:if test="${ r.userId eq loginUser.userId }">
-	                	<button onclick="postFormSubmit2(1);" class="form-control bg-light border">수정하기</button>
-	                	<button onclick="postFormSubmit2(2);" class="form-control bg-light border">삭제하기</button>
+             		<button class="form-control bg-light border" onclick="postFormSubmit2(3);" style="width:150px; margin-top:10px;">찜하기</button>
+	                	<button onclick="postFormSubmit2(1);" class="form-control bg-light border" style="width:150px; margin-top:10px; margin-right:0px;">수정하기</button>
+	                	<button onclick="postFormSubmit2(2);" class="form-control bg-light border" style="width:150px; margin-top:10px; margin-right:0px;">삭제하기</button>
 	                 </c:if>
-	                 <button class="form-control bg-light border" onclick="postFormSubmit2(3);">찜하기</button>
 	         </div>
        
         </div>
@@ -248,7 +248,9 @@ padding-top:13px;
 					if(num == 1){//수정
 						postForm.attr("action", "updateForm.re");
 					}else if(num==2){//삭제
-						postForm.attr("action", "delete.re");
+						if (confirm("정말 삭제하시겠습니까?") == true){
+							postForm.attr("action", "delete.re");
+						}
 					}else{//찜하기
 						postForm.attr("action", "wish.re");
 					}
