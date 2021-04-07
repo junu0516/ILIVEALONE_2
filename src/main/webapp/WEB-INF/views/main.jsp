@@ -115,13 +115,6 @@ dd {
 	width : 40px;
 	height : 40px;
 }
-#s_logo{
-	float:left;
-	 margin-top: 300px; 
-}
-
-
-
 
 
 
@@ -130,21 +123,23 @@ dd {
 </head>
 
 <body>
+
   <!-- 헤더 영역 -->
   <!-- 좌측 로고 & 네비게이터 -->
   <jsp:include page="common/header.jsp"/>
   <!-- 메인 로고 -->
 
-  <div class="py-5 bg-image-full" style="background-image: url('./resources/img/배경.webp'); background-size : cover; background-repeat: no-repeat; " >
-  <br><br>
-   <img id="s_logo" class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="Logo" width="300px" height="300px">
+  <div class="py-5 bg-image-full" style="background-image: url('./resources/img/배경.webp'); background-size : cover; background-repeat: no-repeat;" >
+   <br><br>	
+   <img class="img-fluid d-block mx-auto" src="./resources/images/logo/logo.png" alt="Logo" width="300px" height="300px">
   </div>
  
-
   <!-- http://placehold.it/200x200&text=Logo -->
   
   <!-- Content section --><!--  -->
   <section class="py-5 jumbotron">
+
+ 
 		<div class="container jumbotron" style="height:700px">
 		<br><br>
 		
@@ -390,8 +385,9 @@ dd {
 
 		})
 	</script>
- 
-	<jsp:include page="common/footer.jsp"/>
+ 	
+ 	
+ 	<jsp:include page="common/footer.jsp"/>
 	
 </body>
 </html>

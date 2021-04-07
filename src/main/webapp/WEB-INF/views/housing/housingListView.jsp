@@ -54,10 +54,7 @@
     .text{width:53%;}
     .searchBtn{Width:20%;}
     
-    .container{
-            display: flex;
-            float:left;
-        }
+   
     </style>
 </head>
 

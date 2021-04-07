@@ -47,6 +47,10 @@
 	
 }
 
+html{
+cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym547.ani), url(https://cur.cursors-4u.net/symbols/sym-6/sym547.png), auto !important;}
+
+}
 
 
 
@@ -54,6 +58,10 @@
 
 </head>
 <body>
+<!-- 커서 이미지 -->
+<a href="https://www.cursors-4u.com/cursor/2010/12/20/heartless-loading.html" target="_blank" title="Heartless - Loading">
+<img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Heartless - Loading" style="position:absolute; top: 0px; right: 0px;" />
+</a>
  	<!-- Navigation -->
  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">

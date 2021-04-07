@@ -53,10 +53,7 @@
     .text{width:53%;}
     .searchBtn{Width:20%;}
     
-    .container{
-            display: flex;
-            float:left;
-        }
+    
        .card{
             display: inline-block;
             justify-content: center;
