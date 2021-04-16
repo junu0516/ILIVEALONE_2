@@ -56,7 +56,7 @@
 	</tx:advice>
 	 
 	<aop:config proxy-target-class="true">
-		<aop:pointcut expression="execution(* com.kh.spring..*ServiceImpl.*(..))" id="serviceMethod"/>
+		<aop:pointcut expression="execution(* com.kh.ila..*ServiceImpl.*(..))" id="serviceMethod"/>
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
 	</aop:config>
 	
@@ -83,5 +83,5 @@
 	</bean>
 	
 	<!-- 사용자정의 bean 등록 / 파일 업로드 전용 클래스 -->
-	<bean id="upload" class="com.kh.spring.common.upload.Upload"/>
+	<bean id="upload" class="com.kh.ila.common.upload.Upload"/>
 </beans>
