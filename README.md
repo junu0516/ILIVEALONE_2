@@ -17,13 +17,15 @@
 **** 학원에서 공통으로 배운 것 외에, __개인적으로 학습하여 프로젝트에 적용한__ 부분은 [위키](https://github.com/junu0516/ILIVEALONE_2/wiki)를 확인해주세요   
 
 
-### :computer:사용 기술
-- Version Control : Git & Github
-- Framework & Language(Backend) : Java & Spring
-- Frontend : Bootstrap, JSP(HTML,CSS,Javascript)
-- Database : Oracle, MyBatis
-- Server : Tomcat (v.8.5)   
-- IDE : Eclipse
+### :computer: 개발환경
+<p align="center"><img width="487" alt="개발환경" src="https://user-images.githubusercontent.com/68586291/114984052-48649380-9ecc-11eb-9e6b-7c44b81bc7e8.png"></p>   
+   
+- Git & Github    
+- Java & Spring    
+- Bootstrap, JSP(HTML,CSS,Javascript)    
+- Oracle, MyBatis    
+- Tomcat (v.8.5)   
+- Eclipse    
 
 ### :point_right: 프로젝트 내려받는법
 1. 현재 보고있는 ILIVEALONE_2 저장소를 본인의 로컬환경에 clone 합니다.(Clone Repository)
