@@ -25,28 +25,28 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kh.spring" />
+	<context:component-scan base-package="com.kh.ila" />
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/purchaseHistory.gb"/> 
-			<beans:bean id="purchaseHistoryInterceptor" class="com.kh.spring.common.interceptor.group_buy.PurchaseHistoryInterceptor"/>
+			<beans:bean id="purchaseHistoryInterceptor" class="com.kh.ila.common.interceptor.group_buy.PurchaseHistoryInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/salesHistory.gb"/> 
-			<beans:bean id="salesHistoryInterceptor" class="com.kh.spring.common.interceptor.group_buy.SalesHistoryInterceptor"/>
+			<beans:bean id="salesHistoryInterceptor" class="com.kh.ila.common.interceptor.group_buy.SalesHistoryInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/insertView.gb"/> 
-			<beans:bean id="groupBuyInsertViewInterceptor" class="com.kh.spring.common.interceptor.group_buy.GroupBuyInsertViewInterceptor"/>
+			<beans:bean id="groupBuyInsertViewInterceptor" class="com.kh.ila.common.interceptor.group_buy.GroupBuyInsertViewInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/updateForm.gb"/> 
-			<beans:bean id="groupBuyUpdateFormInterceptor" class="com.kh.spring.common.interceptor.group_buy.GroupBuyUpdateFormInterceptor"/>
+			<beans:bean id="groupBuyUpdateFormInterceptor" class="com.kh.ila.common.interceptor.group_buy.GroupBuyUpdateFormInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/purchaseForm.gb"/> 
-			<beans:bean id="groupBuyPurchaseFormInterceptor" class="com.kh.spring.common.interceptor.group_buy.PurchaseFormInterceptor"/>
+			<beans:bean id="groupBuyPurchaseFormInterceptor" class="com.kh.ila.common.interceptor.group_buy.PurchaseFormInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

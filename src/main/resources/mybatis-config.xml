@@ -7,30 +7,30 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board"/>
-		<typeAlias type="com.kh.spring.board.model.vo.BoradReply" alias="BoradReply" />
-		<typeAlias type="com.kh.spring.board.model.vo.BoardSearchCondition" alias="BoardSearchCondition"/>
-		<typeAlias type="com.kh.spring.board.model.vo.Fashion" alias="Fashion" />
-		<typeAlias type="com.kh.spring.board.model.vo.FashionReply" alias="FashionReply" />
-		<typeAlias type="com.kh.spring.food.model.vo.Food" alias="Food"/>
-		<typeAlias type="com.kh.spring.food.model.vo.FoodReply" alias="FoodReply" />
-		<typeAlias type="com.kh.spring.food.model.vo.FoodSearchCondition" alias="FoodSearchCondition"/>
-		<typeAlias type="com.kh.spring.food.model.vo.FoodP" alias="FoodP" />
-		<typeAlias type="com.kh.spring.food.model.vo.FoodPReply" alias="FoodPReply" />
-		<typeAlias type="com.kh.spring.housing.model.vo.Housing" alias="Housing"/>
-		<typeAlias type="com.kh.spring.housing.model.vo.HousingReply" alias="HousingReply" />
-		<typeAlias type="com.kh.spring.housing.model.vo.HousingSearchCondition" alias="HousingSearchCondition"/>
-		<typeAlias type="com.kh.spring.housing.model.vo.HousingP" alias="HousingP" />
-		<typeAlias type="com.kh.spring.housing.model.vo.HousingPReply" alias="HousingPReply" />
-		<typeAlias type="com.kh.spring.notice.model.vo.Notice" alias="Notice" />
-		<typeAlias type="com.kh.spring.used_trade.model.vo.UsedMarket" alias="UsedMarket"/>
-  		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.spring.group_buy.model.vo.GroupBuyBoard" alias="GroupBuyBoard"/>
-		<typeAlias type="com.kh.spring.group_buy.model.vo.GroupBuyProduct" alias="GroupBuyProduct"/>
-		<typeAlias type="com.kh.spring.group_buy.model.vo.SearchCondition" alias="SearchCondition"/>
-		<typeAlias type="com.kh.spring.group_buy.model.vo.PurchaseHistory" alias="PurchaseHistory"/>
-		<typeAlias type="com.kh.spring.real_estimate.model.vo.Real" alias="Real"/>
-		<typeAlias type="com.kh.spring.real_estimate.model.vo.RealWish" alias="RealWish"/>
+		<typeAlias type="com.kh.ila.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.ila.board.model.vo.BoradReply" alias="BoradReply" />
+		<typeAlias type="com.kh.ila.board.model.vo.BoardSearchCondition" alias="BoardSearchCondition"/>
+		<typeAlias type="com.kh.ila.board.model.vo.Fashion" alias="Fashion" />
+		<typeAlias type="com.kh.ila.board.model.vo.FashionReply" alias="FashionReply" />
+		<typeAlias type="com.kh.ila.food.model.vo.Food" alias="Food"/>
+		<typeAlias type="com.kh.ila.food.model.vo.FoodReply" alias="FoodReply" />
+		<typeAlias type="com.kh.ila.food.model.vo.FoodSearchCondition" alias="FoodSearchCondition"/>
+		<typeAlias type="com.kh.ila.food.model.vo.FoodP" alias="FoodP" />
+		<typeAlias type="com.kh.ila.food.model.vo.FoodPReply" alias="FoodPReply" />
+		<typeAlias type="com.kh.ila.housing.model.vo.Housing" alias="Housing"/>
+		<typeAlias type="com.kh.ila.housing.model.vo.HousingReply" alias="HousingReply" />
+		<typeAlias type="com.kh.ila.housing.model.vo.HousingSearchCondition" alias="HousingSearchCondition"/>
+		<typeAlias type="com.kh.ila.housing.model.vo.HousingP" alias="HousingP" />
+		<typeAlias type="com.kh.ila.housing.model.vo.HousingPReply" alias="HousingPReply" />
+		<typeAlias type="com.kh.ila.notice.model.vo.Notice" alias="Notice" />
+		<typeAlias type="com.kh.ila.used_trade.model.vo.UsedMarket" alias="UsedMarket"/>
+  		<typeAlias type="com.kh.ila.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.ila.group_buy.model.vo.GroupBuyBoard" alias="GroupBuyBoard"/>
+		<typeAlias type="com.kh.ila.group_buy.model.vo.GroupBuyProduct" alias="GroupBuyProduct"/>
+		<typeAlias type="com.kh.ila.group_buy.model.vo.SearchCondition" alias="SearchCondition"/>
+		<typeAlias type="com.kh.ila.group_buy.model.vo.PurchaseHistory" alias="PurchaseHistory"/>
+		<typeAlias type="com.kh.ila.real_estimate.model.vo.Real" alias="Real"/>
+		<typeAlias type="com.kh.ila.real_estimate.model.vo.RealWish" alias="RealWish"/>
 
 	</typeAliases>
 	

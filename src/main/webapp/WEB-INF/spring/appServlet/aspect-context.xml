@@ -6,12 +6,12 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
 	<!-- LoggerAspect Bean 등록 -->
-	<bean id="LoggerAspect" class="com.kh.spring.common.aop.LoggerAspect1"/>
+	<bean id="LoggerAspect" class="com.kh.ila.common.aop.LoggerAspect1"/>
 	
 	<!-- 선언적 AOP -->
 	<aop:config>
 		<aop:aspect id="LoggerAspect" ref="LoggerAspect">
-			<aop:pointcut expression="execution(* com.kh.spring.member..*(..))" id="pcForAll"/>
+			<aop:pointcut expression="execution(* com.kh.ila.member..*(..))" id="pcForAll"/>
 			<aop:around method="loggerAdvice" pointcut-ref="pcForAll"/>
 		</aop:aspect>
 	</aop:config>
