@@ -10,7 +10,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>메인화면</title>
- 	 
  	<!-- 부트스트랩 CDN 적용 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">	
 	<!-- 아이콘 사용 관련 -->
@@ -20,44 +19,13 @@
 	<!-- 템플릿 커스텀 css 적용 -->
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-
-<style>
-#member_name{
-	position:fixed;
-	right:70px;
-
-}
-#member_join{
-	position:fixed;
-	right:150px;
-}
-.nav-link{
-	margin-left: 30px;
-	font-size: 20px;
-	
-}	
-
-
-
-
-#header_2{
-	margin-left: 30px;
-	font-size: 20px;
-	
-}
-
-html{
-cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym547.ani), url(https://cur.cursors-4u.net/symbols/sym-6/sym547.png), auto !important;}
-
-}
-
-
-
-</style>	
+    
+    <!-- header.css 적용 -->
+    <link rel="stylesheet" hef="resources/css/custom/header/header.css"/>
 
 </head>
 <body>
+
 <!-- 커서 이미지 -->
 <a href="https://www.cursors-4u.com/cursor/2010/12/20/heartless-loading.html" target="_blank" title="Heartless - Loading">
 <img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Heartless - Loading" style="position:absolute; top: 0px; right: 0px;" />
@@ -73,24 +41,19 @@ cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym547.ani), url(https://cu
       		</button>
 	      	<div class="collapse navbar-collapse" id="navbarResponsive">
 	        	<ul class="navbar-nav  ml-auto ">
-	          	
-	          
 	          		<li class="nav-item">
 	            		<a class="nav-link" href="list.gb">공동구매</a>
 	          		</li>
-	          
 	         		<li class="nav-item">
 	            		<a class="nav-link" href="list.um" >중고거래</a>
 	          		</li>
-	          
 	          		<li class="nav-item">
 	            		<a class="nav-link" href="list.re">부동산</a>
 	          		</li>
-	          
 	 		        <li>
 	          			<div id ="header_2">
 	    					<ul class="nav navbar-nav">
-	      						<li class="dropdown"> <a class="dropdown-toggle btn text-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false" style="font-size: 20px;" >게시판<span class="caret"></span></a>
+	      						<li class="dropdown"> <a class="dropdown-toggle btn text-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">게시판<span class="caret"></span></a>
 				        			<ul class="dropdown-menu">				        			
 					         			<li class="nav-item"><a class = "dropdown-item" href="Toplist.bo">패션 게시판</a></li>
 					          			<li class="nav-item"><a class = "dropdown-item" href="Toplistf.fo">푸드 게시판</a></li>
@@ -100,25 +63,15 @@ cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym547.ani), url(https://cu
 		        			</ul>
 		        		</div>
 	           		</li>
-
-	           		<!-- <a class="btn color-white dropdown-toggle" data-toggle="dropdown" href="#">게시판<span class="caret"> -->
-
-
-
-	           	
-
 	           		<c:if test="${ empty sessionScope.loginUser }">
 			
 	           		<li class="nav-item" id="member_join">
 	            		<a class="nav-link" href="enrollForm.me">회원가입</a>
-	          		</li>
-	          		
+	          		</li>	          		
 	          		<li class="nav-item" id="member_name">
 	            		<a class="nav-link" data-toggle="modal" data-target="#loginModal">로그인</a>
-	          		</li>
-					
-                    </c:if>
-                    
+	          		</li>					
+                    </c:if>                   
                     <c:if test="${ !empty sessionScope.loginUser }">
 	                <div class="dropdown " id="member_name">
 		 				 <a class="btn color-white dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
@@ -129,30 +82,13 @@ cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym547.ani), url(https://cu
 		  				<li><a class="dropdown-item" href="myPage.me">마이페이지</a></li>
 						<li><a class="dropdown-item" href="logout.me">로그아웃</a></li>
 		  			</ul>
-		  			</div>
-	                <!-- 
-	                <li class="nav-item">
-	                	<i class="fas fa-user-circle"><a class="nav-link" href="myPage.me">${ loginUser.userName }님</a></i>
-	                	
-	            		<li class="nav-item">
-	          			<a class="nav-link" href="myPage.me">마이페이지</a>
-	          			</li>
-	          		</li>
-	          		
-	          		<li class="nav-item">
-	            		<a class="nav-link" href="logout.me">로그아웃</a>
-	          		</li>
-	          		-->
-	          		
-                	</c:if>  
-	           		
-				</ul>
-				
+		  			</div>	          		
+                	</c:if>  	           		
+				</ul>				
 	 		</div>
         </div>
   </nav>
-  
-  
+
    <!-- 로그인 클릭 시 뜨는 모달  -->
 	<div class="modal fade" id="loginModal">
         <div class="modal-dialog modal-sm">
@@ -171,17 +107,14 @@ cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym547.ani), url(https://cu
                     <label for="userPwd" class="mr-sm-2"><i class="fas fa-user-lock"></i> 비밀번호:</label>
                     <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="userPwd" name="userPwd">
                 	<br>
-                	<!-- 
-                	<li>
-	            		<a href="list.gb">아이디 찾기</a>
-	          		</li>
-	          		-->
-	          		<li>
-	            		<a href="find_id_form.do">아이디 찾기</a>
-	          		</li>
-	          		<li>
-	            		<a href="find_pw_form.do">비밀번호 찾기</a>
-	          		</li>
+                	<ul>
+	                	<li>
+		            		<a href="find_id_form.do">아이디 찾기</a>
+		          		</li>
+		          		<li>
+		            		<a href="find_pw_form.do">비밀번호 찾기</a>
+		          		</li>
+                	</ul>
                 </div>
                 
                 <!-- Modal footer -->

@@ -1,0 +1,28 @@
+	#member_name{
+		position:fixed;
+		right:70px;
+	
+	}
+	#member_join{
+		position:fixed;
+		right:150px;
+	}
+	.nav-link{
+		margin-left: 30px;
+		font-size: 20px;
+		
+	}	
+
+	#header_2{
+		margin-left: 30px;
+		font-size: 20px;
+		
+	}
+	.nav-item{
+		display:flex;
+	}
+
+	html{
+	cursor: url(https://cur.cursors-4u.net/symbols/sym-6/sym547.ani), url(https://cur.cursors-4u.net/symbols/sym-6/sym547.png), auto !important;}
+	
+	}
