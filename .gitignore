@@ -1,6 +1,12 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,intellij,maven,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,intellij,maven,java
 
+### 최상위 루트에서 무시할 경로들 ###
+.idea/
+.project
+.classpath
+*.iml
+
 ### Eclipse ###
 .metadata
 bin/
