@@ -2,12 +2,12 @@ package com.kh.ila.notice.model.dao;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ila.notice.model.vo.Notice;
-import com.kh.ila.notice.model.vo.PageInfo;
 
 @Repository("noticeDao")
 public class NoticeDao {
@@ -18,8 +18,8 @@ public class NoticeDao {
 	}
 
 	public ArrayList<Notice> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1) *pi.getNoticeLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getNoticeLimit());
+		int offset = (pi.getCurrentPage()-1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("noticeMapper.selectList", null, rowBounds);
 	}
 

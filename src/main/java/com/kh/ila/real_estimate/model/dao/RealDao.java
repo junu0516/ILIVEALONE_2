@@ -1,14 +1,11 @@
 package com.kh.ila.real_estimate.model.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.ila.real_estimate.model.vo.PageInfo;
 import com.kh.ila.real_estimate.model.vo.Real;
 import com.kh.ila.real_estimate.model.vo.RealWish;
 

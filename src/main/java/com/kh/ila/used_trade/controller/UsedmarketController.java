@@ -1,15 +1,12 @@
 package com.kh.ila.used_trade.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.kh.ila.common.paging.PageInfo;
+import com.kh.ila.common.paging.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.ila.common.Pagination;
 import com.kh.ila.common.upload.Upload;
 import com.kh.ila.used_trade.model.service.UsedMarketService;
-import com.kh.ila.used_trade.model.vo.PageInfo;
 import com.kh.ila.used_trade.model.vo.UsedMarket;
 
 

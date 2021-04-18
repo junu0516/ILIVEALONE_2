@@ -2,10 +2,8 @@ package com.kh.ila.board.model.dao;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
+import com.kh.ila.common.paging.PageInfo;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +12,6 @@ import com.kh.ila.board.model.vo.BoardSearchCondition;
 import com.kh.ila.board.model.vo.BoradReply;
 import com.kh.ila.board.model.vo.Fashion;
 import com.kh.ila.board.model.vo.FashionReply;
-import com.kh.ila.board.model.vo.PageInfo;
 
 
 @Repository("boardDao")

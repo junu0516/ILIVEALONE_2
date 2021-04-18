@@ -2,7 +2,7 @@ package com.kh.ila.used_trade.model.service;
 
 import java.util.ArrayList;
 
-import com.kh.ila.used_trade.model.vo.PageInfo;
+import com.kh.ila.common.paging.PageInfo;
 import com.kh.ila.used_trade.model.vo.UsedMarket;
 
 public interface UsedMarketService {

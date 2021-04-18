@@ -2,6 +2,7 @@ package com.kh.ila.housing.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import com.kh.ila.housing.model.vo.HousingP;
 import com.kh.ila.housing.model.vo.HousingPReply;
 import com.kh.ila.housing.model.vo.HousingReply;
 import com.kh.ila.housing.model.vo.HousingSearchCondition;
-import com.kh.ila.housing.model.vo.PageInfo;
 
 @Service("housingService")
 public class HousingServiceImpl implements HousingService {

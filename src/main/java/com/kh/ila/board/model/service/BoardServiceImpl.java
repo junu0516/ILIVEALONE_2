@@ -2,6 +2,7 @@ package com.kh.ila.board.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import com.kh.ila.board.model.vo.BoardSearchCondition;
 import com.kh.ila.board.model.vo.BoradReply;
 import com.kh.ila.board.model.vo.Fashion;
 import com.kh.ila.board.model.vo.FashionReply;
-import com.kh.ila.board.model.vo.PageInfo;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {

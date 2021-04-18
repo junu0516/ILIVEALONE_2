@@ -2,10 +2,8 @@ package com.kh.ila.housing.model.dao;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
+import com.kh.ila.common.paging.PageInfo;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +12,6 @@ import com.kh.ila.housing.model.vo.HousingP;
 import com.kh.ila.housing.model.vo.HousingPReply;
 import com.kh.ila.housing.model.vo.HousingReply;
 import com.kh.ila.housing.model.vo.HousingSearchCondition;
-import com.kh.ila.housing.model.vo.PageInfo;
 
 
 @Repository("housingDao")
@@ -25,8 +22,8 @@ public class HousingDao {
 		}
 
 	public ArrayList<Housing> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1) *pi.getHousingLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getHousingLimit());
+		int offset = (pi.getCurrentPage()-1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("housingMapper.selectList", null, rowBounds);
 
 	}
@@ -69,8 +66,8 @@ public class HousingDao {
 	}
 
 	public ArrayList<HousingP> selectPList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1) *pi.getHousingLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getHousingLimit());
+		int offset = (pi.getCurrentPage()-1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("housingMapper.selectPList", null, rowBounds);
 
 	}
@@ -129,8 +126,8 @@ public class HousingDao {
 	public ArrayList<Housing> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo,
 			HousingSearchCondition searchCondition) {
 		// TODO Auto-generated method stub
-		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getHousingLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getHousingLimit());
+		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("housingMapper.selectSearchList", searchCondition, rowBounds);
 	}
 
@@ -142,8 +139,8 @@ public class HousingDao {
 	public ArrayList<HousingP> selectPList(SqlSessionTemplate sqlSession, PageInfo pageInfo,
 			HousingSearchCondition searchCondition) {
 		// TODO Auto-generated method stub
-		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getHousingLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getHousingLimit());
+		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("housingMapper.selectSearchPList", searchCondition, rowBounds);
 
 	}

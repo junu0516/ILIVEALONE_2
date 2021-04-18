@@ -1,13 +1,11 @@
 package com.kh.ila.notice.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.kh.ila.common.paging.PageInfo;
+import com.kh.ila.common.paging.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.ila.common.upload.Upload;
 import com.kh.ila.notice.model.service.NoticeService;
 import com.kh.ila.notice.model.vo.Notice;
-import com.kh.ila.notice.model.vo.PageInfo;
-import com.kh.ila.notice.model.vo.Pagination;
 
 @Controller
 public class NoticeController {

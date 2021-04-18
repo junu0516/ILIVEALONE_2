@@ -1,15 +1,13 @@
 package com.kh.ila.food.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.ila.common.paging.PageInfo;
+import com.kh.ila.common.paging.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,10 +27,6 @@ import com.kh.ila.food.model.vo.FoodP;
 import com.kh.ila.food.model.vo.FoodPReply;
 import com.kh.ila.food.model.vo.FoodReply;
 import com.kh.ila.food.model.vo.FoodSearchCondition;
-import com.kh.ila.food.model.vo.PageInfo;
-import com.kh.ila.food.model.vo.Pagination;
-
-
 
 
 @Controller

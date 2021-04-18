@@ -2,6 +2,7 @@ package com.kh.ila.food.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import com.kh.ila.food.model.vo.FoodP;
 import com.kh.ila.food.model.vo.FoodPReply;
 import com.kh.ila.food.model.vo.FoodReply;
 import com.kh.ila.food.model.vo.FoodSearchCondition;
-import com.kh.ila.food.model.vo.PageInfo;
 
 @Service("foodService")
 public class FoodServiceImpl implements FoodService {
