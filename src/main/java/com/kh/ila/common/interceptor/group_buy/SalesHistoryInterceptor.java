@@ -17,7 +17,7 @@ import com.kh.ila.member.model.vo.Member;
 
 public class SalesHistoryInterceptor extends HandlerInterceptorAdapter {
 	
-	private Logger log = LoggerFactory.getLogger(SalesHistoryInterceptor.class);
+	private final Logger log = LoggerFactory.getLogger(SalesHistoryInterceptor.class);
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -30,8 +30,8 @@ public class SalesHistoryInterceptor extends HandlerInterceptorAdapter {
 			log.info("비로그인 상태에서 ["+request.getRequestURI()+"]에 접근하려고 합니다.");
 			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
 			flashMap.put("message", "로그인 후 이용하세요");
-			response.sendRedirect("/ila");
-			
+			response.sendRedirect(request.getContextPath()+"/");
+
 			return false; 
 		}else {
 			return super.preHandle(request, response, handler);

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ila.real_estimate.model.dao.RealDao;
-import com.kh.ila.real_estimate.model.vo.PageInfo;
 import com.kh.ila.real_estimate.model.vo.Real;
 import com.kh.ila.real_estimate.model.vo.RealWish;
 

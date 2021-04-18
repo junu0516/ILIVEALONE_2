@@ -2,10 +2,8 @@ package com.kh.ila.food.model.dao;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
+import com.kh.ila.common.paging.PageInfo;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +12,6 @@ import com.kh.ila.food.model.vo.FoodP;
 import com.kh.ila.food.model.vo.FoodPReply;
 import com.kh.ila.food.model.vo.FoodReply;
 import com.kh.ila.food.model.vo.FoodSearchCondition;
-import com.kh.ila.food.model.vo.PageInfo;
 
 
 @Repository("foodDao")
@@ -25,8 +22,8 @@ public class FoodDao {
 		}
 
 	public ArrayList<Food> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1) *pi.getFoodLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getFoodLimit());
+		int offset = (pi.getCurrentPage()-1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("foodMapper.selectList", null, rowBounds);
 
 	}
@@ -69,8 +66,8 @@ public class FoodDao {
 	}
 
 	public ArrayList<FoodP> selectPList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1) *pi.getFoodLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getFoodLimit());
+		int offset = (pi.getCurrentPage()-1) *pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("foodMapper.selectPList", null, rowBounds);
 
 	}
@@ -129,8 +126,8 @@ public class FoodDao {
 	public ArrayList<Food> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo,
 			FoodSearchCondition searchCondition) {
 		// TODO Auto-generated method stub
-		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getFoodLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getFoodLimit());
+		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("foodMapper.selectSearchList", searchCondition, rowBounds);
 	}
 
@@ -142,8 +139,8 @@ public class FoodDao {
 	public ArrayList<FoodP> selectPList(SqlSessionTemplate sqlSession, PageInfo pageInfo,
 			FoodSearchCondition searchCondition) {
 		// TODO Auto-generated method stub
-		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getFoodLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getFoodLimit());
+		int offset = (pageInfo.getCurrentPage()-1) *pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("foodMapper.selectSearchPList", searchCondition, rowBounds);
 
 	}

@@ -1,15 +1,13 @@
 package com.kh.ila.board.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.ila.common.paging.PageInfo;
+import com.kh.ila.common.paging.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +26,6 @@ import com.kh.ila.board.model.vo.BoardSearchCondition;
 import com.kh.ila.board.model.vo.BoradReply;
 import com.kh.ila.board.model.vo.Fashion;
 import com.kh.ila.board.model.vo.FashionReply;
-import com.kh.ila.board.model.vo.PageInfo;
-import com.kh.ila.board.model.vo.Pagination;
 import com.kh.ila.common.upload.Upload;
 
 
@@ -37,6 +33,7 @@ import com.kh.ila.common.upload.Upload;
 
 @Controller
 public class BoardController {
+
 	@Autowired
 	private BoardService boardService;
 	
@@ -76,7 +73,6 @@ public class BoardController {
 		model.addAttribute("pi",pi);
 		
 		return "board/boardListView";
-
 	}
 	
 	@RequestMapping("blist.bo")

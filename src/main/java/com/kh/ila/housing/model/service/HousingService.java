@@ -2,12 +2,12 @@ package com.kh.ila.housing.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import com.kh.ila.housing.model.vo.Housing;
 import com.kh.ila.housing.model.vo.HousingP;
 import com.kh.ila.housing.model.vo.HousingPReply;
 import com.kh.ila.housing.model.vo.HousingReply;
 import com.kh.ila.housing.model.vo.HousingSearchCondition;
-import com.kh.ila.housing.model.vo.PageInfo;
 
 public interface HousingService {
 

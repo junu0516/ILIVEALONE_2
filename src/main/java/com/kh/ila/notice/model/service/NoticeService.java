@@ -2,8 +2,8 @@ package com.kh.ila.notice.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import com.kh.ila.notice.model.vo.Notice;
-import com.kh.ila.notice.model.vo.PageInfo;
 
 
 public interface NoticeService {

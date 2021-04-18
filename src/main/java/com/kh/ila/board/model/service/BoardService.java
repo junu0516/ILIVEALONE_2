@@ -7,7 +7,7 @@ import com.kh.ila.board.model.vo.BoardSearchCondition;
 import com.kh.ila.board.model.vo.BoradReply;
 import com.kh.ila.board.model.vo.Fashion;
 import com.kh.ila.board.model.vo.FashionReply;
-import com.kh.ila.board.model.vo.PageInfo;
+import com.kh.ila.common.paging.PageInfo;
 
 public interface BoardService {
 

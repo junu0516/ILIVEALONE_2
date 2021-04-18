@@ -3,7 +3,6 @@ package com.kh.ila.real_estimate.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kh.ila.real_estimate.model.vo.PageInfo;
 import com.kh.ila.real_estimate.model.vo.Real;
 import com.kh.ila.real_estimate.model.vo.RealWish;
 

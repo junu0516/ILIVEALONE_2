@@ -2,12 +2,12 @@ package com.kh.ila.food.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import com.kh.ila.food.model.vo.Food;
 import com.kh.ila.food.model.vo.FoodP;
 import com.kh.ila.food.model.vo.FoodPReply;
 import com.kh.ila.food.model.vo.FoodReply;
 import com.kh.ila.food.model.vo.FoodSearchCondition;
-import com.kh.ila.food.model.vo.PageInfo;
 
 public interface FoodService {
 

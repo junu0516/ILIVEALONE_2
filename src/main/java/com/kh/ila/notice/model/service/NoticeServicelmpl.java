@@ -2,13 +2,13 @@ package com.kh.ila.notice.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ila.notice.model.dao.NoticeDao;
 import com.kh.ila.notice.model.vo.Notice;
-import com.kh.ila.notice.model.vo.PageInfo;
 
 @Service("noticeService")
 public class NoticeServicelmpl implements NoticeService {

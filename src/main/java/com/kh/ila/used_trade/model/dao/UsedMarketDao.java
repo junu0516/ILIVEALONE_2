@@ -2,11 +2,11 @@ package com.kh.ila.used_trade.model.dao;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.ila.used_trade.model.vo.PageInfo;
 import com.kh.ila.used_trade.model.vo.UsedMarket;
 
 @Repository("usedMarketDao")
@@ -24,8 +24,8 @@ public class UsedMarketDao {
 
 	public ArrayList<UsedMarket> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		// TODO Auto-generated method stub
-		int offset = (pi.getCurrentPage() -1)* pi.getUsedMarketLimit();
-		RowBounds rowBounds = new RowBounds(offset,pi.getUsedMarketLimit());
+		int offset = (pi.getCurrentPage() -1)* pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		
 		
 		return (ArrayList)sqlSession.selectList("usedMarketMapper.selectList",null,rowBounds);
@@ -56,8 +56,8 @@ public class UsedMarketDao {
 
 	public ArrayList<UsedMarket> selectListCategory(SqlSessionTemplate sqlSession, PageInfo pi, String category) {
 		// TODO Auto-generated method stub
-		int offset = (pi.getCurrentPage() -1)* pi.getUsedMarketLimit();
-		RowBounds rowBounds = new RowBounds(offset,pi.getUsedMarketLimit());
+		int offset = (pi.getCurrentPage() -1)* pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		
 		
 		return (ArrayList)sqlSession.selectList("usedMarketMapper.selectListCategory",category,rowBounds);

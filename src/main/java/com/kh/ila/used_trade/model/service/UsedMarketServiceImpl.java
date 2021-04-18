@@ -2,12 +2,12 @@ package com.kh.ila.used_trade.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ila.common.paging.PageInfo;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ila.used_trade.model.dao.UsedMarketDao;
-import com.kh.ila.used_trade.model.vo.PageInfo;
 import com.kh.ila.used_trade.model.vo.UsedMarket;
 
 @Service("usedMarketService")
