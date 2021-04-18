@@ -27,7 +27,7 @@ public class PurchaseHistoryInterceptor extends HandlerInterceptorAdapter {
 			log.info("비로그인 상태에서 ["+request.getRequestURI()+"]에 접근하려고 합니다.");
 			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
 			flashMap.put("message", "로그인 후 이용하세요");
-			response.sendRedirect("/spring");
+			response.sendRedirect("/ila");
 			
 			return false; 
 		}else {
