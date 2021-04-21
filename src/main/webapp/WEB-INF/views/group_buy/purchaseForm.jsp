@@ -34,26 +34,26 @@
 								<!-- 제품명 -->
 								<div class="form-group">
 									<label for="pName">제품명 : </label>
-									<input type="hidden" name="phProduct" value="${gbProduct.PNo}"/>
+									<input type="hidden" name="phProduct" value="${groupBuyProduct.PNo}"/>
 									<input type="text" class="form-control " id="pName" name="quantity" value="${gbProduct.PName}" readOnly />
 								</div>
 								<!-- 구매 수량 -->
 								<div class="form-group">
 									<label for="phQuantity">수량 : </label>
 									<select class="form-control" name="phQuantity" id="phQuantity">
-										<c:forEach var="count" begin="0" end="${gbProduct.PMaxPurchase}" >
+										<c:forEach var="count" begin="0" end="${groupBuyProduct.PMaxPurchase}" >
 										<option>${count}</option>
 										</c:forEach>
 									</select>
 								</div>				
 								<!-- 구매자 이름 -->
 								<div class="form-group">
-									<label for="userName">구매자명 : </label>
+									<label for="phBuyerName">구매자명 : </label>
 									<input type="hidden" name="phBuyer" value="${loginUser.userId}"/>
 									<input type="text" class="form-control" id="phBuyerName" name="phBuyerName" value="${loginUser.userName}" required/>
 								</div>			
 								<!-- 주소 -->
-								<label for="address"> 주소  :</label>
+								<label> 주소  :</label>
 				             	<div class="form-inline">
 									<label> &nbsp; 우편번호 : &nbsp;</label>
 									<input type="text"  id="post" name="post" class="form-control mr-2 postcodify_postcode5" size="6">
@@ -68,7 +68,7 @@
 						<div class="col-sm-6"> 
 							<br>
 							<!-- 제품 이미지 -->
-							<img src="${pageContext.request.contextPath}/resources/images/group_buy/${gbBoard.gbChangedName}" class="img-thumbnail" width="500px" height="350px"/>
+							<img src="${pageContext.request.contextPath}/resources/images/group_buy/${groupBuyBoard.gbChangedName}" class="img-thumbnail" width="500px" height="350px"/>
 						 	<br><br>				 
 							 <!-- 총 가격 -->
 						 	<label for="totalPrice">총 가격 : </label>

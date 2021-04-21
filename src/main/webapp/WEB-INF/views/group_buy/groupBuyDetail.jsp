@@ -26,44 +26,44 @@
                 <div class="container-fluid" id="viewArea">
                 	<br>
 					<h1 class="display-5">상세보기</h1><br>
-        			<input type="hidden" name="gbMno" value="${gbBoard.gbMno}"/>
+        			<input type="hidden" name="gbMno" value="${groupBuyBoard.gbMno}"/>
         			<table class="table" id="detail-table">
             			<thead>
               				<tr>
-                				<th colspan="2" id="head">${gbBoard.gbTitle}</th>
+                				<th colspan="2" id="head">${groupBuyBoard.gbTitle}</th>
               				</tr>
             			</thead>
             			<tbody>
               				<tr>
-                				<th>등록일 : ${gbBoard.gbDate}</th>
-                				<th>조회수 : ${gbBoard.gbCount}</th>
+                				<th>등록일 : ${groupBuyBoard.gbDate}</th>
+                				<th>조회수 : ${groupBuyBoard.gbCount}</th>
               				</tr>
               				<tr>
-				              	<c:if test="${gbProduct.PStatus eq 'N'}">
+				              	<c:if test="${groupBuyBoard.PStatus eq 'N'}">
 				              	<th>현재 구매가 불가한 상품입니다.</th>
 				              	</c:if>
-				              	<c:if test="${gbProduct.PStatus eq 'Y'}">
-				                <th>달성률 : 현재까지 ${gbProduct.PPurchase} / ${gbProduct.PLimit}명이 구매를 신청했습니다.</th>
+				              	<c:if test="${groupBuyProduct.PStatus eq 'Y'}">
+				                <th>달성률 : 현재까지 ${groupBuyProduct.PPurchase} / ${groupBuyProduct.PLimit}명이 구매를 신청했습니다.</th>
 				                </c:if>
-                				<th>가격 : ${gbProduct.PPrice} 원</th>
+                				<th>가격 : ${groupBuyProduct.PPrice} 원</th>
               				</tr>
               				<tr>
 				                <td colspan="2">
-				                 	${gbBoard.gbContent}
+				                 	${groupBuyBoard.gbContent}
 				                </td>
               				</tr>
             			</tbody>
           			</table>
-					<c:if test="${gbBoard.gbMno eq sessionScope.loginUser.userId}">
+					<c:if test="${groupBuyBoard.gbMno eq sessionScope.loginUser.userId}">
           				<form class="form-inline" id="postForm" method="post">
-          					<input type="hidden" name="gbNo" value="${gbBoard.gbNo}"/>		
+          					<input type="hidden" name="gbNo" value="${groupBuyBoard.gbNo}"/>
           				</form>
-          				<c:if test="${gbProduct.PStatus eq 'Y'}">
-	        			<a href="updateForm.gb?gbNo=${gbBoard.gbNo}" class="btn btn-primary">수정하기</a>	
+          				<c:if test="${groupBuyProduct.PStatus eq 'Y'}">
+	        			<a href="updateForm.gb?gbNo=${groupBuyBoard.gbNo}" class="btn btn-primary">수정하기</a>
           				</c:if>
 	          			<button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>     				
           			</c:if>
-          			<c:if test="${gbBoard.gbMno ne sessionScope.loginUser.userId }">
+          			<c:if test="${groupBuyBoard.gbMno ne sessionScope.loginUser.userId }">
           				<button type="button" onclick="checkPurchase();" class="btn btn-primary" id="purchase">구매하기</button>
           			</c:if>
           			<a href="list.gb" class="btn btn-secondary">목록으로</a>
@@ -84,7 +84,7 @@
 				alert("${message}");
 			}
 			
-			if(${gbProduct.PPurchase} >= ${gbProduct.PLimit}){
+			if(${groupBuyProduct.PPurchase} >= ${groupBuyProduct.PLimit}){
       			$("#purchase").attr("disabled",true);
       		}; 
 		})
@@ -94,7 +94,7 @@
             	alert("로그인하세요");          			
           	}else{
           		alert("구매페이지로 넘어갑니다.");
-          		location.href="purchaseForm.gb?phCno=${gbBoard.gbNo}&phProduct=${gbProduct.PNo}&phBuyer=${loginUser.userId}";	
+          		location.href="purchaseForm.gb?phCno=${groupBuyBoard.gbNo}&phProduct=${groupBuyProduct.PNo}&phBuyer=${loginUser.userId}";
           	}
          }
 		

@@ -66,18 +66,18 @@ public class GroupBuyController {
 		model.addAttribute("pageInfo",pageInfo);
 		
 		//PageInfo 객체를 DB로 넘겨 원하는 개수(구간)의 게시물 정보를 가져옴
-		ArrayList<GroupBuyBoard> list = groupBuyService.selectList(pageInfo);
-		model.addAttribute("list",list);
+		ArrayList<GroupBuyBoard> groupBuyBoardList = groupBuyService.selectList(pageInfo);
+		model.addAttribute("groupBuyBoardList",groupBuyBoardList);
 		
 		//게시물 정보에 해당하는 등록제품 정보도 DB로부터 가져와서 게시물 번호를 Key로 하는 HashMap<>으로 게시물과 매핑
-		HashMap<Integer,GroupBuyProduct> products = new HashMap<Integer,GroupBuyProduct>();
-		ArrayList<GroupBuyProduct> productList = groupBuyService.selectProducts(pageInfo);
+		HashMap<Integer,GroupBuyProduct> groupBuyProductMap = new HashMap<Integer,GroupBuyProduct>();
+		ArrayList<GroupBuyProduct> groupBuyProductList = groupBuyService.selectProducts(pageInfo);
 		
-		for(GroupBuyProduct product : productList) {
-			products.put(product.getPCno(), product);
+		for(GroupBuyProduct groupBuyProduct : groupBuyProductList) {
+			groupBuyProductMap.put(groupBuyProduct.getPCno(), groupBuyProduct);
 		}
 		
-		model.addAttribute("products",products);
+		model.addAttribute("groupBuyProductMap",groupBuyProductMap);
 
 		return "group_buy/groupBuyList";
 	}
@@ -126,26 +126,25 @@ public class GroupBuyController {
 	public String showDetail(@RequestParam(required=false, defaultValue="0") int gbNo, Model model,
 							 @RequestParam(required=false, defaultValue="0") int pNo) {
 		
-		GroupBuyBoard gbBoard;
-		GroupBuyProduct gbProduct;
+		GroupBuyBoard groupBuyBoard;
+		GroupBuyProduct groupBuyProduct;
 		
 		//게시글 번호 혹은 제품 번호를 입력받아, 해당하는 게시물 정보를 DB로부터 불러옴
 		if(gbNo>0 && pNo<=0) {
-			gbBoard = groupBuyService.selectBoard(gbNo);
-			model.addAttribute("gbBoard",gbBoard);
+			groupBuyBoard = groupBuyService.selectBoard(gbNo);
+			model.addAttribute("groupBuyBoard",groupBuyBoard);
 			
-			gbProduct = groupBuyService.selectProduct(gbNo);
-			model.addAttribute("gbProduct",gbProduct);
+			groupBuyProduct = groupBuyService.selectProduct(gbNo);
+			model.addAttribute("groupBuyProduct",groupBuyProduct);
 
 		}else if(gbNo<=0 && pNo>0) {
 			//System.out.println("물품번호로 검색");
 			
-			gbProduct = groupBuyService.selectProductWithPno(pNo);
-			model.addAttribute("gbProduct",gbProduct);
+			groupBuyProduct = groupBuyService.selectProductWithPno(pNo);
+			model.addAttribute("groupBuyProduct",groupBuyProduct);
 		
-			gbBoard = groupBuyService.selectBoard(gbProduct.getPCno());
-			model.addAttribute("gbBoard",gbBoard);
-			
+			groupBuyBoard = groupBuyService.selectBoard(groupBuyProduct.getPCno());
+			model.addAttribute("groupBuyBoard",groupBuyBoard);
 		}
 		
 		// 상세조회 페이지로 이동
@@ -176,15 +175,15 @@ public class GroupBuyController {
 		model.addAttribute("pageInfo",pageInfo);
 		
 		//원하는 구간만큼 게시글을 DB로 부터 불러옴
-		ArrayList<GroupBuyBoard> list = groupBuyService.selectList(pageInfo,searchCondition);
-		model.addAttribute("list",list);
+		ArrayList<GroupBuyBoard> groupBuyBoardList = groupBuyService.selectList(pageInfo,searchCondition);
+		model.addAttribute("groupBuyBoardList",groupBuyBoardList);
 
 		HashMap<Integer,GroupBuyProduct> products = new HashMap<Integer,GroupBuyProduct>();
-		ArrayList<GroupBuyProduct> productList = groupBuyService.selectProducts(pageInfo,searchCondition);
-		for(GroupBuyProduct product : productList) {
-			products.put(product.getPCno(), product);
+		ArrayList<GroupBuyProduct> groupBuyProductList = groupBuyService.selectProducts(pageInfo,searchCondition);
+		for(GroupBuyProduct groupBuyProduct : groupBuyProductList) {
+			products.put(groupBuyProduct.getPCno(), groupBuyProduct);
 		}
-		model.addAttribute("products",products);
+		model.addAttribute("groupBuyProductList",groupBuyProductList);
 		
 		return "group_buy/groupBuyList";
 	}
@@ -196,8 +195,8 @@ public class GroupBuyController {
 		GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(gbNo);
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProduct(gbNo);
 		
-		model.addAttribute("gbBoard",groupBuyBoard);
-		model.addAttribute("gbProduct",groupBuyProduct);
+		model.addAttribute("groupBuyBoard",groupBuyBoard);
+		model.addAttribute("groupBuyProduct",groupBuyProduct);
 		
 		//수정화면으로 이동
 		
@@ -278,10 +277,10 @@ public class GroupBuyController {
 		model.addAttribute("purchaseHistory",purchaseHistory);
 		
 		GroupBuyProduct groupBuyProduct = groupBuyService.selectProduct(purchaseHistory.getPhProduct());
-		model.addAttribute("gbProduct",groupBuyProduct);
+		model.addAttribute("groupBuyProduct",groupBuyProduct);
 		
 		GroupBuyBoard groupBuyBoard = groupBuyService.selectBoard(purchaseHistory.getPhCno());
-		model.addAttribute("gbBoard",groupBuyBoard);
+		model.addAttribute("groupBuyBoard",groupBuyBoard);
 		
 		return "group_buy/purchaseForm";
 	}
@@ -320,20 +319,20 @@ public class GroupBuyController {
 		
 		result = groupBuyService.updateDeal(purchaseHistory);
 		
-		GroupBuyProduct gbProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
+		GroupBuyProduct groupBuyProduct = groupBuyService.selectProductWithPno(purchaseHistory.getPhProduct());
 		switch(result) {
 			case 1:
 				redirectAttr.addFlashAttribute("message","이미 모집인원 도달로 더 이상 구매가 불가합니다.");
 				return "redirect:list.gb";
 			case 2:
 				redirectAttr.addFlashAttribute("message","개인별로 허용된 구매 수량을 초과하였습니다.");
-				return "redirect:detail.gb?pNo="+gbProduct.getPNo();
+				return "redirect:detail.gb?pNo="+groupBuyProduct.getPNo();
 			case 3:
 				//구매신청 완료 후, 문자메시지 전송
 				//redirectAttr.addFlashAttribute("message","구매가 완료되었습니다.");
 				Member loginUser = (Member)session.getAttribute("loginUser");
 				redirectAttr.addFlashAttribute("to", loginUser.getPhone()); //임시 세션에 수신자 번호 담기
-				redirectAttr.addFlashAttribute("account", gbProduct.getPAccount()); //임시 세션에 계좌 번호 담기
+				redirectAttr.addFlashAttribute("account", groupBuyProduct.getPAccount()); //임시 세션에 계좌 번호 담기
 				return "redirect:sendSMS.gb";
 		}
 		
