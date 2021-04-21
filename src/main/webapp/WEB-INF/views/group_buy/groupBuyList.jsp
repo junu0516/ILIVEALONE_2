@@ -50,19 +50,19 @@
             			</form>
         			</div>
         		<div class="container-fluid" id="cardArea">
-            		<c:forEach items="${list}" var="gbBoard">
+            		<c:forEach items="${groupBuyBoardList}" var="groupBuyBoard">
                 		<div class="card">
                     		<div class="card-header">
-                        		<h5><b>${gbBoard.gbTitle}</b></h5>
+                        		<h5><b>${groupBuyBoard.gbTitle}</b></h5>
                     		</div>
                     	<div>
-                        	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/group_buy/${gbBoard.gbChangedName}" height="200px"/>
+                        	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/group_buy/${groupBuyBoard.gbChangedName}" height="200px"/>
                     	</div>
                     	<div class="card-body">
-                        	<h4 class="card-title">${products[gbBoard.gbNo].PName}</h4>
-                        	<p class="card-text">${products[gbBoard.gbNo].PLimit}명 도달시 종료</p>
-                        	<p class="card-text">${products[gbBoard.gbNo].PPrice} 원</p>
-                        	<a href="detail.gb?gbNo=${gbBoard.gbNo}" class="btn btn-primary">상세 보기</a>
+                        	<h4 class="card-title">${groupBuyProductMap[groupBuyBoard.gbNo].PName}</h4>
+                        	<p class="card-text">${groupBuyProductMap[groupBuyBoard.gbNo].PLimit}명 도달시 종료</p>
+                        	<p class="card-text">${groupBuyProductMap[groupBuyBoard.gbNo].PPrice} 원</p>
+                        	<a href="detail.gb?gbNo=${groupBuyBoard.gbNo}" class="btn btn-primary">상세 보기</a>
                     	</div>
                 		</div>
            	 		</c:forEach>

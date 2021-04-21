@@ -28,47 +28,47 @@
   					<h1 class="display-5">수정하기</h1>
         			<br>
 			        <form id="insertForm" method="post" action="update.gb" enctype="multipart/form-data">
-			        	<input type="hidden" name="gbNo" value="${gbBoard.gbNo}"/>
+			        	<input type="hidden" name="gbNo" value="${groupBuyBoard.gbNo}"/>
 			            <div class="form-group">
 			              <label for="gbTitle">제목:</label>
-			              <input type="text" class="form-control" id="gbTitle" name="gbTitle" value="${gbBoard.gbTitle}">
+			              <input type="text" class="form-control" id="gbTitle" name="gbTitle" value="${groupBuyBoard.gbTitle}">
 			            </div>
 			            
 			            <div class="form-group">
 			              <label for="gbMno">작성자:</label>
-			              <input type="text" class="form-control" id="gbMno" name="gbMno" value="${gbBoard.gbMno}" readOnly>
+			              <input type="text" class="form-control" id="gbMno" name="gbMno" value="${groupBuyBoard.gbMno}" readOnly>
 			            </div>
 			            
 			            <div class="form-group">
-			              <label for="thumbnail">대표 이미지:</label><br>
+			              <label for="reuploadedThumbnail">대표 이미지:</label><br>
 			              	현재 업로드된 이미지 : 
-			              <c:if test="${!empty gbBoard.gbOriginalName }">
-			              	${gbBoard.gbOriginalName}
-			              	<input type="hidden" name="gbOriginalName" value="${gbBoard.gbOriginalName}"/>
-			              	<input type="hidden" name="gbChangedName" value="${gbBoard.gbChangedName}"/>
+			              <c:if test="${!empty groupBuyBoard.gbOriginalName }">
+			              	${groupBuyBoard.gbOriginalName}
+			              	<input type="hidden" name="gbOriginalName" value="${groupBuyBoard.gbOriginalName}"/>
+			              	<input type="hidden" name="gbChangedName" value="${groupBuyBoard.gbChangedName}"/>
 			              </c:if>
 			              <input type="file" class="form-control-file border" id="reuploadedThumbnail" name="reuploadedThumbnail">
 			            </div>
 			            
 			            <div class="form-group">
-			              <label for="name">제품명:</label>
-			              <input type="text" class="form-control" id="pName" name="pName" value="${gbProduct.PName}">
+			              <label for="pName">제품명:</label>
+			              <input type="text" class="form-control" id="pName" name="pName" value="${groupBuyProduct.PName}">
 			            </div>
 			            
 			            <div class="form-group">
-			            	<label for="price">가격:</label>
-			                <input type="range" class="form-control-range" id="pPrice" name="PPrice" value = "${gbProduct.PPrice}" min="0" max="500000" step="500" oninput="document.getElementById('result').innerHTML=this.value;">
-			                <span id="result">${gbProduct.PPrice}</span>
+			            	<label for="pPrice">가격:</label>
+			                <input type="range" class="form-control-range" id="pPrice" name="PPrice" value = "${groupBuyProduct.PPrice}" min="0" max="500000" step="500" oninput="document.getElementById('result').innerHTML=this.value;">
+			                <span id="result">${groupBuyProduct.PPrice}</span>
 			            </div>
 			            <div class="form-group">
-			                <label for="limit">목표 인원:</label>
+			                <label for="pLimit">목표 인원:</label>
 			                <br>
-			                <input type="number" class="form-control" id="pLimit" name="pLimit" value="${gbProduct.PLimit}" readOnly>
+			                <input type="number" class="form-control" id="pLimit" name="pLimit" value="${groupBuyProduct.PLimit}" readOnly>
 			                                    목표인원 수정은 관리자에게 문의해주세요 :)
 			            </div><br>
 			            <div class="form-group">
 			                <label for="gbContent">내용 : </label>
-			                <textarea class="form-control" id="gbContent" name = "gbContent">${gbBoard.gbContent}</textarea>
+			                <textarea class="form-control" id="gbContent" name = "gbContent">${groupBuyBoard.gbContent}</textarea>
 			            </div>           
             			<button type="submit" class="btn btn-primary">수정하기</button>
          			</form>
